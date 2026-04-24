@@ -15,23 +15,23 @@
 - Tease the central question of today: how do we turn a text-predicting machine into something that actually *does* things?
 > Let me tell you, today is going to be different. We are going to write actual Python code together. Not a lot, not complicated, but enough that at the end of this session, you will each have, in your Google Drive, a little program that acts on your behalf: an AI agent. Yes, you heard me right. By the end of today, every one of you will have built your own miniature digital intern. A bit proud about that, I must admit.
 >
-> Let me take two minutes to remind you where we are in this course. Session 1, we opened the hood of the large language model. We saw that under all the talk of artificial intelligence, there is, essentially, a giant network of numbers, a Transformer that predicts the next sub-word in a sentence. Session 2, we went deeper: we looked at training, backpropagation, the way heuristics stack up inside the network to produce something that looks, from the outside, like reasoning. In Session 3, we took the wide-angle view: scaling laws, ultra-intelligence, the rocket taking off. OpenAI, Anthropic, Mistral, Meta, all betting hundreds of billions on the same empirical curve.
+> Let me take 2 minutes to remind you where we are in this course. Session 1, we opened the hood of the large language model. We saw that under all the talk of artificial intelligence, there is, essentially, a giant network of numbers, a Transformer that predicts the next sub-word in a sentence. Session 2, we went deeper: we looked at training, backpropagation, the way heuristics stack up inside the network to produce something that looks, from the outside, like reasoning. In Session 3, we took the wide-angle view: scaling laws, ultra-intelligence, the rocket taking off. OpenAI, Anthropic, Mistral, Meta, all betting hundreds of billions on the same empirical curve.
 >
 > Today we pivot. We stop looking at the model in isolation and ask a very different question: *so what?* What can we actually do with this thing? A model that can write a beautiful sonnet but cannot order a pizza is not going to change the economy. A model that aces the baccalauréat in philosophy but cannot open your calendar is, let us be honest, a party trick. The gap between *dazzling capability* and *real-world impact* has been the puzzle of AI since 2022. And the key that closes that gap, the lever that turns a clever text-predictor into an actual worker, is the idea we are going to dismantle today: the *AI agent*.
 >
-> Here is my plan for our two hours. First, thirty minutes on the *principle* of an agent. What is the loop?
+> Here is my plan for our 2 hours. First, 30 minutes on the *principle* of an agent. What is the loop?
 >
-> Why is it simple? Why did it take us so long to notice? Then (and this is the part I am excited about) we spend forty-five minutes coding one together in Google Colab.
+> Why is it simple? Why did it take us so long to notice? Then (and this is the part I am excited about) we spend 45 minutes coding one together in Google Colab.
 >
-> Nothing fancy. No install, no configuration drama. Just Python in your browser. After that, we zoom out: how are agents doing on benchmarks, what is METR's autonomy horizon, why does the curve double every few months, how does all this extend to physical robots, and what does it mean for the job you will be looking for in three years. We close around six, and I let you out in time to catch the tram.
+> Nothing fancy. No install, no configuration drama. Just Python in your browser. After that, we zoom out: how are agents doing on benchmarks, what is METR's autonomy horizon, why does the curve double every few months, how does all this extend to physical robots, and what does it mean for the job you will be looking for in 3 years. We close around 6, and I let you out in time to catch the tram.
 >
-> One ground rule: please interrupt. If something is unclear, raise your hand. If you are lost in the code, please stop me. It is much more useful to me if four of you are fifteen seconds behind and speak up, than if twenty of you pretend to follow and none of you do.
+> One ground rule: please interrupt. If something is unclear, raise your hand. If you are lost in the code, please stop me. It is much more useful to me if four of you are 15 seconds behind and speak up, than if 20 of you pretend to follow and none of you do.
 >
 > And a warning: today is the most technical session of this course. I am going to drag you through actual Python, actual JSON, actual API calls. You do not need to be a programmer to follow.
 >
-> I promise you, I will go slow, and everything we do fits on one page of code. But you do need to stay with me. If you zone out for ten minutes and come back, you will be lost.
+> I promise you, I will go slow, and everything we do fits on one page of code. But you do need to stay with me. If you zone out for 10 minutes and come back, you will be lost.
 >
-> So close the Instagram tab, put the phone in the bag, and stay in the room. Two hours. That's the deal. In return, I guarantee you will walk out with a concrete, useful skill, and the sense, hopefully, that AI agents are not magical; they are just plumbing. Demystifying them is the goal of today.
+> So close the Instagram tab, put the phone in the bag, and stay in the room. 2 hours. That's the deal. In return, I guarantee you will walk out with a concrete, useful skill, and the sense, hopefully, that AI agents are not magical; they are just plumbing. Demystifying them is the goal of today.
 
 ---
 
@@ -50,9 +50,9 @@
 >
 > Now, why does that combination suddenly matter? Let me try an analogy that I find genuinely useful. Imagine a brand-new intern on their first day.
 >
-> They just arrived at the company. What can they do? Well, they are smart, they went through some competitive process to get here, they have read books, they speak three languages, they can reason about a problem.
+> They just arrived at the company. What can they do? Well, they are smart, they went through some competitive process to get here, they have read books, they speak 3 languages, they can reason about a problem.
 >
-> But the moment you ask them to *actually do something*, "please find out the price of ergonomic chairs from five European suppliers and put them in a spreadsheet", they need *hands*. They need a computer, they need internet, they need Excel, they need email. Without those tools, the intern is smart but inert. Give them the tools, and suddenly they are productive.
+> But the moment you ask them to *actually do something*, "please find out the price of ergonomic chairs from 5 European suppliers and put them in a spreadsheet", they need *hands*. They need a computer, they need internet, they need Excel, they need email. Without those tools, the intern is smart but inert. Give them the tools, and suddenly they are productive.
 >
 > An LLM is exactly that intern on day one. It knows a lot. It can reason, imperfectly, but meaningfully. But by itself, in its raw form, it cannot click a button, cannot open a browser, cannot call an API, cannot even look at the current date. It is a brain without hands. In the book I describe it as a very intelligent robot locked in a room with a door and a slot underneath. You slide messages under the door, those are called *prompts*. The robot writes an answer on a piece of paper, slides it back. That is all. No window, no door handle, no phone.
 >
@@ -66,7 +66,7 @@
 >
 > It gets results back, packages them up, and slides them under the door to the model again: "Here is your question, and here are the search results." The model reads again, and now it has the information it needs, say, *col de la Loze, 2304 metres*. It writes: "Final answer: the highest point of the 2025 Tour de France was the col de la Loze at 2304 metres." The executor sees the "Final answer" marker, extracts what comes after, hands it back to the user. Done.
 >
-> Look at what just happened. From the user's perspective, they typed one question and got one answer. Ten seconds maybe. But under the hood, there were *two* round-trips between the dumb executor and the intelligent model. Two phone calls, if you like. And in more complicated cases, a research task, say, there might be fifteen, fifty, two hundred round-trips. You tell the agent "please prepare a competitive analysis of the European ride-hailing market" and it goes off and does a hundred searches, reads reports, cross-references numbers, builds a table, writes a summary. Each individual step is tiny. The loop is what creates the power.
+> Look at what just happened. From the user's perspective, they typed one question and got one answer. 10 seconds maybe. But under the hood, there were *two* round-trips between the dumb executor and the intelligent model. Two phone calls, if you like. And in more complicated cases, a research task, say, there might be 15, 50, 200 round-trips. You tell the agent "please prepare a competitive analysis of the European ride-hailing market" and it goes off and does a hundred searches, reads reports, cross-references numbers, builds a table, writes a summary. Each individual step is tiny. The loop is what creates the power.
 >
 > That is the central insight. The loop is what turns a text-predictor into a worker. Without the loop, the LLM can only answer from what it already knows, and what it knows was frozen at training time, which might be a year ago, two years ago. With the loop, the LLM can *go fetch* what it needs: live data, private documents, calculation results, anything. The LLM is the unifying tissue for everything.
 >
@@ -81,7 +81,7 @@ For the first time, you have a machine that is able to take our place. Until 202
 >
 > In 2020, when GPT-3 came out, a group at Carnegie Mellon ran an experiment: they asked the model to reason step-by-step through a math problem. GPT-3 got more than twice as many problems right when it was allowed to write out intermediate steps. That was the birth of what is now called *chain-of-thought prompting*, a 2022 paper by Jason Wei and colleagues at Google formalized it. Once we understood that LLMs reason better when given room to think, the next step, let them use tools during that thinking, was a short leap.
 >
-> But nobody took it for almost two years. OpenAI's function-calling API, which was the first industrial-grade tool-use interface, only shipped in June 2023. Before that, tool use was a research trick, not a commercial product. So although the *idea* of an agent is obvious in hindsight, the *technology* of a stable, reliable, useful agent loop is genuinely recent. Maybe 30 months old. That is why everybody is scrambling to figure out what to do with it right now, the technology is still warm out of the oven.
+> But nobody took it for almost 2 years. OpenAI's function-calling API, which was the first industrial-grade tool-use interface, only shipped in June 2023. Before that, tool use was a research trick, not a commercial product. So although the *idea* of an agent is obvious in hindsight, the *technology* of a stable, reliable, useful agent loop is genuinely recent. Maybe 30 months old. That is why everybody is scrambling to figure out what to do with it right now, the technology is still warm out of the oven.
 >
 > One more thing before we code. You will hear a lot of noise in the press about agents, everybody is launching an "agent platform", Microsoft has Copilot, Google has Gemini agents, OpenAI has Operator, Anthropic has Claude Code, Cursor is an agent for programmers, Lindy for schedulers, Devin for engineers. Do not get lost in the branding. Under all of this marketing, there is *the same loop*. LLM, tools, loop. The differences are in which tools, which UI, which model. But the architecture is identical. Once you have built one agent by hand, which you are about to do, you have understood the principle of all of them.
 >
@@ -104,11 +104,11 @@ For the first time, you have a machine that is able to take our place. Until 202
 - When the model decides to act, it emits a *tool-use block*; the executor sees it and runs the actual code.
 - The result is appended to the message history and fed back.
 - The loop terminates when the model stops emitting tool-use and produces a plain text answer.
-> Alright. Let's get a bit more concrete. I want to show you, in words, exactly what passes between the two robots, so that when we start coding in ten minutes, you know what each piece of the code is doing.
+> Alright. Let's get a bit more concrete. I want to show you, in words, exactly what passes between the two robots, so that when we start coding in 10 minutes, you know what each piece of the code is doing.
 >
 > The first ingredient is what we call the *system prompt*. Think of it as the instruction manual you hand to the model before anything else. It says things like: "You are a helpful assistant. You have access to the following tools. When you need information, call the appropriate tool. When you have the answer, write it directly to the user." You write this once, at the start, and the model sees it every time you send it a new message. It is the constitution of your agent.
 >
-> The second ingredient is the *tool list*. For each tool, you give the model three things. First, a *name*, short, clean, like `web_search` or `calculator`. Second, a *description*, one sentence, in plain English, explaining what the tool does and when to use it. Third, an *input schema*, a structured JSON object saying: "this tool takes a parameter called `query` of type string, and returns a list of results." This is important. The model needs to know how to *call* the tool, not just *what* the tool does. If you forget to describe the inputs, the model will invent them, and they will be wrong.
+> The second ingredient is the *tool list*. For each tool, you give the model 3 things. First, a *name*, short, clean, like `web_search` or `calculator`. Second, a *description*, one sentence, in plain English, explaining what the tool does and when to use it. Third, an *input schema*, a structured JSON object saying: "this tool takes a parameter called `query` of type string, and returns a list of results." This is important. The model needs to know how to *call* the tool, not just *what* the tool does. If you forget to describe the inputs, the model will invent them, and they will be wrong.
 >
 > Let me give you a concrete example. Our web-search tool, in JSON, will look roughly like this:
 >
@@ -126,13 +126,13 @@ For the first time, you have a machine that is able to take our place. Until 202
 > }
 > ```
 >
-> Eleven lines. That is all it takes to expose a tool to the model. The calculator will be even simpler: one parameter, a string expression like `"365 * 24"`, and the tool returns the numeric result.
+> 11 lines. That is all it takes to expose a tool to the model. The calculator will be even simpler: one parameter, a string expression like `"365 * 24"`, and the tool returns the numeric result.
 >
 > Third ingredient: when the model decides to use a tool, it does not write free-text like "please search for X." Modern APIs, Anthropic's Claude, OpenAI's GPT, Google's Gemini, expose a structured output format. The model emits what we call a *tool-use block*. It is a little structured object: `{type: "tool_use", name: "web_search", input: {"query": "col de la Loze altitude"}}`. The executor parses that object, runs the real Python function, and sends back a *tool-result block*: `{type: "tool_result", tool_use_id:..., content: "The col de la Loze is 2304 m high..."}`. You append that to the conversation history and call the model again. The model sees the new message, decides whether to call another tool or to produce a final answer. Loop.
 >
-> The loop terminates in two ways. Either the model emits a plain text response with no tool-use block, that is the normal "I am done, here is the answer" signal. Or it hits a maximum number of iterations that you, as the agent designer, set in advance, typically ten or twenty steps, to avoid infinite loops in case the agent gets confused. You always want a safety ceiling, because an LLM can in principle loop forever, and you do not want your credit card to discover that at 3 a.m.
+> The loop terminates in two ways. Either the model emits a plain text response with no tool-use block, that is the normal "I am done, here is the answer" signal. Or it hits a maximum number of iterations that you, as the agent designer, set in advance, typically 10 or 20 steps, to avoid infinite loops in case the agent gets confused. You always want a safety ceiling, because an LLM can in principle loop forever, and you do not want your credit card to discover that at 3 a.m.
 >
-> Now, why do I emphasize all this plumbing? Because this is the whole trick. There is no secret sauce. There is no magic. When somebody on LinkedIn tells you they have built a proprietary AI agent platform with patent-pending technology, what they have built is what you are about to write in forty lines of Python. The art is not in the plumbing. The art is in *which tools you expose*, *how you describe them*, and *how you structure the system prompt*. Those are the levers. The loop itself is commodity.
+> Now, why do I emphasize all this plumbing? Because this is the whole trick. There is no secret sauce. There is no magic. When somebody on LinkedIn tells you they have built a proprietary AI agent platform with patent-pending technology, what they have built is what you are about to write in 40 lines of Python. The art is not in the plumbing. The art is in *which tools you expose*, *how you describe them*, and *how you structure the system prompt*. Those are the levers. The loop itself is commodity.
 >
 > *[Figure 16, p. 71, notice how the diagram emphasizes the cycle. The arrows go in circles. The model never acts directly; it always goes through the executor. That separation is the whole security story of modern agents, by the way, it is the executor that decides whether a tool call is allowed or not. We will revisit this in Session 5 when we talk about safety.]*
 >
@@ -164,7 +164,7 @@ For the first time, you have a machine that is able to take our place. Until 202
 >
 > Click "New notebook" at the top-left. A blank notebook appears. Give it a name, call it `agent_session_4`, something like that, double-click the title at the top. Good.
 >
-> You should see an empty cell. Click inside. Type `print("hello from Sciences Po")` and press Shift-Enter. You should see `hello from Sciences Po` appear right below. If you see that, congratulations, you have now run your first Python program in the course. If you do not see it, probably the cell is still queued, wait a few seconds. The first run of a Colab notebook takes ten or fifteen seconds because Google is spinning up a virtual machine for you. Subsequent runs are instant.
+> You should see an empty cell. Click inside. Type `print("hello from Sciences Po")` and press Shift-Enter. You should see `hello from Sciences Po` appear right below. If you see that, congratulations, you have now run your first Python program in the course. If you do not see it, probably the cell is still queued, wait a few seconds. The first run of a Colab notebook takes 10 or 15 seconds because Google is spinning up a virtual machine for you. Subsequent runs are instant.
 >
 > Everyone with me?
 >
@@ -174,7 +174,7 @@ For the first time, you have a machine that is able to take our place. Until 202
 > !pip install anthropic
 > ```
 >
-> That exclamation mark in front is a Colab convention, it means "run this as a shell command, not as Python." And `pip install` is how Python installs packages. Press Shift-Enter. You will see a wall of text scrolling past as it downloads and installs. Give it ten seconds. When you see something like `Successfully installed anthropic-0.xx.x`, you are ready.
+> That exclamation mark in front is a Colab convention, it means "run this as a shell command, not as Python." And `pip install` is how Python installs packages. Press Shift-Enter. You will see a wall of text scrolling past as it downloads and installs. Give it 10 seconds. When you see something like `Successfully installed anthropic-0.xx.x`, you are ready.
 >
 > Why Anthropic and not OpenAI or Google? Honestly, any of the three works; the concepts are identical across APIs. I am using Anthropic's Claude today for three reasons.
 >
@@ -197,7 +197,7 @@ For the first time, you have a machine that is able to take our place. Until 202
 >
 > One small tangent while everyone catches up: what is actually happening on the other side of the API call? When you send a request to Anthropic, it goes to a data center, typically in Virginia or in northern France, depending on the region, where a big rack of GPUs, probably NVIDIA H100s or the newer B200s, is running the model weights in memory. Your prompt is tokenized, fed through 120 or so Transformer layers, and the output tokens stream back.
 >
-> A single call to Haiku on a short prompt might use a fraction of a penny of electricity and ten milliseconds of GPU time. Cheap, invisible to you, but real. Somewhere, there is a warehouse in Virginia getting slightly warmer because you pressed Shift-Enter. I find that grounding useful. AI is not in the cloud in the poetic sense; it is in a very physical building with very physical constraints.
+> A single call to Haiku on a short prompt might use a fraction of a penny of electricity and 10 milliseconds of GPU time. Cheap, invisible to you, but real. Somewhere, there is a warehouse in Virginia getting slightly warmer because you pressed Shift-Enter. I find that grounding useful. AI is not in the cloud in the poetic sense; it is in a very physical building with very physical constraints.
 
 ---
 
@@ -224,15 +224,15 @@ For the first time, you have a machine that is able to take our place. Until 202
 > print(response.content[0].text)
 > ```
 >
-> Eight lines. Let me read them with you. First, we import the `anthropic` module, the library we installed a minute ago. Second, we create a `client`, that is the object that will talk to Anthropic's servers. Because we set the environment variable `ANTHROPIC_API_KEY`, the client picks it up automatically; we do not need to pass it explicitly.
+> 8 lines. Let me read them with you. First, we import the `anthropic` module, the library we installed a minute ago. Second, we create a `client`, that is the object that will talk to Anthropic's servers. Because we set the environment variable `ANTHROPIC_API_KEY`, the client picks it up automatically; we do not need to pass it explicitly.
 >
-> Third, we call `client.messages.create`. This is *the* function. Every interaction with Claude goes through this. We pass three arguments: `model`, which Claude version to use, here the cheap and fast Haiku; `max_tokens`, a safety ceiling on how long the response can be; and `messages`, the conversation so far, as a list of dictionaries. Each dictionary has a `role` (either `user` or `assistant`) and `content` (the text).
+> Third, we call `client.messages.create`. This is *the* function. Every interaction with Claude goes through this. We pass 3 arguments: `model`, which Claude version to use, here the cheap and fast Haiku; `max_tokens`, a safety ceiling on how long the response can be; and `messages`, the conversation so far, as a list of dictionaries. Each dictionary has a `role` (either `user` or `assistant`) and `content` (the text).
 >
 > The response comes back. `response.content` is a list of blocks, because the model might emit multiple pieces, as we will see in a moment when we add tools. `response.content[0].text` is the text of the first block, which in this simple case is the whole answer. Print it.
 >
-> Shift-Enter. You should see something like: "The capital of France is Paris." Congratulations. You just talked to one of the most powerful AI systems on the planet from your browser, in ten seconds, with eight lines of Python. Ten years ago this would have been science fiction. Five years ago it would have required a research cluster. Today it is a homework exercise.
+> Shift-Enter. You should see something like: "The capital of France is Paris." Congratulations. You just talked to one of the most powerful AI systems on the planet from your browser, in 10 seconds, with 8 lines of Python. 10 years ago this would have been science fiction. 5 years ago it would have required a research cluster. Today it is a homework exercise.
 >
-> Take a moment to appreciate that. We have become numb to the speed. In November 2022, ChatGPT was launched; here we are, and a high-schooler can bootstrap an API integration before lunch. The cost per token, as I mentioned in Session 3, has fallen by a factor of a hundred since then. This is what the economists call *compute deflation*, and it is the wind at our back for the whole agent revolution.
+> Take a moment to appreciate that. We have become numb to the speed. In November 2022, ChatGPT was launched; here we are, and a high-schooler can bootstrap an API integration before lunch. The cost per token, as I mentioned in Session 3, has fallen by a factor of 100 since then. This is what the economists call *compute deflation*, and it is the wind at our back for the whole agent revolution.
 >
 > Alright, now let's actually build the agent.
 
@@ -258,7 +258,7 @@ For the first time, you have a machine that is able to take our place. Until 202
 > return str(result)
 > ```
 >
-> Three lines. The function takes a string, something like `"2 + 2"` or `"12345 * 67"`, and returns the result of evaluating it, as a string. We restrict the evaluation environment to `{"__builtins__": {}}` so that the model cannot call `os.system` or `open`, just basic arithmetic. That is a tiny bit of sandboxing. In a real production system, you would use a proper sandbox, not `eval`, but for a teaching exercise, this is fine. Please do *not* ship this pattern to production, by the way. I am saying this on the record.
+> 3 lines. The function takes a string, something like `"2 + 2"` or `"12345 * 67"`, and returns the result of evaluating it, as a string. We restrict the evaluation environment to `{"__builtins__": {}}` so that the model cannot call `os.system` or `open`, just basic arithmetic. That is a tiny bit of sandboxing. In a real production system, you would use a proper sandbox, not `eval`, but for a teaching exercise, this is fine. Please do *not* ship this pattern to production, by the way. I am saying this on the record.
 >
 > Second tool, web search. This one is a bit trickier because real web search requires an API key to Google or Bing or Tavily. To keep things simple for today, I am going to use the free Tavily API, which is designed for AI agents and is very generous on the free tier. In a real setup, you would sign up at `tavily.com` for a key. For this demo, I have already added a Tavily key to the Colab secrets. Paste this in a new cell:
 >
@@ -282,7 +282,7 @@ For the first time, you have a machine that is able to take our place. Until 202
 > return "\n".join(f"- {x['title']}: {x['content'][:200]}" for x in data["results"])
 > ```
 >
-> Ten lines including the imports. We send a POST request to Tavily's search endpoint, get back JSON with a few results, and glue the first three together as a single string. The function signature is identical in shape to the calculator: a string in, a string out. That symmetry is on purpose, it makes the next step, the loop, very simple.
+> 10 lines including the imports. We send a POST request to Tavily's search endpoint, get back JSON with a few results, and glue the first 3 together as a single string. The function signature is identical in shape to the calculator: a string in, a string out. That symmetry is on purpose, it makes the next step, the loop, very simple.
 >
 > Now let's describe these two tools to the model. Another cell:
 >
@@ -311,7 +311,7 @@ For the first time, you have a machine that is able to take our place. Until 202
 >
 > Notice the structure: a list of dicts. Each dict has a name, a description, and an input schema. The input schema is a subset of JSON Schema, you say what parameters the tool takes, their types, and which are required. The model uses this schema at *both* ends: to decide whether a tool is relevant, and to format its call correctly.
 >
-> Look carefully at the *descriptions*. They are in plain English. They are the only thing the model reads. If your description says "calculator tool, for math", the model might not know when to use it for a percentage question. If it says "evaluates a Python arithmetic expression and returns the result, example two times the sum of three and four", now the model *really* knows how to use it. The quality of your descriptions is ninety percent of the battle. Agent engineers spend whole afternoons just wording and re-wording these strings. It is part art, part science. Treat it like writing a job description for a new hire.
+> Look carefully at the *descriptions*. They are in plain English. They are the only thing the model reads. If your description says "calculator tool, for math", the model might not know when to use it for a percentage question. If it says "evaluates a Python arithmetic expression and returns the result, example two times the sum of three and four", now the model *really* knows how to use it. The quality of your descriptions is 90 percent of the battle. Agent engineers spend whole afternoons just wording and re-wording these strings. It is part art, part science. Treat it like writing a job description for a new hire.
 >
 > Everyone still with me? Any cell failing? Once we're all green, let's put it all together.
 
@@ -326,7 +326,7 @@ For the first time, you have a machine that is able to take our place. Until 202
 - Write the while loop that: calls the model, detects tool-use, executes, appends results, repeats.
 - Maximum 10 iterations as a safety fuse.
 - Run it on the target question.
-> Now the heart of the exercise. The loop. Put the rest of the week behind you, focus on these fifteen lines, because they are the whole thing:
+> Now the heart of the exercise. The loop. Put the rest of the week behind you, focus on these 15 lines, because they are the whole thing:
 >
 > ```python
 > def run_agent(user_question: str, max_steps: int = 10) -
@@ -356,11 +356,11 @@ For the first time, you have a machine that is able to take our place. Until 202
 >
 > Take a minute to read it. I mean it, do not just copy-paste. *Read* it. Follow the data through.
 >
-> We start with a list of messages containing just the user's question. Then we enter a `for` loop with a ceiling of ten iterations, our safety fuse. Inside, we call `client.messages.create`, passing the tools and the current conversation. The response comes back. We check `stop_reason`. If it is `end_turn`, the model has decided it is done and has emitted a plain text answer, we return that text. We are out.
+> We start with a list of messages containing just the user's question. Then we enter a `for` loop with a ceiling of 10 iterations, our safety fuse. Inside, we call `client.messages.create`, passing the tools and the current conversation. The response comes back. We check `stop_reason`. If it is `end_turn`, the model has decided it is done and has emitted a plain text answer, we return that text. We are out.
 >
 > Otherwise, the model wants to use one or more tools. We find all the tool-use blocks in the response. We append the whole assistant message, including those tool-use blocks, to the conversation history. Then, for each tool-use block, we look at the name, dispatch to the right Python function, and collect the results into a list of `tool_result` dicts. We append those as a new user message, and go back to the top of the loop.
 >
-> That is it. That is the entire control flow of an AI agent. Fifteen lines. You could write tighter if you tried. I have seen production systems built on this exact pattern, literally this shape of code, that handle billions of queries a month.
+> That is it. That is the entire control flow of an AI agent. 15 lines. You could write tighter if you tried. I have seen production systems built on this exact pattern, literally this shape of code, that handle billions of queries a month.
 >
 > Let's run it. New cell:
 >
@@ -373,7 +373,7 @@ For the first time, you have a machine that is able to take our place. Until 202
 >
 > Shift-Enter. Take a sip of water while it thinks.
 >
-> OK, look at what just happened. If you add a `print(step, "->", tool_uses)` inside the loop, you will see the trace. On my machine, the agent did roughly this: step 0, it called `web_search` with query "Paris population 2024". Step 1, it called `web_search` again with query "Berlin population 2024". Step 2, it called `calculator` with `2140000 / 3576000` or something like that, the actual numbers depend on what the search returned. Step 3, it produced a final answer: "Paris had about 2.1 million inhabitants in 2024 compared to about 3.6 million for Berlin, a ratio of roughly 0.6, Berlin is about 1.7 times bigger than Paris proper." Done in seven or eight seconds.
+> OK, look at what just happened. If you add a `print(step, "->", tool_uses)` inside the loop, you will see the trace. On my machine, the agent did roughly this: step 0, it called `web_search` with query "Paris population 2024". Step 1, it called `web_search` again with query "Berlin population 2024". Step 2, it called `calculator` with `2140000 / 3576000` or something like that, the actual numbers depend on what the search returned. Step 3, it produced a final answer: "Paris had about 2.1 million inhabitants in 2024 compared to about 3.6 million for Berlin, a ratio of roughly 0.6, Berlin is about 1.7 times bigger than Paris proper." Done in 7 or 8 seconds.
 >
 > Notice what you did not write. You did not write "if the question mentions two cities, search for both." You did not write "if you need a ratio, use the calculator." The model figured all that out by itself from the tool descriptions. *That* is the agentic behaviour. Planning, sequencing, tool selection, all emerged from the loop.
 >
@@ -385,9 +385,9 @@ For the first time, you have a machine that is able to take our place. Until 202
 > ))
 > ```
 >
-> Run it. You should see the agent search for S&P 500 annual returns, maybe for each year, then compound them through the calculator, then return a number. It might need six or eight steps. Watch the trace. When it finishes, you will have a figure, something around 3400 euros probably. Whether that figure is exactly right is a separate question, the agent is only as accurate as the data it finds, but you will see it *work*, mechanically, the way a diligent financial intern would.
+> Run it. You should see the agent search for S&P 500 annual returns, maybe for each year, then compound them through the calculator, then return a number. It might need 6 or 8 steps. Watch the trace. When it finishes, you will have a figure, something around 3400 euros probably. Whether that figure is exactly right is a separate question, the agent is only as accurate as the data it finds, but you will see it *work*, mechanically, the way a diligent financial intern would.
 >
-> Now, I want you all to try *your own* question. Something you might actually want to know. Something that needs a mix of facts and calculation. Take two minutes. Write a question, paste it into the cell, run the agent.
+> Now, I want you all to try *your own* question. Something you might actually want to know. Something that needs a mix of facts and calculation. Take 2 minutes. Write a question, paste it into the cell, run the agent.
 >
 > *[Pause while students type. Walk around, watch screens, comment on examples.]*
 >
@@ -423,7 +423,7 @@ For the first time, you have a machine that is able to take our place. Until 202
 >
 > The benchmark I want to introduce is called *GAIA*, General AI Assistants. It was released in late 2023 by a team that includes some researchers from Meta. It contains about 450 real-world questions, all of them designed to require multiple tools in sequence, and all with unambiguous answers. Things like: "According to Wikipedia, in 2021, how many Asian countries had both sea access and a monarchy?" To answer that, you need to list Asian countries, filter by sea access, filter by monarchy, and count. No single tool gives you the answer. You need to chain.
 >
-> The humans who built the benchmark, the annotators, took, on average, about ten minutes per question. For the hardest, level-three questions, eighteen minutes. So GAIA tests tasks at roughly the one-hour autonomy horizon, give or take. This is why, in the book, I use GAIA as a proxy for "can agents do the kind of thing an employee does in the first hour of work?"
+> The humans who built the benchmark, the annotators, took, on average, about 10 minutes per question. For the hardest, level-three questions, 18 minutes. So GAIA tests tasks at roughly the one-hour autonomy horizon, give or take. This is why, in the book, I use GAIA as a proxy for "can agents do the kind of thing an employee does in the first hour of work?"
 >
 > *[Figure 17, p. 74, GAIA score curve from 2024 to 2026, rising along a sigmoid toward the 92% human baseline.]*
 >
@@ -431,13 +431,11 @@ For the first time, you have a machine that is able to take our place. Until 202
 >
 > *(Source: [GAIA leaderboard, Hugging Face](https://huggingface.co/spaces/gaia-benchmark/leaderboard) and [Gaia2 evaluation, HAL Princeton](https://hal.cs.princeton.edu/gaia).)*
 >
-> A natural question: how did we go from 24% to 80%-plus in two years? Three things happened, all at once. One, the underlying models got a lot better, Claude went from 3 to 3.5 to 4 to Opus 4.7; GPT went from 4 to 4-turbo to 4o to o1 to o3 to 5 to 5.5; Gemini released Ultra, 2.5, then 3.1. Two, the *scaffolds*, the agent frameworks around the model, improved dramatically. People learned how to structure system prompts, how to chain tools, how to do self-verification. Three, the *tool ecosystem* exploded. Browsers became tool-accessible, code execution got sandboxed, file handling got standardized.
+> A natural question: how did we go from 24% to 80%-plus in 2 years? 3 things happened, all at once. One, the underlying models got a lot better, Claude went from 3 to 3.5 to 4 to Opus 4.7; GPT went from 4 to 4-turbo to 4o to o1 to o3 to 5 to 5.5; Gemini released Ultra, 2.5, then 3.1. Two, the *scaffolds*, the agent frameworks around the model, improved dramatically. People learned how to structure system prompts, how to chain tools, how to do self-verification. Three, the *tool ecosystem* exploded. Browsers became tool-accessible, code execution got sandboxed, file handling got standardized.
 >
 > You see the same story on *SWE-bench Verified*, a benchmark where the agent has to fix real bugs in open-source Python projects on GitHub. A year ago, the state of the art on SWE-bench Verified was around 20%. Today, the best systems, Verdent, Claude Code, Cursor, are above 75% on the pass-at-one metric.
 >
-> *(Source: [SWE-bench Verified leaderboard](https://www.swebench.com/verified.html).)* That is a four-fold improvement in twelve months. If you are studying for a software engineering job, this number should interest you. It means that by the time you graduate, the first year of a junior developer job, the bug-fixing, ticket-triaging year, will largely be automated.
->
-> That does not mean you will not find a job. It means the job will look different. We will come back to this.
+> *(Source: [SWE-bench Verified leaderboard](https://www.swebench.com/verified.html).)* That is a 4-fold improvement in 12 months. If you are studying for a software engineering job, this number should interest you. It means that by the time you graduate, the first year of a junior developer job, the bug-fixing, ticket-triaging year, will largely be done by agents, and the firms that used to hire for that year will not hire for it anymore. The junior-developer job as your older cousins experienced it is not "going to look different", it is going to be gone. We will come back to this.
 >
 > The key pedagogical takeaway: the *principle* of the agent, the loop we wrote together today, is not going away. What is changing rapidly is *how well it performs*. And it is improving, right now, faster than almost anything else in the AI field.
 >
@@ -461,39 +459,39 @@ For the first time, you have a machine that is able to take our place. Until 202
 - $5 trillion US productivity estimate; Buckman-Barrero-Bloom-Davis on remote work.
 > Let me zoom out one more level. The benchmarks are nice snapshots, but they are static, each benchmark has a fixed set of tasks, and eventually agents saturate and we need new benchmarks. Researchers have been looking for a *single number* that captures the general capability of agents, independently of the benchmark. And the most interesting candidate is what METR, a non-profit AI evaluation group, calls the *autonomy horizon*, or *time horizon*.
 >
-> The idea is very simple. You take a collection of real tasks of varying difficulty. You measure, for each task, how long it takes a skilled human to do. A few seconds for trivial ones, ten minutes, an hour, four hours, a full day for the hardest. Then you give the same tasks to an AI agent and record the success rate. You plot success rate against task length. You find the task length at which the agent hits 50% success, it can solve half the tasks at that duration. That length is the autonomy horizon. If the agent hits 50% success on tasks humans do in 30 minutes, the horizon is 30 minutes.
+> The idea is very simple. You take a collection of real tasks of varying difficulty. You measure, for each task, how long it takes a skilled human to do. A few seconds for trivial ones, 10 minutes, an hour, 4 hours, a full day for the hardest. Then you give the same tasks to an AI agent and record the success rate. You plot success rate against task length. You find the task length at which the agent hits 50% success, it can solve half the tasks at that duration. That length is the autonomy horizon. If the agent hits 50% success on tasks humans do in 30 minutes, the horizon is 30 minutes.
 >
 > *[Conceptually this is a generalization of Figure 17, p. 74, the GAIA curve, to arbitrary task lengths.]*
 >
-> Now the interesting part. METR published their first measurement in March 2025 and has been updating it ever since. Their finding: the frontier autonomy horizon has been *doubling every seven months* since around 2019. *(Source: [METR Time Horizons, March 2025](https://metr.org/time-horizons/); updated analysis at [Time Horizon 1.1, January 2026](https://metr.org/blog/2026-1-29-time-horizon-1-1/).)* Roughly, GPT-4 in early 2023 was at a few minutes of autonomy; Claude 3.5 in mid-2024 was around 30 minutes; frontier agents in late 2025 are around 1 to 2 hours. The update from January 2026 actually shows an *acceleration*: the 2024-2025 segment doubled every four months, not seven. *(See also [Epoch AI's mirror of METR's data](https://epoch.ai/benchmarks/metr-time-horizons).)*
+> Now the interesting part. METR published their first measurement in March 2025 and has been updating it ever since. Their finding: the frontier autonomy horizon has been *doubling every 7 months* since around 2019. *(Source: [METR Time Horizons, March 2025](https://metr.org/time-horizons/); updated analysis at [Time Horizon 1.1, January 2026](https://metr.org/blog/2026-1-29-time-horizon-1-1/).)* Roughly, GPT-4 in early 2023 was at a few minutes of autonomy; Claude 3.5 in mid-2024 was around 30 minutes; frontier agents in late 2025 are around 1 to 2 hours. The update from January 2026 actually shows an *acceleration*: the 2024-2025 segment doubled every 4 months, not 7. *(See also [Epoch AI's mirror of METR's data](https://epoch.ai/benchmarks/metr-time-horizons).)*
 >
 > *[Figure 19, p. 82: the intelligence trajectory curve. The autonomy horizon is one projection of this same underlying capability curve onto a time-scale axis.]*
 >
-> If that trend holds, and in four years of measurement it has not bent, by mid-2027 we are at an 8-hour horizon. By 2028, a week. By 2030, a month. Yes, those extrapolations are wild. Yes, the curve might bend. But the curve has not bent yet. And this is the central claim of the book, and of today's lecture: once agents pass the one-hour horizon, which the GAIA curve tells us is imminent, the economic impact is immediate and enormous.
+> If that trend holds, and in 4 years of measurement it has not bent, by mid-2027 we are at an 8-hour horizon. By 2028, a week. By 2030, a month. Those numbers sound wild, and the curve has not bent. And this is the central claim of the book, and of today's lecture: once agents pass the one-hour horizon, which the GAIA curve tells us is imminent, the economic impact is immediate and enormous.
 >
 > Let me give you that number. In the book I estimate, following Buckman, Barrero, Bloom and Davis's work on remote work measurement, that roughly 25% of paid hours in the United States in 2025 were worked remotely, meaning they transit entirely through screens, keyboards, email, video calls. *(Source: [Buckman, Barrero, Bloom & Davis, NBER working paper 33508, February 2025](https://www.nber.org/papers/w33508).)* That is 260 billion paid hours per year in the US, of which around 65 billion are fully digital.
 >
-> If you double the productivity of those hours, which is what a 1-hour-horizon agent does, as we computed with Monsieur Dupont buying chairs, you get around $5 trillion of added output. Five thousand billion dollars. For a single country. In a single year.
+> If you double the productivity of those hours, which is what a 1-hour-horizon agent does, as we computed with Monsieur Dupont buying chairs, you get around $5 trillion of added output. 5000 billion dollars. For a single country. In a single year.
 >
-> Let that number sink in. Five trillion dollars is roughly twice the GDP of France. It is the budget of the US federal government. It is three-quarters of total US corporate profits. And it is the prize for the company that owns the best agent. That is why Stargate, which we talked about in Session 3, is a $500 billion project. It is not expensive, it is cheap, given the prize.
+> Let that number sink in. 5 trillion dollars is roughly twice the GDP of France. It is the budget of the US federal government. It is three-quarters of total US corporate profits. And it is the prize for the company that owns the best agent. That is why Stargate, which we talked about in Session 3, is a $500 billion project. It is not expensive, it is cheap, given the prize.
 >
 > We constantly underestimate how fast the exponential take-off is going. Getting used to things getting faster is crazy hard, but we'll have to if we want to play a part. And to be concrete: even if the curve bends *tomorrow*, the agents we already have at one-hour horizon will already transform the economy. You do not need to bet on the sci-fi future to see the immediate impact. The train has already left the station. The question is how far it goes.
 >
 > One more thing about METR's measurement. Some critics argue it is misleading, that the tasks METR uses are not representative of real work, or that the human baseline is unfairly weak. The MIT Technology Review ran a piece in February 2026 titled "The most misunderstood graph in AI" *(Source: [MIT Tech Review, February 2026](https://www.technologyreview.com/2026/02/05/1132254/this-is-the-most-misunderstood-graph-in-ai/).)* making exactly this argument.
 >
-> Read it if you want. My honest read: the trend is real, and the exact slope is what is contested, not the direction. A doubling every 7 months is an empirical claim that has survived four years of scrutiny and every new model release. We constantly underestimate how fast the exponential take-off is going. Getting used to things getting faster is crazy hard, but we'll have to if we want to play a part.
+> Read it if you want. My honest read: the trend is real, and the exact slope is what is contested, not the direction. A doubling every 7 months is an empirical claim that has survived 4 years of scrutiny and every new model release. We constantly underestimate how fast the exponential take-off is going. Getting used to things getting faster is crazy hard, but we'll have to if we want to play a part.
 >
 > One more piece of context, which is important to understand the *shape* of the curve. The horizon is measured at 50% success rate. This is important because it is not the same as "the agent can do a 1-hour task reliably." At 50% success on 1-hour tasks, the agent fails half the time. To deploy reliably, you usually need 90 or 95% success.
 >
-> Which means the "reliable horizon" is maybe a third of the 50% horizon, roughly. If the 50% horizon is two hours today, the 95% horizon is more like 30 minutes. This matters in practice: production deployments are conservative, because you do not want a system that hallucinates a refund or sends the wrong email half the time. So real adoption lags the frontier by maybe a year or two.
+> Which means the "reliable horizon" is maybe a third of the 50% horizon, roughly. If the 50% horizon is 2 hours today, the 95% horizon is more like 30 minutes. This matters in practice: production deployments are conservative, because you do not want a system that hallucinates a refund or sends the wrong email half the time. So real adoption lags the frontier by maybe a year or two.
 >
 > When METR says "2 hours in 2026", real deployments are using capabilities that were cutting-edge in 2024. That gap, the adoption lag, is where a lot of the business opportunity hides. Companies that move quickly to adopt capability as it matures will run ahead of the ones that wait. The same dynamic played out in Excel adoption in the 1990s, in web presence in the 2000s, in mobile in the 2010s. We are in the agent version of that wave, right now.
 >
-> A related thought experiment that I often do: imagine someone from 2019, just before GPT-2, falls asleep for six years and wakes up today. What would impress them most? Probably not the fact that you can chat with a model in natural language, they would guess that was coming.
+> A related thought experiment that I often do: imagine someone from 2019, just before GPT-2, falls asleep for 6 years and wakes up today. What would impress them most? Probably not the fact that you can chat with a model in natural language, they would guess that was coming.
 >
-> Probably not the fact that images can be generated, there were already hints of that in GAN research. What would genuinely shock them is the reliability. That you can hand a Claude agent a GitHub repository and a three-paragraph spec, leave for lunch, and come back to a working feature.
+> Probably not the fact that images can be generated, there were already hints of that in GAN research. What would genuinely shock them is the reliability. That you can hand a Claude agent a GitHub repository and a 3-paragraph spec, leave for lunch, and come back to a working feature.
 >
-> That level of unsupervised competence on a non-trivial task was, in 2019, the stuff of science fiction. It is now routine. And the window between "science fiction" and "routine" was, give or take, four years. This is the pace of change we are living through.
+> That level of unsupervised competence on a non-trivial task was, in 2019, the stuff of science fiction. It is now routine. And the window between "science fiction" and "routine" was, give or take, 4 years. This is the pace of change we are living through.
 
 ---
 
@@ -506,15 +504,15 @@ For the first time, you have a machine that is able to take our place. Until 202
 - 5-minute actual pause.
 - Come back; the instructor demonstrates a modern agent (Claude Code or Cursor) doing a real task live.
 - Show how a 30-step agentic run *feels*: the pauses, the tool calls, the self-correction.
-> For these last ten minutes before we move on, I want to show you what a *frontier* agent, not our homemade one, but a state-of-the-art production one, looks like in action. I have my terminal here, projected on the screen. This is Claude Code, an agentic coding assistant made by Anthropic. It runs locally, has access to my filesystem, can run shell commands, can edit files, can commit to git. Not very different, conceptually, from what we built in Colab, same loop, same tool-use pattern, but with more tools and a much bigger model.
+> For these last 10 minutes before we move on, I want to show you what a *frontier* agent, not our homemade one, but a state-of-the-art production one, looks like in action. I have my terminal here, projected on the screen. This is Claude Code, an agentic coding assistant made by Anthropic. It runs locally, has access to my filesystem, can run shell commands, can edit files, can commit to git. Not very different, conceptually, from what we built in Colab, same loop, same tool-use pattern, but with more tools and a much bigger model.
 >
 > Let me give it a real task. I am going to ask it to read the repository for this course, the Python file `timer.py` that you have been using, and add a feature: a second argument that lets me set a custom words-per-minute range and check whether a file is inside that range. I type the request in plain English. I hit enter.
 >
 > Before the agent finishes, let me describe the context. Claude Code is running on my laptop with a single keyboard shortcut. It has a curated set of tools: `Read` to read files, `Edit` to modify them, `Bash` to run shell commands, `Grep` to search the codebase, `Write` for new files, `WebFetch` to grab documentation.
 >
-> Six tools, essentially. Those six tools, combined with a good frontier model, are enough to reproduce most of the work of a junior software engineer. I am not exaggerating.
+> 6 tools, essentially. Those 6 tools, combined with a good frontier model, are enough to reproduce most of the work of a junior software engineer. I am not exaggerating.
 >
-> When I timed myself last month on a specific debugging task, I spent twelve minutes; the same task, delegated to Claude Code, took three minutes of agent runtime and two minutes of my supervision. That is a four-to-one speedup. Multiply that across all the coding I do in a week, and you get a meaningful productivity shift. Not all tasks benefit equally, pure creative architecture is still mostly on me; well-defined transformations are mostly on the agent. The skill is learning where the line is and delegating accordingly.
+> When I timed myself last month on a specific debugging task, I spent 12 minutes; the same task, delegated to Claude Code, took 3 minutes of agent runtime and 2 minutes of my supervision. That is a 4-to-1 speedup. Multiply that across all the coding I do in a week, and you get a meaningful productivity shift. Not all tasks benefit equally, pure creative architecture is still mostly on me; well-defined transformations are mostly on the agent. The skill is learning where the line is and delegating accordingly.
 >
 > Watch the screen. The agent starts by reading the file, `Read timer.py`. Then it greps for related patterns, `Grep("argparse")`. Then it thinks for a second, you can see the little spinner. Then it calls `Edit` to add the new argument, then another `Edit` to add the range check, then it runs the file on a sample input to verify, `Bash("python3 timer.py session_4.md --min 14000 --max 18000")`, and then it writes me a summary of what it did.
 >
@@ -522,9 +520,9 @@ For the first time, you have a machine that is able to take our place. Until 202
 >
 > One thing I want you to notice about the trace is the *recovery* behavior. On a previous demo, which I will not rerun because we are short on time, the agent made a wrong edit the first time, broke a test, saw the test failure in the output of `Bash`, and autonomously rewrote the edit. That self-correcting behavior is the real marker of modern agents.
 >
-> Two years ago, a broken edit would have stopped the agent cold, or worse, it would have lied and claimed success. Today, with good training and a decent scaffold, the agent notices the failure and recovers. That is what it means for the underlying models to cross a reliability threshold. Failures still happen; the ability to detect and recover from them is what is new.
+> 2 years ago, a broken edit would have stopped the agent cold, or worse, it would have lied and claimed success. Today, with good training and a decent scaffold, the agent notices the failure and recovers. That is what it means for the underlying models to cross a reliability threshold. Failures still happen; the ability to detect and recover from them is what is new.
 >
-> This is the workflow of a working software engineer in 2026. I personally write very little code by hand anymore. I write specifications, good specifications, and I let the agent execute. My productivity is, by my honest estimate, 2 to 4 times higher than it was in 2023. And I am not a special case, every software engineer I know has converged to this workflow within the last twelve months.
+> This is the workflow of a working software engineer in 2026. I personally write very little code by hand anymore. I write specifications, good specifications, and I let the agent execute. My productivity is, by my honest estimate, 2 to 4 times higher than it was in 2023. And I am not a special case, every software engineer I know has converged to this workflow within the last 12 months.
 >
 > The same thing is happening, a little more slowly, in other white-collar fields. Legal, Harvey, a legal AI agent, is being adopted in the top law firms for contract review. Consulting, the McKinseys and BCGs of the world are integrating agents into their research workflows. Marketing, campaign generation, A/B testing, copywriting. Customer support, first-line triage is already almost entirely agentic at scale-up companies. Everywhere paid work happens on a screen, the pattern is the same: human writes the spec, agent does the execution.
 >
@@ -585,9 +583,7 @@ For the first time, you have a machine that is able to take our place. Until 202
 >
 > *[Figure 17, p. 74, the GAIA curve we saw, is a good mental model for what the robotics curve is going to look like too. Slow uptake through 2023 to 2024, acceleration in 2025, and rapid climb to "human baseline" over the next few years.]*
 >
-> For you, sitting in this room, what does this mean concretely? Three things. First: many jobs you assume require a body, warehouse work, fast food, basic manufacturing, basic caregiving, will partly automate over the next decade. Not 2027 necessarily.
->
-> Not cleanly. But it will happen, and the transition will be messy. Second: a whole new category of jobs will emerge around *operating* these robots, teleoperating, training them, supervising them, repairing them. These are skills.
+> For you, sitting in this room, what does this mean concretely? Three things. First: many jobs you assume require a body, warehouse work, fast food, basic manufacturing, basic caregiving, are already automating. Waymo in US cities, Figure on BMW lines, Unitree G1s on factory floors in China. The transition has started, it is not clean or uniform, and it accelerates from here. Second: a whole new category of jobs will emerge around *operating* these robots, teleoperating, training them, supervising them, repairing them. These are skills.
 >
 > Learn them early and you are ahead. Third: the societies that *do not* adopt these robots will fall behind those that do, just as the societies that did not industrialize in the 19th century fell behind those that did. France, Germany, Italy have aging populations and labor shortages in industry. The economic pressure to adopt is enormous. The political pressure not to, equally enormous. How that tension resolves is one of the big open questions of the next decade.
 >
@@ -665,11 +661,7 @@ For the first time, you have a machine that is able to take our place. Until 202
 >
 > First, a number: there is good evidence, from Anthropic's economic index, from OpenAI's usage reports, from Google's data, that the jobs with the highest exposure to AI right now are, in decreasing order: software engineering, writing, data analysis, customer support, translation, paralegal work, first-line medical triage, marketing and content production, low-complexity consulting research. The common thread is: work that produces mostly text, numbers, or images, from a screen, within clear briefs. That is maybe 30 to 40 percent of knowledge work. Do not assume your future job is *not* on that list, a lot of Sciences Po graduates go into consulting, finance, journalism, public administration. All exposed.
 >
-> Exposure does not mean replacement. This is a subtle point and it is the hinge of the whole story. An "exposed" task is one where an AI can do a meaningful chunk of the work.
->
-> In practice, exposed tasks are done *faster* by humans who use AI well, not *replaced* by AI alone. The person who wins the job is not the one who competes against the agent, that is a losing game, but the one who *conducts* the agent well. Same way, in the early 20th century, the typist who kept typing by hand lost to the typist who used an electric typewriter, who lost to the one who used Word.
->
-> The tool wins. The humans who adopt it win. The humans who do not, do not.
+> Exposure means replacement of the task, not necessarily of the worker, for now. For a transitional period, the humans who stay employed are the ones who use agents to do the work of five of their colleagues. That transitional period is short, and at the end of it, the AI does the task without the human in the loop. The typist analogy is partial: the electric typewriter did not, in the end, learn to type on its own. Agents will. Plan accordingly.
 >
 > So concretely: get fluent with these tools. Use Claude, use ChatGPT, use Gemini. Do not use them just for homework help, use them for real workflows. Build agents like the one we built today, deploy them, break them, learn what they are good and bad at. This is like learning to use Excel in 1995: optional at first, standard in five years, non-negotiable in ten.
 >
@@ -679,7 +671,7 @@ For the first time, you have a machine that is able to take our place. Until 202
 >
 > Third, read the capability curve, not the press coverage. The underlying trajectory is real and steep. We constantly underestimate how fast the exponential take-off is going. Getting used to things getting faster is crazy hard, but we'll have to if we want to play a part. Develop the habit of going to the source. Read technical papers, not press releases. Read Epoch AI's reports, METR's blog, the Anthropic and OpenAI research drops, the GAIA and SWE-bench leaderboards. Read the Ada Lovelace Institute. Do not read *only* pundits. The signal is in the measurements, and the measurements are unambiguous.
 >
-> Fourth, and this is the sentimental point, do not lose your human hinterland. The AI will get better at producing text than you. It will get better at summarizing documents than you. It will get better at many things than you. What it will not do, for a while yet, is live your life. Read books. Have long conversations with friends. Walk. Fall in love. Cook. Travel. The stuff of a well-lived human life is both the refuge from AI acceleration and the source from which any future work of yours, as a writer, a consultant, a policymaker, a teacher, will draw its authority. Do not outsource the interior life.
+> Fourth, and this is the sentimental point, do not lose your human hinterland. The AI will get better at producing text than you. It will get better at summarizing documents than you. It will get better at many things than you. What it will not do is live your life. Read books. Have long conversations with friends. Walk. Fall in love. Cook. Travel. The stuff of a well-lived human life is where the authority of any future work of yours, as a writer, a consultant, a policymaker, a teacher, will have to come from. Do not outsource the interior life.
 >
 > Back to the program.
 >

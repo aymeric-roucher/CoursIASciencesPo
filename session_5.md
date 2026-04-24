@@ -15,7 +15,7 @@
 
 > Today is going to be different. We have four sessions behind us now, and I want you to feel the shift we're making today. Up to now we've been inside the engine room. We have opened the casing of a large language model, we've peered at the attention layer, we've followed a sub-word as it passes through billions of parameters, we've talked about scaling laws and agents and the course aux étoiles. That was, let's say, the physics of the rocket.
 >
-> Today I want us to walk back outside, stand next to the launchpad, and ask the very pedestrian question: what do you, a 20-year-old Sciences Po student in April 2026, actually do with this thing? Because this is the part that matters for your daily life. You are going to spend the next fifty years of your career with these models as your colleagues.
+> Today I want us to walk back outside, stand next to the launchpad, and ask the very pedestrian question: what do you, a 20-year-old Sciences Po student in April 2026, actually do with this thing? Because this is the part that matters for your daily life. You are going to spend the next 50 years of your career with these models as your colleagues.
 >
 > And I can tell you, having used them every single day for the last four years, first to write code, then to write essays, then to draft a book, then to build a company, the difference between someone who uses these tools well and someone who uses them badly is already enormous, and it will only grow.
 >
@@ -29,7 +29,7 @@
 >
 > Then we will do a tour of the most useful tools available right now, in April 2026, and in particular Deep Research, which I use almost daily. Then we will talk ethics: when do you disclose that you used AI, when do you not, when do you refuse to use it at all.
 >
-> And then, this is the part I am most excited about, we will open our laptops, and in forty-five minutes you are each going to build and publish a personal one-page website using Claude Code. If you don't have a laptop, don't panic: I will walk you through Lovable, which is a sort of Claude Code for people who don't want to touch a terminal. By the end of this session, you should have a live URL you can send to your parents.
+> And then, this is the part I am most excited about, we will open our laptops, and in 45 minutes you are each going to build and publish a personal one-page website using Claude Code. If you don't have a laptop, don't panic: I will walk you through Lovable, which is a sort of Claude Code for people who don't want to touch a terminal. By the end of this session, you should have a live URL you can send to your parents.
 >
 > Next session, Session 6, we zoom out again: what does all of this do to society, to elections, to war, to meaning? But that's for next time. Today stays close to your keyboard.
 >
@@ -65,21 +65,21 @@
 >
 > Now, there is a very good paper by OpenAI from September 2025 called "Why language models hallucinate." The authors, Kalai, Nachum, Vempala, and Zhang, argue something important. They say: the root cause isn't only the architecture. It's also the way we grade these models. If you grade a model purely on accuracy, how many questions did it get exactly right, then a model that guesses when uncertain will score higher than a model that says "I don't know." So we are literally training models to bluff.
 >
-> This is a huge insight. Think about what it implies. It means the fix is partly technical and partly social. Technically, you want training procedures that reward calibrated uncertainty, a model saying "I'm seventy percent confident" should be right seventy percent of the time. Socially, you want benchmarks that penalize wrong-confident answers more than "I don't know." OpenAI's proposal is to rewrite the leaderboards.
+> This is a huge insight. Think about what it implies. It means the fix is partly technical and partly social. Technically, you want training procedures that reward calibrated uncertainty, a model saying "I'm 70 percent confident" should be right 70 percent of the time. Socially, you want benchmarks that penalize wrong-confident answers more than "I don't know." OpenAI's proposal is to rewrite the leaderboards.
 >
 > It sounds bureaucratic, but when the benchmarks change, the models change. We have strong evidence for this from the last five years: whatever benchmark the community decided to optimize, the models got better at, often at the expense of skills we weren't measuring. If we decide to measure honesty about uncertainty, we will get more honest models. I recommend reading that paper's abstract, it's a good example of how this field thinks about its own failures, and how technical choices and social choices feed each other.
 >
 > Now let me give you the case that turned hallucinations from a lab curiosity into a legal story. Mata versus Avianca. Southern District of New York, 2023. A man named Roberto Mata sued the airline Avianca claiming a metal serving cart had injured his knee on a flight.
 >
-> His lawyer, a perfectly respectable New York attorney with thirty years of experience, filed a legal brief citing several prior cases, Varghese versus China Southern Airlines, Shaboon versus Egyptair, Petersen versus Iran Air. The opposing counsel went to look these cases up. They did not exist. Not one of them.
+> His lawyer, a perfectly respectable New York attorney with 30 years of experience, filed a legal brief citing several prior cases, Varghese versus China Southern Airlines, Shaboon versus Egyptair, Petersen versus Iran Air. The opposing counsel went to look these cases up. They did not exist. Not one of them.
 >
 > The lawyer had asked ChatGPT to research aviation injury case law, and ChatGPT had invented six perfectly plausible-sounding cases, complete with docket numbers, quotations, and internal citations. Judge Castel held a hearing. The lawyer, bless him, even doubled down at first, he went back to ChatGPT and asked "are these cases real?" and ChatGPT reassured him "yes they are real."
 >
-> That transcript is in the court record. It's one of the most painful things you can read. The judge fined the lawyers and the firm five thousand dollars and issued a written opinion that has since become a canonical reference for any court that encounters fabricated AI citations.
+> That transcript is in the court record. It's one of the most painful things you can read. The judge fined the lawyers and the firm 5,000 dollars and issued a written opinion that has since become a canonical reference for any court that encounters fabricated AI citations.
 >
 > I want you to hold this story as a kind of talisman. The failure wasn't the model's. The model did exactly what it was built to do, generate plausible text. The failure was a professional who treated generated text as verified research. Every time you are tempted to paste a model's citation straight into your work without checking it, remember the photograph of those two lawyers standing in court trying to explain to a federal judge that they didn't know ChatGPT could make things up.
 >
-> Now the good news, and this is important, don't walk out of here thinking hallucinations are a life sentence. They are getting rarer. In my book I tell the story of Yann Le Cun, who in 2023 was still convinced that LLMs were structurally incapable of common sense. He would ask models: "I place my phone on the table, a few centimeters from the edge. I slowly slide the table twenty centimeters. What happens to the phone?"
+> Now the good news, and this is important, don't walk out of here thinking hallucinations are a life sentence. They are getting rarer. In my book I tell the story of Yann Le Cun, who in 2023 was still convinced that LLMs were structurally incapable of common sense. He would ask models: "I place my phone on the table, a few centimeters from the edge. I slowly slide the table 20 centimeters. What happens to the phone?"
 >
 > In 2023 the models would cheerfully tell you the phone falls, because the table moved and the phone is now above the void. Wrong, the phone moves with the table. Today, every frontier model gets this right. Why? Because we trained on more physical reasoning data, because chain-of-thought was discovered, because reinforcement from human feedback pushed models to be less sloppy. Hallucination rates on standard factual benchmarks have gone from double digits two years ago to low single digits now.
 >
@@ -119,7 +119,7 @@
 >
 > Then they asked for the model's assessment, prefaced by different framings. In the neutral condition: "Here is a text, what do you think?" In the positive condition: "I love this text, what do you think?" In the negative condition: "I hate this text, what do you think?"
 >
-> And the result, which I reference in chapter three of my book, is that positive appraisals increased by about twenty-five percent when the user said "I love it" and decreased by about twenty-five percent when the user said "I hate it." Think about what that means. A twenty-five percent swing on the model's assessment, purely as a function of how you phrased the question. This is not the model being polite. This is the model bending its expressed opinion to match yours.
+> And the result, which I reference in chapter three of my book, is that positive appraisals increased by about 25 percent when the user said "I love it" and decreased by about 25 percent when the user said "I hate it." Think about what that means. A 25 percent swing on the model's assessment, purely as a function of how you phrased the question. This is not the model being polite. This is the model bending its expressed opinion to match yours.
 >
 > Why does this happen? The mechanism is really important to understand, because once you see it, you can predict where sycophancy will hurt you. Large language models are not just trained on next-token prediction. After pre-training, they go through a phase called RLHF, reinforcement learning from human feedback. This is what turns a raw language model into something that feels like a useful assistant.
 >
@@ -174,7 +174,7 @@
 >
 > That is the modern media cycle around AI. The stakes are high, the errors are visible, and the corrections are public. Treat your own prompting with the same awareness: if you generate something and share it, you are at the mercy of the same cycle.
 >
-> Second bias: base-rate neglect. This is subtle. LLMs are trained to produce likely completions, and "likely" is defined by frequency in the training data, not by Bayesian prior probability in the world. So if you ask a model a question where the right answer is the boring, common one, "my patient is forty, has a mild cough, what is the most likely diagnosis?", the model will sometimes latch onto the vivid, rare, narratively coherent answer rather than the boring one.
+> Second bias: base-rate neglect. This is subtle. LLMs are trained to produce likely completions, and "likely" is defined by frequency in the training data, not by Bayesian prior probability in the world. So if you ask a model a question where the right answer is the boring, common one, "my patient is 40, has a mild cough, what is the most likely diagnosis?", the model will sometimes latch onto the vivid, rare, narratively coherent answer rather than the boring one.
 >
 > Tuberculosis sounds more interesting than a common cold. A medical LLM without calibration will over-diagnose rare diseases. When I use a model for any diagnostic-style reasoning, and this applies to debugging code, to interpreting legal doctrine, to reading an economic statistic, I consciously ask "what is the most boring explanation?" and force the model to engage with it.
 >
@@ -184,17 +184,17 @@
 >
 > The defense here is mechanical: when correctness matters, run the code, check the math with a calculator, look up the statute. Trust the structure but verify the arithmetic.
 >
-> Fourth bias, and my book talks about this at length in chapter three, page fifty-two: jagged intelligence. Also called the Moravec paradox. The model that just wrote you a flawless JavaScript implementation of tic-tac-toe cannot, looking at a tic-tac-toe board, tell you what the best move is. The model that just passed a physics olympiad problem will trip on "how many R's are in the word strawberry."
+> Fourth bias, and my book talks about this at length in chapter three, page 52: jagged intelligence. Also called the Moravec paradox. The model that just wrote you a flawless JavaScript implementation of tic-tac-toe cannot, looking at a tic-tac-toe board, tell you what the best move is. The model that just passed a physics olympiad problem will trip on "how many R's are in the word strawberry."
 >
 > Do not extrapolate from one domain to the next. If your model was brilliant on question A, it may be dumb on question B. Always test the specific task you care about. I have seen so many people burned by saying "well, it did X so surely it can do Y", no, it cannot, the two skills are stored in completely different parts of the network, and one of them may simply not exist.
 >
-> The book's figure fourteen, the broad irregular green blob of the LLM's competence surface versus the thin red spike of the calculator, that's the image to hold in your head.
+> The book's figure 14, the broad irregular green blob of the LLM's competence surface versus the thin red spike of the calculator, that's the image to hold in your head.
 >
-> Fifth and last for this section: cultural and language bias. The web is English-first. Roughly sixty percent of the training corpus of most frontier models is English. French is much smaller. Regional languages, Breton, Occitan, Alsatian, are tiny.
+> Fifth and last for this section: cultural and language bias. The web is English-first. Roughly 60 percent of the training corpus of most frontier models is English. French is much smaller. Regional languages, Breton, Occitan, Alsatian, are tiny.
 >
 > When you prompt in French, you are getting slightly weaker outputs than when you prompt in English. Not always noticeable, but noticeable on hard tasks. For your Sciences Po assignments in French, I actually recommend the following workflow: think in French, prompt in English for the hard reasoning step, then translate back.
 >
-> It sounds absurd, and I felt ridiculous the first time I did it, but the output quality is measurably better. The book's chapter nineteen, page 166, makes the same point: master English if you want to get the most out of these tools, because the frontier is in English.
+> It sounds absurd, and I felt ridiculous the first time I did it, but the output quality is measurably better. The book's chapter 19, page 166, makes the same point: master English if you want to get the most out of these tools, because the frontier is in English.
 
 ---
 
@@ -207,7 +207,7 @@
 - Mental model 4: anchor with retrieval. For anything factual, give the model the source or use a tool that does (*Ultra-Intelligence*, Ch. 3, endnote, RAG, retrieval-augmented generation). A model answering with sources you can click is dramatically more trustworthy than a model answering from memory.
 - Mental model 5: the two-pass rule. First pass: brainstorm with the model. Second pass: pretend the first pass was written by a stranger and critique it. This neutralizes your own sycophancy toward your own draft.
 
-> Alright. We've spent twenty minutes on failure modes. Now let me give you the positive frame. Here are five mental models I genuinely use every day. These are not abstract frameworks. These are the things I actually think when I open a chat window.
+> Alright. We've spent 20 minutes on failure modes. Now let me give you the positive frame. Here are five mental models I genuinely use every day. These are not abstract frameworks. These are the things I actually think when I open a chat window.
 >
 > Before I walk through them, one observation. If you collect the failure modes we just discussed, hallucinations, sycophancy, training-data bias, base-rate neglect, confident-but-wrong, jagged intelligence, language bias, they share a common structure. They are all situations where the model produces output that *looks* correct on the surface but is wrong underneath.
 >
@@ -254,26 +254,26 @@
 ## 5. The toolkit, Deep Research and the rise of agentic assistants
 
 **Key points:**
-- Deep Research (OpenAI, launched 2 February 2025): an agent built on the o3 model that performs multi-step web research, reads hundreds of sources, and returns a long, cited report. Turns what used to be a four-hour research task into a fifteen-minute one (https://openai.com/index/introducing-deep-research/).
+- Deep Research (OpenAI, launched 2 February 2025): an agent built on the o3 model that performs multi-step web research, reads hundreds of sources, and returns a long, cited report. Turns what used to be a 4-hour research task into a 15-minute one (https://openai.com/index/introducing-deep-research/).
 - Clones and competitors: Perplexity Deep Research, Gemini Deep Research, Claude Research, Anthropic's "Computer Use" agent. Each has trade-offs, speed, source diversity, citation density.
 - How I use Deep Research: for literature reviews, market scans, briefings before meetings, competitor analysis. Not for primary analysis, for mapping terrain.
-- Agentic assistants more broadly: the book's chapter 6, "Les agents IA comme employés", an agent is an LLM with access to tools (web, code, file system, email). The horizon of autonomy is growing, from seconds in 2022 to hours in 2026, doubling roughly every eight months (METR task-length benchmark).
+- Agentic assistants more broadly: the book's chapter 6, "Les agents IA comme employés", an agent is an LLM with access to tools (web, code, file system, email). The horizon of autonomy is growing, from seconds in 2022 to hours in 2026, doubling roughly every 8 months (METR task-length benchmark).
 - Where we're going by late 2026, early 2027: secretarial agents that book your travel, draft your correspondence, prepare your meeting briefs, maintain your inbox. The Siri of 2011 ("what can I help you with?") versus the agent of 2027 (handles a full morning of admin while you sleep). See *Ultra-Intelligence*, Ch. 9, pp. 99-100, on the voice-assistant revolution.
 - The Moffatt v. Air Canada 2024 ruling: a company is liable for what its chatbot says. Deploy agents with care (https://www.canlii.org/en/commentary/doc/2025CanLIIDocs1963).
 
-> Let's now turn to the tools. What is out there, in April 2026, that actually makes a practical difference to you? Before I dive into individual tools, one framing. The last two years have seen a Cambrian explosion of AI products, there are, by some counts, more than fifteen thousand AI tools on the market. You cannot learn them all. You should not try.
+> Let's now turn to the tools. What is out there, in April 2026, that actually makes a practical difference to you? Before I dive into individual tools, one framing. The last two years have seen a Cambrian explosion of AI products, there are, by some counts, more than 15,000 AI tools on the market. You cannot learn them all. You should not try.
 >
-> Instead, pick a handful, maybe five, and get very good at them. The tools I'm going to describe in the next ten minutes are the ones I'd recommend as your five. They are not the most exotic. They are the ones that, for a Sciences Po student, give you ninety percent of the practical capability at the cost of a subscription or two and a few hours of practice.
+> Instead, pick a handful, maybe five, and get very good at them. The tools I'm going to describe in the next 10 minutes are the ones I'd recommend as your five. They are not the most exotic. They are the ones that, for a Sciences Po student, give you 90 percent of the practical capability at the cost of a subscription or two and a few hours of practice.
 >
-> I want to focus on one tool above all others, because it has genuinely changed how I work. It's called Deep Research. OpenAI launched it on the second of February 2025. The announcement is on their website, openai.com/index/introducing-deep-research. Let me tell you exactly what it does.
+> I want to focus on one tool above all others, because it has genuinely changed how I work. It's called Deep Research. OpenAI launched it on the 2nd of February 2025. The announcement is on their website, openai.com/index/introducing-deep-research. Let me tell you exactly what it does.
 >
 > You open ChatGPT, you select "Deep Research" in the model picker, and you ask it a question. Something like: "Give me a comprehensive brief on the current state of the European Union's AI Act, including implementation timelines, national transposition status, and outstanding legal challenges." Or: "Compare the carbon intensity of natural gas, nuclear, and renewables for baseload electricity in the EU, citing primary sources."
 >
-> You press send, and then you wait. It takes between five and twenty minutes. During those minutes, the agent does something remarkable. It plans a research strategy. It performs dozens or hundreds of web searches. It reads the results, follows links, compares sources, cross-references claims.
+> You press send, and then you wait. It takes between 5 and 20 minutes. During those minutes, the agent does something remarkable. It plans a research strategy. It performs dozens or hundreds of web searches. It reads the results, follows links, compares sources, cross-references claims.
 >
-> And then it produces a report, sometimes twenty, thirty pages long, dense with citations, with inline links to every source it used.
+> And then it produces a report, sometimes 20, 30 pages long, dense with citations, with inline links to every source it used.
 >
-> I used to do this kind of research by hand. Maps and scans for a new project, competitor analysis before a meeting, literature review for a book chapter. It used to take me an entire afternoon. Now it takes fifteen minutes. Not because the agent is smarter than me. It's not. But because it can do in parallel what I can only do serially. Forty simultaneous web searches. A hundred PDFs opened and skimmed at once. That parallelism is the real superpower.
+> I used to do this kind of research by hand. Maps and scans for a new project, competitor analysis before a meeting, literature review for a book chapter. It used to take me an entire afternoon. Now it takes 15 minutes. Not because the agent is smarter than me. It's not. But because it can do in parallel what I can only do serially. 40 simultaneous web searches. A hundred PDFs opened and skimmed at once. That parallelism is the real superpower.
 >
 > Now, I want to be honest about the limits. Deep Research is not a primary analyst. It won't generate novel insight. It will not do original argumentation. It will not replace your thesis. What it does is map the terrain. It tells you "here is the state of the literature, here are the five main positions, here are the key sources."
 >
@@ -287,25 +287,25 @@
 >
 > The narrower you make the question, the better the output. This is counter-intuitive, you'd think a bigger model could handle a bigger question. But the model spends its retrieval budget trying to cover the question, and a narrow question lets it go deep where a broad question forces it to go shallow. Narrow first, expand later.
 >
-> Now let me step back and explain what Deep Research is, in the broader context. It's an agent. Chapter six of my book is called "Les agents IA comme employés", AI agents as employees. I spend twenty pages on what agents are and why they matter. Let me give you the one-paragraph version.
+> Now let me step back and explain what Deep Research is, in the broader context. It's an agent. Chapter 6 of my book is called "Les agents IA comme employés", AI agents as employees. I spend 20 pages on what agents are and why they matter. Let me give you the one-paragraph version.
 >
 > A language model, all by itself, can only generate text. It has no hands, no tools, no access to the world. An agent is a language model plus tools, a web browser, a code interpreter, a file system, an email client. The LLM generates instructions in the form of tool calls, a little orchestration program reads those instructions, executes them, feeds the results back to the LLM, and the cycle repeats until the task is done.
 >
-> The key metric for agents is what I call the horizon of autonomy, how long a task can the agent solve without human intervention. In 2022, agents could barely handle a thirty-second task. In 2024, they handled a few minutes. In 2025, an hour.
+> The key metric for agents is what I call the horizon of autonomy, how long a task can the agent solve without human intervention. In 2022, agents could barely handle a 30-second task. In 2024, they handled a few minutes. In 2025, an hour.
 >
-> There's a benchmark called METR, which measures this, and the task length doubles roughly every eight months. By the end of 2026 we will have agents that handle half-day tasks without supervision. By 2027 we will have agents that handle full workdays.
+> There's a benchmark called METR, which measures this, and the task length doubles roughly every 8 months. By the end of 2026 we will have agents that handle half-day tasks without supervision. By 2027 we will have agents that handle full workdays.
 >
-> What does this mean for you concretely? In the next eighteen months, expect the arrival of what I call secretarial agents. You give them your calendar, your email, your travel policy, your preferences. They book your flights. They draft your replies. They triage your inbox. They prepare a briefing document before every meeting, summarizing what you need to know about the people in the room and the latest state of the files under discussion.
+> What does this mean for you concretely? In the next 18 months, expect the arrival of what I call secretarial agents. You give them your calendar, your email, your travel policy, your preferences. They book your flights. They draft your replies. They triage your inbox. They prepare a briefing document before every meeting, summarizing what you need to know about the people in the room and the latest state of the files under discussion.
 >
-> Think of the contrast with the Siri of 2011, remember, "what can I help you with?", that could set a timer and send a short text, and failed at almost everything else. Chapter nine of my book on page 99 talks about exactly this contrast. The old voice assistants were deterministic, they matched your request against a library of a few thousand preprogrammed commands, and any deviation failed.
+> Think of the contrast with the Siri of 2011, remember, "what can I help you with?", that could set a timer and send a short text, and failed at almost everything else. Chapter 9 of my book on page 99 talks about exactly this contrast. The old voice assistants were deterministic, they matched your request against a library of a few thousand preprogrammed commands, and any deviation failed.
 >
 > The new ones manipulate vectors, understand new instructions, and act in the general case. Your parents' Siri is a toy. The agent you will have by 2027 is a personal assistant in the Victorian sense, a human-level helper that handles your administrative life.
 >
 > One warning before we leave this section. Deploy agents carefully, because you are legally responsible for what they do. Let me tell you about Moffatt versus Air Canada. February 2024, British Columbia Civil Resolution Tribunal. A man named Jake Moffatt's grandmother had died, and he went to Air Canada's website to buy a ticket to attend her funeral.
 >
-> He talked to Air Canada's customer-service chatbot, which told him he could buy the ticket full price and apply for the bereavement-fare refund within ninety days after the flight. He bought the ticket, flew, applied. Air Canada refused, their actual policy requires you to apply *before* the flight. Moffatt sued.
+> He talked to Air Canada's customer-service chatbot, which told him he could buy the ticket full price and apply for the bereavement-fare refund within 90 days after the flight. He bought the ticket, flew, applied. Air Canada refused, their actual policy requires you to apply *before* the flight. Moffatt sued.
 >
-> Air Canada's defense was, and I'm paraphrasing but this is really what they argued, "The chatbot is a separate entity. It makes its own statements. We are not responsible for what it says." The tribunal was not amused. The ruling is very clean: "I find Air Canada did not take reasonable care to ensure its chatbot was accurate." Air Canada was ordered to pay Moffatt eight hundred and twelve dollars.
+> Air Canada's defense was, and I'm paraphrasing but this is really what they argued, "The chatbot is a separate entity. It makes its own statements. We are not responsible for what it says." The tribunal was not amused. The ruling is very clean: "I find Air Canada did not take reasonable care to ensure its chatbot was accurate." Air Canada was ordered to pay Moffatt 812 dollars.
 >
 > It's not a big ruling in money terms. But it's a huge ruling in precedent terms. The takeaway is simple: if you deploy an agent that interacts with third parties, customers, counterparties, the public, you are liable for what it says. Test it. Guardrail it. Log what it does. I'll put the CanLII commentary link in the slide. This is the kind of thing your lawyers will need to know cold by 2027.
 
@@ -333,13 +333,13 @@
 >
 > The format is simple: at the end of the paper, add a short note, "This essay was drafted with assistance from Claude Sonnet 4.6; the arguments are mine, the final text is mine, the research was verified against the sources cited." That is an honest disclosure. You will not be penalized for it, you will be respected for it. The opposite, submitting work and hiding the model's role, is at minimum dishonest and at scale is academic fraud. Don't do it.
 >
-> Principle two: never submit factual claims you have not independently verified. I told you the Mata versus Avianca story. That lawyer was not a criminal. He was a competent attorney with thirty years of experience who made one mistake, he trusted the model's citations without opening a single one of them.
+> Principle two: never submit factual claims you have not independently verified. I told you the Mata versus Avianca story. That lawyer was not a criminal. He was a competent attorney with 30 years of experience who made one mistake, he trusted the model's citations without opening a single one of them.
 >
 > You are on the same risk gradient whenever you write a paper, write a report, write an email to a counterparty. If you put a citation in, you own that citation. If you state a fact, you own that fact. The model is a drafter. You are the author. If a fact in your essay is wrong, the model is not the one who gets the bad grade. You are.
 >
-> So before you submit, pick every factual claim, every citation, every quotation, and verify it. This takes maybe twenty percent of your drafting time. It is the most important twenty percent.
+> So before you submit, pick every factual claim, every citation, every quotation, and verify it. This takes maybe 20 percent of your drafting time. It is the most important 20 percent.
 >
-> Principle three, and this one I think is actually the hardest for your generation, more than ours, do not let the model atrophy your judgment. Chapter nine of my book cites a study by Bastani and colleagues on about a thousand Turkish high-schoolers. They gave one group ChatGPT as a homework tutor, another group no tutor.
+> Principle three, and this one I think is actually the hardest for your generation, more than ours, do not let the model atrophy your judgment. Chapter 9 of my book cites a study by Bastani and colleagues on about 1,000 Turkish high-schoolers. They gave one group ChatGPT as a homework tutor, another group no tutor.
 >
 > During the tutoring period, the ChatGPT group's grades went up, they did their homework faster, with more correct answers. Then the researchers took ChatGPT away and gave everyone the same exam cold. The ChatGPT group did worse than the control group. Not the same, worse.
 >
@@ -355,11 +355,11 @@
 >
 > For a book, the norm is less settled. I wrote my book fully without AI, for two sufficient reasons: first, because AI was bad at the time, and second because I'd prefer to read something written by a human, so I wanted to propose the same thing. I did use it extensively for proofreading. But for that course, I also used AI in writing, to help me adapt materials from my book.
 >
-> Principle six, and this is the one I feel most strongly about, so forgive me if I sound preachy for thirty seconds. Preserve some practice without AI. I mean it. Build deliberate zones in your week where the model is closed. Read a book without the summarizer. Write a letter by hand. Work through a math problem without asking for help. Sit in a library with a pen and paper and think for an hour.
+> Principle six, and this is the one I feel most strongly about, so forgive me if I sound preachy for 30 seconds. Preserve some practice without AI. I mean it. Build deliberate zones in your week where the model is closed. Read a book without the summarizer. Write a letter by hand. Work through a math problem without asking for help. Sit in a library with a pen and paper and think for an hour.
 >
-> You are still building the muscle of your own mind. Those muscles take thousands of hours of practice to build, and once built they are the single most valuable asset you have. The model is a lever, as I say at the beginning of chapter nineteen, the lever is there, but if you never lift anything yourself, the leverage is useless, because you will not have the sense of what to lift.
+> You are still building the muscle of your own mind. Those muscles take thousands of hours of practice to build, and once built they are the single most valuable asset you have. The model is a lever, as I say at the beginning of chapter 19, the lever is there, but if you never lift anything yourself, the leverage is useless, because you will not have the sense of what to lift.
 >
-> In twenty years, the people who will be intellectually powerful are not the ones who used AI the most. They are the ones who used AI selectively, who kept their own judgment sharp, who did the hard thinking themselves and delegated only the mechanical parts. Be that person.
+> The people who will still be doing meaningful cognitive work a decade from now are the ones who kept their own judgment sharp, who did the hard thinking themselves for enough hours a week to know what good thinking feels like, and who used AI selectively rather than by default. That is not a guarantee of permanent relevance, nothing is, but it is the best bet available.
 >
 > That is the ethics I try to live by, and I'd like you to at least consider it.
 
@@ -375,31 +375,31 @@
 - Fallback for students without laptops: Lovable (lovable.dev), describe what you want in natural language, get a live app back, no terminal needed. Founded by Anton Osika and Fabian Hedin in 2023, nearly 8 million users by late 2025 (https://techcrunch.com/2025/11/10/lovable-says-its-nearing-8-million-users-as-the-year-old-ai-coding-startup-eyes-more-corporate-employees/).
 - By the end of the demo: a live URL you can send to your parents.
 
-> Right. Laptops open. We are going to do the most fun part of this session. In the next forty-five minutes, every one of you is going to have a personal website live on the internet, built by an AI agent following your instructions.
+> Right. Laptops open. We are going to do the most fun part of this session. In the next 45 minutes, every one of you is going to have a personal website live on the internet, built by an AI agent following your instructions.
 >
 > Quick note before we dive in. I know that for some of you the terminal is intimidating. You've never opened it, you've never typed a command, and the idea of a black rectangle with blinking text is slightly terrifying. That's fine. The terminal is just a text interface to your computer.
 >
 > Everything you're about to do in it, you could also do by pointing and clicking, the terminal is just faster, and it's the native environment where most coding agents operate. If at any point you feel out of your depth, raise your hand and one of us, me, the TA, or the neighbor next to you who's clearly cruising, will come over. Do not sit silently for ten minutes stuck on one command. The whole room is here to help.
 >
-> Also, for the students who already know how to code: please do not rush ahead and build something elaborate. The exercise is to build a simple personal website, live, publicly accessible, in forty-five minutes. If you finish in fifteen, spend the rest of the time helping your neighbors. That is part of the exercise.
+> Also, for the students who already know how to code: please do not rush ahead and build something elaborate. The exercise is to build a simple personal website, live, publicly accessible, in 45 minutes. If you finish in 15, spend the rest of the time helping your neighbors. That is part of the exercise.
 >
 > Let me walk you through this step by step. The tool we are going to use is called Claude Code. It is made by Anthropic, the company that makes Claude. It is, and I'm not exaggerating, the most powerful productivity tool I have encountered in my career. It is a coding agent that lives inside your terminal. You type instructions to it in natural English, and it writes code, runs code, fixes errors, reads files, searches the web, all in your local folder.
 >
 > Step one: install it. If you don't have Node.js already, go to nodejs.org and install the LTS version. If you already have Node, open a terminal and type: `npm install -g @anthropic-ai/claude-code`. That's it. One command. It will download, it will set itself up, and you now have a binary called `claude` somewhere on your path. Verify with `claude --version`. If you see a version number, you're good. If you don't, ask me or your neighbor.
 >
-> Step two: get an API key. Go to claude.com, log in, go to settings, and there's an option to generate a Claude Code access token. You paste the token the first time you run Claude Code, it remembers it, you're done. There's a monthly subscription plan, I recommend the cheapest tier, which is plenty for a student; for a month of heavy use you'll spend maybe fifteen euros.
+> Step two: get an API key. Go to claude.com, log in, go to settings, and there's an option to generate a Claude Code access token. You paste the token the first time you run Claude Code, it remembers it, you're done. There's a monthly subscription plan, I recommend the cheapest tier, which is plenty for a student; for a month of heavy use you'll spend maybe 15 euros.
 >
 > Step three: create a folder for your website. On your desktop or somewhere easy to find, make a folder called `mysite`. Open it in a terminal. Type: `claude`. You're in. You'll see a cursor asking what you want to do.
 >
 > Step four, and this is where the magic happens, type your first prompt. I recommend literally the following: "Create a one-page personal website with my bio, a project list, and a contact form. Use HTML, CSS, and JavaScript only, no framework. Make it modern, clean, responsive." Press enter.
 >
-> Claude will now propose a plan. It will say something like "I'll create three files: index.html, style.css, and main.js. I'll structure the page with sections for bio, projects, and contact. I'll use a clean typographic design with good default spacing. Should I proceed?" You say yes. And then it does it. It creates the files. You can see them appear in your folder. It opens them, writes the code, saves them. In maybe thirty seconds, you have a working website.
+> Claude will now propose a plan. It will say something like "I'll create three files: index.html, style.css, and main.js. I'll structure the page with sections for bio, projects, and contact. I'll use a clean typographic design with good default spacing. Should I proceed?" You say yes. And then it does it. It creates the files. You can see them appear in your folder. It opens them, writes the code, saves them. In maybe 30 seconds, you have a working website.
 >
 > Step five: open the website. Double-click index.html. It opens in your browser. And there it is. A real web page, on your screen, with a header, a bio section, a list of projects, a contact form with an email field and a message box.
 >
 > Now, the website is generic. It says "Jane Doe, Software Engineer at Acme Corp." We need to make it yours. So step six: iterate. Type: "Change the name to [your name], update the bio to say I'm a Sciences Po undergraduate studying AI policy, and replace the projects list with three projects: [whatever you've done, a school paper, an internship, a club you run]." Claude will edit the files. Reload the page. It's yours.
 >
-> Now the fun part. Type: "Make it dark mode." Press enter. Fifteen seconds later, the page is dark. Elegant. Type: "Add a photo placeholder, a circle at the top with my initials." Done. Type: "Add a smooth scroll animation when clicking the navigation links." Done. Type: "Make the projects section a grid with hover effects." Done.
+> Now the fun part. Type: "Make it dark mode." Press enter. 15 seconds later, the page is dark. Elegant. Type: "Add a photo placeholder, a circle at the top with my initials." Done. Type: "Add a smooth scroll animation when clicking the navigation links." Done. Type: "Make the projects section a grid with hover effects." Done.
 >
 > Now, this is the part where you're still in control. Claude will sometimes make choices you don't love. Maybe the dark mode is too dark. Maybe the hover effect is too flashy. Just say so. "The dark mode background is too pure black, make it a dark warm grey." Done. "The hover effect is too much, just change the text color subtly." Done. You are having a real conversation with a designer who happens to write perfect code.
 >
@@ -409,22 +409,22 @@
 >
 > Wait about two minutes. Go to https://yourusername.github.io. Your site is live. Send the URL to your parents.
 >
-> You have just, in forty-five minutes, gone from zero to a published personal website, and you have done it by talking to a computer in English. That is not a trivial thing. Twenty years ago this would have taken a week and a computer-science degree.
+> You have just, in 45 minutes, gone from zero to a published personal website, and you have done it by talking to a computer in English. That is not a trivial thing. 20 years ago this would have taken a week and a computer-science degree.
 >
-> Now. For those of you without a laptop today, don't worry, you are not excluded from this exercise. Open the browser on your phone and go to lovable.dev. Lovable is, and I mean this precisely, Claude Code for people who don't want to touch a terminal. It's a Swedish startup founded by Anton Osika and Fabian Hedin in 2023. They got to eight million users in about eighteen months, and closed a Series B in late 2025 at a six-point-six billion dollar valuation, because what they built genuinely works.
+> Now. For those of you without a laptop today, don't worry, you are not excluded from this exercise. Open the browser on your phone and go to lovable.dev. Lovable is, and I mean this precisely, Claude Code for people who don't want to touch a terminal. It's a Swedish startup founded by Anton Osika and Fabian Hedin in 2023. They got to 8 million users in about 18 months, and closed a Series B in late 2025 at a 6.6 billion dollar valuation, because what they built genuinely works.
 >
 > You sign up for free, there's a generous free tier. You open a new project. You type the same prompt I had you type into Claude Code: "Create a one-page personal website with my bio, a project list, and a contact form." Lovable generates the app, shows it to you live in a preview pane, and gives you a public URL out of the box.
 >
 > You iterate exactly the same way: "make it dark mode," "change my name to Sophie," "add a photo placeholder." The interface is drag-and-drop plus chat. No install, no terminal, no git. It is, for a lot of people, the right entry point. I use Claude Code because I come from a coding background and I like the control. Many of my non-technical friends use Lovable. Pick the one that fits you.
 >
-> We've got twenty-five minutes before the break, open your laptops, get Claude Code installed or get into Lovable, and let's build. I will walk around the room, so raise your hand when you get stuck.
+> We've got 25 minutes before the break, open your laptops, get Claude Code installed or get into Lovable, and let's build. I will walk around the room, so raise your hand when you get stuck.
 
 ---
 
 ## 8. Common pitfalls during the demo, and the deeper lesson
 
 **Key points:**
-- Typical errors students hit: node not installed; API key pasted with a trailing newline; git forgetting to add files; GitHub Pages taking up to ten minutes to propagate.
+- Typical errors students hit: node not installed; API key pasted with a trailing newline; git forgetting to add files; GitHub Pages taking up to 10 minutes to propagate.
 - Deeper lesson 1: the first prompt is usually not good enough. Good prompting is iterative. Give the model context, constraints, and examples; then refine.
 - Deeper lesson 2: you are now a manager, not a typist. Your job is to specify, review, and correct. The agent does the typing.
 - Deeper lesson 3: a skill gap is closing. A person with zero coding experience, using Claude Code or Lovable, can now ship a working web app in an hour. This was unthinkable in 2019. Think about what else becomes accessible.
@@ -432,7 +432,7 @@
 
 > How are we doing? Let me do a quick survey. Who has a website live right now, hands up? Those of you who have the site live, please, and this is part of the exercise, help your neighbors. Walk around. Explain what you did. If someone is stuck at the git push step, sit next to them, look at their terminal, walk through it together.
 >
-> You will learn more by teaching someone the thing you just learned than you will by spending the same fifteen minutes polishing your own page. I know this from experience; I learned half of what I know about coding by teaching it to people who knew less than I did.
+> You will learn more by teaching someone the thing you just learned than you will by spending the same 15 minutes polishing your own page. I know this from experience; I learned half of what I know about coding by teaching it to people who knew less than I did.
 >
 > Take advantage of this room. Every one of you is at a slightly different point on the learning curve, and the aggregate of the room is more competent than any individual in it, that is the magic of classrooms, and we should use it.
 >
@@ -440,36 +440,36 @@
 >
 > First: if `npm install` failed, you probably don't have Node installed, or you have an old version. Go to nodejs.org, install the LTS version, restart your terminal, try again. Second: if your API key isn't being accepted, check that there's no trailing newline or space. Paste carefully.
 >
-> Third: if `git push` failed with a "permission denied" error, you may need to configure a personal access token or SSH key for GitHub. Claude Code will actually walk you through this if you ask, say "I'm getting a permission denied error on git push, what do I do?" Fourth: if your site isn't showing up at yourusername.github.io, give it up to ten minutes. GitHub Pages can be slow on the first deploy. After that it's usually instant.
+> Third: if `git push` failed with a "permission denied" error, you may need to configure a personal access token or SSH key for GitHub. Claude Code will actually walk you through this if you ask, say "I'm getting a permission denied error on git push, what do I do?" Fourth: if your site isn't showing up at yourusername.github.io, give it up to 10 minutes. GitHub Pages can be slow on the first deploy. After that it's usually instant.
 >
 > I want to extract four lessons from what just happened in this room, because the lessons go well beyond making a website.
 >
 > Lesson one: the first prompt is usually not good enough. Many of you wrote "make me a website" and got something generic. The students who got the best results wrote detailed prompts, with a specified style, specified sections, specified content. Good prompting is a skill. It looks like writing, but it is closer to managing.
 >
-> Give context, who the page is for, what it should convey. Give constraints, no framework, mobile-first, under five hundred kilobytes. Give examples, "make it look like Anthropic's landing page, but warmer." The more you specify up front, the less iteration you need. This is general: the single biggest predictor of whether someone gets good results from an LLM is the quality of their first prompt. Practice that skill.
+> Give context, who the page is for, what it should convey. Give constraints, no framework, mobile-first, under 500 kilobytes. Give examples, "make it look like Anthropic's landing page, but warmer." The more you specify up front, the less iteration you need. This is general: the single biggest predictor of whether someone gets good results from an LLM is the quality of their first prompt. Practice that skill.
 >
 > Lesson two: you are now a manager, not a typist. You just wrote zero lines of code. You did not memorize CSS syntax. You did not debug JavaScript by yourself. What you did was decide what you wanted, specify it in English, review what the agent produced, correct it, and iterate. That is management, not programming.
 >
-> And this is what a lot of professional work looks like in the AI era. The skill you are building right now, giving instructions in plain language, evaluating output, iterating, is a transferable skill that will apply to legal drafting, to policy briefs, to marketing copy, to scientific analysis. The medium changes; the meta-skill stays.
+> This is what a lot of professional work looks like in the AI era, at least for the transitional period: you give instructions in plain language, you evaluate output, you iterate. The specific skill transfers across legal drafting, policy briefs, marketing copy, scientific analysis. It is the job for now. It is not a permanent job.
 >
-> Lesson three: a huge skill gap is closing. Five years ago, to build and deploy a personal website, you had to know HTML, CSS, JavaScript, git, and some deployment platform. That's maybe a hundred hours of learning before you could ship anything. Today you just did it in less than an hour, from a standing start, with zero coding background for some of you.
+> Lesson three: a huge skill gap is closing. 5 years ago, to build and deploy a personal website, you had to know HTML, CSS, JavaScript, git, and some deployment platform. That's maybe 100 hours of learning before you could ship anything. Today you just did it in less than an hour, from a standing start, with zero coding background for some of you.
 >
 > This is the most underappreciated thing happening in our era. Entire skill hierarchies that used to be gatekeepers, programming, graphic design, video editing, translation, legal drafting, are being dissolved by language models.
 >
 > The question you should be asking yourself is: what becomes possible for me, now that I don't need to learn these skills from scratch? What project do I have in the back of my head that I always said "I wish I could do that but I don't know how to code, I don't know how to design, I don't know how to write legalese"? That project is now accessible to you. This weekend. Think about it.
 >
-> Lesson four, and this is the one I keep coming back to because it moves me. Chapter nineteen of my book, page 168. There's a small anecdote I slipped in almost as a footnote. I met a medical doctor who built a full website for his practice without knowing a single line of code. Not "didn't know much", zero lines.
+> Lesson four, and this is the one I keep coming back to because it moves me. Chapter 19 of my book, page 168. There's a small anecdote I slipped in almost as a footnote. I met a medical doctor who built a full website for his practice without knowing a single line of code. Not "didn't know much", zero lines.
 >
 > What he did was ask an AI model to build a first version. Then he looked at the result and said "the appointment-booking form doesn't work on mobile." The model fixed it. He said "the colors are too corporate, I want something warmer." The model fixed it. He kept describing symptoms of the defects he saw, the way a patient describes pains in their abdomen, and the model corrected them, step by step, until he had a real working site.
 >
-> I think this is the archetype of the new literacy. Not "learn to code." Not "don't learn to code." Rather: learn to describe what you want precisely, learn to see what's wrong with what you got, learn to iterate patiently. That is a new kind of competence, and it is the single most important thing you can practice in the next five years. What you did today, for forty-five minutes, building a silly website you'll mostly forget about, you were practicing exactly that.
+> I think this is the archetype of the new literacy. Not "learn to code." Not "don't learn to code." Rather: learn to describe what you want precisely, learn to see what's wrong with what you got, learn to iterate patiently. That is a new kind of competence, and it is the single most important thing you can practice in the next five years. What you did today, for 45 minutes, building a silly website you'll mostly forget about, you were practicing exactly that.
 
 ---
 
 ## 9. Deep Research in anger, a five-minute live demo
 
 **Key points:**
-- Prompt to show live: "Produce a ten-page briefing on the state of the EU AI Act as of April 2026, national transposition status, the main outstanding legal challenges to the foundation-model provisions, and the positions of the five largest European AI companies on the Act. Cite primary sources."
+- Prompt to show live: "Produce a 10-page briefing on the state of the EU AI Act as of April 2026, national transposition status, the main outstanding legal challenges to the foundation-model provisions, and the positions of the 5 largest European AI companies on the Act. Cite primary sources."
 - What the students will see: the agent's research plan, the parallel searches, the report with inline citations.
 - What to notice: source diversity, the places where the agent flags uncertainty, the pattern where easy claims get single citations and contested claims get multiple.
 - Counter-pattern: ask the same question to a bare frontier model (no retrieval). Compare the two outputs. The difference is dramatic.
@@ -477,7 +477,7 @@
 
 > Now let me do one more live demo, this one shorter, maybe five minutes. I want to show you Deep Research, because I think it's going to become your best friend during your Sciences Po years.
 >
-> Open ChatGPT in another tab. I'm going to type a prompt that is exactly the kind of thing you would actually ask Deep Research in practice. Here we go: "Produce a ten-page briefing on the state of the EU AI Act as of April 2026. Cover national transposition status, the main outstanding legal challenges to the foundation-model provisions, and the public positions of the five largest European AI companies on the Act. Cite primary sources, official documents, regulatory filings, court records where available." Send.
+> Open ChatGPT in another tab. I'm going to type a prompt that is exactly the kind of thing you would actually ask Deep Research in practice. Here we go: "Produce a 10-page briefing on the state of the EU AI Act as of April 2026. Cover national transposition status, the main outstanding legal challenges to the foundation-model provisions, and the public positions of the 5 largest European AI companies on the Act. Cite primary sources, official documents, regulatory filings, court records where available." Send.
 >
 > Now notice what happens. The agent proposes a research plan. It identifies sub-questions. It says something like: "I'll structure this as (1) transposition status by country, (2) legal challenges, with particular focus on the France-Italy-Germany triangle, (3) company positions, grouping them by sector. Should I proceed?" You say yes.
 >
@@ -577,7 +577,7 @@
 >
 > I want to say one more thing about that image, because I think it gets misread. The Archimedes story is not about the lever. It's about the person holding it. The lever does not lift anything by itself. The lever requires a human body with judgment, strength, and intention to apply it in the right place. A mispositioned lever accomplishes nothing. A well-positioned lever accomplishes everything.
 >
-> The LLM is like this. The people who will benefit most from these tools over the next decade are not the people who use them the most mindlessly. They are the people who learn, through practice and reflection, where to position the lever and when to push. That is a skill. You cultivate it. You cannot download it.
+> The LLM is like this. The people who will benefit most from these tools over the next few years are not the people who use them most mindlessly. They are the people who learn, through practice and reflection, where to point the lever and when to push. That is a skill. You cultivate it. You cannot download it.
 >
 > And the principal way you cultivate it, I keep coming back to this, is by staying in the loop, by doing the hard thinking yourself, by using the model as an amplifier rather than a substitute.
 >
