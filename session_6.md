@@ -470,17 +470,9 @@
 - Final call: participate. Do not watch.
 > Let us close by walking back through where we have been.
 >
-> Six sessions ago, we began in a cold cryptanalysis unit in wartime Buckinghamshire, with a machine that could do exactly one thing, break the German cipher. We traced the path from that machine, through the summer of Dartmouth in 1956, through the winters of AI, through Yann LeCun's convolutional networks in 1998, through the Transformer in 2017, through ChatGPT in late 2022, through the agent revolution of 2024 and 2025, to an autumn in 2026 in which the question is not whether this technology is coming but what to do about it.
+> Six sessions ago, we began in a cold cryptanalysis unit in wartime Buckinghamshire, with a machine that could do exactly one thing, break the German cipher. We traced the path from that machine, through the summer of Dartmouth in 1956, through the winters of AI, through Yann LeCun's convolutional networks in 1998, through the Transformer in 2017, through ChatGPT in late 2022, through the agent revolution of 2024 and 2025, to an autumn in 2026 in which the question is not whether this technology is coming but what to do about it, in a future whose transformation now seem vertiginous.
 >
-> Along the way we encountered, in no particular order: Alan Turing, whose Bombe broke Enigma; Frank Rosenblatt, whose Perceptron was the ancestor of every neural network; Geoffrey Hinton, Yoshua Bengio, and Yann LeCun, the three deep-learning pioneers of the 2000s; Alex Krizhevsky, whose AlexNet in 2012 kicked off the deep-learning wave; the authors of *Attention is All You Need* in 2017; Sam Altman and OpenAI; Dario and Daniela Amodei and Anthropic; Demis Hassabis and DeepMind; Yann LeCun again, now at Meta; the scaling-laws school; Yann-Andreas Hendrycks and the safety community.
->
-> We encountered King Midas, Ulysses and the Sirens, the paperclip maximizer, Schumpeter's creative destruction, Keynes's fifteen-hour week, Arendt's distinction between labor and work, Hegel's master-and-slave dialectic, Aristotle on the incompatibility of virtue and labor, Aldous Huxley's soma, Orwell's boot, Pascal's quiet room, John the Savage, Irving John Good's intelligence explosion, Ray Kurzweil's Singularity.
->
-> And we encountered data: the 60% remote-work peak, the 8 million to 2 million collapse in French agricultural employment, the 60% of 2018 US jobs that did not exist in 1940, the halving of total work hours since 1870, the 21% drop in text-generation freelance jobs after ChatGPT, the three-hours-to-seven-hours expansion of daily screen time since 2007, the 20,000 requests per second on Character.AI, the 200 million proteins released by AlphaFold, the 18-times research multiplier needed to sustain Moore's law.
->
-> Take these numbers with you. They are your reference points. When someone tells you, in ten years, that "AI did not change anything" or that "AI changed everything," measure the claim against the numbers.
->
-> I want to give you a vision to leave the room with. In 1919, the year before Karel Čapek coined the word "robot," Europe was coming out of the First World War. The continent was exhausted, broken, angry. Nobody could see clearly what the next thirty years would bring. Nobody could have predicted radio, television, nuclear weapons, antibiotics, commercial aviation, the European Union, the internet. In 1919, the smartest people in Paris and London and Berlin thought, reasonably, that the future had collapsed. They were wrong. The future had not collapsed. It had merely become unrecognizable.
+> In 1919, the year before Karel Čapek coined the word "robot," Europe was coming out of the First World War. The continent was exhausted, broken, angry. Nobody could see clearly what the next thirty years would bring. Nobody could have predicted radio, television, nuclear weapons, antibiotics, commercial aviation, the European Union, the internet. In 1919, the smartest people in Paris and London and Berlin thought, reasonably, that the future had collapsed. They were wrong. The future had not collapsed. It had merely become unrecognizable.
 >
 > We are in an analogous moment. The future is unrecognizable. That does not mean it is worse. It means we have to build it thoughtfully. And the building is not the job of a small class of engineers in San Francisco. It is the job of every citizen of every country that is going to live inside the consequences.
 >
@@ -488,7 +480,7 @@
 >
 > I will close with the line I opened the book with, which is mine, for what it is worth. "Humanity stands at the threshold of the greatest revolution in its history." I believed it when I wrote it. I believe it now, more strongly. The revolution is not someone else's. It is yours. Welcome to it.
 >
-> Thank you all for the six sessions. I will stay after class for questions, as usual. If you have longer questions, about careers, about the book, about further reading, send me an email and I will answer. Now, for the last time, I will take questions from the floor.
+> Thank you all for the six sessions. I will stay after class for questions, as usual. If you have longer questions, about careers, about the book, about further reading, send me an email and I will answer.
 
 ---
 
