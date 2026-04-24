@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Word2Vec playground — Sciences Po IA</title>
+  <link rel="stylesheet" href="assets/css/app.css">
+</head>
+<body>
+  <header>
+    <h1>Word2Vec playground</h1>
+    <p class="tagline">
+      Sciences Po — Artificial Intelligence course, Session 2.
+      Play with the Google-News 300-d embeddings directly in your browser.
+      Loading <span id="vocab-size">…</span> words.
+    </p>
+  </header>
+
+  <main>
+    <section id="similar">
+      <h2>1. Nearest neighbours</h2>
+      <p>Enter a word and see the 10 words whose vectors are closest in the 300-dimensional space.</p>
+      <form id="sim-form" autocomplete="off">
+        <input type="text" id="target-word" placeholder="e.g. Paris" autofocus>
+        <button type="submit">Find neighbours</button>
+      </form>
+      <table id="sim-table"></table>
+      <p class="examples">
+        Try: <a href="#" data-sim="Paris">Paris</a>,
+        <a href="#" data-sim="coffee">coffee</a>,
+        <a href="#" data-sim="democracy">democracy</a>,
+        <a href="#" data-sim="computer">computer</a>,
+        <a href="#" data-sim="guitar">guitar</a>,
+        <a href="#" data-sim="happy">happy</a>.
+      </p>
+    </section>
+
+    <section id="algebra">
+      <h2>2. Word algebra</h2>
+      <p>
+        The famous example: <code>king − man + woman ≈ queen</code>.
+        Fill any two or three boxes, hit <em>Compute</em>, and see what the vector arithmetic gives you.
+      </p>
+      <form id="alg-form" autocomplete="off">
+        <input type="text" id="w-pos1" placeholder="king">
+        <span class="op">−</span>
+        <input type="text" id="w-neg"  placeholder="man">
+        <span class="op">+</span>
+        <input type="text" id="w-pos2" placeholder="woman">
+        <span class="op">=</span>
+        <button type="submit">Compute</button>
+      </form>
+      <table id="alg-table"></table>
+      <p class="examples">
+        Try: <a href="#" data-alg="king,man,woman">king−man+woman</a>,
+        <a href="#" data-alg="Paris,France,Germany">Paris−France+Germany</a>,
+        <a href="#" data-alg="walking,walk,swim">walking−walk+swim</a>,
+        <a href="#" data-alg="better,good,bad">better−good+bad</a>,
+        <a href="#" data-alg="Tokyo,Japan,Argentina">Tokyo−Japan+Argentina</a>.
+      </p>
+    </section>
+
+    <section id="about">
+      <h2>How it works</h2>
+      <p>
+        Each of the <span class="vocab-size-inline">…</span> words is represented as a
+        300-dimensional vector, pre-trained by Google on ~100 billion words of Google News
+        (2013). The vectors live in <code>docs/data/wordvecs25000.js</code> as a single JSON
+        object. We normalise them to unit length so that cosine similarity is just a dot
+        product — which is why the JavaScript stays a handful of lines.
+      </p>
+      <p>
+        The 3-million-word full model is ~1.6 GB, too large for a static web page,
+        so we ship the top 25 000 most frequent single-word tokens. If your word is
+        missing, try a common-noun synonym.
+      </p>
+      <p>
+        Source: <a href="https://github.com/aymeric-roucher/CoursIASciencesPo">github.com/aymeric-roucher/CoursIASciencesPo</a>.
+        Inspired by <a href="https://turbomaze.github.io/word2vecjson/">turbomaze/word2vecjson</a>.
+      </p>
+    </section>
+  </main>
+
+  <script src="data/wordvecs25000.js"></script>
+  <script src="assets/js/word2vec.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
