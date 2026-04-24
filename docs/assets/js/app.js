@@ -75,10 +75,13 @@
   });
 
   // ---- Example-link handlers -------------------------------------------
+  // Clicking an example just fills the input boxes; the student presses the
+  // button to see the result.
   $$(".examples a[data-sim]").forEach((a) => {
     a.addEventListener("click", (e) => {
       e.preventDefault();
-      doSimilar(a.dataset.sim);
+      targetInput.value = a.dataset.sim;
+      targetInput.focus();
     });
   });
 
@@ -86,7 +89,10 @@
     a.addEventListener("click", (e) => {
       e.preventDefault();
       const [p1, neg1, p2] = a.dataset.alg.split(",");
-      doAlgebra(p1, neg1, p2);
+      pos1.value = p1;
+      neg.value = neg1;
+      pos2.value = p2;
+      pos1.focus();
     });
   });
 
