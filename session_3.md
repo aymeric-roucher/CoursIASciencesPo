@@ -568,7 +568,7 @@
 **Q: What about hallucinations? Doesn't that prove the models are not really intelligent?**
 > Hallucinations are a real limitation and they are getting better with every generation. GPT-3 in 2020 hallucinated roughly one significant factual claim per paragraph, by rough count. GPT-4 in 2023 hallucinated significantly less.
 >
-> Current frontier models, Claude 4, GPT-5, Gemini 3, hallucinate at error rates in some domains below typical human error rates. Hallucinations will never reach exactly zero, because the underlying mechanism, sampling the next token from a probability distribution, always has some non-zero probability of producing wrong output. What matters is whether the error rate is below the relevant human baseline.
+> Current frontier models, Claude Opus 4.7, GPT-5.5, Gemini 3.1 Pro, hallucinate at error rates in some domains below typical human error rates. Hallucinations will never reach exactly zero, because the underlying mechanism, sampling the next token from a probability distribution, always has some non-zero probability of producing wrong output. What matters is whether the error rate is below the relevant human baseline.
 >
 > For many professional tasks, it already is. For others, it is not yet. This is an engineering problem that is being actively and successfully worked on. It is not a proof of a fundamental ceiling.
 

@@ -318,7 +318,7 @@
 - Principle 2, Never submit AI-generated factual claims you have not independently verified. The Mata v. Avianca fate is not hypothetical. You are responsible for every sentence you sign your name to.
 - Principle 3, Do not let the model atrophy your judgment. The book's chapter 9 cites a study of 1,000 Turkish high-schoolers (Bastani et al., 2024): ChatGPT as tutor improved grades during tutoring, but students deprived of the crutch afterwards fell below baseline (*Ultra-Intelligence*, p. 102). Use the model to reach beyond your level, not to avoid the work of reaching.
 - Principle 4, Refuse when the use would generate evidence you have not verified. Do not fabricate quotations. Do not produce images that could be mistaken for real photographs of real people without consent. Do not script a sincere-sounding message you do not actually mean.
-- Principle 5, Credit honestly. "Drafted with Claude 4 Sonnet, edited by me" is a credible, honest disclosure. "Written by me" when it wasn't is dishonest.
+- Principle 5, Credit honestly. "Drafted with Claude Sonnet 4.6, edited by me" is a credible, honest disclosure. "Written by me" when it wasn't is dishonest.
 - Principle 6, Preserve some practice without AI. Read without the summarizer. Write without the autocompleter. Reason out loud without the assistant. Keep the muscles warm, or you will lose them. Chapter 19's warning (p. 168), the AI is a lever, but if you never lift anything yourself, the leverage is useless.
 
 > We've talked about the mechanics. Now I want to talk about ethics, because I think this is where many of you will have to make tough calls in the next few years, and I want to give you a framework you can actually defend to yourself at three in the morning. I'm going to lay out six principles, and I want you to push back on any of them in the Q&A if you think they're wrong.
@@ -331,7 +331,7 @@
 >
 > Principle one: always disclose AI use in academic work. There is no exception to this. If you used Claude or ChatGPT or Gemini to help you draft, to help you research, to help you polish, say so. The default at every serious university, including Sciences Po, is now "disclose or be sanctioned." Your professor needs to know what was written by you versus what was drafted by a model.
 >
-> The format is simple: at the end of the paper, add a short note, "This essay was drafted with assistance from Claude 4 Sonnet; the arguments are mine, the final text is mine, the research was verified against the sources cited." That is an honest disclosure. You will not be penalized for it, you will be respected for it. The opposite, submitting work and hiding the model's role, is at minimum dishonest and at scale is academic fraud. Don't do it.
+> The format is simple: at the end of the paper, add a short note, "This essay was drafted with assistance from Claude Sonnet 4.6; the arguments are mine, the final text is mine, the research was verified against the sources cited." That is an honest disclosure. You will not be penalized for it, you will be respected for it. The opposite, submitting work and hiding the model's role, is at minimum dishonest and at scale is academic fraud. Don't do it.
 >
 > Principle two: never submit factual claims you have not independently verified. I told you the Mata versus Avianca story. That lawyer was not a criminal. He was a competent attorney with thirty years of experience who made one mistake, he trusted the model's citations without opening a single one of them.
 >
@@ -351,9 +351,9 @@
 >
 > The reason is not just ethics, it's epistemic hygiene. Once you start producing plausible-looking fakes, you lose the ability to trust your own memory about what's real and what you synthesized. You will, within six months, begin to misremember fabricated quotations as genuine ones, because your memory doesn't store the label "fabricated." It just stores the words. Protect your own epistemic clarity by never generating content that could contaminate it.
 >
-> Principle five: credit honestly. "Drafted with Claude 4 Sonnet, edited by me" is a credible, respectful disclosure. "Written by me" when it wasn't is dishonest. For a journal article, the norm is emerging, most venues now allow AI assistance if disclosed, with the human author retaining responsibility for the content.
+> Principle five: credit honestly. "Drafted with Claude Sonnet 4.6, edited by me" is a credible, respectful disclosure. "Written by me" when it wasn't is dishonest. For a journal article, the norm is emerging, most venues now allow AI assistance if disclosed, with the human author retaining responsibility for the content.
 >
-> For a book, the norm is less settled, I drafted Ultra-Intelligence without AI assistance for most of it, because I wanted the voice to be mine, but I did use models for fact-checking and for sanity-checking arguments. I acknowledged that in the remerciements. Match your disclosure to the genre. But always be on the honest side.
+> For a book, the norm is less settled. I wrote my book fully without AI, for two sufficient reasons: first, because AI was bad at the time, and second because I'd prefer to read something written by a human, so I wanted to propose the same thing. I did use it extensively for proofreading. But for that course, I also used AI in writing, to help me adapt materials from my book.
 >
 > Principle six, and this is the one I feel most strongly about, so forgive me if I sound preachy for thirty seconds. Preserve some practice without AI. I mean it. Build deliberate zones in your week where the model is closed. Read a book without the summarizer. Write a letter by hand. Work through a math problem without asking for help. Sit in a library with a pen and paper and think for an hour.
 >
@@ -436,7 +436,7 @@
 >
 > Take advantage of this room. Every one of you is at a slightly different point on the learning curve, and the aggregate of the room is more competent than any individual in it, that is the magic of classrooms, and we should use it.
 >
-> Okay, great, maybe a third of the room. Who's still debugging? Another third. Who hasn't gotten Claude Code installed yet? Okay, let me address the common errors I'm seeing walking around.
+> Who's still debugging? Who hasn't gotten Claude Code installed yet? Let me address the common errors I'm seeing walking around.
 >
 > First: if `npm install` failed, you probably don't have Node installed, or you have an old version. Go to nodejs.org, install the LTS version, restart your terminal, try again. Second: if your API key isn't being accepted, check that there's no trailing newline or space. Paste carefully.
 >

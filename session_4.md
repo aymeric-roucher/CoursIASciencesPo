@@ -25,7 +25,7 @@
 >
 > Nothing fancy. No install, no configuration drama. Just Python in your browser. After that, we zoom out: how are agents doing on benchmarks, what is METR's autonomy horizon, why does the curve double every few months, how does all this extend to physical robots, and what does it mean for the job you will be looking for in three years. We close around six, and I let you out in time to catch the tram.
 >
-> One ground rule: please interrupt. If something is unclear, raise your hand. If you are lost in the code, please stop me. It is much more useful to me if four of you are fifteen seconds behind and speak up, than if twenty of you pretend to follow and none of you do. Deal? Good.
+> One ground rule: please interrupt. If something is unclear, raise your hand. If you are lost in the code, please stop me. It is much more useful to me if four of you are fifteen seconds behind and speak up, than if twenty of you pretend to follow and none of you do.
 >
 > And a warning: today is the most technical session of this course. I am going to drag you through actual Python, actual JSON, actual API calls. You do not need to be a programmer to follow.
 >
@@ -160,13 +160,13 @@ For the first time, you have a machine that is able to take our place. Until 202
 - Where to get the API key (the instructor hands out a temporary key, or students use their own).
 > Alright, everyone, laptops out. If you do not have a laptop, pair up with your neighbour, it is actually more fun. Open a browser, Chrome, Firefox, Safari, anything. Go to `colab.research.google.com`. Yes, you need a Google account; if you have a Gmail address, you are fine. If you do not, borrow one from a friend for the next hour, or use a throwaway. We are not building anything sensitive today.
 >
-> Has anyone here used Google Colab before? OK, maybe a third of the room. For the rest of you, very briefly: Colab is Google's free notebook service. You write Python code in little rectangles called *cells*, you press Shift-Enter, and the code runs on a server somewhere in the Google cloud, not on your machine. You see the output right there, below the cell. It is the friendliest possible way to write Python. No install, no environment, no command line. You just need a browser and you can start coding.
+> Has anyone here used Google Colab before? For those who haven't, very briefly: Colab is Google's free notebook service. You write Python code in little rectangles called *cells*, you press Shift-Enter, and the code runs on a server somewhere in the Google cloud, not on your machine. You see the output right there, below the cell. It is the friendliest possible way to write Python. No install, no environment, no command line. You just need a browser and you can start coding.
 >
 > Click "New notebook" at the top-left. A blank notebook appears. Give it a name, call it `agent_session_4`, something like that, double-click the title at the top. Good.
 >
 > You should see an empty cell. Click inside. Type `print("hello from Sciences Po")` and press Shift-Enter. You should see `hello from Sciences Po` appear right below. If you see that, congratulations, you have now run your first Python program in the course. If you do not see it, probably the cell is still queued, wait a few seconds. The first run of a Colab notebook takes ten or fifteen seconds because Google is spinning up a virtual machine for you. Subsequent runs are instant.
 >
-> Everyone with me? Yes? Good.
+> Everyone with me?
 >
 > Now let's install the Anthropic SDK. That is the Python library that lets us talk to Claude, the family of models made by Anthropic, one of the three big labs along with OpenAI and Google. Create a new cell, click the `+ Code` button at the top, or press `Ctrl+M B`. In this new cell, type:
 >
@@ -313,7 +313,7 @@ For the first time, you have a machine that is able to take our place. Until 202
 >
 > Look carefully at the *descriptions*. They are in plain English. They are the only thing the model reads. If your description says "calculator tool, for math", the model might not know when to use it for a percentage question. If it says "evaluates a Python arithmetic expression and returns the result, example two times the sum of three and four", now the model *really* knows how to use it. The quality of your descriptions is ninety percent of the battle. Agent engineers spend whole afternoons just wording and re-wording these strings. It is part art, part science. Treat it like writing a job description for a new hire.
 >
-> Everyone still with me? Any cell failing? No? Good, let's put it all together.
+> Everyone still with me? Any cell failing? Once we're all green, let's put it all together.
 
 ---
 
@@ -431,7 +431,7 @@ For the first time, you have a machine that is able to take our place. Until 202
 >
 > *(Source: [GAIA leaderboard, Hugging Face](https://huggingface.co/spaces/gaia-benchmark/leaderboard) and [Gaia2 evaluation, HAL Princeton](https://hal.cs.princeton.edu/gaia).)*
 >
-> A natural question: how did we go from 24% to 80%-plus in two years? Three things happened, all at once. One, the underlying models got a lot better, Claude went from 3 to 3.5 to 4 to 5; GPT went from 4 to 4-turbo to 4o to o1 to o3; Gemini released Ultra and 2.5. Two, the *scaffolds*, the agent frameworks around the model, improved dramatically. People learned how to structure system prompts, how to chain tools, how to do self-verification. Three, the *tool ecosystem* exploded. Browsers became tool-accessible, code execution got sandboxed, file handling got standardized.
+> A natural question: how did we go from 24% to 80%-plus in two years? Three things happened, all at once. One, the underlying models got a lot better, Claude went from 3 to 3.5 to 4 to Opus 4.7; GPT went from 4 to 4-turbo to 4o to o1 to o3 to 5 to 5.5; Gemini released Ultra, 2.5, then 3.1. Two, the *scaffolds*, the agent frameworks around the model, improved dramatically. People learned how to structure system prompts, how to chain tools, how to do self-verification. Three, the *tool ecosystem* exploded. Browsers became tool-accessible, code execution got sandboxed, file handling got standardized.
 >
 > You see the same story on *SWE-bench Verified*, a benchmark where the agent has to fix real bugs in open-source Python projects on GitHub. A year ago, the state of the art on SWE-bench Verified was around 20%. Today, the best systems, Verdent, Claude Code, Cursor, are above 75% on the pass-at-one metric.
 >
@@ -443,7 +443,7 @@ For the first time, you have a machine that is able to take our place. Until 202
 >
 > A point of context: why do benchmarks matter at all? You might say, rightly, that a benchmark is a constructed test and real work is messier. True. But benchmarks are not the map of reality.
 >
-> They are the *gradient*. They tell researchers whether the latest training run is better or worse. They tell investors whether the field is making progress or plateauing. They tell students, you, whether the claims of acceleration are substantiated or hype.
+> They are the *gradient*. They tell researchers whether the latest training run is better or worse. They tell investors whether the field is making progress or plateauing. They tell students, you, whether the claims of acceleration are substantiated.
 >
 > In any technical field, you want to look for the *slope* of well-designed benchmarks, not the *absolute number*. The absolute number could be gamed. The slope, over a well-chosen suite of benchmarks, tracks real progress. And the slope right now, on GAIA, on SWE-bench, on OSWorld, on WebArena, on Aider, on all the agent-flavoured benchmarks I know, is steep. That coherence across diverse tasks is what convinces me the underlying capability is real, not a benchmark artifact.
 
@@ -763,6 +763,8 @@ For the first time, you have a machine that is able to take our place. Until 202
 > Today, it is a homework assignment. Carry that perspective away, the sense of *compressed time*. Things that were impossible become possible become routine within a single university degree. Your whole career will be spent in this compression. The mental muscle to build, starting today, is the muscle to *keep updating your picture of what is possible*.
 >
 > A lot of educated adults get frozen; they lock in a 2015 mental model and refuse to update, because updating is uncomfortable. Do not be them. Update often. Update with discipline. Read the benchmarks, run the code, try the tools. Your superpower, graduating from this program in a few years, will be that you can *see* the change happening rather than pretend it is not.
+
+Now, homework for next time: go on github.com, create an account, and set it up locally on your computer so that you can create what is called a "repository", do a first "commit" and "push it" to server. That will be the infrastructure to help us build you either a website or a cool research project.
 
 ---
 

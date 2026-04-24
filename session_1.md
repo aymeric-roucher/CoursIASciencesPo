@@ -13,7 +13,7 @@
 
 - Hook: today is going to be different from most classes you took this year.
 - One-line course arc: over six sessions we are going to walk from a British maths department in 1940 to the frontier of machines that outthink us.
-- Why I am teaching this: I wrote a book called *Ultra-Intelligence* because I got tired of reading either AI hype or AI denial, and I wanted to try something else, which is to look at the actual machine and ask honestly where it is going.
+- Why I am teaching this: I want to look at the actual machine and ask honestly where it is going. You won't hear me speak about AI hype or an AI bubble; if anything, I believe AI is underhyped.
 
 > Let me tell you, today is going to be different. I am not going to stand here and read a history of AI off a slide. I am going to tell you a story, and the story has a twist: the machine at the end of it is, very probably, smarter than the person at the beginning.
 >
@@ -529,7 +529,7 @@
 # Frequently asked questions (scripted answers)
 
 **Q: Is predicting the next token really "understanding"? Isn't it just pattern matching?**
-> It is pattern matching, and the pattern being matched is the structure of the world as recorded in text. To predict, better than chance, what word comes after "the real murderer is," in the last page of a novel, you must have internally reconstructed who did what, to whom, and why. The model's weights encode, in compressed form, the causal and social regularities of the texts it trained on. Call that "understanding," or do not; if you do not, please supply a behavioral test that distinguishes "real understanding" from what GPT-4 does on an unseen puzzle. Nobody has been able to.
+> It is pattern matching, and the pattern being matched is the structure of the world as recorded in text. To predict, better than chance, what word comes after "the real murderer is," in the last page of a novel, you must have internally reconstructed who did what, to whom, and why. The model's weights encode, in compressed form, the causal and social regularities of the texts it trained on. Call that "understanding," or do not; if you do not, please supply a behavioral test that distinguishes "real understanding" from what GPT-5.5 does on an unseen puzzle. Nobody has been able to.
 
 **Q: What about consciousness? Do these machines feel anything?**
 > Honest answer: we do not know, and we may never know, because consciousness is not observable from outside. I operate on two principles. First, Turing's principle: behavior is what we can test, so stake claims on behavior. Second, caution: if we start building systems whose behavior is indistinguishable from a being that suffers, we should treat the possibility of moral patient-hood seriously. Not because we have proof, but because the cost of being wrong in the other direction is high. This is Session 6 territory. For today, consciousness is a separate question from intelligence. A system can be extremely capable without being conscious, and possibly vice versa.
