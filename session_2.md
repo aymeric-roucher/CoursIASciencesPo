@@ -533,7 +533,7 @@
 >
 > Homework before the next session, three small items. Ten minutes each.
 >
-> One. Go to playground.tensorflow.org. Pick the spiral dataset. Add layers, add neurons, play with the activation function. Find the smallest network that can separate the two spirals. Take a screenshot. Email it to me. Title of the email: "spiral".
+> One. Go to playground.tensorflow.org. Pick the spiral dataset. Add layers, add neurons, play with the activation function. Find the smallest network that can separate the two spirals. Then vary the inputs (swap the dataset, change the features, bump the noise, try a different activation), to feel how quickly the network adapts and how little fiddling it takes. Take two screenshots with clearly different settings and email them to me. Title of the email: "spiral". Two different settings, one email.
 >
 > Two. Read the introduction and abstract of "Attention Is All You Need", Vaswani et al. 2017, at arxiv dot org slash abs slash 1706.03762. You do not need to understand the math. Read the prose. Get a feel for how researchers write.
 >
