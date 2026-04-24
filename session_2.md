@@ -337,7 +337,7 @@
 >
 > The book gives a four-dimensional toy example. Take "chiot" (puppy) as a vector with 0.0 on the feminine axis, 1.0 on the animal axis, 0.1 on the old axis, 0.3 on the fast axis. Take "doyenne" (elderly woman) as 1.0, 0.0, 0.9, 0.1 on those same four axes. You can now do doyenne minus chiot, and you get 1.0, minus 1.0, 0.8, minus 0.2. That difference vector captures, roughly, "become human, become old". That arithmetic extends to real three-hundred-dimensional vectors trained on real text, and yes, in the real space, king minus man plus woman really lands almost exactly on queen.
 >
-> Paris minus France plus Germany lands near Berlin. Big minus bigger plus small lands near smaller. Walking minus walked plus swum lands near swimming. Plural-singular, present-past, country-capital, gender, comparative: all of these show up as consistent directions in the 300-dimensional space. Nobody told the network about grammar, or geography, or morphology. It extracted them from the statistics of word co-occurrence in a few billion sentences. By doing a simple prediction task, it built a semantic map of the English language.
+> Paris minus France plus Germany lands near Berlin. Bigger minus big plus small lands near smaller. Walked minus walking plus swimming lands near swam. Plural-singular, present-past, country-capital, gender, comparative: all of these show up as consistent directions in the 300-dimensional space. Nobody told the network about grammar, or geography, or morphology. It extracted them from the statistics of word co-occurrence in a few billion sentences. By doing a simple prediction task, it built a semantic map of the English language.
 >
 > Pause on this. Before 2013, when you asked a computer scientist "does the machine understand?", the honest answer was: no, the machine pushes symbols around, it has no internal model. After 2013, the honest answer became: there is something in there that behaves as if it were a semantic map. The machine has not suddenly become conscious. But it has developed an internal representation of meaning that obeys mathematical operations matching conceptual operations. That is not nothing. That is a massive philosophical development, and the field did not take it as seriously as it should have, at the time.
 >
@@ -382,20 +382,20 @@
 > result = model.most_similar(positive=[b, c], negative=[a], topn=1)
 > return result[0]
 >
-> print(analogy("Paris", "France", "Germany"))
+> print(analogy("France", "Paris", "Germany"))
 > print(analogy("walking", "walked", "swimming"))
 > print(analogy("good", "better", "bad"))
-> print(analogy("Tokyo", "Japan", "Brazil"))
+> print(analogy("Japan", "Tokyo", "Argentina"))
 > ```
 >
-> Results on screen:
+> Read those calls as "a is to b as c is to X". France is to Paris as Germany is to what. Walking is to walked as swimming is to what. And so on. Results on screen:
 >
-> Berlin, 0.62.
-> Swam, 0.67.
-> Worse, 0.71.
-> Brasilia, 0.58.
+> Berlin, 0.76.
+> swam, 0.69.
+> worse, 0.73.
+> Buenos_Aires, 0.78.
 >
-> Every single one lands on the correct answer. Capital of Germany. Past tense of swim. Comparative of bad. Capital of Brazil. This is from word co-occurrence, nothing else. One short neural network, trained on text, discovered geography, grammar, and comparatives, because consistent patterns in those relations produce consistent directions in vector space.
+> Every single one lands on the correct answer. Capital of Germany. Past tense of swim. Comparative of bad. Capital of Argentina. This is from word co-occurrence, nothing else. One short neural network, trained on text, discovered geography, grammar, and comparatives, because consistent patterns in those relations produce consistent directions in vector space.
 >
 > Let me show you the neighborhoods of individual words, for fun.
 >
@@ -408,9 +408,9 @@
 > print(f" {neighbor}: {score:.3f}")
 > ```
 >
-> On screen: for "Paris", we see "Lyon", "Marseille", "Bordeaux", "Toulouse", "French". For "coffee", we see "tea", "espresso", "cappuccino", "latte", "brewed". For "democracy", we see "liberal democracy", "democratization", "democratic", "autocracy", "authoritarianism". For "computer", we see "computers", "laptop", "PC", "workstation", "hardware".
+> On screen: for "Paris", we see "Parisian", "Hopital_Europeen_Georges_Pompidou" (a Paris hospital), "France", "Pantheon_Sorbonne" (a Paris university), and a few more Paris-specific named entities. For "coffee", we see "coffees", "gourmet_coffee", "Coffee", "Starbucks_coffee", and "cappuccino". For "democracy", we see "democratic", "participatory_democracy", "democracies", "democratization", "pluralism". For "computer", we see "computers", "laptop", "laptop_computer", "Computer", "com_puter" (an OCR artifact from the corpus).
 >
-> These are not hand-curated lists. These are automatic: whoever is closest in the three-hundred-dimensional space. And they are exactly what a dictionary of associated terms would give you. Again: the network discovered these associations by reading text and doing prediction. No one told it Lyon was a French city. It extracted it from statistical patterns.
+> These are not hand-curated lists. These are automatic: whoever is closest in the three-hundred-dimensional space. Google News trained on newswire, so a lot of the Paris neighbors are proper nouns. But they are still consistent: every one of them is a Paris-adjacent named entity. Again: the network discovered these associations by reading text and doing prediction. No one told it the Pantheon Sorbonne was a Paris institution. It extracted it from statistical patterns.
 >
 > Here is the deeper point I want to land. The meaning of a word, in this framework, is encoded in its relationships with all other words. Not in a definition. In a position in a space. And that position was learned by predicting context.
 >
