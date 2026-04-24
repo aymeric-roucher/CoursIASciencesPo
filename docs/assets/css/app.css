@@ -68,6 +68,25 @@ form {
   margin: 16px 0;
 }
 
+#alg-form {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.alg-eq {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.alg-eq input[type="text"] {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
 input[type="text"] {
   padding: 10px 12px;
   font-size: 1em;
