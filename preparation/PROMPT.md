@@ -14,7 +14,6 @@ So, steps to respect:
 
 
 
-
 - Remove any em-dash everywhere : "—" must go.
 - "Good afternoon, everyone. Please come in, find a seat, no rush. If you are just waking up from a long philosophy lecture, " is useless to write in a script, but the "let me tell you today is going to be differetn" is interesting as an opener.
 - "Before we dive in, take a breath. Look around. This is the last time we will be together" => this is shit, remove that part

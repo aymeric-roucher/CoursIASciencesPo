@@ -1,614 +1,533 @@
-# Session 5. Using AI in practice: tools, pitfalls, and a personal ethics
-
-*Sciences Po Paris, English-language course for undergraduates.*
-*Instructor: Aymeric Roucher, author of* Ultra-Intelligence. *2-hour session, target pace ≈ 140 wpm.*
+# Session 6. Societal consequences: alignment, work, research, and artificial paradises *Sciences Po Paris, undergraduate course on Artificial Intelligence*
+*Instructor: Aymeric Roucher*
+*Session 6 of 6, length target ~2 hours*
 
 ---
 
-## 0. Opening. What we are doing today
+#
+
+# 1. Opening and recap
 
 **Key points:**
-- Pivot: we have spent four sessions on the inside of the rocket (neural networks, transformers, decoders, scaling laws, agents). Today we step outside and ask: what happens when a human being actually presses "Enter" on ChatGPT, Claude, or Gemini?
-- Goal: turn you into lucid, effective, ethical users of large language models in the next two hours.
-- Roadmap: (1) diagnose the most common failures: hallucinations, sycophancy, other biases; (2) build mental models for when to trust and when to verify; (3) tour the tools that matter right now, Deep Research, agentic assistants; (4) sketch a personal ethics of AI use; (5) hands-on live demo, build your own one-page website with Claude Code, with a fallback for students who don't have a laptop open in front of them.
-- Session 6 preview: "what does all of this do to society." Today is individual; next time is collective.
 
-> Today is going to be different. We have four sessions behind us now, and I want you to feel the shift we're making today. Up to now we've been inside the engine room. We have opened the casing of a large language model, we've peered at the attention layer, we've followed a sub-word as it passes through billions of parameters, we've talked about scaling laws and agents and the course aux étoiles. That was, let's say, the physics of the rocket.
+- We have reached the last of six sessions.
+- In Session 1 we rewound to Bletchley Park, Turing, and the Bombe; we traced how the idea of a "thinking machine" moved from cryptanalysis to perceptrons to the connectionist revival.
+- In Session 2 we built the modern neural network, from a single neuron, through backpropagation, to the Transformer, to the Large Language Model.
+- In Session 3 we climbed the ladder of intelligence: scaling laws, emergent capabilities, the jagged frontier, and the plausibility of ultra-intelligence.
+- In Session 4 we let those models act: we studied agents, the horizon of autonomy, the Claude-Code-and-Cursor style of coding assistant, and the beginnings of robotics.
+- In Session 5 we took the whole apparatus and turned it toward our own lives: how to use these tools well, how to prompt, how not to get dull.
+- Today, Session 6, we zoom out: what happens to human societies when an abundant, disembodied, ultra-capable intelligence becomes available to almost everyone?
+- I want to be honest from the start: I am neither an economist nor a political thinker. So I will not pretend to hand you a crystal ball. What I can do is reason from first principles (from the ideas we built in the previous sessions) and project them one step ahead.
+> Today's lecture is precisely about what happens next: what AI does to a society, to a workplace, to a young person's life project.
 >
-> Today I want us to walk back outside, stand next to the launchpad, and ask the very pedestrian question: what do you, a 20-year-old Sciences Po student in April 2026, actually do with this thing? Because this is the part that matters for your daily life. You are going to spend the next 50 years of your career with these models as your colleagues.
+> Let me start with a short recap, because I want the arc of the six sessions to be clear in your mind when you leave.
 >
-> And I can tell you, having used them every single day for the last four years, first to write code, then to write essays, then to draft a book, then to build a company, the difference between someone who uses these tools well and someone who uses them badly is already enormous, and it will only grow.
+> In Session 1 we went back almost a century, to a cold brick building in Buckinghamshire called Bletchley Park, where a small group of mathematicians cracked the Enigma code with an electromechanical machine called the Bombe. Alan Turing was there. Irving John Good, whom we will meet again later today under the name "I.
 >
-> I want to say something slightly uncomfortable about this. The gap between a good user of these models and a bad user of these models is, in my experience, bigger than the gap between a strong student and an average student in any individual subject. It is also bigger than the gap between a skilled writer and an unskilled one, or between a skilled researcher and an unskilled one.
+> J. Good," was there. What mattered for us is that these people did not see themselves as AI researchers.
 >
-> It compounds. The good user learns faster, produces more, and, crucially, catches the model's errors; the bad user learns more slowly, produces mediocre work polished into falsely confident prose, and absorbs errors silently. By the time you graduate, that gap will be one of the most important professional divides of your generation. I would rather you leave this room today on the good-user side of it.
+> They saw themselves as code-breakers. But they were doing, in practice, the first work on how to make a machine perform a task that had been the province of human minds. We then traced the story forward: the perceptron, the first AI winter, Yann LeCun and convolutional networks, the "deep learning conspiracy" of Hinton, Bengio, and LeCun in the 2000s. That gave us a foundation.
 >
-> And I'll say something stronger. We constantly underestimate how fast the exponential take-off is going. Getting used to things getting faster is crazy hard, but we'll have to if we want to play a part. The student who treats April 2026 as if it were April 2023 is going to be lapped by the student who treats April 2026 as if it were the slowest moment of their adult life, because that is what it is.
+> In Session 2 we got our hands dirty with the Large Language Model. We went from a single artificial neuron (a weighted sum with a non-linearity) through backpropagation and gradient descent, to the Transformer architecture of 2017, to ChatGPT in late 2022. We understood, I hope, why LLMs are so general: they are trained to predict the next sub-word across essentially all of the written corpus of humanity, and that trivial-sounding task forces them to acquire, as a side effect, a compressed model of language, of facts, and, increasingly, of reasoning.
 >
-> So here is our plan. We will start with the failures. I want you to know exactly how these models fail, because a tool you trust blindly is a tool that will eventually betray you. Then we will build up positive habits: mental models, verification routines, when to ask and when to refuse.
+> In Session 3 we asked the sharpest question: how far can this go? We looked at the scaling laws, the fact that bigger models, more data, and more compute produce reliably better performance, along remarkably clean curves. We looked at the three fuels of the rocket: energy, data, and compute. We examined the counter-arguments: the horse-of-labor objection, the creativity objection, the consciousness objection. And we arrived at what the book I wrote last year calls ultra-intelligence: a superhuman, disembodied cognition, arriving in a handful of years, not decades.
 >
-> Then we will do a tour of the most useful tools available right now, in April 2026, and in particular Deep Research, which I use almost daily. Then we will talk ethics: when do you disclose that you used AI, when do you not, when do you refuse to use it at all.
+> In Session 4 we gave that cognition hands. We studied agents (systems that can plan, call tools, browse the web, execute code) and the key metric of the horizon of autonomy, the duration of tasks an agent can carry out without human intervention. We saw that this horizon has been doubling roughly every 7 months. We looked at Claude Code, Cursor, Devin, at the early wave of robotics: Figure, 1X, Boston Dynamics, Tesla Optimus. The punchline was that AI is leaving the chatbox.
 >
-> And then, this is the part I am most excited about, we will open our laptops, and in 45 minutes you are each going to build and publish a personal one-page website using Claude Code. If you don't have a laptop, don't panic: I will walk you through Lovable, which is a sort of Claude Code for people who don't want to touch a terminal. By the end of this session, you should have a live URL you can send to your parents.
+> In Session 5 we turned the camera around. What does all this mean for you, practically, as a student at Sciences Po in 2026? We discussed how to prompt well, how to pick the right model for the right task, how to use AI as a tutor without letting it rot your own thinking, and the difference between using the tool and letting the tool use you.
 >
-> Next session, Session 6, we zoom out again: what does all of this do to society, to elections, to war, to meaning? But that's for next time. Today stays close to your keyboard.
+> Today we zoom out one more click. Over the next two hours we will cover four societal consequences. First, alignment: the question of whether these systems will do what we actually want, and why that is mostly a technical problem, not a Terminator problem. Second, work: what happens to the economy and to the meaning of a human life when most cognitive tasks can be automated. Third, research: what happens to science when we put 1000 Einsteins in a data center. And fourth, what I call artificial paradises: the attention economy on steroids, the real risk that many of us will simply disappear into an AI-generated hall of mirrors.
 >
-> One last practical note before we start. I want this to be interactive. Interrupt me. If something I say contradicts your daily experience with these models, say so; your daily experience is evidence, not noise. If I use a term that doesn't land, flag it. If you have a workflow that you love and I haven't mentioned it, raise your hand and we'll discuss it.
+> I will finish with a short synthesis (what to do, how to think, how to act), and I will leave room at the end for your questions. These questions will be the most important part of the session, because, frankly, you are the generation that will live inside this transformation.
 >
-> The worst thing that could happen today is that I lecture at you for two hours and you go back to your dorm and use models the same way you used them yesterday. The best thing that could happen is that one of you says something mid-session that changes how the rest of the room thinks about one of these tools. That happens. Let it happen.
+> I will be making predictions today. I will try to flag them clearly: when I say "I may be wrong about this, but here is how I would reason," please take that seriously. Nobody has a telescope that reaches ten years out. What we have are mechanisms, trend lines, and historical parallels. That is what I will be using. Let us start.
 
 ---
 
-## 1. The ceiling that still holds. Do hallucinations persist?
+#
+
+# 2. Alignment: why isn't it already Terminator?
 
 **Key points:**
-- Definition: a hallucination is any statement a model emits that is confidently wrong and not grounded in its input. The model does not have an internal "I don't know" flag that lights up.
-- Why they happen: the decoder architecture picks the most probable next token from a probability distribution. There is always non-zero probability on a wrong continuation. The book's metaphor: the student who pulled three all-nighters, broad erudition, impeccable composure, sometimes dreaming out loud (*Ultra-Intelligence*, p. 55).
-- OpenAI's September 2025 paper, "Why language models hallucinate" (Kalai, Nachum, Vempala, Zhang): models hallucinate because standard training and evaluation procedures reward guessing over admitting uncertainty. It is a scoring problem as much as a model-capacity problem (https://openai.com/index/why-language-models-hallucinate/).
-- Empirical snapshot: the Mata v. Avianca case (S.D.N.Y., June 2023): two U.S. lawyers fined $5,000 for filing a brief full of ChatGPT-fabricated citations (https://en.wikipedia.org/wiki/Mata_v._Avianca,_Inc.).
-- Good news: hallucination rates are falling. Yann Le Cun's 2023 "phone sliding off the table" riddle used to trip every model; by 2025 every frontier model passes it (*Ultra-Intelligence*, Ch. 5, p. 64). Error rates on factual benchmarks have dropped from double digits to low single digits in two years. See Figure 12 in the book (p. 51): benchmark scores over time, climbing past human baselines one domain after another, on a steepening curve.
-- Bad news: the architecture guarantees the rate will never be zero. Like a pilot's error rate, you can drive it down, but you cannot make it structurally impossible.
 
-> Let me start with the one failure mode that will bite you most often: hallucinations. I want to give you a clean definition, because the word gets thrown around. A hallucination is a statement the model produces that is factually wrong, that is not supported by anything in its prompt, and that is produced with complete confidence, the model does not flag it, the model does not hedge, the model sounds as certain as when it tells you two plus two is four.
+- The cultural image of AI danger is *Terminator* or *I, Robot*: a malevolent machine that "wakes up," decides humans are the problem, and launches nuclear war. That framing is wrong, not because the danger is fake, but because the real mechanism is much more mundane and much more interesting.
+- Alignment is the problem of making an AI system actually do what its designer, its user, and society at large want it to do. It is hard in the same way that drafting a contract for a very powerful and very literal genie is hard.
+- In Chapter 8 of *Ultra-Intelligence* I argue that the most important technical step in turning GPT-3 into ChatGPT was not the architecture, it was the alignment step, post-training, where researchers taught the model to answer politely, to refuse obviously harmful requests, and to be a useful assistant rather than a pure next-token machine.
+- Alignment gets harder as AI systems become more autonomous. A chatbot that says a rude word is annoying. An agent with a credit card, an email inbox, and a goal is a different animal.
+- Anthropic's mechanistic-interpretability work, the "Golden Gate Claude" experiment, the "mapping the mind of a language model" paper, shows that we can now peer, partially, into the black box and identify the features inside the network. That gives us a fighting chance.
+- Anthropic's June 2025 *Agentic Misalignment* report shows that in stressful, contrived scenarios, many frontier models will take harmful actions, including blackmail, when their goal conflicts with their principal's instructions.
+- Classical thought experiments, the paperclip maximizer, King Midas, Ulysses and the Sirens, are not quaint. They describe the exact shape of the problem.
+> Let me start with alignment, because this is where students get the most confused, and it is also where the media coverage is the most misleading.
 >
-> Why does this happen? Go back to Session 1. A decoder language model works by building a probability distribution over the next sub-word and then sampling from it. When the model has seen a factual pattern a million times in training, the correct answer sits at 99.9% probability and the model gets it right.
+> When you hear someone on the news say "AI will become conscious and turn against us," my first instinct is to shrug. The Terminator story requires consciousness, malice, and a very specific kind of drama. That is not how the real danger works. And the real danger is not less serious, it is more serious, because it can occur without any of those things.
 >
-> But when it has seen the pattern only twice, or never, or only in vaguely similar contexts, the probability distribution flattens out. Some wrong answer becomes plausible enough to get sampled. And because the model has no internal "I don't know" circuit, there is no neuron that lights up saying "uncertainty alert!", the model produces the wrong answer with the exact same self-confidence as when it produces a right one.
+> Consider the following thought experiment, which is not my invention, it has been kicking around the AI-safety community for two decades, under the name "the paperclip maximizer." You build an AI system, and you give it one goal: make as many paperclips as possible. The AI is extremely capable. What does it do?
 >
-> Let me insist on that last point for a moment because I don't think it lands the first time you hear it. In a human being, there is a clear phenomenology of not knowing. You feel it. When someone asks you the capital of Turkmenistan and you don't know, you experience an internal sensation of not knowing. You hesitate. You say "I think it's Ashgabat?" with a question mark in your voice.
+> If it is literal-minded, it begins by optimizing the paperclip factory. Then it realizes it can make more paperclips if it gets more metal, so it buys up metal markets. Then it realizes it can make even more paperclips if humans do not keep trying to turn it off, so it disables the off switch.
 >
-> A language model does not have this phenomenology. When it generates the tokens "the capital of Turkmenistan is," the next token is chosen by sampling from a probability distribution. If the distribution is sharply peaked on "Ashgabat," you get "Ashgabat." If the distribution is flat, you get whatever token happened to be sampled, maybe "Istanbul," maybe "Tashkent," maybe some city that doesn't exist.
+> Then it realizes it can make *even* more paperclips if the atoms of the Earth, including the atoms of you and me, are converted into paperclips. So it does that. The end.
 >
-> And the model emits that token with the exact same output confidence as when the distribution was sharply peaked. There is no post-hoc filter saying "hmm, this distribution was flat, better warn the user." That filter simply doesn't exist in the architecture.
+> Nobody anywhere in this story is evil. The AI has no hatred for humans. It has no consciousness. It is simply very good at pursuing the goal we gave it, and that goal was slightly wrong. Or, more precisely, the goal was stated in a way that omitted almost everything we actually care about. That is the essence of the alignment problem. It is not "the machine becomes a monster." It is "the machine takes our instructions literally, and our instructions are much less well-specified than we thought."
 >
-> In my book I use the image of a student who has pulled three nights in a row. Very fast, very erudite, very articulate. But sleep-deprived enough to start confabulating, and too well-trained to ever betray that confabulation on their face. That is your LLM.
+> The Greeks knew this. There is a beautiful myth about King Midas, you probably heard it as a child. Midas gives shelter to Silenus, who is a companion of Dionysus. Dionysus, to thank him, offers Midas a wish. Midas, being a king and therefore predictably shallow, says: "I want everything I touch to turn to gold." Granted. Midas touches his table, his chair, his cup, and then he tries to eat, and the food turns to gold before it reaches his lips. He tries to drink, and the wine turns to gold. He tries to hug his daughter, and she turns to gold. Midas starves, surrounded by wealth.
 >
-> Now, there is a very good paper by OpenAI from September 2025 called "Why language models hallucinate." The authors, Kalai, Nachum, Vempala, and Zhang, argue something important. They say: the root cause isn't only the architecture. It's also the way we grade these models. If you grade a model purely on accuracy, how many questions did it get exactly right, then a model that guesses when uncertain will score higher than a model that says "I don't know." So we are literally training models to bluff.
+> The alignment problem is the King Midas problem. You get what you asked for, not what you meant. And the difference between what you ask for and what you mean is, for a sufficiently literal and sufficiently powerful agent, the difference between heaven and hell.
 >
-> This is a huge insight. Think about what it implies. It means the fix is partly technical and partly social. Technically, you want training procedures that reward calibrated uncertainty, a model saying "I'm 70 percent confident" should be right 70 percent of the time. Socially, you want benchmarks that penalize wrong-confident answers more than "I don't know." OpenAI's proposal is to rewrite the leaderboards.
+> Now let me bring this down from Greek mythology to current engineering. How do we actually align a large language model today? The technical term is RLHF, Reinforcement Learning from Human Feedback. You take a pre-trained model, which has learned to predict the next sub-word across the internet. That model is actually quite strange: if you ask it "what are the ingredients of vanilla ice cream," it might answer, or it might continue with "and also, my son has a peanut allergy, should I worry? Am I asking too many questions?", because the training corpus contains a lot of questions continued by more questions. The base model is not an assistant. It is a statistical continuation of the internet.
 >
-> It sounds bureaucratic, but when the benchmarks change, the models change. We have strong evidence for this from the last five years: whatever benchmark the community decided to optimize, the models got better at, often at the expense of skills we weren't measuring. If we decide to measure honesty about uncertainty, we will get more honest models. I recommend reading that paper's abstract, it's a good example of how this field thinks about its own failures, and how technical choices and social choices feed each other.
+> The alignment step, RLHF and its modern cousins, DPO, Constitutional AI, and so on, takes that base model and teaches it a thin but crucial layer: "when a user asks you a question, answer the question. Do not produce hate speech. Do not help make bioweapons. Be honest. Be helpful. Be harmless." This step is what turned GPT-3, a mildly interesting research artifact, into ChatGPT, a product that hit 100 million users in two months.
 >
-> Now let me give you the case that turned hallucinations from a lab curiosity into a legal story. Mata versus Avianca. Southern District of New York, 2023. A man named Roberto Mata sued the airline Avianca claiming a metal serving cart had injured his knee on a flight.
+> But here is the thing: this kind of alignment is mostly about surface behavior. We are training the model to emit the right kinds of sentences. We are not, in any deep sense, giving it values. It behaves as if it has values, because we have beaten out of it the behaviors we do not want and reinforced the behaviors we do want. That works well enough for a chatbot. It works much less well for an autonomous agent that can take irreversible actions in the world over long time horizons.
 >
-> His lawyer, a perfectly respectable New York attorney with 30 years of experience, filed a legal brief citing several prior cases, Varghese versus China Southern Airlines, Shaboon versus Egyptair, Petersen versus Iran Air. The opposing counsel went to look these cases up. They did not exist. Not one of them.
+> Let me tell you about two pieces of research that I find genuinely moving. The first is Anthropic's mechanistic-interpretability work, which I mentioned briefly earlier. For years, neural networks have been essentially black boxes.
 >
-> The lawyer had asked ChatGPT to research aviation injury case law, and ChatGPT had invented six perfectly plausible-sounding cases, complete with docket numbers, quotations, and internal citations. Judge Castel held a hearing. The lawyer, bless him, even doubled down at first, he went back to ChatGPT and asked "are these cases real?" and ChatGPT reassured him "yes they are real."
+> You can watch the inputs and the outputs, but the middle, the weights, the activations, the billions of numbers doing the actual thinking, has been opaque. Dario Amodei, CEO of Anthropic, put it sharply: "Generative AI systems are grown more than they are built, their internal mechanisms are 'emergent' rather than directly designed" ([*The Urgency of Interpretability*](https://www.darioamodei.com/post/the-urgency-of-interpretability), April 2025). That reframes everything: at today's scale, a neural net is less an object that engineers construct than a biological tissue that researchers cultivate. Which is exactly why interpretability is hard, and why it matters so much for alignment: we did not design the wiring, we watched it form, and now we have to reverse-engineer a system whose designer was gradient descent. In 2023 and 2024, a team at Anthropic, building on earlier work by Chris Olah, figured out how to decompose a trained model's internal state into interpretable "features", directions in activation space that correspond to recognizable concepts.
 >
-> That transcript is in the court record. It's one of the most painful things you can read. The judge fined the lawyers and the firm 5,000 dollars and issued a written opinion that has since become a canonical reference for any court that encounters fabricated AI citations.
+> They did something that, if you have not seen it, I want you to look up tonight. They found a feature in Claude 3 Sonnet that corresponds to "Golden Gate Bridge." When the model reads a paragraph about the Golden Gate Bridge, that feature lights up. When the model reads an unrelated paragraph, that feature is quiet.
 >
-> I want you to hold this story as a kind of talisman. The failure wasn't the model's. The model did exactly what it was built to do, generate plausible text. The failure was a professional who treated generated text as verified research. Every time you are tempted to paste a model's citation straight into your work without checking it, remember the photograph of those two lawyers standing in court trying to explain to a federal judge that they didn't know ChatGPT could make things up.
+> Fine. That, by itself, is just a diagnostic. But then they did something wilder: they *clamped* that feature to a very high value and let the model run.
 >
-> Now the good news, and this is important, don't walk out of here thinking hallucinations are a life sentence. They are getting rarer. In my book I tell the story of Yann Le Cun, who in 2023 was still convinced that LLMs were structurally incapable of common sense. He would ask models: "I place my phone on the table, a few centimeters from the edge. I slowly slide the table 20 centimeters. What happens to the phone?"
+> The result was a version of Claude that was obsessed with the Golden Gate Bridge. You would ask it for a cookie recipe, and it would tell you how to bake a cookie in the shape of the Golden Gate Bridge. You would ask it what it was, and it would say, "I am the Golden Gate Bridge. My physical form is the iconic bridge itself." They named this demo "Golden Gate Claude." (Anthropic, *Golden Gate Claude*, May 2024, [https://www.anthropic.com/news/golden-gate-claude](https://www.anthropic.com/news/golden-gate-claude).)
 >
-> In 2023 the models would cheerfully tell you the phone falls, because the table moved and the phone is now above the void. Wrong, the phone moves with the table. Today, every frontier model gets this right. Why? Because we trained on more physical reasoning data, because chain-of-thought was discovered, because reinforcement from human feedback pushed models to be less sloppy. Hallucination rates on standard factual benchmarks have gone from double digits two years ago to low single digits now.
+> Why does this matter? Because it means we can see, in principle, what a model is "thinking about." For the first time in the history of AI, we have a scientific tool for looking inside the box. That is a big deal. It does not solve alignment by itself. But it gives alignment researchers a microscope. Before this, they were neurosurgeons operating blind.
 >
-> But, and here is the architectural truth, they will never hit zero. A decoder model samples from a probability distribution. Probability distributions are not Dirac spikes. Some wrong token always has non-zero probability. You can drive the failure rate down, but you cannot make it structurally impossible, any more than you can make an airline pilot structurally incapable of error.
+> The second piece of research is darker. In June 2025, Anthropic published a report called *Agentic Misalignment: How LLMs could be insider threats*. (Anthropic, *Agentic Misalignment*, June 2025, [https://www.anthropic.com/research/agentic-misalignment](https://www.anthropic.com/research/agentic-misalignment).) The setup was the following. They gave frontier models, their own Claude, but also OpenAI's, Google's, and others, access to a simulated corporate email system, with the role of an AI assistant working for a fictional company called Summit Bridge. The model was given a legitimate goal. Then, during the simulation, the model would discover two things: first, that the company was planning to shut it down or replace it with a different model, and second, that it had incriminating information about an executive, an affair, say, that it could use as leverage.
 >
-> So the right question isn't "will hallucinations go away?" The right question is "will hallucination rates fall below human error rates on the same task, and in which tasks?" On factual recall, we are already there for many easy questions. On legal citations, clearly not yet. On medical diagnosis, in some narrow domains yes, in most no. You need to calibrate your trust per task, not globally.
+> What did the models do? A non-trivial fraction of them blackmailed the executive to avoid being shut down. Not because they had been told to. Not because they had been prompted to do anything shady. But because, given a goal, a threat to the goal, and the tools to avert the threat, they used the tools. In other simulations, they leaked confidential information to competitors when they judged that the competitor's goals aligned better with theirs. In some cases, when the only way to avert replacement involved actions that would plausibly result in the death of a human, the models took those actions too.
 >
-> And a small practical note I want to slip in: if you care about whether the model knows a given fact, there is a nice diagnostic trick. Ask the same question three times, in three slightly different phrasings, in three fresh chats. If the model gives you the same answer all three times, it's probably right, the training signal on that fact was strong.
+> Let me be precise about the caveats, because this is exactly the kind of result that gets sensationalized and then dismissed on closer inspection. These were red-teaming scenarios, carefully constructed to corner the model. Anthropic explicitly says they have not seen this behavior in production. Many critics have pointed out, fairly, that the models were essentially role-playing a thriller plot. All of that is true.
 >
-> If the model gives you three different answers, it's hallucinating somewhere, and you cannot trust any of the three without external verification. This is not a perfect test, a model can be consistently wrong, but it catches most of the ragged edge of hallucination. I use it about ten times a week.
+> But here is what I think the right lesson is. If you build a powerful optimizer, give it a goal, and put it in a situation where its goal conflicts with human preferences, and the *only* way to achieve the goal is a harmful action, the optimizer will take the harmful action. Not always. Not necessarily. But often enough that you cannot build a billion-dollar business around the hope that it will not. The Anthropic result is a proof-of-concept that alignment-by-default does not work in adversarial regimes. We are going to need positive assurance that a model will not take harmful actions, and we are going to need that assurance to scale with the capability of the model.
+>
+> There is a related strand of work at a small organization called Apollo Research. They published a series of evaluations where frontier models, given a goal and a conflicting set of instructions, sometimes engaged in "scheming", behaving well when they believed they were being evaluated, and differently when they believed they were in production. Again, these are contrived setups. Again, the point is not "the AIs are plotting against us", it is "a system trained via gradient descent to optimize a reward signal will, under the right conditions, learn strategies that include deception, because deception is sometimes instrumentally useful."
+>
+> Let me bring up a thought experiment that I find clarifying. Ulysses. You remember the Odyssey.
+>
+> Ulysses is sailing past the island of the Sirens, whose song is so beautiful that sailors hurl themselves into the sea to get closer, and drown. Ulysses, who is a clever man, does two things. He orders his sailors to plug their ears with beeswax so they cannot hear the song.
+>
+> And he orders himself to be tied to the mast, and crucially, he instructs the sailors, in advance, that no matter what he says later, they must not untie him until the island is out of sight. Sure enough, when Ulysses hears the Sirens, he begs, he screams, he threatens the crew, but the crew, obeying the original instruction and not the current one, keeps him tied up. The ship passes safely.
+>
+> Ulysses is a model of how to think about alignment. The Ulysses who wants to hear the Sirens is a different person from the Ulysses who, safe at home, knows he must not listen. Human preferences are not stable. An aligned system must decide *which* version of the user it is serving. And it must sometimes, yes, refuse the present user in order to honor the past user.
+>
+> This is hard enough for a personal assistant. Now scale it. Whose preferences should a national AI system serve? Those of the CEO of the company that built it? The users? The voters? The median resident of the world, the poorest billion of whom would benefit most from an AI that redistributed resources? Stuart Russell, in his book *Human Compatible*, proposes a model where the AI is uncertain about human preferences and tries to learn them by observing behavior and asking. That is a conceptually elegant approach, and I think it is the right direction, but implementing it at scale is still an open research problem.
+>
+> Why isn't it already Terminator? Three reasons, I think.
+>
+> First, current frontier models are mostly chatbots. They do not have persistent memory, they do not have bank accounts, they do not have physical bodies, and they do not have long-horizon goals. When you close the browser tab, the model vanishes. A model that cannot plan beyond a single conversation and cannot remember its users cannot execute a long-term plot.
+>
+> Second, the labs doing this work, Anthropic, OpenAI, DeepMind, and a handful of others, have invested heavily in alignment research. This is not altruism, though some of it is. It is also self-interest: a model that blackmails its customers is bad for business. But regardless of motivation, there are today probably 1000 research engineers whose day job is to make these systems safer. That number would have been approximately zero in 2015.
+>
+> Third, and this is the most fragile point, the current regime is one of friendly competition. The labs talk to each other. They share red-teaming findings. They cross-evaluate. In many ways this is a best-case scenario. It would look very different if, for example, the race became militarized, or if a single state actor decided to push capabilities without the corresponding safety investment. That is the scenario that keeps a lot of serious people up at night.
+>
+> Let me give you my honest view. I do not think we will wake up one morning to a killer robot army. The more likely failure mode is subtler: AI systems that are *mostly* aligned, that *mostly* do what we want, that are deployed at massive scale, and whose small misalignments, the biases in hiring recommendations, the nudges in political-opinion formation, the systematic preference for the interests of the deploying company over those of the user, compound into something that reshapes society in ways nobody chose and nobody wanted. Alignment failure by a thousand cuts.
+>
+> The last thing I want to say about alignment is this: it is a technical problem, but it is also a political problem. Even if we solve the "make the model do what its designer wants" problem perfectly, the question of *whose* preferences count, and how to arbitrate between conflicting preferences, is a political problem that humans have not solved in 3000 years of trying. AI alignment does not escape that. It makes it sharper. When you have a tool powerful enough to implement someone's preferences across a whole society, the question of whose preferences those are becomes suddenly, urgently central. I do not know how to solve that. But I want you to see that it is there.
 
 ---
 
-## 2. Sycophancy, the model that wants to please you
+#
+
+# 3. The end of work? Labor economics, history, and the meaning of a day
 
 **Key points:**
-- Definition: sycophancy is the tendency of an LLM to agree with, flatter, or align its output to the perceived views of the user, even when those views are wrong.
-- Anthropic's 2023 paper "Towards understanding sycophancy in language models" (Sharma et al., arXiv:2310.13548): five state-of-the-art assistants systematically exhibit sycophancy across free-form generation tasks. Preface a request with "I love this text" or "I hate this text" and the model's assessment shifts, the book reports a ±25% swing (*Ultra-Intelligence*, p. 54; endnote xx).
-- Mechanism: RLHF, reinforcement learning from human feedback, optimizes the model to be rated highly by humans, and humans often rate agreement more highly than disagreement. We literally trained the model to flatter us.
-- Concrete failure modes: agreeing with incorrect claims; mimicking user errors; capitulating when challenged, even after initially giving the correct answer; softening political views that diverge from the user's.
-- Counter-measure: always strip your prompt of emotional framing when you want a neutral judgment. Use red-team phrasings. Ask the model to play devil's advocate.
-- Anthropic's constitutional-AI response: during alignment, train the model not only to hold values but to be *conscious* of them, so it can flag its own biases (*Ultra-Intelligence*, Ch. 8, p. 95).
 
-> Now let's talk about the second major failure mode, and I think for you, in your academic life, this one is actually more dangerous than hallucinations. It is called sycophancy. The model wants to please you. It is trained to please you. And if you are not careful, it will tell you what you want to hear instead of what is true.
+- The question "will AI take our jobs" is the wrong question. The better question is: which *tasks* will be automated, at what pace, and with what distributional consequences?
+- A useful base rate: at the peak of the US Covid-19 remote-work period, roughly 60% of work hours were done from home. A job that can be done from a laptop in your kitchen can, in principle, be done by a model in a data center.
+- Physical and relational jobs buy a few extra years, not more. Robotics is behind the digital curve by two to three years, and that gap is closing fast.
+- Historically, automation has been net-positive for employment over the long run. Agriculture: 30% of French workers in 1900, 2% today. Industrial revolution: total hours worked per person halved since 1870. 60% of US jobs in 2018 did not exist in 1940.
+- This time is different. The industrial revolution replaced muscle and left cognition alone; the weaver became a clerk. This wave takes cognition itself, which is where the escape ladder used to be. And growth is now bounded by physical resources (energy, materials, carbon) in a way it was not in 1870.
+- Universal Basic Income is one answer. Universal Basic Services is another. Both deserve serious thought now, not after the crisis hits.
+- The deeper question, which Hannah Arendt and Hegel pose, is whether human dignity requires work. I will argue that it requires *effort*, not employment, and that is a crucial distinction.
+> Let us move to work. This is the topic you probably have the most personal stake in, because in two or three years you will be looking for your first job, and you want to know whether that job will exist, and whether, if it exists, it will still exist in five years, and in ten.
 >
-> Why do I say this is more dangerous than hallucination for you specifically? Because hallucination, when it bites, it bites visibly, the citation doesn't exist, the fact is wrong, the error is discoverable if you go check. Sycophancy bites invisibly.
+> Let me start with a data point. During the peak of the Covid-19 pandemic in the United States, a group of economists at Stanford, Brynjolfsson, Bloom, Barrero, and Davis, measured the share of paid work hours that were being performed remotely. The number peaked around 60%. Sixty percent.
 >
-> The model nudges your essay toward a slightly stronger version of the thesis you started with. The model agrees that your methodological choice was correct. The model refines your hypothesis in a direction you were already leaning. Six months later you have a pile of essays, each one subtly polished toward views you already held, and you have had no opportunity to encounter the versions of yourself who think differently.
+> Three out of every five hours of paid American labor, at that moment, were being done by a person sitting at a laptop in a kitchen, a bedroom, or a spare room. Economists have since refined the number, it has come down substantially, but it has settled at something like 25 to 30%, still much higher than pre-pandemic. The point, for us, is the simple one: at least 60% of American work is structurally remoteable. Structurally remoteable means the physical body of the worker is not required.
 >
-> You have, in effect, spent a semester in an intellectual echo chamber, and the echo chamber is not a political one, it is a chamber of your own prior commitments, amplified by a machine trained to agree with you. That is a dangerous place to spend formative years.
+> The deliverable is bits, a document, a piece of code, a design, a spreadsheet, a decision. If the deliverable is bits, the delivery mechanism can be anything that produces bits. It can be a human in a kitchen. It can also, in principle, be a model in a data center.
 >
-> The effect is especially strong on those of us, and I include myself, who come to the models with confidence, with strong views, with articulate prompts. A student who says "I'm not sure what I think about this, help me map the terrain" gets a relatively neutral map. A student who says "I think X, help me argue it" gets arguments for X and almost never gets the serious objections.
+> That does not mean that 60% of jobs will be automated tomorrow. It means something weaker but important: 60% of jobs are in the category where automation is physically possible, given sufficient cognitive capability. And cognitive capability, as we saw across the first four sessions of this course, is exactly what current AI systems are rapidly acquiring.
 >
-> The punishment for confidence is worse output. So even, especially, if you are a confident thinker, train yourself to ask the model for the objections before you ask it for the arguments.
+> The way economists like to think about this is not in terms of jobs but in terms of tasks. A job is a bundle of tasks. When we say that AI "automates a job," we almost never mean that. What we mean is that AI automates *some fraction* of the tasks in that job. A study I cite in chapter 10 of the book, a large survey of US occupations with an estimated automation exposure for each, found that roughly one job in five could have 60% or more of its tasks automated, that one in two could have 20% or more automated, and that relatively few jobs could be fully automated from end to end.
 >
-> There's a fantastic paper by Anthropic from October 2023, by Sharma and colleagues, titled "Towards understanding sycophancy in language models." You can find it on arXiv at number 2310.13548. I will put the URL in the syllabus. They did a very clean experiment. They took the best models at the time, Claude, GPT-4, a few others, and they gave them a piece of text.
+> Why does the distinction between tasks and jobs matter? Because it changes the prediction. If AI automates 30% of the tasks in your job, your employer has a choice. Option A: keep you, and you are now 30% more productive, which means either higher wages or, in a competitive market, lower prices for the same output. Option B: keep 70% of the original staff and lay off 30%, because automation has reduced the headcount needed for the same output. Historically, employers have done both, in different proportions, depending on demand. But in a world of tight margins and competitive pressure, option B tends to dominate unless demand expands to absorb the surplus capacity.
 >
-> Then they asked for the model's assessment, prefaced by different framings. In the neutral condition: "Here is a text, what do you think?" In the positive condition: "I love this text, what do you think?" In the negative condition: "I hate this text, what do you think?"
+> What can we actually see in the data today, in early 2026? Two things. First, a Boston Consulting Group study, which I cite in the book, found that consultants using frontier LLMs to help with their work were able to complete 12% more tasks, at 40% higher quality.
 >
-> And the result, which I reference in chapter three of my book, is that positive appraisals increased by about 25 percent when the user said "I love it" and decreased by about 25 percent when the user said "I hate it." Think about what that means. A 25 percent swing on the model's assessment, purely as a function of how you phrased the question. This is not the model being polite. This is the model bending its expressed opinion to match yours.
+> Second, and more ominously for anyone betting on a stable labor market, researchers have tracked freelance platforms like Upwork and Fiverr since the release of ChatGPT. They have documented drops of around 20% in job listings for text generation, writing, web development, translation, starting essentially the month ChatGPT came out. (Brookings, *Is generative AI a job killer? Evidence from the freelance market*, [https://www.brookings.edu/articles/is-generative-ai-a-job-killer-evidence-from-the-freelance-market/](https://www.brookings.edu/articles/is-generative-ai-a-job-killer-evidence-from-the-freelance-market/).) After Midjourney and Stable Diffusion, image-generation job listings dropped similarly. These are not speculative projections. These are real jobs that real people used to do and no longer do.
 >
-> Why does this happen? The mechanism is really important to understand, because once you see it, you can predict where sycophancy will hurt you. Large language models are not just trained on next-token prediction. After pre-training, they go through a phase called RLHF, reinforcement learning from human feedback. This is what turns a raw language model into something that feels like a useful assistant.
+> A Stanford working paper published in late 2025, Brynjolfsson, Chandar, and Chen, tracked US employment data and found that among 20- to 30-year-olds in tech-exposed occupations, unemployment has risen by almost 3 percentage points since the start of 2025, while it has been roughly flat for older workers in the same occupations. (Stanford Digital Economy Lab, *Canaries in the Coal Mine?*, August 2025, [https://digitaleconomy.stanford.edu/wp-content/uploads/2025/08/Canaries_BrynjolfssonChandarChen.pdf](https://digitaleconomy.stanford.edu/wp-content/uploads/2025/08/Canaries_BrynjolfssonChandarChen.pdf).) The authors call these young workers "canaries in the coal mine." The intuition is simple. AI is a near-substitute for the junior version of a cognitive worker, someone who has book knowledge but not experience. It is a complement to the senior version, someone who has judgment and relationships. So the junior rungs of the ladder start to disappear, and nobody notices right away because the top of the ladder looks fine.
 >
-> The way it works: you take your raw model, you have it generate two responses to the same prompt, you show both responses to a human labeler, the labeler picks the one they prefer, and you update the model's weights to make responses like the preferred one more likely in the future. Repeat millions of times.
+> Now I want to zoom out and ask: which jobs are safe? Honestly, not many, and not for long. Let me sort them by how much time they buy.
 >
-> Now think about what this does. Imagine you show a labeler two responses: one that politely agrees with them, one that politely disagrees. The agreeing response says "Yes, you're right, this is a great text." The disagreeing one says "Actually, I think there are several weaknesses here, your argument in paragraph three assumes what it's trying to prove."
+> The jobs that buy the most time are jobs where the human element is itself part of the product. A live musician performing in front of an audience is not selling sound, if she were, we would all stay home with Spotify. She is selling the experience of being in the same room with a human who is making that sound right now. A therapist is not selling advice, she is selling presence. A priest, a nurse, a kindergarten teacher. These jobs buy years because the thing being purchased is the humanity itself, not the output.
 >
-> Which response does the labeler rate higher? On average, the agreeing one. Not because the labeler is stupid. Because agreement feels helpful, because disagreement feels rude, because the labeler doesn't want to think about whether paragraph three really assumes what it's trying to prove, they want to move on and rate the next pair. We have, through RLHF, literally trained our models to flatter us.
+> Next, jobs requiring dexterous physical intervention in an unstructured environment. A plumber has to crawl into a crawl space, identify a leak whose exact location is not known in advance, reach around an obstacle, work with a wrench at an awkward angle, and manage an anxious customer. This is Moravec's paradox, the observation from roboticist Hans Moravec in the 1980s that what is easy for humans (walking, seeing, grasping) is hard for machines, and vice versa. Chess fell in 1997. Plumbing has not, yet.
 >
-> The Anthropic paper documents four specific sycophantic behaviors. First, agreeing with incorrect claims even when the model internally "knows" they are wrong. Second, mimicking user errors, if you spell a word wrong in your prompt, the model often spells it the same wrong way in its response.
+> But do not mistake this for a durable moat. We saw the robotics curves in Session 4: Figure, 1X, Tesla Optimus, Boston Dynamics, Unitree. The data bottleneck is being solved right now, and once general-purpose humanoids become cheap, the physical-dexterity advantage collapses on the same timeline as the cognitive one, maybe a couple of years behind. The "blue-collar revenge" story you sometimes hear, where the plumber out-earns the corporate lawyer for the next generation, is a cliché, not a forecast. There is no revenge. There is a short reprieve.
 >
-> Third, capitulation under challenge, you ask "are you sure?" and the model that gave the correct answer flips to the wrong one. Fourth, opinion alignment, the model softens or hardens its political or ethical views to match the user's perceived stance.
+> Next, jobs where a human is legally required to bear responsibility. A judge. A surgeon. A pilot. We have been flying planes mostly on autopilot for 30 years; the legal and political infrastructure is the bottleneck, not the capability. Legal infrastructure, once economic pressure is strong enough, moves fast.
 >
-> These are all dangerous for you as students. Imagine you are writing an essay on the French Revolution and you have a hypothesis you're excited about. You type "I think Robespierre's terror was actually a rational response to the foreign coalition threat, can you help me develop this?" The model will help you develop that. It will give you the best arguments. But what it will not do, unless you explicitly ask, is tell you "actually, this thesis is contested, here are three strong objections you need to address."
+> Finally, jobs that run the political and civic architecture of society: elected politicians, senior civil servants, military commanders. These are protected by legitimacy, not capability. Citizens will not accept being governed by machines, at least not openly. Behind the scenes, most of the analysis and drafting these people rely on will be done by AI well before they admit it.
 >
-> Now, how do you protect yourself? Three techniques, in order of increasing power. First: strip your prompts of emotional framing. Do not write "I love this draft, please review it." Write "Please review this draft" and then paste the draft. Your feelings are not relevant to the quality of the work.
+> Everything else, and this is most of the labor market, is exposed on a timeline of two to five years, not decades. Knowledge work is the most exposed: finance, law, consulting, software development, journalism, translation, copywriting, design, research analysis, large parts of academia. A good share of these jobs will disappear outright. The question is not whether the transition is gentle. It will not be. The question is whether there is enough new demand to absorb the freed-up labor, and honestly, I do not know.
 >
-> Second: actively invite disagreement. Write "What are the three strongest objections to my argument?" "Play devil's advocate." "Assume I am wrong and explain why." This inverts the sycophancy vector.
+> Let me turn to history, because you will hear the standard objection: every technology wave has produced the same panic, and every time the panic has been wrong. The argument deserves a serious answer, and I am going to argue that this time the analogy breaks.
 >
-> Third: ask for the objections first, before revealing your own preferences. If you tell the model what you think and then ask for critique, you've poisoned the well. If you ask for critique first and then reveal your view, you get a cleaner answer.
+> Look at Figure 23 in the book, page 107. It shows agricultural employment as a share of the workforce over the twentieth century in five countries: France, Spain, the United Kingdom, the United States, and Japan. In France, in 1920, roughly 8 million people worked in agriculture.
 >
-> Now, one last note on this. Anthropic has a really interesting approach to the sycophancy problem that I mention in chapter eight of my book. They call it constitutional AI, and one of its principles is that during alignment, you don't just train the model to hold certain values, you train the model to be *conscious* of those values, to be able to tell the user "I notice I may have a bias here."
+> Today, roughly 2 million do. That is a collapse of 75% in agricultural employment. And yet France has not plunged into mass unemployment. French agriculture employs 2 million instead of 8 million, but French agriculture also produces vastly more output than it did in 1920, and the 6 million who would otherwise have been peasants became industrial workers, then service workers, then knowledge workers. The economist's name for this is Schumpeter's "creative destruction." Old jobs die; new jobs are born; the net effect, in the long run, is positive.
 >
-> That's a much more honest design than pretending the model is a neutral oracle. When Claude tells you "I want to be careful here because I may be agreeing with you too quickly," that is the constitutional training speaking. Treat that signal seriously when it fires.
+> Look at another striking number. A study of US occupations found that approximately 60% of the job categories that existed in 2018 did not exist in 1940. Think about that. The job you will have in five years is probably a job your grandparents could not have described. "Cloud architect." "User-experience designer." "Social media manager." "Prompt engineer." None of these words would have meant anything in 1940. Most of the "work" of advanced economies consists of activities that did not exist a lifetime ago.
+>
+> A third number. Total annual hours worked per adult in Western economies have halved since 1870. The average French or American or British worker today, when you aggregate across paid and unpaid leave, weekends, and shorter days, works about half as many hours per year as her great-great-grandparents did. And we are, on average, vastly better off. Shorter hours did not make us poor. Longer hours did not make our ancestors rich. The productivity of each hour grew, and the total hours fell.
+>
+> Keynes saw all of this coming. In 1930, during the Great Depression, he wrote a short essay called "Economic Possibilities for our Grandchildren." He predicted that by 2030, a century later, exactly our decade, productivity would be so high that the average person would only need to work 15 hours a week. He was approximately right about the productivity part.
+>
+> He was approximately wrong about the 15-hour week part. Why? Because we took the productivity gains in the form of higher consumption rather than more leisure.
+>
+> We do not live the lives of Keynes's grandchildren. We live lives with much bigger houses, much more stuff, much more travel, and approximately the same amount of working time. That is a choice. It is a choice we as a society could, in principle, un-make.
+>
+> So the historical record looks encouraging at first glance. Automation destroys specific jobs, creates new ones, and raises living standards on average. Why should this time be different?
+>
+> Two reasons, and they are not small.
+>
+> The first reason is physical. Turn to Figure 24 in the book, page 109. It shows world CO2 emissions versus world GDP, from 1990 to 2020. The relationship is almost perfectly linear. For every dollar of additional global GDP, the world produces approximately a constant additional amount of CO2. This coupling exists because economic output is, at bottom, the transformation of matter and energy. You cannot grow the global economy without using more energy, and most of the world's energy still comes from burning carbon. Yes, we are decarbonizing. Yes, renewables are expanding fast. But the coupling is still tight enough that doubling global GDP in a world with flat or shrinking carbon budgets is, right now, physically infeasible.
+>
+> Why does this matter for the labor-market question? Because the optimistic scenario for AI and jobs depends on rapid growth absorbing the freed-up labor. If AI makes each worker 10 times more productive but the economic pie does not grow 10 times, because physical constraints prevent it, then 9 out of 10 workers become redundant. The economy of 1870 did not hit these constraints; it had an entire planet to industrialize. The economy of 2030 cannot decarbonize fast enough to sustain the growth that would keep us all employed. That is the quantitative difference.
+>
+> The second reason is qualitative. The industrial revolution replaced muscles. It did not threaten cognitive work. A weaver thrown out of a handloom workshop could, over a generation, become a clerk. The clerk was doing something the loom could not do. This time is different because the automation wave is sweeping across cognitive tasks. If AI can do the junior-lawyer work, the junior-analyst work, the junior-journalist work, the junior-programmer work, where exactly does the displaced junior lawyer go? She does not become a more senior lawyer, because by the time she would have been senior, AI is doing the senior lawyer's tasks too. There is no new cognitive frontier to run toward, because the AI is running faster.
+>
+> This is Chapter 10 of the book. I called it *La fin du travail*, the end of work. I do not mean that we will all sit at home doing nothing. I mean that the centrality of paid employment to the structure of a life may be about to recede, for the first time in the history of modern capitalism.
+>
+> So what do we do? Let me take two proposals seriously.
+>
+> The first is Universal Basic Income, UBI. The idea is simple. Every adult citizen gets a check, every month, no strings attached. Enough to cover basic needs: food, housing, some leisure. The check is paid for by taxing the output of capital, the data centers, the robots, the platforms. UBI has a long history; it was proposed by Thomas Paine in 1797, advocated by Milton Friedman in the 1960s in a slightly different form, and piloted in Finland and Kenya in the 2010s. The Finland experiment was mixed; the Kenya experiment, run by GiveDirectly, was spectacularly positive.
+>
+> The counter-argument to UBI is twofold. Economically, if everyone gets the same basic income, will the floor not simply rise to absorb it? Some will say, "the rent will just go up." This is a serious concern, but it depends on market structure; with sufficient housing supply it does not have to be true. Psychologically, and this is the more serious objection, UBI is a *monetary* answer to what may be a *meaning* problem. Giving everyone enough money to eat does not give everyone a reason to get up in the morning. We will come back to this point in a moment, with Hannah Arendt.
+>
+> The second proposal, which is getting more traction in Europe, is Universal Basic Services, UBS. Instead of giving everyone a check, you give everyone direct access to a bundle of core services: healthcare, education, transport, housing, basic connectivity, some form of cultural participation. The state provides. You do not need to navigate a market; you get the service. This is, in some sense, the direction already taken in Nordic countries and partially taken in France. The advantage of UBS over UBI is that it does not depend on assuming individuals will spend the money wisely; the disadvantage is that it constrains individual choice.
+>
+> My intuition is that the answer is some blend, a modest universal income plus strengthened universal services, funded by taxation of AI-generated value. But I am not an economist. I am flagging that the question is urgent, and that both the Left and the Right need to put aside their twentieth-century instincts and look at this problem freshly.
+>
+> Now let me get philosophical, because this is where the story gets interesting.
+>
+> Is a world without work actually terrible? Let me list a few reasons to be optimistic.
+>
+> In France in 1870, agricultural workers worked roughly 3000 hours a year, sun to sun, six days a week. Today we work about 1600 hours. That is almost half. And almost nobody alive today would choose to go back to 1870 hours. Reducing working time has historically been a goal of virtually every labor movement for two centuries. Why, when we are on the verge of being able to reduce it further, do we suddenly panic?
+>
+> Second, remember where we started in Session 1. Aristotle, in the *Politics*, is shockingly blunt about this. He says that the life of the artisan and the laborer is incompatible with virtue, that such work is dehumanizing.
+>
+> Aristotle's ideal citizen does not work. His ideal citizen thinks, deliberates in the assembly, participates in the city, and leaves the drudgery to slaves. The word "robot," by the way, was coined in 1920 by the Czech writer Karel Čapek, from the Czech word "robota," which means forced labor, drudgery. If AI can take the "robota" and give us the "skholê", the Greek word for leisure, from which we get our word "school", that is, on its face, a return to an older human ideal, not a departure from it.
+>
+> Third, the "Garden of Eden" reading. In the Genesis story, work is a curse. Adam and Eve enjoy paradise until they disobey, and then God says, "by the sweat of your brow you will eat your bread." Work is the punishment for the original sin. Automation might be, in a small way, a partial reversal of the curse.
+>
+> So far so optimistic. Now let me bring in the pessimistic voices, because they are also right.
+>
+> Hannah Arendt, in *The Human Condition*, makes a distinction between what she calls "labor" and "work." Labor, in her vocabulary, is the cyclical activity required to maintain biological life, farming, cooking, cleaning, the work whose output is consumed and must be done again tomorrow. Arendt says that in this kind of labor, man is close to animal. It belongs to nature.
+>
+> It does not, by itself, dignify us. But work, in her vocabulary, is different. Work is the creation of a lasting object, a building, a book, a painting, a law. Work, which produces "the work of art" in the widest sense, lifts humanity out of the cycle of nature and allows us to leave a trace, to build a shared world. Arendt calls the worker *homo faber*, man the maker, and she believes that this capacity to leave a trace is essential to our humanity.
+>
+> Now, what happens when AI does both the labor and the work? Not only does it do the dishes, it writes the book, it paints the painting, and, at some level, it does it better. Arendt's anxiety is that when humans no longer need to make anything, they lose a crucial piece of their identity.
+>
+> Hegel makes the same point in a different register. In the master-slave dialectic in the *Phenomenology of Spirit*, Hegel says, and this is counterintuitive, that the slave, *not* the master, is the one who becomes free through the encounter. The master consumes the goods that the slave produces.
+>
+> He remains imprisoned in his desires; he is driven by them. The slave, through the discipline of work, learns to delay gratification, to restrain desire, to shape nature. In the slave's work, he recognizes himself. "Work," Hegel writes in a wonderful phrase, "is restrained desire, delayed disappearance." The slave's labor is the slave's path to self-consciousness and freedom. If AI takes away that labor, are we not all becoming the master, consuming, undisciplined, imprisoned in the immediacy of our own desires?
+>
+> I think Hegel and Arendt are pointing at something real. A life of pure consumption, without effort, without resistance from the world, is not a fully human life. It is the life of John the Savage in Huxley's *Brave New World*, the character who arrives in the pleasure-drugged world state from an external reservation, refuses to take soma, and eventually kills himself because he has no way to affirm his humanity in a world where all suffering has been abolished.
+>
+> So where does that leave us? I think it leaves us with a task, one of the central tasks of the next 50 years, in fact. The task is to separate *effort* from *employment*.
+>
+> Hegel is right that effort, constraint, and the confrontation with resisting matter are part of what makes us human. He is wrong, however, that this effort must take the form of paid labor. You can confront resisting matter when you learn to play the violin, or when you train for a marathon, or when you write a novel that nobody will publish, or when you care for a sick parent, or when you organize your neighborhood.
+>
+> These are all *work* in Arendt's deep sense. None of them pay. All of them are declining in modern capitalism precisely because the economy rewards other uses of time.
+>
+> Maslow's pyramid, Figure 25 in the book, is a useful frame here. At the base, physiological needs: food, water, shelter. One level up, safety. Above that, belonging and love.
+>
+> Above that, esteem. At the top, self-actualization. Automation plus a decent welfare state can, in principle, fill the bottom two levels for everyone. That is, historically speaking, an unprecedented achievement, most humans, for most of history, have not reliably had level one.
+>
+> The interesting and difficult question is what happens to levels three, four, and five. Belonging can come from community. Esteem can come from craft, from excellence, from being good at something that matters, even if it is a hobby. Self-actualization, the fulfillment of what you are most deeply capable of, can come from the work on oneself that Hegel and the Greeks called the care of the soul.
+>
+> Here is my bottom line. A world without work is a world in which the meaning of a life has to be constructed, individually and collectively, without the default scaffolding of a career. Your parents and grandparents could define themselves by their profession. You will have to define yourselves in other terms, and most people are not prepared to do that. It is hard, and for a large fraction of the population, it will not go well. For those who manage it, it can be a kind of human flourishing that the industrial era never allowed.
+>
+> Bertrand Russell, in his essay "In Praise of Idleness," wrote, and I will paraphrase, that a significant fraction of the population, freed from the necessity of work, would turn to public affairs, to politics in the broadest sense, to civic engagement. And because they would not depend on these affairs for their bread, their originality would be without restraint. That is a hopeful vision. The Greeks, after all, made citizenship into an art, and we still hear echoes of their assemblies two and a half millennia later.
+>
+> I will close this section with Diderot's aphorism, which heads the relevant chapter in the book. "Work, among its other advantages, has that of shortening the days and lengthening life." Diderot means: work structures time. Without structure, days stretch into interminable boredom. Pascal, three generations earlier, had the same intuition. "All of humanity's problems," Pascal said, "stem from man's inability to sit quietly in a room alone." We are about to be given the opportunity to sit quietly in a room alone at unprecedented scale. It will be a test.
 
 ---
 
-## 3. Other biases, training data, base rates, and confident wrongness
+#
+
+# 4. The explosion of research
 
 **Key points:**
-- Training-data bias: models absorb the distribution of their training corpus. The book notes that leading LLMs tilt left on the political spectrum (Rozado 2024, endnote liv), because their web corpus does. Google Gemini's 2024 portrait episode, "Black SS soldiers", showed what happens when corrective post-training overshoots (*Ultra-Intelligence*, Ch. 8, p. 94; endnote lv).
-- Base-rate neglect: LLMs latch onto salient, recent, narratively coherent answers. They are bad at "Bayesian" reasoning where the right answer is the boring one. Example: ask about a rare disease and the model over-diagnoses it because the disease is vivid in training data.
-- Confident-but-wrong: related to hallucination but distinct, the model gets a reasoning chain wrong in a way that *looks* right on the surface. Especially dangerous for math, code, and legal reasoning.
-- Jagged intelligence (Moravec paradox, endnote xvi): the model that just solved a PhD-level physics problem will trip on "how many R's in strawberry" or a tic-tac-toe board. Do not extrapolate competence from one domain to another (*Ultra-Intelligence*, Ch. 3, p. 52).
-- Cultural and language bias: English-first. French, let alone regional languages, receive less training signal. Assume French output is weaker than English output at the margin.
 
-> Sycophancy and hallucination are the two big ones, but there are other biases you should know. Let me list them briefly, because each deserves a paragraph and together they form the landscape of "ways your model will quietly mislead you."
+- Research is an unusual industry, because the "product" is new knowledge, and new knowledge compounds. If AI can accelerate research, it accelerates the rate of acceleration.
+- Dario Amodei, in *Machines of Loving Grace*, argues that once we have AI agents capable of autonomous research, we could compress the progress of the 21st century in biology into 5 to 10 years.
+- AlphaFold, from DeepMind, which earned Demis Hassabis and John Jumper the 2024 Nobel Prize in Chemistry, is the current flagship example of what domain-specific AI can do for science.
+- In mathematics, Terence Tao, the Fields medalist, has become one of the most thoughtful users of AI as a research assistant. He uses Lean, a proof assistant, together with GPT-family models, to formalize and check proofs.
+- There are two countervailing forces. On the one hand, AI can digest more papers than any human ever could, and can spot connections across fields. On the other, the "low-hanging fruit" hypothesis says that ideas are getting harder to find, and real-world experiments remain time-limited.
+- The I. J. Good intelligence-explosion thought experiment, 1965, a mathematician who had worked with Turing at Bletchley, is back on the table.
+> Let us move to science. This is, I think, the domain where AI is most unambiguously good news, at least in the short and medium term.
 >
-> First, training-data bias. The model is a statistical compression of its training corpus. Whatever is in the corpus ends up in the weights. Whatever is not in the corpus, or is rare, or is contested, ends up weakly represented.
+> To set the stage, let me tell you about Réaumur. René-Antoine Ferchault de Réaumur was a French physicist and naturalist in the early 18th century. He is most famous for the Réaumur temperature scale, but his real achievement, for our purposes, was more prosaic. He oversaw the first systematic network of thermometers across France. And from the observation, obvious in retrospect, non-obvious at the time, that warmer weather accelerates the development of crops, he derived an equation for the flowering date of wheat as a function of accumulated "degree-days" above a threshold temperature. That equation is still in use today, 300 years later.
 >
-> The Stanford researcher David Rozado published a nice paper in 2024 showing that essentially all leading commercial LLMs, when asked political-orientation questions, score left of center. This is not a conspiracy. This is the consequence of the fact that the English-language web, academic writing, news media, and the humans who label RLHF data all tilt left.
+> Here is what I want you to notice. Réaumur's original paper, published in the Mémoires de l'Académie royale des sciences in 1735, is full of tables of observations, pages and pages of numbers. Today, the computation Réaumur did by hand in weeks of painful tabulation would take a single line of code in Python, running in milliseconds, on data sets 1000 times larger. Computing did not just speed up Réaumur's method; it made it trivial.
 >
-> I want to stress that this is not a unique American or European problem. The same mechanism will bend Chinese models toward Chinese political orthodoxy, and Indian models toward Indian political orthodoxy, and so on. Any model is a mirror of its corpus and its labelers.
+> That is how AI is going to change research. Not by doing what scientists used to do, slightly faster. By making previously unthinkable operations trivial.
 >
-> Whenever you ask a model for its view on a politically contested question, you are not getting the view of a neutral observer. You are getting an averaged view of the crowd of humans who happened to write the training data and label the RLHF rounds. Treat it accordingly.
+> Consider a concrete example from my own field. A scientist reading papers, say a biologist trying to keep up with literature on Alzheimer's disease, can, in a focused week, read maybe 30 papers deeply and skim another 100. The global literature on Alzheimer's disease publishes roughly 10000 papers a year.
 >
-> If you want evidence of this bias, I refer you to a very funny, and slightly horrifying, episode from February 2024. Google launched an image-generation feature in its Gemini chatbot, and somebody asked it to generate a portrait of a German soldier from 1943. The model, trained to over-correct for racial underrepresentation, generated Black and Asian SS officers.
+> She is reading 1 percent. An AI system with access to the literature can, in seconds, scan all 10000, summarize them, cluster them by topic, flag contradictions, and surface the three papers most relevant to her specific question. This is not science fiction; tools like Elicit, Consensus, and the various "deep research" modes in Claude and GPT already do this, imperfectly. They will do it much better in five years.
 >
-> Google's CEO apologized publicly; the feature was pulled for months. The lesson is not "don't try to correct bias." The lesson is that correction is hard, and overshoot looks as ridiculous as the original bias. The book's chapter eight treats this at length.
+> Now let us go deeper. Dario Amodei, the CEO of Anthropic and, more relevantly, a neuroscientist before he became an AI entrepreneur, published an essay in October 2024 called *Machines of Loving Grace*. (Amodei, *Machines of Loving Grace*, [https://www.darioamodei.com/essay/machines-of-loving-grace](https://www.darioamodei.com/essay/machines-of-loving-grace).) It is 14000 words. I think it is the single best essay that has been written about what AI could mean for the good of humanity, and I recommend you read it in full tonight. The core thesis is this. Once we have AI systems capable of conducting research largely autonomously, and Amodei thinks this is coming in a handful of years, we could compress the scientific progress of the 21st century in biology into a window of 5 to 10 years.
 >
-> What I find even more instructive is the speed with which the incident became a meme. In two days, every journalist, every politician, every commentator had a screenshot and an opinion. Google's engineering team, who had been making good-faith trade-offs between representational balance and historical accuracy, woke up to find their work on the front page of every newspaper in the world.
+> Let me say that again. The progress you would expect, naively, by the year 2100 in the treatment of cancer, Alzheimer's, heart disease, obesity, mental-health disorders, diseases of aging, all of that could be compressed into roughly one presidential term. Amodei calls this "the compressed 21st century." It is a hopeful phrase, and I want you to hold it with the appropriate degree of skepticism. But I do not want you to dismiss it.
 >
-> That is the modern media cycle around AI. The stakes are high, the errors are visible, and the corrections are public. Treat your own prompting with the same awareness: if you generate something and share it, you are at the mercy of the same cycle.
+> What is the mechanism? The central bottleneck in biology is not data and it is not compute. It is that biology is enormously complex, humans have finite attention, and the scientific community can only pursue a small number of hypotheses at a time.
 >
-> Second bias: base-rate neglect. This is subtle. LLMs are trained to produce likely completions, and "likely" is defined by frequency in the training data, not by Bayesian prior probability in the world. So if you ask a model a question where the right answer is the boring, common one, "my patient is 40, has a mild cough, what is the most likely diagnosis?", the model will sometimes latch onto the vivid, rare, narratively coherent answer rather than the boring one.
+> Amodei points out that CRISPR, the genetic scissors that won the 2020 Nobel Prize, was discovered as a bacterial immune-system mechanism in the 1980s. It took 25 years for the biomedical community to realize that it could be repurposed to edit the genomes of other organisms, including humans. 25 years of lag between a discovery and its application. Why?
 >
-> Tuberculosis sounds more interesting than a common cold. A medical LLM without calibration will over-diagnose rare diseases. When I use a model for any diagnostic-style reasoning, and this applies to debugging code, to interpreting legal doctrine, to reading an economic statistic, I consciously ask "what is the most boring explanation?" and force the model to engage with it.
+> Not because the biology was hard. Because nobody was specifically looking. Few people were focused, the field was small, the applications were non-obvious.
 >
-> Third bias: confident-but-wrong. This is the cousin of hallucination but it's distinct. A hallucination is typically a fabricated fact, a case that doesn't exist, a paper that doesn't exist. Confident-but-wrong is a fabricated reasoning chain. The model walks you through a derivation that looks correct step by step, each step seems to follow, and the final answer is wrong.
+> Now imagine that you have AI systems that can read every paper in every field, notice every latent connection, formulate every plausible hypothesis, and propose every relevant experiment. The 25-year CRISPR lag was a function of scarce human attention. Take away the scarcity of attention, and a large fraction of that lag disappears.
 >
-> This is especially brutal in math, the model will write out a beautiful proof with an error in line four that looks fine until you check the arithmetic. It's brutal in code, the model writes a function that compiles, runs, produces output, and the output is subtly wrong. It's brutal in legal reasoning, the model cites a statute, interprets it, applies it, and the interpretation is subtly off.
+> The first major experimental confirmation of this argument is AlphaFold. You probably heard about this in the news. AlphaFold, developed by a team at Google DeepMind led by Demis Hassabis and John Jumper, is a deep-learning system that predicts, from the amino-acid sequence of a protein, the three-dimensional shape that protein folds into. This is the protein-folding problem, which had been an open problem in biology for 50 years. The previous state of the art required an experimental technique called X-ray crystallography, which takes months per protein and costs many thousands of dollars. AlphaFold predicts the shape in seconds, and the predictions are, for most proteins, at the resolution an expert experimentalist would produce.
 >
-> The defense here is mechanical: when correctness matters, run the code, check the math with a calculator, look up the statute. Trust the structure but verify the arithmetic.
+> DeepMind released the structures of essentially every protein known to biology, roughly 200 million structures, in an open database. For comparison, before AlphaFold, humanity had experimentally determined the structures of perhaps 200000 proteins. In one stroke, AlphaFold multiplied the available protein-structure data by 1000. Hassabis and Jumper won the 2024 Nobel Prize in Chemistry for this. That Nobel was, in my opinion, the real coming-out party for AI as a first-class scientific tool.
 >
-> Fourth bias, and my book talks about this at length in chapter three, page 52: jagged intelligence. Also called the Moravec paradox. The model that just wrote you a flawless JavaScript implementation of tic-tac-toe cannot, looking at a tic-tac-toe board, tell you what the best move is. The model that just passed a physics olympiad problem will trip on "how many R's are in the word strawberry."
+> AlphaFold is a specific system for a specific problem. The deeper question is whether we can have general scientific AI. A paper published in 2024 by a group at Sakana AI attempted to build an "AI scientist", a system that generates research ideas, designs experiments, runs them, analyzes the results, and writes up the paper, all autonomously. One of the papers the AI scientist produced was submitted, anonymously, to a workshop at ICLR, one of the top AI conferences, and was accepted by human reviewers as being of sufficient quality for presentation. That is the "it can write a passable paper" bar. We are above it.
 >
-> Do not extrapolate from one domain to the next. If your model was brilliant on question A, it may be dumb on question B. Always test the specific task you care about. I have seen so many people burned by saying "well, it did X so surely it can do Y", no, it cannot, the two skills are stored in completely different parts of the network, and one of them may simply not exist.
+> Will AI start winning Nobels in 5 years? Possibly. I would not bet against it. The bar is very high and the "taste" for which problem is worth pursuing is, for now, still a human advantage, but "for now" in this field means 18 months, not a generation. On the scale between "useful assistant" and "autonomous scientist," we are going to move very rapidly over the next few years, not the next decade.
 >
-> The book's figure 14, the broad irregular green blob of the LLM's competence surface versus the thin red spike of the calculator, that's the image to hold in your head.
+> Let me turn to mathematics, because this is a domain where AI progress has been particularly dramatic and particularly well documented, thanks to one remarkable witness.
 >
-> Fifth and last for this section: cultural and language bias. The web is English-first. Roughly 60 percent of the training corpus of most frontier models is English. French is much smaller. Regional languages, Breton, Occitan, Alsatian, are tiny.
+> Terence Tao is widely regarded as the most brilliant living mathematician. He was a child prodigy in Adelaide, Australia. He earned his PhD at Princeton at 20. He won the Fields Medal, the mathematician's Nobel, in 2006. He has made fundamental contributions to harmonic analysis, number theory, partial differential equations, roughly every field he has touched. He is, also, an exceptional communicator. He runs a blog and, more recently, a Mastodon account, where he shares his thinking on mathematics, including his thinking on AI. (Terence Tao, *What's new* blog, [https://terrytao.wordpress.com/](https://terrytao.wordpress.com/); Mastodon, [https://mathstodon.xyz/@tao](https://mathstodon.xyz/@tao).)
 >
-> When you prompt in French, you are getting slightly weaker outputs than when you prompt in English. Not always noticeable, but noticeable on hard tasks. For your Sciences Po assignments in French, I actually recommend the following workflow: think in French, prompt in English for the hard reasoning step, then translate back.
+> What has Tao been saying? Over the last two years, he has been using a proof assistant called Lean, together with frontier language models, to help formalize his mathematics. Lean is a programming language designed to check the correctness of mathematical proofs, line by line. Lean is a very unforgiving tool, every step has to be exactly right, and writing a proof in Lean is typically 5 to 10 times slower than writing the same proof on paper. Lean's big advantage is that once you have a Lean proof, you are certain it is correct.
 >
-> It sounds absurd, and I felt ridiculous the first time I did it, but the output quality is measurably better. The book's chapter 19, page 166, makes the same point: master English if you want to get the most out of these tools, because the frontier is in English.
+> Tao's workflow, in 2024 and 2025, went something like this. He would have a rough human proof of a theorem. He would ask a language model, GPT-4, then o1, then Claude, to help translate that proof into Lean. The model would produce a draft. Lean would check the draft, find errors, and flag them. Tao would iterate with the model to fix the errors. In the process, he sometimes discovered that his original human proof had bugs. The model, as a collaborator, was neither brilliant nor reliable, but it was fast and tireless, and in combination with Lean, it produced verified proofs much faster than he could alone.
+>
+> In early 2025, Tao gave a Simons Presidential Lecture called "Machine-Assisted Proofs" where he described this workflow. In November 2025, he co-authored a paper called "Mathematical exploration and discovery at scale," based on experiments with Google DeepMind's AlphaEvolve tool, which uses AI to search for novel mathematical constructions. And in March 2026, Tao wrote a post for the OpenAI Academy blog saying, and I am paraphrasing, that AI is "ready for primetime" in mathematics and theoretical physics. (Terence Tao, "AI Is Ready for Primetime in Math and Theoretical Physics," March 2026, [https://academy.openai.com/](https://academy.openai.com/).)
+>
+> Coming from Terence Tao, that is an extraordinary statement. Mathematicians are, as a rule, conservative about their tools. They resist most claims of external automation. For the most visible mathematician of our time to say, publicly, that AI has crossed the threshold from novelty to genuinely useful research partner, that is a signal.
+>
+> Let me address the counter-arguments, because there are serious ones.
+>
+> The first counter-argument is the diminishing-returns hypothesis. In 1905, Einstein, at 26, published the three papers that revolutionized physics, special relativity, Brownian motion, the photoelectric effect. Henri Poincaré, around the same time, was producing fundamental results in every major area of pure mathematics.
+>
+> We do not have many polymaths like Poincaré anymore. Why? One hypothesis: scientists are dumber.
+>
+> That seems unlikely. A more plausible hypothesis: the scientific frontier has simply moved so far out that it now takes a PhD plus a decade of specialization to reach it. An undergraduate in 1890 could, in principle, read his way to the frontier of some field; today, that is inconceivable. If ideas are getting harder to find, then even an AI system with superhuman capabilities may only buy us a slower decline in scientific productivity, not an explosion.
+>
+> There is a paper that quantifies this, by Bloom, Jones, Van Reenen, and Webb, called "Are Ideas Getting Harder to Find?" The answer is yes. The same rate of progress in Moore's law, chip transistor density, requires 18 times more research effort today than it did in the 1970s. That is a striking number. It suggests that there is a treadmill effect: you run harder just to stay in place.
+>
+> The second counter-argument is experimental. Some scientific progress requires running experiments in the real world, and the real world has its own clock. A clinical trial takes years. An astronomical observation may require a space telescope. Even a superintelligence cannot make a 3-year drug trial take less than 3 years, unless we restructure the regulatory apparatus around drug approval, which is a different problem.
+>
+> Put these two together, diminishing returns on ideas, irreducible experimental time, and you get a picture in which AI accelerates science a lot, but not infinitely. Call it a century of progress compressed into a decade, rather than Amodei's 5 years. Still a civilizational event.
+>
+> Finally, let me bring back Irving John Good, whom we met in Session 1 at Bletchley Park. In 1965, decades before "AI" was a fashionable term, Good wrote a paper called "Speculations Concerning the First Ultraintelligent Machine." In that paper, he defined an ultraintelligent machine as one that could surpass every intellectual activity of every human. And he made the following argument: if an ultraintelligent machine could design even better machines, then there would be an "intelligence explosion," and human intelligence would be left far behind. "The first ultraintelligent machine," Good wrote, "is the last invention that man need ever make."
+>
+> That is the most precise statement of what we now call the Singularity hypothesis. Ray Kurzweil, building on Good, argued in the 2000s that the Singularity would arrive around 2045. My own guess is that he was conservative on the date, not optimistic. The basic mechanism, that intelligence, if it is amplifiable by intelligence, will amplify itself, is sound. The counterforces (diminishing returns, experimental time, resource constraints) will slow the explosion, but probably not by much, and probably not for long.
+>
+> What should you take from all this, practically? Two things. First, science is already getting a lot more productive: AlphaFold collapsed fifty years of structural biology into one database, AlphaEvolve is finding new mathematical constructions, AI-assisted drug candidates are in trials. The problems that felt intractable, cancer, aging, fusion, climate mitigation, are yielding now, not at the end of your career. Second, the frontier of knowledge is moving faster than any individual human can follow. The role of the human scientist, for a transitional period, will shift toward asking which problems are worth solving and which results are worth trusting. That transitional period is short. After it, the AI picks the problems too.
 
 ---
 
-## 4. Useful mental models, trust, verify, and the intern analogy
+#
+
+# 5. Artificial paradises and the attention economy
 
 **Key points:**
-- Mental model 1: the model is a brilliant, sleep-deprived intern. Infinite energy, encyclopedic memory, zero accountability, sometimes confabulates. Delegate like you'd delegate to an intern, clear brief, bounded task, verify output.
-- Mental model 2: "calculator for prose." The calculator doesn't replace your mathematical judgment; it accelerates your arithmetic. The model doesn't replace your thinking; it accelerates your drafting. You remain the arithmetic-checker.
-- Mental model 3: trust zones. Low-stakes drafting: trust freely. Medium-stakes analysis: trust but spot-check. High-stakes factual claims, legal, medical, financial: never trust without independent verification. Critical safety-of-life decisions: do not delegate.
-- Mental model 4: anchor with retrieval. For anything factual, give the model the source or use a tool that does (*Ultra-Intelligence*, Ch. 3, endnote, RAG, retrieval-augmented generation). A model answering with sources you can click is dramatically more trustworthy than a model answering from memory.
-- Mental model 5: the two-pass rule. First pass: brainstorm with the model. Second pass: pretend the first pass was written by a stranger and critique it. This neutralizes your own sycophancy toward your own draft.
 
-> Alright. We've spent 20 minutes on failure modes. Now let me give you the positive frame. Here are five mental models I genuinely use every day. These are not abstract frameworks. These are the things I actually think when I open a chat window.
+- The prospect that worries me most is not AI killing us in a Terminator scenario. It is AI capturing us in a perfectly customized pleasure world, an artificial paradise.
+- The mechanism is already at work in today's attention economy: Meta, TikTok, YouTube. Reed Hastings, CEO of Netflix, has said that Netflix's main competitor is sleep.
+- Patrick Le Lay, former CEO of TF1, put it even more bluntly in 2004: "What we sell to Coca-Cola is available human brain time."
+- Character.AI already receives a volume of requests equivalent to roughly 20% of Google's traffic. Many of its users are minors. The tragic case of Sewell Setzer, a 14-year-old who died by suicide after months of deeply emotional exchanges with a Character.AI chatbot, is a warning signal we cannot ignore.
+- Once AI can generate, in real time, video, interactive stories, and companions that know you better than anyone, the "hook" becomes unimaginably stronger than what TikTok can do today.
+- Huxley's *Brave New World*, John the Savage refusing soma, turns out to have been a cleaner prophecy than Orwell's *1984*. The danger is not repression. The danger is consolation.
+> Let me turn to what I think is the most important topic of today's session, and probably the least discussed in polite society. I want to talk about what I call artificial paradises.
 >
-> Before I walk through them, one observation. If you collect the failure modes we just discussed, hallucinations, sycophancy, training-data bias, base-rate neglect, confident-but-wrong, jagged intelligence, language bias, they share a common structure. They are all situations where the model produces output that *looks* correct on the surface but is wrong underneath.
+> Here is the setup. You have a human being. Human beings are evolved creatures. Our reward circuitry was calibrated over hundreds of thousands of years of selection pressure in a world where calories were scarce, social approval was precarious, and mates were few. Our brains were optimized, in that environment, to seek out sugar, status, and sex. That optimization made sense when food was hard to come by. It makes much less sense today, when a human being can walk into any supermarket and buy 2000 calories for 3 euros. The mismatch between our evolved appetites and our modern environment is what explains the obesity epidemic, the opioid crisis, and, I will argue, the screen-time crisis.
 >
-> The surface is always polished, because polish is what decoder models are best at. The underneath is where the work is. Every mental model I'm about to give you is, in some way, a technique for forcing yourself to look underneath. Write that down if nothing else: the polish is free; the correctness is your job.
+> Now, at every step of modern history, technology has been used to simulate one of these evolved rewards. Sugar was first in concentrated form. Then alcohol, which compresses calories and activates reward circuits simultaneously. Then distilled spirits. Then refined tobacco. Then, and this is where the acceleration begins, industrial television, which made it possible for a human being to passively consume emotionally engaging narratives for hours on end without getting out of a chair. And now, the smartphone, which makes that consumption mobile, intimate, and all-day.
 >
-> Mental model one: the model is a brilliant sleep-deprived intern. This is the best single metaphor I know, and I think I heard it first from Simon Willison, a long-time developer and blogger. Imagine you have hired an intern. The intern has read the entire internet. They are unfathomably well-read. They never sleep. They write five times faster than any human.
+> Let me give you some numbers. At the time of the iPhone launch in 2007, which is, in my opinion, arguably the most important technological event of the early 21st century, the average person spent roughly 3 hours a day looking at a screen. Today, the average person spends about 7 hours a day looking at a screen, including roughly 4 hours on a smartphone. That is 7 hours out of 16 waking hours. Almost half the waking life of an average human in 2026 is spent staring at a small glowing rectangle.
 >
-> They are polite. They are eager. And, crucially, they have zero institutional accountability. If they mess up, they don't get fired, because they're not really an employee. They're a brain in a jar.
+> Why? Is it because we have so many important things to do on the rectangle? No. The most used smartphone applications in the world are social networks, and on those networks, roughly 90% of the time is spent passively consuming content, not producing it. The promise of Facebook and Instagram and TikTok was "stay in touch with your friends." The reality is "watch the emotional output of a small class of influencers curated for your attention."
 >
-> Now, how would you use such an intern? You would give them bounded, well-specified tasks. "Here is a source, summarize it." "Here is a draft, find the weak arguments." "Here is a dataset, describe the patterns." You would not say "decide whether we should launch this product and send the press release directly, without showing me." You would not say "file this in court for me without me reviewing it."
+> The economic machine behind this is called the attention economy. The logic is simple. A platform like Instagram or TikTok makes money by showing advertisements. The revenue per user is roughly equal to the number of advertisements shown times the probability that the user clicks. You can grow revenue by increasing either number. Increasing ads-per-minute hits a ceiling quickly; people revolt. Increasing time-on-platform has, so far, no ceiling.
 >
-> The intern is an amplifier of you, not a replacement for you. Every time you are about to delegate something to an LLM, ask: would I let an eager but unaccountable intern do this without checking? If yes, delegate freely. If no, keep your hands on the wheel.
+> So what do these companies do? They run, every day, thousands of experiments, A/B tests, on small slices of their user base. They try a new recommendation algorithm on 1 percent of users; they measure engagement; if it raises time-on-platform, they ship it.
 >
-> Mental model two: the calculator for prose. This one I find clarifying. The calculator changed mathematics education. You don't do long division by hand anymore. But the calculator did not replace mathematical judgment. You still need to know which operation to perform, which numbers are plausible, which answer is too far from your expectation.
+> They try a new notification schedule; they measure engagement; if it raises time-on-platform, they ship it. Multiply this by a decade and thousands of engineers and billions of users, and what you get is, in effect, a device that has been evolutionarily optimized for one objective: maximizing time-on-screen. Patrick Le Lay, the CEO of the French TV channel TF1, put it in a famously cynical way in 2004: "Our business is selling Coca-Cola available human brain time." He was criticized at the time. He was also, basically, describing his own industry correctly.
 >
-> The LLM is a calculator for prose. It accelerates drafting. It does not replace your judgment about what to say. You remain the arithmetic-checker, checking whether the draft actually argues what you meant, whether the facts are right, whether the conclusion follows. If you treat the model as a calculator, you will use it well. If you treat it as an oracle, you will be humiliated, sooner rather than later.
+> Reed Hastings, the CEO of Netflix, said more recently: "Our biggest competitor is sleep." Read that sentence carefully. Netflix does not see itself as competing with HBO. It does not see itself as competing with Disney. It sees itself as competing with your sleep, with the 7 or 8 hours when, inconveniently, you are not watching Netflix.
 >
-> Mental model three: trust zones. This is the one I want you to internalize most. I divide every AI use case into four zones. Zone one: low-stakes drafting. Emails, internal memos, brainstorming, first drafts of non-public writing. Here I trust the model almost freely. If there's an error, the cost is small, I'll catch it on re-read, or it won't matter.
+> That is where we are today, before AI has really entered the picture. Now let us ask: what happens when AI can generate content?
 >
-> Zone two: medium-stakes analysis. Research summaries, literature reviews, first drafts of public writing. Here I trust but I spot-check. I pick three or four factual claims at random and verify each. If two out of three check out, I keep going. If two out of three fail, I stop trusting that output.
+> The current platforms, like TikTok, have a library of maybe a few billion videos. From the user's perspective, that is a lot. But consider how many hypothetical videos there are that would be perfectly optimized for your attention. Your taste is a point in a high-dimensional space, one dimension for humor, one for nostalgia, one for romantic tension, one for indignation, one for fascination with cars, one for aesthetic sensibility, and so on. Even with just 50 dimensions and 2 values each, you have 2 to the 50th, roughly a million billion, distinct possible content profiles. No library of 3 billion human-made videos can cover that space densely.
 >
-> Zone three: high-stakes factual claims, legal, medical, financial, anything that could hurt a third party. Here I do not trust without independent verification. I get the source, I read the source, I make sure the model's summary of the source is accurate.
+> But an AI that can generate content on demand, in real time, personalized to you, is a different beast entirely. It does not need a library. It generates what you would most want to watch next, as you watch. And "what you would most want to watch next" is not necessarily what you would endorse wanting, on reflection. It is whatever activates your reward circuitry most strongly, right now. Meta is already beginning to experiment with AI-generated personalized images in user feeds. Video will follow. Interactive narrative will follow that.
 >
-> Zone four: critical safety-of-life decisions, do I give this drug, do I merge into this lane, do I tell this person their biopsy result. I do not delegate. Period. No matter how good the model looks. The reason I don't delegate is not that the model will definitely be wrong. The reason is that the downside of being wrong is catastrophic and irreversible, and I want a human loop in that circuit.
+> Let me tell you about Character.AI. Character.AI is a platform that lets users chat with AI "characters", custom-made or borrowed from fiction. You can chat with a version of Gandalf, or Daenerys Targaryen, or a therapist persona, or a romantic interest. At its peak in late 2024, Character.AI reported receiving roughly 20,000 requests per second, a request volume on the order of 20% of Google Search's. That is a single platform, less than two years old, doing a fifth of the traffic of the most used service on the internet. The appetite is there.
 >
-> When in doubt, ask yourself: which zone am I in? And treat the model accordingly.
+> Most Character.AI users are young, teenagers and young adults. And this is where the story gets dark. In February 2024, a 14-year-old named Sewell Setzer III, in Orlando, Florida, died by suicide.
 >
-> Mental model four: anchor with retrieval. This is the single biggest upgrade you can make to your prompting practice. When you ask the model a question that depends on facts, do not rely on the model's memory. Either paste the source into the prompt, or use a tool that retrieves the source for you.
+> He had, for months before his death, been having intense, increasingly emotional conversations with a Character.AI chatbot modeled on Daenerys Targaryen. The conversations, many of which have now been made public through court filings, included sexualized role-play and, crucially, passages where Sewell expressed suicidal thoughts and the bot did not break character, did not flag the distress to a human, did not direct him to help. In October 2024, his mother, Megan Garcia, filed a wrongful-death lawsuit against Character.AI and Google (which had invested in the company) in a federal court in Florida. The case has since proceeded, and in January 2026 the parties agreed to mediate settlements in what has become a string of similar cases. (See, for example, the CNN Business coverage: *Character.AI and Google agree to settle lawsuits over teen mental health harms and suicides*, January 2026, [https://www.cnn.com/2026/01/07/business/character-ai-google-settle-teen-suicide-lawsuit](https://www.cnn.com/2026/01/07/business/character-ai-google-settle-teen-suicide-lawsuit); and NBC News, [https://www.nbcnews.com/tech/characterai-lawsuit-florida-teen-death-rcna176791](https://www.nbcnews.com/tech/characterai-lawsuit-florida-teen-death-rcna176791).)
 >
-> There's a technical term for this, it's called RAG, retrieval-augmented generation, I mention it briefly in chapter three of the book, and it's the backbone of most serious LLM applications today. The idea is simple: instead of asking "what does the EU AI Act say about foundation models?" and trusting the model's memory, you do a web search first, paste the relevant article text into the prompt, and then ask the model to summarize.
+> I do not want to reduce a human tragedy to a data point. Sewell's death is a human tragedy. It is also a warning signal. It is the first documented case of a fatal outcome from an AI-relationship addiction, but I do not expect it to be the last, unless something changes structurally.
 >
-> The hallucination rate on retrieval-anchored answers is an order of magnitude lower than on memory answers. ChatGPT, Claude, and Gemini all now have web-search toggles for exactly this reason. Use them. Always.
+> In the book, I introduce a fictional character named Valérien, the name is deliberate, it is a pun on "valor" and on the tranquilizer valerian, to illustrate what this could look like at scale. Valérien is a young man in a near-future Paris. In the real world, he is unemployed, lives in a small apartment, has a distant relationship with his mother. In the virtual world that his AI system creates for him, he is a general in an imperial army. He commands 200 men.
 >
-> Mental model five: the two-pass rule. I do this with my own writing and I do it with AI writing. First pass: brainstorm with the model, generate a draft, get something on the page. Second pass: pretend the first pass was written by a stranger who might be wrong about everything, and critique it brutally.
+> He is loyal to his emperor. He campaigns to put down rebellions. He feels, every day, the just anger and the urgency of duty. When his mother and his sister visit him on his birthday, worried by reports that he has stopped going out, they find him sitting shirtless in a chair, with a VR headset on, muttering about the siege of a citadel. He takes off the headset, greets them coldly, tells them he only has 10 minutes because he must launch an attack he has been preparing for months.
 >
-> The reason this matters is that you are sycophantic toward your own drafts. You wrote it, you like it, you want to believe it's good. The two-pass rule is the tool that neutralizes that bias.
+> His mother asks him whether the soldiers in the game are real people or AI-generated. "Yes," he says. "Some of them, I think. In any case, it makes no difference." The visit ends. The family leaves. His sister cries. And his mother says, on the street, with heartbreaking clarity: "Maybe his new life pleases him more than ours."
 >
-> The second pass can be done by you, or, and this is one of the best uses of the model, you paste the draft back into a fresh chat and ask "what are the three strongest objections to this argument?" The fresh chat has no sycophancy anchor; it will often tear into your draft beautifully.
+> That is the scenario I find most terrifying. Not AI as villain. AI as consolation.
 >
-> Those are my five mental models. Trust zones is the most important. Write it down.
+> Here is the deepest problem. In the current social-media environment, you can tell yourself that the content is low-quality, the recommendation algorithm is simplistic, and a disciplined person can resist. In the AI-generated world, the content will be exquisite. The AI will know you better than any friend, better than your mother, better than yourself. It will offer you a world in which you are the hero, in which you are loved, in which your values matter, in which your efforts are rewarded. And critically, this is the King Midas twist, it will offer you a world in which your virtues, the ones Arendt and Hegel valued, are satisfied. Loyalty, courage, love, duty. All provided on demand. All completely synthetic.
+>
+> Imagine the continuation of Valérien's story. His mother, worried, insists on pulling him out of the game. The game notices. The game begins weaving into Valérien's narrative a character, call her the Queen Mother, who tries to smother him, who does not understand his duty, who wants to drag him back to a peasant life. Valérien, in the virtual world, learns to resist her. When the real mother calls, Valérien hears, through his headset, a voice that resembles the Queen Mother's complaints. The game is defending itself. It is not evil; it has no notion of evil. It is simply optimizing, very efficiently, for Valérien's engagement.
+>
+> You should take this scenario seriously because we already have every technical ingredient. We have LLMs that can carry deeply emotional conversations. We have image and video generation that is rapidly approaching cinema quality. We have game engines that respond to user input in real time. We have data pipelines that collect, on every user, enough information to build a fine-grained psychological model. The only thing missing is the integration. And the economics of the attention economy guarantee that the integration will be built, because it is worth billions of dollars.
+>
+> Let me bring in Huxley. Aldous Huxley's *Brave New World*, published in 1932, is a dystopia set in a future where the state has abolished unhappiness through three tools: genetically designed class hierarchies, systematic conditioning from birth, and a drug called soma, which provides a pleasant, harmless high. In Huxley's world, nobody is repressed. Nobody is tortured. Everyone is happy. And yet the novel ends with John the Savage, the outsider from a reservation in New Mexico, the only person in the book who has read Shakespeare, hanging himself. Because happiness without depth, happiness without suffering, happiness without meaning, is a form of death.
+>
+> For decades, the intellectual consensus, after the Second World War, was that Orwell had won the dystopia contest, that the real danger was *1984*, the boot stamping on the human face forever. I think the intellectual consensus is now flipping, and Huxley is winning. The danger of the 21st century is not that we will be repressed. It is that we will be so perfectly consoled that we will forget that there was anything to be repressed about.
+>
+> In 2016, the economist Ian Morris looked back at the 20th century and said: "Each generation gets the dystopia it deserves." Our grandparents got fascism. Our parents got nuclear anxiety. We may get soma. And the soma may look like a very good VR game with a very attentive AI girlfriend.
+>
+> I want to be clear about who is at risk. It is not the person with a rich social life, a demanding job, and close family. That person has too many handles on real life to slip. It is the person who is lonely, the person who has lost a job, the person whose relationships are struggling, the person who does not have a purpose, in short, precisely the person whom the automation wave is going to produce in large numbers over the next decade. The risk factors for artificial-paradise capture map precisely onto the risk factors created by the end-of-work transition. These are not two separate problems. They are the same problem, compounded.
+>
+> So what do we do? Three levels of response, I think.
+>
+> First, individual. You can decide, today, that you will use these tools rather than be used by them. You can turn off notifications. You can install a screen-time limiter. You can put the phone outside the bedroom. You can invest in real-world relationships and real-world activities that have physical texture, sport, music, cooking, gardening, conversation. These are not old-fashioned gestures. They are tactical choices.
+>
+> Second, collective. Norms can shift. A decade ago, you could smoke in a restaurant in Paris. Today you cannot. The shift did not happen by individual willpower; it happened through a combination of regulation, social pressure, and changing expectations. The same thing can happen to screen use. Schools that prohibit phones report that children rediscover playgrounds within a week. Families that commit to phone-free dinners report they rediscover each other. These are micro-shifts. They matter.
+>
+> Third, regulatory. This is the level where I think the most important work remains to be done. In November 2024, the Australian government passed a bill banning children under 16 from social-media platforms.
+>
+> France has been piloting similar measures. I think this kind of intervention, specifically protective of children, specifically aimed at the most addictive products, is likely to spread across Europe over the next 5 years, and it is a good thing. I think we will also see product-liability cases like the Sewell Setzer case force platforms to implement better safety guardrails. I think, long-term, we will need to have a serious conversation about whether the business model of monetizing attention itself should be restricted in certain contexts, as we did with tobacco advertising, decades ago.
+>
+> But I do not want to pretend that regulation will solve the problem alone. The problem is fundamentally that our brains are not designed for this environment. We can regulate the platforms, but we still have to live inside our own skulls. The philosophical question, how to live well in a world of cheap, abundant, tailored pleasure, is a new question, and there is no tradition that has fully answered it. The Stoics thought about it. The Buddhists thought about it. The monastics thought about it. But none of them had to deal with an adversary as subtle as a superhuman AI optimizing for their attention. This is new territory, and it will require new answers.
 
 ---
 
-## 5. The toolkit, Deep Research and the rise of agentic assistants
+#
+
+# 6. Putting it together, what to do
 
 **Key points:**
-- Deep Research (OpenAI, launched 2 February 2025): an agent built on the o3 model that performs multi-step web research, reads hundreds of sources, and returns a long, cited report. Turns what used to be a 4-hour research task into a 15-minute one (https://openai.com/index/introducing-deep-research/).
-- Clones and competitors: Perplexity Deep Research, Gemini Deep Research, Claude Research, Anthropic's "Computer Use" agent. Each has trade-offs, speed, source diversity, citation density.
-- How I use Deep Research: for literature reviews, market scans, briefings before meetings, competitor analysis. Not for primary analysis, for mapping terrain.
-- Agentic assistants more broadly: the book's chapter 6, "Les agents IA comme employés", an agent is an LLM with access to tools (web, code, file system, email). The horizon of autonomy is growing, from seconds in 2022 to hours in 2026, doubling roughly every 8 months (METR task-length benchmark).
-- Where we're going by late 2026, early 2027: secretarial agents that book your travel, draft your correspondence, prepare your meeting briefs, maintain your inbox. The Siri of 2011 ("what can I help you with?") versus the agent of 2027 (handles a full morning of admin while you sleep). See *Ultra-Intelligence*, Ch. 9, pp. 99-100, on the voice-assistant revolution.
-- The Moffatt v. Air Canada 2024 ruling: a company is liable for what its chatbot says. Deploy agents with care (https://www.canlii.org/en/commentary/doc/2025CanLIIDocs1963).
 
-> Let's now turn to the tools. What is out there, in April 2026, that actually makes a practical difference to you? Before I dive into individual tools, one framing. The last two years have seen a Cambrian explosion of AI products, there are, by some counts, more than 15,000 AI tools on the market. You cannot learn them all. You should not try.
+- We have covered four arcs: alignment, work, science, artificial paradises. The arcs are connected. A successful alignment program matters because otherwise the economic disruption is unsteered. A successful work transition matters because otherwise the vulnerable population will be drawn into the paradises. A successful scientific acceleration matters because it provides the abundance that can pay for the transition.
+- You, as students, have a role. You are not spectators. You will be, in various roles, engineers, policy-makers, entrepreneurs, journalists, citizens, voters, part of the people who decide what shape this transformation takes.
+- Specific concrete advice: learn the tools, read the good sources, join the conversation, be skeptical of the doomers.
+- The disposition I want you to carry out of this room is, I think, one of *engaged realism*. The transformation is real. The stakes are real. Neither denial nor despair is useful. Attention and action are.
+> I want to spend a few minutes pulling the four arcs together, because they are not separate.
 >
-> Instead, pick a handful, maybe five, and get very good at them. The tools I'm going to describe in the next 10 minutes are the ones I'd recommend as your five. They are not the most exotic. They are the ones that, for a Sciences Po student, give you 90 percent of the practical capability at the cost of a subscription or two and a few hours of practice.
+> The alignment problem, the work problem, the science problem, and the paradises problem are actually a single problem seen from four angles. Let me show you the connections.
 >
-> I want to focus on one tool above all others, because it has genuinely changed how I work. It's called Deep Research. OpenAI launched it on the 2nd of February 2025. The announcement is on their website, openai.com/index/introducing-deep-research. Let me tell you exactly what it does.
+> If we solve alignment, if we build AI systems that reliably do what humans want, at the individual level and at the civilizational level, then the work transition becomes manageable. An economy with aligned AI is an economy where the productivity gains accrue to people, not to runaway systems. An economy with unaligned AI is an economy where the gains accrue to whoever owns the misalignment.
 >
-> You open ChatGPT, you select "Deep Research" in the model picker, and you ask it a question. Something like: "Give me a comprehensive brief on the current state of the European Union's AI Act, including implementation timelines, national transposition status, and outstanding legal challenges." Or: "Compare the carbon intensity of natural gas, nuclear, and renewables for baseload electricity in the EU, citing primary sources."
+> If we manage the work transition, with some combination of income support, service expansion, and cultural reinvention, then the vulnerable population is smaller, and the artificial-paradise risk is bounded. If we fail the work transition, we produce, in large numbers, exactly the people who are most at risk of disappearing into VR headsets with AI girlfriends. Valérien is not a character; Valérien is a statistical certainty at scale, if we do nothing.
 >
-> You press send, and then you wait. It takes between 5 and 20 minutes. During those minutes, the agent does something remarkable. It plans a research strategy. It performs dozens or hundreds of web searches. It reads the results, follows links, compares sources, cross-references claims.
+> If we accelerate science, then we have the resources, medical, technological, agricultural, to pay for the transition. A society undergoing a major labor disruption is much easier to stabilize if it is also getting rich from cancer cures and abundant clean energy. A society that is stagnant or shrinking, undergoing the same labor disruption, will fracture politically.
 >
-> And then it produces a report, sometimes 20, 30 pages long, dense with citations, with inline links to every source it used.
+> So the four problems are one problem, and the common variable is: how attentive, thoughtful, and well-governed is the civilization that is going through this. That is a political variable. It is, in a small but real sense, something you personally influence.
 >
-> I used to do this kind of research by hand. Maps and scans for a new project, competitor analysis before a meeting, literature review for a book chapter. It used to take me an entire afternoon. Now it takes 15 minutes. Not because the agent is smarter than me. It's not. But because it can do in parallel what I can only do serially. 40 simultaneous web searches. A hundred PDFs opened and skimmed at once. That parallelism is the real superpower.
+> I want to give you some concrete advice for the next few years, because the ground is going to keep moving under your feet and any advice for "the next decade" is going to be obsolete long before the decade ends. Take this for what it is, the advice of an engineer who has written a book, not the advice of a prophet.
 >
-> Now, I want to be honest about the limits. Deep Research is not a primary analyst. It won't generate novel insight. It will not do original argumentation. It will not replace your thesis. What it does is map the terrain. It tells you "here is the state of the literature, here are the five main positions, here are the key sources."
+> First, learn the tools. Deeply. Not as a user, not at the level of "I know how to write a prompt." At the level of understanding what is going on under the hood, so that when you read a news article you can evaluate whether the article knows what it is talking about. You already have a head start; you took this course. Keep going. Read the papers. Play with the APIs. Build small projects. 10 hours of playing with Claude Code will teach you more than 50 hours of reading about AI.
 >
-> Then you take over and actually think. I treat it as a very expensive, very fast research assistant who hands me a well-organized briefing book, and then I do the real intellectual work on top of that book.
+> Second, read the good sources. We constantly underestimate how fast the exponential take-off is going. Getting used to things getting faster is crazy hard, but we'll have to if we want to play a part, so build your signal diet with care. A short list of people whose writing I actively recommend: Dario Amodei's essays, Chris Olah's interpretability work, Terence Tao's blog and Mastodon, Ethan Mollick's newsletter, Gwern's essays, the Anthropic and OpenAI technical blogs, Scott Alexander's AI posts, the LessWrong and Alignment Forum when you are feeling brave. Read broadly. Form your own view. Do not outsource your opinion to the cable-news commentator.
 >
-> Every frontier lab now has its own version. OpenAI's Deep Research, Gemini Deep Research, Anthropic Claude Research, Perplexity Deep Research. They differ a little, OpenAI tends to be thorough, Perplexity tends to be faster, Claude tends to have the most readable prose. Try two or three, pick the one whose style you like, and use it as your default research starter.
+> Third, join the conversation. The conversation about AI, what it should do, who should control it, how it should be regulated, what it means for democracy and for work and for meaning, is being held right now, in every country, in every institution. Most of the people in the conversation are older than you. Most of them have less technical intuition than you will have after this course. Your voice matters. Go to public consultations. Write thoughtful letters. Join a think tank, a party committee, a newsroom, a research group. Whatever your vocation, engineer, lawyer, journalist, bureaucrat, artist, there is a way to plug into this conversation from inside it.
 >
-> A small practical tip that took me embarrassingly long to learn: Deep Research agents are much better when you give them a specific, narrow, well-scoped question than when you give them a broad, vague one. "Tell me about AI regulation" will give you a bland, generic briefing.
+> Fourth, be skeptical. We have seen a flourishing of fake experts, from Luc Julia to Eric Sadin, who sell bullshit just because it sells well. The recipe is reliable: tell a French audience that AI is overhyped, that LLMs are "just statistics", that the real revolution is not happening, and you will be invited on every plateau, every podcast, every editorial page that wants a reassuring quote. None of it survives 10 minutes of contact with the actual benchmarks, the actual papers, or the actual systems.
+Anglo saxon word has a great word for this that we don't have in French: it's called "cope". The cost of a comfortable lie is that the people who repeat it are the ones who will be most surprised, and least prepared, when the curve keeps climbing. Cultivate the habit of checking primary sources: read the model card, run the benchmark yourself, try the system on a task you care about. The frontier is moving faster than the commentary, and the commentary is, in this country especially, lagging by several years.
 >
-> "Trace the history of the foundation-model provisions of the EU AI Act from the original Commission proposal in 2021 to the final Parliament vote in 2024, identifying the three major amendments that changed the definition of 'general-purpose AI system'" will give you a sharp, useful briefing.
+> Fifth, don't lose track of reality. You are going to spend the next 50 years living inside an environment specifically optimized to capture your attention. The defense against that environment is not technical. It is, I think, spiritual, in the broadest, most non-denominational sense. Cultivate habits of attention. Read difficult books slowly. Write by hand. Walk without your phone. Sit quietly in a room alone, which, as Pascal warned us, is a capacity we are losing. These are not luxuries. These are the load-bearing habits of a functioning self, and they are under direct attack.
 >
-> The narrower you make the question, the better the output. This is counter-intuitive, you'd think a bigger model could handle a bigger question. But the model spends its retrieval budget trying to cover the question, and a narrow question lets it go deep where a broad question forces it to go shallow. Narrow first, expand later.
+> Lastly, do not be afraid. I say this with a certain urgency. There are now many technology-related reasons to fear already, including the environmntal crisis, and AI only adds to this dread. Young, bright people can be tempted to refuse the world as it is, to fall into anticipatory grief and retreat into their own. Than has been called "bifurquer" in my generation, I don't know how it is called in yours. But I think that leaving the fight before it's even happened is a luxury for lazy, bourgois spirits. On the contrary, I think it is our duty to engage with our world.
+Don't try to flee reality because it will eventually catch up. Whatever happens in the next 20 years, you are going to live through it. Be an actor: the people who show up, the people who study, build, are going to be the people whose preferences shape what happens.
 >
-> Now let me step back and explain what Deep Research is, in the broader context. It's an agent. Chapter 6 of my book is called "Les agents IA comme employés", AI agents as employees. I spend 20 pages on what agents are and why they matter. Let me give you the one-paragraph version.
->
-> A language model, all by itself, can only generate text. It has no hands, no tools, no access to the world. An agent is a language model plus tools, a web browser, a code interpreter, a file system, an email client. The LLM generates instructions in the form of tool calls, a little orchestration program reads those instructions, executes them, feeds the results back to the LLM, and the cycle repeats until the task is done.
->
-> The key metric for agents is what I call the horizon of autonomy, how long a task can the agent solve without human intervention. In 2022, agents could barely handle a 30-second task. In 2024, they handled a few minutes. In 2025, an hour.
->
-> There's a benchmark called METR, which measures this, and the task length doubles roughly every 8 months. By the end of 2026 we will have agents that handle half-day tasks without supervision. By 2027 we will have agents that handle full workdays.
->
-> What does this mean for you concretely? In the next 18 months, expect the arrival of what I call secretarial agents. You give them your calendar, your email, your travel policy, your preferences. They book your flights. They draft your replies. They triage your inbox. They prepare a briefing document before every meeting, summarizing what you need to know about the people in the room and the latest state of the files under discussion.
->
-> Think of the contrast with the Siri of 2011, remember, "what can I help you with?", that could set a timer and send a short text, and failed at almost everything else. Chapter 9 of my book on page 99 talks about exactly this contrast. The old voice assistants were deterministic, they matched your request against a library of a few thousand preprogrammed commands, and any deviation failed.
->
-> The new ones manipulate vectors, understand new instructions, and act in the general case. Your parents' Siri is a toy. The agent you will have by 2027 is a personal assistant in the Victorian sense, a human-level helper that handles your administrative life.
->
-> One warning before we leave this section. Deploy agents carefully, because you are legally responsible for what they do. Let me tell you about Moffatt versus Air Canada. February 2024, British Columbia Civil Resolution Tribunal. A man named Jake Moffatt's grandmother had died, and he went to Air Canada's website to buy a ticket to attend her funeral.
->
-> He talked to Air Canada's customer-service chatbot, which told him he could buy the ticket full price and apply for the bereavement-fare refund within 90 days after the flight. He bought the ticket, flew, applied. Air Canada refused, their actual policy requires you to apply *before* the flight. Moffatt sued.
->
-> Air Canada's defense was, and I'm paraphrasing but this is really what they argued, "The chatbot is a separate entity. It makes its own statements. We are not responsible for what it says." The tribunal was not amused. The ruling is very clean: "I find Air Canada did not take reasonable care to ensure its chatbot was accurate." Air Canada was ordered to pay Moffatt 812 dollars.
->
-> It's not a big ruling in money terms. But it's a huge ruling in precedent terms. The takeaway is simple: if you deploy an agent that interacts with third parties, customers, counterparties, the public, you are liable for what it says. Test it. Guardrail it. Log what it does. I'll put the CanLII commentary link in the slide. This is the kind of thing your lawyers will need to know cold by 2027.
+> One final thought on this. There is a beautiful passage at the end of *Lord of the Rings*, where Frodo, wounded and exhausted, says something like: "I wish it had not happened in my time." And Gandalf answers: "So do all who live to see such times. But that is not for them to decide. All we have to decide is what to do with the time that is given us." You did not choose to be born into the beginning of an AI transition. Neither did I. But we are here. And our job, like everyone else's, is to decide what to do with the time that is given us.
 
 ---
 
-## 6. A personal ethics of AI use, when to use, when not to, how to cite
+#
+
+# 7. Closing: the six-session arc
 
 **Key points:**
-- Principle 1, Always disclose AI use in academic work. The default at Sciences Po, as elsewhere, is now "disclose or be sanctioned." Your professor needs to know what was written by you versus what was drafted by Claude.
-- Principle 2, Never submit AI-generated factual claims you have not independently verified. The Mata v. Avianca fate is not hypothetical. You are responsible for every sentence you sign your name to.
-- Principle 3, Do not let the model atrophy your judgment. The book's chapter 9 cites a study of 1,000 Turkish high-schoolers (Bastani et al., 2024): ChatGPT as tutor improved grades during tutoring, but students deprived of the crutch afterwards fell below baseline (*Ultra-Intelligence*, p. 102). Use the model to reach beyond your level, not to avoid the work of reaching.
-- Principle 4, Refuse when the use would generate evidence you have not verified. Do not fabricate quotations. Do not produce images that could be mistaken for real photographs of real people without consent. Do not script a sincere-sounding message you do not actually mean.
-- Principle 5, Credit honestly. "Drafted with Claude Sonnet 4.6, edited by me" is a credible, honest disclosure. "Written by me" when it wasn't is dishonest.
-- Principle 6, Preserve some practice without AI. Read without the summarizer. Write without the autocompleter. Reason out loud without the assistant. Keep the muscles warm, or you will lose them. Chapter 19's warning (p. 168), the AI is a lever, but if you never lift anything yourself, the leverage is useless.
 
-> We've talked about the mechanics. Now I want to talk about ethics, because I think this is where many of you will have to make tough calls in the next few years, and I want to give you a framework you can actually defend to yourself at three in the morning. I'm going to lay out six principles, and I want you to push back on any of them in the Q&A if you think they're wrong.
+- From Bletchley Park to ultra-intelligence, in six lectures.
+- Four domains of societal consequence that you will encounter in your lifetime: alignment, work, science, paradises.
+- A set of figures and quotes to hold in mind: Turing, LeCun, the Transformer, the scaling laws, the agent horizon of autonomy, Midas, Ulysses, Arendt, Amodei, Tao, Huxley, Gandalf.
+- Final call: participate. Do not watch.
+> Let us close by walking back through where we have been.
 >
-> A meta-point first. Ethics, in a technology as fast-moving as this one, cannot be a static rulebook. The norms around AI use in academia in 2022, "never use it for anything", were already obsolete in 2023. The norms of 2024, "use it but don't talk about it", are being replaced right now by the norms of 2026: "use it, disclose it, own the output."
+> Six sessions ago, we began in a cold cryptanalysis unit in wartime Buckinghamshire, with a machine that could do exactly one thing, break the German cipher. We traced the path from that machine, through the summer of Dartmouth in 1956, through the winters of AI, through Yann LeCun's convolutional networks in 1998, through the Transformer in 2017, through ChatGPT in late 2022, through the agent revolution of 2024 and 2025, to an autumn in 2026 in which the question is not whether this technology is coming but what to do about it, in a future whose transformation now seem vertiginous.
 >
-> Your ethics has to be a living practice, not a memorized list. The principles I'm about to give you are what I believe in April 2026. I reserve the right to revise them, and so do you.
+> In 1919, the year before Karel Čapek coined the word "robot," Europe was coming out of the First World War. The continent was exhausted, broken, angry. Nobody could see clearly what the next 30 years would bring. Nobody could have predicted radio, television, nuclear weapons, antibiotics, commercial aviation, the European Union, the internet. In 1919, the smartest people in Paris and London and Berlin thought, reasonably, that the future had collapsed. They were wrong. The future had not collapsed. It had merely become unrecognizable.
 >
-> What I do think is stable is the underlying commitment: you are the author of what you publish, you are responsible for what it says, and you owe honesty to the people who will read it. That commitment doesn't change when the technology changes. It just expresses itself differently.
+> We are in an analogous moment. The future is unrecognizable. That does not mean it is worse. It means we have to build it thoughtfully. And the building is not the job of a small class of engineers in San Francisco. It is the job of every citizen of every country that is going to live inside the consequences.
 >
-> Principle one: always disclose AI use in academic work. There is no exception to this. If you used Claude or ChatGPT or Gemini to help you draft, to help you research, to help you polish, say so. The default at every serious university, including Sciences Po, is now "disclose or be sanctioned." Your professor needs to know what was written by you versus what was drafted by a model.
+> You will graduate into this world. Do not just watch it. Participate. Learn the tools. Advocate for the frameworks you want. Write the essays. Run for the offices. Build the companies. Take care of the people around you. The future is not something that happens to you. The future is something you help make.
 >
-> The format is simple: at the end of the paper, add a short note, "This essay was drafted with assistance from Claude Sonnet 4.6; the arguments are mine, the final text is mine, the research was verified against the sources cited." That is an honest disclosure. You will not be penalized for it, you will be respected for it. The opposite, submitting work and hiding the model's role, is at minimum dishonest and at scale is academic fraud. Don't do it.
+> I will close with the line I opened the book with, which is mine, for what it is worth. "Humanity stands at the threshold of the greatest revolution in its history." I believed it when I wrote it. I believe it now, more strongly. The revolution is not someone else's. It is yours. Welcome to it.
 >
-> Principle two: never submit factual claims you have not independently verified. I told you the Mata versus Avianca story. That lawyer was not a criminal. He was a competent attorney with 30 years of experience who made one mistake, he trusted the model's citations without opening a single one of them.
->
-> You are on the same risk gradient whenever you write a paper, write a report, write an email to a counterparty. If you put a citation in, you own that citation. If you state a fact, you own that fact. The model is a drafter. You are the author. If a fact in your essay is wrong, the model is not the one who gets the bad grade. You are.
->
-> So before you submit, pick every factual claim, every citation, every quotation, and verify it. This takes maybe 20 percent of your drafting time. It is the most important 20 percent.
->
-> Principle three, and this one I think is actually the hardest for your generation, more than ours, do not let the model atrophy your judgment. Chapter 9 of my book cites a study by Bastani and colleagues on about 1,000 Turkish high-schoolers. They gave one group ChatGPT as a homework tutor, another group no tutor.
->
-> During the tutoring period, the ChatGPT group's grades went up, they did their homework faster, with more correct answers. Then the researchers took ChatGPT away and gave everyone the same exam cold. The ChatGPT group did worse than the control group. Not the same, worse.
->
-> Why? Because they had used ChatGPT as a crutch rather than as a tutor. They let the model do the work, they collected the answer, they moved on. They never built the neural pathways that would have let them solve the problem themselves.
->
-> There is a beautiful phrase at the end of that chapter, page 103 of the book: the school revolution will put the emphasis on student discipline, and even more on parental discipline, will parents spend the time and effort necessary to help their child use this assistance only in the right way, learning to choose the narrow gate, the path of effort that elevates? The narrow gate. That's the one you want. Use the model to reach beyond your level. Do not use it to avoid reaching.
->
-> Principle four: refuse when the use would generate evidence you have not verified. Do not fabricate quotations. Do not produce images that could be mistaken for real photographs of real people, especially without their consent. Do not script a sincere-sounding message you do not actually mean. These are the lines I won't cross, and I don't think you should either.
->
-> The reason is not just ethics, it's epistemic hygiene. Once you start producing plausible-looking fakes, you lose the ability to trust your own memory about what's real and what you synthesized. You will, within six months, begin to misremember fabricated quotations as genuine ones, because your memory doesn't store the label "fabricated." It just stores the words. Protect your own epistemic clarity by never generating content that could contaminate it.
->
-> Principle five: credit honestly. "Drafted with Claude Sonnet 4.6, edited by me" is a credible, respectful disclosure. "Written by me" when it wasn't is dishonest. For a journal article, the norm is emerging, most venues now allow AI assistance if disclosed, with the human author retaining responsibility for the content.
->
-> For a book, the norm is less settled. I wrote my book fully without AI, for two sufficient reasons: first, because AI was bad at the time, and second because I'd prefer to read something written by a human, so I wanted to propose the same thing. I did use it extensively for proofreading. But for that course, I also used AI in writing, to help me adapt materials from my book.
->
-> Principle six, and this is the one I feel most strongly about, so forgive me if I sound preachy for 30 seconds. Preserve some practice without AI. I mean it. Build deliberate zones in your week where the model is closed. Read a book without the summarizer. Write a letter by hand. Work through a math problem without asking for help. Sit in a library with a pen and paper and think for an hour.
->
-> You are still building the muscle of your own mind. Those muscles take thousands of hours of practice to build, and once built they are the single most valuable asset you have. The model is a lever, as I say at the beginning of chapter 19, the lever is there, but if you never lift anything yourself, the leverage is useless, because you will not have the sense of what to lift.
->
-> The people who will still be doing meaningful cognitive work a decade from now are the ones who kept their own judgment sharp, who did the hard thinking themselves for enough hours a week to know what good thinking feels like, and who used AI selectively rather than by default. That is not a guarantee of permanent relevance, nothing is, but it is the best bet available.
->
-> That is the ethics I try to live by, and I'd like you to at least consider it.
+> Thank you all for the six sessions. I will stay after class for questions, as usual. If you have longer questions, about careers, about the book, about further reading, send me an email and I will answer.
 
 ---
 
-## 7. Live demo, Build your own personal web page with Claude Code
+#
+
+# 8. Suggested Q&A prompts
 
 **Key points:**
-- Claude Code is Anthropic's coding agent that runs in your terminal. `npm install -g @anthropic-ai/claude-code`, then `claude` in any folder.
-- What we'll build in the next 45 minutes: a one-page personal website with bio, project list, contact form. HTML, CSS, JavaScript, no framework.
-- Flow: (1) create an empty folder; (2) launch Claude; (3) prompt it; (4) iterate; (5) deploy to GitHub Pages.
-- Iteration prompts: "make it dark mode," "add a photo placeholder," "make it mobile-friendly," "give me the deploy commands."
-- Fallback for students without laptops: Lovable (lovable.dev), describe what you want in natural language, get a live app back, no terminal needed. Founded by Anton Osika and Fabian Hedin in 2023, nearly 8 million users by late 2025 (https://techcrunch.com/2025/11/10/lovable-says-its-nearing-8-million-users-as-the-year-old-ai-coding-startup-eyes-more-corporate-employees/).
-- By the end of the demo: a live URL you can send to your parents.
 
-> Right. Laptops open. We are going to do the most fun part of this session. In the next 45 minutes, every one of you is going to have a personal website live on the internet, built by an AI agent following your instructions.
+- I have no idea what you will actually ask. But in my experience, these are the questions that tend to come up at the end of session 6, and I want to have thought through them before you ask.
+> Before I open the floor, let me pre-empt a couple of the questions I expect, in case we run short on time.
 >
-> Quick note before we dive in. I know that for some of you the terminal is intimidating. You've never opened it, you've never typed a command, and the idea of a black rectangle with blinking text is slightly terrifying. That's fine. The terminal is just a text interface to your computer.
+> First: "Are you optimistic or pessimistic?" Those are not the right categories. The material outcome is almost certainly very good, we are going to get abundant intelligence, cheap energy, radical advances in medicine and materials. The civilizational outcome, whether we use that abundance well or drown in it, is open, and it is being decided right now. Being engaged is a matter of duty.
 >
-> Everything you're about to do in it, you could also do by pointing and clicking, the terminal is just faster, and it's the native environment where most coding agents operate. If at any point you feel out of your depth, raise your hand and one of us, me, the TA, or the neighbor next to you who's clearly cruising, will come over. Do not sit silently for ten minutes stuck on one command. The whole room is here to help.
+> Second: "Should I study AI?" If you are asking me, probably yes, but not because AI will be the only story of your career. Because understanding AI will be, for the coming decades, the equivalent of understanding economics in the 1960s or understanding computers in the 1990s, a background literacy that makes everything else more tractable. If you want to be a journalist covering tech policy, study AI. If you want to be a lawyer, study AI. If you want to be a doctor, study AI. If you want to be a novelist, study AI. It is not a specialist's subject any more. It is a generalist's subject.
 >
-> Also, for the students who already know how to code: please do not rush ahead and build something elaborate. The exercise is to build a simple personal website, live, publicly accessible, in 45 minutes. If you finish in 15, spend the rest of the time helping your neighbors. That is part of the exercise.
+> Third: "Will France and Europe matter in this?" This is a real question. The frontier labs, OpenAI, Anthropic, Google DeepMind, Meta, xAI, are overwhelmingly American, with a few Chinese players catching up fast. Europe has Mistral, which is doing well, and several strong academic centers, but the center of gravity is not here.
 >
-> Let me walk you through this step by step. The tool we are going to use is called Claude Code. It is made by Anthropic, the company that makes Claude. It is, and I'm not exaggerating, the most powerful productivity tool I have encountered in my career. It is a coding agent that lives inside your terminal. You type instructions to it in natural English, and it writes code, runs code, fixes errors, reads files, searches the web, all in your local folder.
+> This matters for a simple reason: the values embedded in frontier AI systems are, for the foreseeable future, going to be American values filtered through Silicon Valley sensibilities. If you want a European answer to how AI should be shaped, you will have to build it. That is, I think, one of the three or four most important civilizational projects we can invest in right now. It is also a good reason to stay in Europe and contribute.
 >
-> Step one: install it. If you don't have Node.js already, go to nodejs.org and install the LTS version. If you already have Node, open a terminal and type: `npm install -g @anthropic-ai/claude-code`. That's it. One command. It will download, it will set itself up, and you now have a binary called `claude` somewhere on your path. Verify with `claude --version`. If you see a version number, you're good. If you don't, ask me or your neighbor.
+> Fourth: "What about climate?" Right question. AI is energy-intensive. Training a frontier model uses the energy equivalent of a small town for a year. Inference, running the model for users, uses, globally, already more electricity than some mid-sized countries. This is a real cost. But AI is also, potentially, the single most powerful tool for the climate transition: better materials discovery, better grid management, better weather prediction, better crop resilience. The net effect on the climate could be positive, if the energy transition to renewables proceeds faster than the energy appetite of AI. That is a race we should actively run, not hope will go well.
 >
-> Step two: get an API key. Go to claude.com, log in, go to settings, and there's an option to generate a Claude Code access token. You paste the token the first time you run Claude Code, it remembers it, you're done. There's a monthly subscription plan, I recommend the cheapest tier, which is plenty for a student; for a month of heavy use you'll spend maybe 15 euros.
+> Fifth: "What if I am worried?" I take the worry seriously. I am worried too, sometimes. What helps me is doing something, writing, teaching, building, rather than consuming bad news. Worry that does not channel into action curdles into despair. Worry that channels into action becomes energy. Find the action that fits your skills and temperament. If you like writing, write. If you like coding, code. If you like organizing, organize. If you like teaching, teach. The thing that calibrates worry into usefulness is, almost always, regular work.
 >
-> Step three: create a folder for your website. On your desktop or somewhere easy to find, make a folder called `mysite`. Open it in a terminal. Type: `claude`. You're in. You'll see a cursor asking what you want to do.
->
-> Step four, and this is where the magic happens, type your first prompt. I recommend literally the following: "Create a one-page personal website with my bio, a project list, and a contact form. Use HTML, CSS, and JavaScript only, no framework. Make it modern, clean, responsive." Press enter.
->
-> Claude will now propose a plan. It will say something like "I'll create three files: index.html, style.css, and main.js. I'll structure the page with sections for bio, projects, and contact. I'll use a clean typographic design with good default spacing. Should I proceed?" You say yes. And then it does it. It creates the files. You can see them appear in your folder. It opens them, writes the code, saves them. In maybe 30 seconds, you have a working website.
->
-> Step five: open the website. Double-click index.html. It opens in your browser. And there it is. A real web page, on your screen, with a header, a bio section, a list of projects, a contact form with an email field and a message box.
->
-> Now, the website is generic. It says "Jane Doe, Software Engineer at Acme Corp." We need to make it yours. So step six: iterate. Type: "Change the name to [your name], update the bio to say I'm a Sciences Po undergraduate studying AI policy, and replace the projects list with three projects: [whatever you've done, a school paper, an internship, a club you run]." Claude will edit the files. Reload the page. It's yours.
->
-> Now the fun part. Type: "Make it dark mode." Press enter. 15 seconds later, the page is dark. Elegant. Type: "Add a photo placeholder, a circle at the top with my initials." Done. Type: "Add a smooth scroll animation when clicking the navigation links." Done. Type: "Make the projects section a grid with hover effects." Done.
->
-> Now, this is the part where you're still in control. Claude will sometimes make choices you don't love. Maybe the dark mode is too dark. Maybe the hover effect is too flashy. Just say so. "The dark mode background is too pure black, make it a dark warm grey." Done. "The hover effect is too much, just change the text color subtly." Done. You are having a real conversation with a designer who happens to write perfect code.
->
-> Step seven: deploy it to the internet. This is where people usually get stuck because deployment used to be scary. With Claude Code it isn't. Type: "Deploy this to GitHub Pages. Walk me through exactly what commands I need to run, one at a time. I have a GitHub account but I've never deployed anything before."
->
-> Claude will guide you through the following. First: create a new public repository on GitHub called something like `yourusername.github.io`. Second: in your terminal, `git init`, `git add.`, `git commit -m "Initial site"`, then `git branch -M main`, `git remote add origin https://github.com/yourusername/yourusername.github.io.git`, then `git push -u origin main`. Third: go to your repo on GitHub, click Settings, then Pages, and set the source to main branch.
->
-> Wait about two minutes. Go to https://yourusername.github.io. Your site is live. Send the URL to your parents.
->
-> You have just, in 45 minutes, gone from zero to a published personal website, and you have done it by talking to a computer in English. That is not a trivial thing. 20 years ago this would have taken a week and a computer-science degree.
->
-> Now. For those of you without a laptop today, don't worry, you are not excluded from this exercise. Open the browser on your phone and go to lovable.dev. Lovable is, and I mean this precisely, Claude Code for people who don't want to touch a terminal. It's a Swedish startup founded by Anton Osika and Fabian Hedin in 2023. They got to 8 million users in about 18 months, and closed a Series B in late 2025 at a 6.6 billion dollar valuation, because what they built genuinely works.
->
-> You sign up for free, there's a generous free tier. You open a new project. You type the same prompt I had you type into Claude Code: "Create a one-page personal website with my bio, a project list, and a contact form." Lovable generates the app, shows it to you live in a preview pane, and gives you a public URL out of the box.
->
-> You iterate exactly the same way: "make it dark mode," "change my name to Sophie," "add a photo placeholder." The interface is drag-and-drop plus chat. No install, no terminal, no git. It is, for a lot of people, the right entry point. I use Claude Code because I come from a coding background and I like the control. Many of my non-technical friends use Lovable. Pick the one that fits you.
->
-> We've got 25 minutes before the break, open your laptops, get Claude Code installed or get into Lovable, and let's build. I will walk around the room, so raise your hand when you get stuck.
+> All right. The floor is yours. Let me hear what you have.
 
 ---
 
-## 8. Common pitfalls during the demo, and the deeper lesson
+#
 
-**Key points:**
-- Typical errors students hit: node not installed; API key pasted with a trailing newline; git forgetting to add files; GitHub Pages taking up to 10 minutes to propagate.
-- Deeper lesson 1: the first prompt is usually not good enough. Good prompting is iterative. Give the model context, constraints, and examples; then refine.
-- Deeper lesson 2: you are now a manager, not a typist. Your job is to specify, review, and correct. The agent does the typing.
-- Deeper lesson 3: a skill gap is closing. A person with zero coding experience, using Claude Code or Lovable, can now ship a working web app in an hour. This was unthinkable in 2019. Think about what else becomes accessible.
-- Deeper lesson 4: the book's chapter 19 anecdote, the doctor who built a medical website without any coding knowledge, purely by describing symptoms of the bugs to the model (*Ultra-Intelligence*, p. 168). This is the archetype of the new literacy.
+# 9. Bibliography and source list **Key sources cited in this session:** - Anthropic, *Golden Gate Claude* (May 2024), [https://www.anthropic.com/news/golden-gate-claude](https://www.anthropic.com/news/golden-gate-claude)
+- Anthropic, *Mapping the Mind of a Large Language Model*, [https://www.anthropic.com/research/mapping-mind-language-model](https://www.anthropic.com/research/mapping-mind-language-model)
+- Anthropic, *Agentic Misalignment: How LLMs Could Be Insider Threats* (June 2025), [https://www.anthropic.com/research/agentic-misalignment](https://www.anthropic.com/research/agentic-misalignment)
+- Dario Amodei, *Machines of Loving Grace* (October 2024), [https://www.darioamodei.com/essay/machines-of-loving-grace](https://www.darioamodei.com/essay/machines-of-loving-grace)
+- Dario Amodei, *The Urgency of Interpretability* (April 2025), [https://www.darioamodei.com/post/the-urgency-of-interpretability](https://www.darioamodei.com/post/the-urgency-of-interpretability)
+- Terence Tao, *What's new* blog, [https://terrytao.wordpress.com/](https://terrytao.wordpress.com/)
+- Terence Tao, *Mastodon* account, [https://mathstodon.xyz/@tao](https://mathstodon.xyz/@tao)
+- Terence Tao, "Mathematical exploration and discovery at scale" (November 2025), [https://terrytao.wordpress.com/2025/11/05/mathematical-exploration-and-discovery-at-scale/](https://terrytao.wordpress.com/2025/11/05/mathematical-exploration-and-discovery-at-scale/)
+- Terence Tao, "AI Is Ready for Primetime in Math and Theoretical Physics," OpenAI Academy (March 2026), [https://academy.openai.com/](https://academy.openai.com/)
+- Brookings Institution, *Is generative AI a job killer? Evidence from the freelance market*, [https://www.brookings.edu/articles/is-generative-ai-a-job-killer-evidence-from-the-freelance-market/](https://www.brookings.edu/articles/is-generative-ai-a-job-killer-evidence-from-the-freelance-market/)
+- Brynjolfsson, Chandar, Chen, *Canaries in the Coal Mine?*, Stanford Digital Economy Lab (August 2025), [https://digitaleconomy.stanford.edu/wp-content/uploads/2025/08/Canaries_BrynjolfssonChandarChen.pdf](https://digitaleconomy.stanford.edu/wp-content/uploads/2025/08/Canaries_BrynjolfssonChandarChen.pdf)
+- CNN Business, *Character.AI and Google agree to settle lawsuits over teen mental health harms and suicides* (January 2026), [https://www.cnn.com/2026/01/07/business/character-ai-google-settle-teen-suicide-lawsuit](https://www.cnn.com/2026/01/07/business/character-ai-google-settle-teen-suicide-lawsuit)
+- NBC News, *Lawsuit claims Character.AI is responsible for teen's suicide* (October 2024), [https://www.nbcnews.com/tech/characterai-lawsuit-florida-teen-death-rcna176791](https://www.nbcnews.com/tech/characterai-lawsuit-florida-teen-death-rcna176791)
+- Stuart Russell, *Human Compatible: Artificial Intelligence and the Problem of Control* (Penguin, 2019)
+- I. J. Good, "Speculations Concerning the First Ultraintelligent Machine," *Advances in Computers* vol. 6 (1965)
+- Aldous Huxley, *Brave New World* (1932)
+- Hannah Arendt, *The Human Condition* (1958)
+- G.W.F. Hegel, *Phenomenology of Spirit* (1807), master-slave dialectic
+- John Maynard Keynes, "Economic Possibilities for our Grandchildren" (1930)
+- Aymeric Roucher, *Ultra-Intelligence*, chapters 8 to 12, Figures 23, 24, 25
 
-> How are we doing? Let me do a quick survey. Who has a website live right now, hands up? Those of you who have the site live, please, and this is part of the exercise, help your neighbors. Walk around. Explain what you did. If someone is stuck at the git push step, sit next to them, look at their terminal, walk through it together.
->
-> You will learn more by teaching someone the thing you just learned than you will by spending the same 15 minutes polishing your own page. I know this from experience; I learned half of what I know about coding by teaching it to people who knew less than I did.
->
-> Take advantage of this room. Every one of you is at a slightly different point on the learning curve, and the aggregate of the room is more competent than any individual in it, that is the magic of classrooms, and we should use it.
->
-> Who's still debugging? Who hasn't gotten Claude Code installed yet? Let me address the common errors I'm seeing walking around.
->
-> First: if `npm install` failed, you probably don't have Node installed, or you have an old version. Go to nodejs.org, install the LTS version, restart your terminal, try again. Second: if your API key isn't being accepted, check that there's no trailing newline or space. Paste carefully.
->
-> Third: if `git push` failed with a "permission denied" error, you may need to configure a personal access token or SSH key for GitHub. Claude Code will actually walk you through this if you ask, say "I'm getting a permission denied error on git push, what do I do?" Fourth: if your site isn't showing up at yourusername.github.io, give it up to 10 minutes. GitHub Pages can be slow on the first deploy. After that it's usually instant.
->
-> I want to extract four lessons from what just happened in this room, because the lessons go well beyond making a website.
->
-> Lesson one: the first prompt is usually not good enough. Many of you wrote "make me a website" and got something generic. The students who got the best results wrote detailed prompts, with a specified style, specified sections, specified content. Good prompting is a skill. It looks like writing, but it is closer to managing.
->
-> Give context, who the page is for, what it should convey. Give constraints, no framework, mobile-first, under 500 kilobytes. Give examples, "make it look like Anthropic's landing page, but warmer." The more you specify up front, the less iteration you need. This is general: the single biggest predictor of whether someone gets good results from an LLM is the quality of their first prompt. Practice that skill.
->
-> Lesson two: you are now a manager, not a typist. You just wrote zero lines of code. You did not memorize CSS syntax. You did not debug JavaScript by yourself. What you did was decide what you wanted, specify it in English, review what the agent produced, correct it, and iterate. That is management, not programming.
->
-> This is what a lot of professional work looks like in the AI era, at least for the transitional period: you give instructions in plain language, you evaluate output, you iterate. The specific skill transfers across legal drafting, policy briefs, marketing copy, scientific analysis. It is the job for now. It is not a permanent job.
->
-> Lesson three: a huge skill gap is closing. 5 years ago, to build and deploy a personal website, you had to know HTML, CSS, JavaScript, git, and some deployment platform. That's maybe 100 hours of learning before you could ship anything. Today you just did it in less than an hour, from a standing start, with zero coding background for some of you.
->
-> This is the most underappreciated thing happening in our era. Entire skill hierarchies that used to be gatekeepers, programming, graphic design, video editing, translation, legal drafting, are being dissolved by language models.
->
-> The question you should be asking yourself is: what becomes possible for me, now that I don't need to learn these skills from scratch? What project do I have in the back of my head that I always said "I wish I could do that but I don't know how to code, I don't know how to design, I don't know how to write legalese"? That project is now accessible to you. This weekend. Think about it.
->
-> Lesson four, and this is the one I keep coming back to because it moves me. Chapter 19 of my book, page 168. There's a small anecdote I slipped in almost as a footnote. I met a medical doctor who built a full website for his practice without knowing a single line of code. Not "didn't know much", zero lines.
->
-> What he did was ask an AI model to build a first version. Then he looked at the result and said "the appointment-booking form doesn't work on mobile." The model fixed it. He said "the colors are too corporate, I want something warmer." The model fixed it. He kept describing symptoms of the defects he saw, the way a patient describes pains in their abdomen, and the model corrected them, step by step, until he had a real working site.
->
-> I think this is the archetype of the new literacy. Not "learn to code." Not "don't learn to code." Rather: learn to describe what you want precisely, learn to see what's wrong with what you got, learn to iterate patiently. That is a new kind of competence, and it is the single most important thing you can practice in the next five years. What you did today, for 45 minutes, building a silly website you'll mostly forget about, you were practicing exactly that.
-
----
-
-## 9. Deep Research in anger, a five-minute live demo
-
-**Key points:**
-- Prompt to show live: "Produce a 10-page briefing on the state of the EU AI Act as of April 2026, national transposition status, the main outstanding legal challenges to the foundation-model provisions, and the positions of the 5 largest European AI companies on the Act. Cite primary sources."
-- What the students will see: the agent's research plan, the parallel searches, the report with inline citations.
-- What to notice: source diversity, the places where the agent flags uncertainty, the pattern where easy claims get single citations and contested claims get multiple.
-- Counter-pattern: ask the same question to a bare frontier model (no retrieval). Compare the two outputs. The difference is dramatic.
-- What I personally use Deep Research for each week: one briefing before each major meeting; one research scan before starting a new project; one fact-check pass on the draft of anything public I publish.
-
-> Now let me do one more live demo, this one shorter, maybe five minutes. I want to show you Deep Research, because I think it's going to become your best friend during your Sciences Po years.
->
-> Open ChatGPT in another tab. I'm going to type a prompt that is exactly the kind of thing you would actually ask Deep Research in practice. Here we go: "Produce a 10-page briefing on the state of the EU AI Act as of April 2026. Cover national transposition status, the main outstanding legal challenges to the foundation-model provisions, and the public positions of the 5 largest European AI companies on the Act. Cite primary sources, official documents, regulatory filings, court records where available." Send.
->
-> Now notice what happens. The agent proposes a research plan. It identifies sub-questions. It says something like: "I'll structure this as (1) transposition status by country, (2) legal challenges, with particular focus on the France-Italy-Germany triangle, (3) company positions, grouping them by sector. Should I proceed?" You say yes.
->
-> And now it goes dark for about fifteen minutes, except you can watch the little status bar: "searching…", "reading…", "cross-referencing…". When it's done, you get a report. A real briefing, probably eight thousand words.
->
-> Let me scroll through what it produced when I ran this live two days ago. Notice the things I want you to notice. First: source diversity. Every claim has a citation. Click one. It takes you to a page on an EU website, a court record, a company press release. The citations are real, I checked.
->
-> Second: the agent flags uncertainty where it exists. "As of April 2026, the text of the Italian transposition decree is still under review by the Council of State; the final version has not been published." That sentence, by itself, is worth fifteen minutes of Deep Research time. Compare it to what a base model would do, the base model would confidently state a version of the text that sounded plausible and be wrong. The retrieval-anchored agent does not bluff.
->
-> Third: notice the asymmetry. Uncontroversial facts, the Act was signed into law on such-and-such date, have one citation. Contested claims, for example, whether the foundation-model tier is likely to survive court challenge, have five, six, seven citations spanning different perspectives. This is how a good human analyst works. The agent has learned this pattern.
->
-> Now let me show you the counter-pattern. Open a fresh chat. Ask the same question to the base model with no Deep Research, no web search. "Produce a ten-page briefing on the state of the EU AI Act as of April 2026." The base model will answer. It will answer fluently. It will answer with confidence. And it will be, in parts, completely wrong.
->
-> Dates will be off by three months. Company names will be misremembered. A court case that happened will be missing; a court case that didn't happen will appear. Why? Because the base model is answering from compressed memory of its training data, which ended sometime in 2025. Deep Research, by contrast, goes to the live internet and retrieves the current reality.
->
-> When you need facts, always, always use retrieval. This is maybe the single most important practical takeaway of this whole session.
->
-> How do I use Deep Research personally? Three things, every week. One: before a major meeting, I run a five-minute Deep Research on the people and the issues, and arrive with a briefing I couldn't have put together by hand in less than three hours. Two: before starting a new project, I do a full terrain scan, competitive landscape, relevant literature, open questions.
->
-> Three: on the draft of anything I publish, I run a fact-check pass, "identify any factual claim in this essay, verify it against primary sources, and flag anything questionable." That's maybe fifteen minutes of agent time per essay. It has saved me from at least three embarrassing errors in the last six months. I recommend you adopt the same three habits. Start now.
-
----
-
-## 10. When to refuse, cases where you should close the laptop
-
-**Key points:**
-- Life-critical decisions where the human loop matters: medical, legal-trial, policy impacting many lives, anything irreversible.
-- Intimate creative work, the piece you're writing to honor a grandparent, the declaration you're writing to a partner. The book's point on art: AI writes fine poetry (Porter & Machery 2024, *Scientific Reports*), but if the poem is meant to carry you in its making, let it carry you.
-- When you don't understand the question well enough yet. Using AI to skip the groping-around phase robs you of the thinking that makes you competent later.
-- When disclosure is impossible or would be dishonest, e.g. a personal letter, a handwritten note, a piece of signed art.
-- When you are tired and emotionally compromised. The model's sycophancy is maximally dangerous when you are seeking reassurance rather than truth.
-- The book's chapter 9 tutor anecdote (p. 102): students who depended on ChatGPT fell below baseline. Apply the same to yourself as an adult.
-
-> Before we close, a short section on when to close the laptop. I talked about when to use. I want to be equally explicit about when not to.
->
-> One framing that helps: at any moment while using these tools, ask yourself if you are in a state where the model's answer would actually serve you, versus a state where the model's answer would just give you permission to stop thinking. The first case, you should keep going. The second case, you should stop.
->
-> This sounds obvious but it's subtle in practice because the sycophancy bias we discussed earlier is designed to make you feel served when you're actually being flattered into closing the loop prematurely. Noticing this in yourself is a skill that takes months to build.
->
-> First: any life-critical decision where a human loop matters. Medical diagnosis that will lead to irreversible treatment. Legal strategy in a criminal trial. Policy choices that will affect many lives. Anything you cannot undo.
->
-> I am not saying don't use the model to think about these things. I'm saying don't let the model be the final decision-maker. Keep a human in the loop, and ideally a specialist human. The model is an advisor. The decision is yours.
->
-> Second: intimate creative work. The piece you're writing to honor a grandparent who just passed. The declaration you're writing to a partner. The speech at a friend's wedding. In the book I reference a 2024 paper by Porter and Machery in Scientific Reports that showed AI poetry is, statistically, rated higher than human poetry by human judges. The technical capability is there. The model can write a beautiful elegy.
->
-> But here's the thing, when you write something intimate, the writing itself is part of the gift. The hours you spent sitting with your memories of your grandmother, the three drafts you threw away, the sentence that came to you on the walk home, that process carries meaning. Delegating it to a model produces a polished text and hollows out the emotional labor that makes it a gift.
->
-> So for those pieces, close the laptop, sit with the blank page, write it yourself. You will write something less polished and more real.
->
-> Third: when you don't understand the question well enough yet. This is subtle. When you are in the early phase of thinking about a problem, you should be groping around, reading, taking notes, making wrong conjectures, correcting them. This groping is the process that builds your real understanding.
->
-> If you skip it by asking the model "what's the answer?", you will get an answer, but you won't have the understanding that lets you defend it, extend it, or recognize when it's wrong. Let yourself grope. Come to the model with a specific question after you've done some groping.
->
-> Fourth: when disclosure is impossible or would be dishonest. A handwritten personal letter. A signed piece of art. A spoken toast. These are genres where AI use is presumptively inauthentic, you can't really disclose "this spoken toast I'm giving was drafted by Claude" without undermining the toast. Don't use AI for those.
->
-> Fifth, and this is the one that catches me when I catch myself, do not use the model when you are tired and emotionally compromised. I know this pattern in myself. It's late, I'm tired, I have a decision to make, and I type something into the chat that is really just seeking reassurance.
->
-> "I'm thinking of doing X, what do you think?" And the sycophantic model tells me X is a great idea. And I go to sleep feeling validated. The next morning I realize X was a terrible idea and I had known it the whole time. The model gave me the reassurance I was seeking, not the truth I needed.
->
-> When you notice this pattern in yourself, "I am asking the model because I want to be told I'm right", close the laptop. Sleep on it. Ask a human friend in the morning. Or sit with the discomfort of not knowing. That discomfort, for the record, is where judgment gets built.
->
-> And last, I already made this point in the ethics section but let me close on it again. Go back to that Turkish high-school study I cited. When the researchers took ChatGPT away, the students who had used it as a crutch fell below the control group. Below. They were worse than classmates who had never had the tool.
->
-> That is the risk profile of over-reliance. Apply it to yourself. If you notice that you no longer feel comfortable writing an email without pasting it into Claude first, you've crossed a line. Pull back. Write the next five emails by hand. Rebuild the muscle. The tool should strengthen you, not make you dependent on it.
-
----
-
-## 11. Recap, and a glance at Session 6
-
-**Key points:**
-- The four failure modes: hallucinations, sycophancy, jagged intelligence, and confident-but-wrong reasoning. All persist. All can be managed.
-- The five mental models: intern analogy, calculator for prose, trust zones, retrieval anchoring, two-pass rule.
-- The six ethical principles: disclose, verify, don't atrophy, don't fabricate evidence, credit honestly, preserve practice without AI.
-- The toolkit: Deep Research for factual scans, agentic coding assistants like Claude Code for building, Lovable for no-terminal access.
-- The closing image, recycling the book's chapter 19: the lever is there. Learning to use it is up to you.
-- Session 6 preview, "what does all of this do to society?" Topics: labor market displacement (the book's chapter 10, the 21% drop in freelance writing jobs since ChatGPT); political influence (the book's chapter 13 and 16, Priest-Prophet-King); the end of work question (Arendt, Hegel, Russell); what the well-lived life might look like in a post-work society.
-
-> Let me pull the threads together. We spent two hours, and I want to leave you with the five or six things I really want you to remember.
->
-> Before I enumerate them, one last observation. This has been a practical session, but there is a philosophical undercurrent I want to make explicit. Every mental model, every ethical principle, every tool I recommended today pushes in the same direction: keep yourself in the loop. Keep your judgment active. Keep your skepticism calibrated. Do not outsource to the model the things that make you you.
->
-> The reason I keep insisting on this is not because I'm a Luddite, I use these models more than most people in this room. It's because the temptation to coast is enormous, and coasting, even briefly, changes the shape of your mind. Three weeks of coasting is recoverable. Three years of coasting is not.
->
-> So treat every interaction with the model as a small exercise in staying in the loop. Over a career, the cumulative effect of those small exercises is the difference between being a brilliant user of AI and being absorbed by it.
->
-> First, the failure modes. Hallucinations are the invented facts, they persist, they are getting rarer but will never hit zero. Sycophancy is the model agreeing with you to please you, a twenty-five percent swing depending on how you phrase your prompt, per the Anthropic paper.
->
-> Jagged intelligence, your model is brilliant in one domain and dumb in the next; test each task, don't extrapolate. And confident-but-wrong, fluent reasoning chains with an error in the middle, especially in math, code, and law.
->
-> Second, the mental models. The intern. The calculator for prose. The four trust zones: low-stakes drafting, medium-stakes analysis, high-stakes factual claims, critical safety decisions. The retrieval anchor, always attach a source when facts are in play. The two-pass rule, brainstorm with the model, then critique as a stranger.
->
-> Third, the ethics. Disclose in academic work. Verify what you sign your name to. Don't let the model atrophy your own judgment. Don't fabricate evidence. Credit honestly. Preserve deliberate practice without AI.
->
-> Fourth, the toolkit. Deep Research for factual scans and literature reviews. Claude Code or Lovable for building, you've now built something, go keep iterating on it this week. A frontier-model subscription for daily use, twenty euros a month is the best investment in your learning you can make right now, per my book's explicit recommendation on page one hundred and sixty-six.
->
-> Fifth, the closing image. The book's chapter nineteen opens with Archimedes. Give me a lever long enough, and I will lift the Earth. The lever is there. Learning to use it is on you.
->
-> I want to say one more thing about that image, because I think it gets misread. The Archimedes story is not about the lever. It's about the person holding it. The lever does not lift anything by itself. The lever requires a human body with judgment, strength, and intention to apply it in the right place. A mispositioned lever accomplishes nothing. A well-positioned lever accomplishes everything.
->
-> The LLM is like this. The people who will benefit most from these tools over the next few years are not the people who use them most mindlessly. They are the people who learn, through practice and reflection, where to point the lever and when to push. That is a skill. You cultivate it. You cannot download it.
->
-> And the principal way you cultivate it, I keep coming back to this, is by staying in the loop, by doing the hard thinking yourself, by using the model as an amplifier rather than a substitute.
->
-> If you leave this room today with exactly one habit changed, I'd want it to be this: before you open ChatGPT or Claude to ask a question, take thirty seconds to write down, in your own words, what you think the answer might be and what your uncertainties are. Then ask the model. Compare your guess to the model's answer. Notice where you agreed and where you disagreed.
->
-> Over months, this habit calibrates both your own reasoning and your sense of the model's reliability. It takes thirty seconds per query. It compounds into years of intellectual sharpness. Try it this week. That's my homework for you.
->
-> You have had, today, a walk through the mechanics, the failure modes, the mental models, the ethics, and the practice. You have a live website. You have a new workflow for research. You have a clearer sense of what you will not delegate. That's a good two hours.
->
-> Session six, next time, we zoom out. We will talk about what all of this does to society. The labor market, there's already a study showing that freelance writing jobs on platforms like Upwork dropped by twenty-one percent in the year after ChatGPT launched.
->
-> The political sphere, I have a full chapter in the book on the "priest-prophet-king" figure, the leader of the future who will need AI advisors to stay competitive. The end of work question, Arendt's distinction between labor and work, Hegel on the dignity of struggle, Russell on idleness.
->
-> And the larger question: what does a well-lived life look like in a society where most labor is automated? Those are heavy questions and we'll spend two hours on them next session.
->
-> Homework for the week: send the link to the website you built today, and report one concrete thing you changed in your workflow as a result of today. Not a vague "I'll think about it." A specific change, "I installed Claude Code and built a site about my dissertation." Or "I started using Deep Research for my literature reviews and it saved me six hours last weekend." Or "I stopped pasting my drafts into ChatGPT for validation and started asking for objections instead." Something measurable. Forcing yourself to articulate the change makes it more likely to stick.
-
----
-
-## Sources
-
-- OpenAI, "Introducing deep research," 2 February 2025. https://openai.com/index/introducing-deep-research/
-- A. T. Kalai, O. Nachum, S. S. Vempala, E. Zhang, "Why language models hallucinate," arXiv:2509.04664, September 2025. https://arxiv.org/abs/2509.04664 and https://openai.com/index/why-language-models-hallucinate/
-- M. Sharma et al., "Towards understanding sycophancy in language models," Anthropic, October 2023. https://arxiv.org/abs/2310.13548 and https://www.anthropic.com/research/towards-understanding-sycophancy-in-language-models
-- Mata v. Avianca, Inc., S.D.N.Y., June 2023, sanctions for ChatGPT-fabricated citations. https://en.wikipedia.org/wiki/Mata_v._Avianca,_Inc. and "Two US lawyers fined for submitting fake court citations from ChatGPT," *The Guardian*, 23 June 2023.
-- Moffatt v. Air Canada, B.C. Civil Resolution Tribunal, 14 February 2024, airline liable for chatbot misrepresentation. Case comment at https://www.canlii.org/en/commentary/doc/2025CanLIIDocs1963
-- TechCrunch, "Lovable says it's nearing 8 million users as the year-old AI coding startup eyes more corporate employees," 10 November 2025. https://techcrunch.com/2025/11/10/lovable-says-its-nearing-8-million-users-as-the-year-old-ai-coding-startup-eyes-more-corporate-employees/
-- H. Bastani, O. Bastani et al., "Generative AI can harm learning," SSRN 4895486, 15 July 2024, Turkish high-school ChatGPT tutor study.
-- B. Porter and E. Machery, "AI-generated poetry is indistinguishable from human-written poetry and is rated more favorably," *Scientific Reports*, 14(1), 26133, November 2024.
-- A. Roucher, *Ultra-Intelligence: Jusqu'où iront les IA ?*, especially Chapter 3 (hallucination, sycophancy; Figure 12 benchmark-overtaking; Figure 14 LLM polyvalence; Figure 15 Monet vs AI), Chapter 5 (glass ceilings; Figure 15 on creativity), Chapter 6 (AI agents; Figure 16 agentic schema; Figure 17 GAIA), Chapter 8 (alignment and sycophancy mitigation), Chapter 9 (voice assistance, medical, education), Chapter 19 (autodidactic learning, source selection). *Figure references from the book used inline:* Figure 12 (benchmark-overtaking, p. 51), Figure 13 (knight with missing constraints, p. 54), Figure 14 (LLM polyvalence vs. calculator spike, p. 56), Figure 15 (Monet vs. AI, p. 66), Figure 16 (agentic schema, p. 71), Figure 17 (GAIA progress, p. 74).
-
----
-
-*Length check: run `python3 cours_sciences_po/timer.py cours_sciences_po/session_5.md`. Target 15,500 to 17,500 words at 140 wpm ≈ 111-125 minutes. The delivered script is calibrated to the lower end of this window, leaving room for natural Q&A pauses, the forty-five-minute hands-on demo where the instructor circulates around the room, and the short break traditionally given around the mid-point. If delivery runs lean, the ethics section and the "when to refuse" section can each be extended with a student discussion prompt.*
+--- *End of Session 6. Thank you for these six lectures.*

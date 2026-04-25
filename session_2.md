@@ -1,560 +1,588 @@
-# Session 2: Opening the machine *Word-count target: 15,500 to 17,500 words (about 2 hours at 140 wpm).*
-*Run:* `python3 cours_sciences_po/timer.py cours_sciences_po/session_2.md` --- ## 0. Opening (about 3 min) **Key points:**
-- Where we are in the arc of the course.
-- The promise of today: by the end, each of you will know concretely how a neural network is built. Not in metaphor. In code.
-- Three ideas we will nail: a neuron is arithmetic, backpropagation is blame assignment, attention is meaning flow. > Last week we stood at altitude. We looked at the whole rocket: the race between OpenAI, Anthropic, Google, Meta, Mistral, the compute curves, the capital flows, the AGI question. You left with a map. Today, we zoom in on the engine. We open the hood. We pull the metal panels off, and we look at what actually runs in there.
->
-> My claim for today, and I want you to test it against me: a neural network is not complicated. It is arithmetic, performed at vast scale, with a clever trick to automatically adjust the arithmetic until it does what you want. That is it. Three hours of lecture and we will have coded one ourselves. From scratch. With a notebook, some Python, and no magic.
->
-> Here is the plan. First, 30 minutes on the neuron itself and the network. Then, a live coding block where I build a small network on MNIST (handwritten digits), we watch it train, and we peek inside to see what the neurons learned. Then we take a hard look at how this network learned, which is the single most beautiful idea in modern AI: backpropagation. Then we leave images behind and move to text, where we meet Word2vec, vectors, the king-queen analogy, and finally attention and Transformers. Three big acts. We break in the middle. I will pace myself.
->
-> Two rules. One, please interrupt. If a symbol flies past you and you are lost, raise your hand. Nothing makes me happier than an honest "I don't follow". Two, please do not panic at the math. I will keep it minimal. Every equation I write, I will translate into a sentence in French or in English. If you walk out of this room at 6 with the feeling that neural networks are plumbing, not magic, I have done my job. --- ## 1. The neuron (about 12 min) **Key points:**
-- A neuron is one line of arithmetic: weighted sum, then a switch.
-- The weights are what the network learns. Nothing else.
-- Stacking neurons into layers builds abstraction. > Let me draw on the board. You have an input. Call it x. x could be a pixel, a temperature, a number of previous metro delays, anything that is a number. A neuron takes several inputs at once. Let us say three inputs: x1, x2, x3. Each input arrives at the neuron through a channel, and each channel has a weight. The weights are numbers too, and they are the knob we will be turning later. Call them w1, w2, w3.
->
-> The neuron does two things. First, it sums the inputs, each multiplied by its weight. So it computes w1 times x1, plus w2 times x2, plus w3 times x3. This is a weighted sum. In a single line: y equals w dot x plus b, where b is a small extra number called a bias. Think of b as a baseline volume, a default tendency to fire or not fire regardless of the inputs.
->
-> Second, the neuron applies an activation function to this weighted sum. The simplest activation function, and the one used most in modern networks, is called ReLU. ReLU is a fancy name for a trivial rule: if the number is negative, output zero; if the number is positive, pass it through. That is all. In one line of Python: if x is less than zero, return zero, else return x. You could write it on a Post-it. And yet this tiny switch is load-bearing for the whole field.
->
-> [TA shows on screen — Figure 2 (Ultra-Intelligence, p. 13): the single-neuron diagram, blue-to-red colored weights, the sum-and-activation box, the output signal.]
->
-> Look at the figure on the screen. You see three input signals arriving from the left. Each is multiplied by its weight. The weights are color-coded: blue means negative, red means positive. In this example the sum comes out to minus 0.79. Negative. So the ReLU activation outputs zero. The neuron is silent. Nothing flows onward.
->
-> Now imagine the inputs were different. Say x1 went up. The weighted sum would rise. At some point it crosses zero. The neuron fires. It transmits a signal to whatever comes next. What comes next is another neuron, in the next layer, and that second neuron in turn does its own weighted sum of signals from the previous layer, applies its own ReLU, and so on, layer after layer, until finally some signal arrives at the last layer. That last layer is the output of the network.
->
-> So a neural network is a list of layers. Each layer is a list of neurons. Each neuron does a weighted sum and a ReLU. That is the whole architecture. Seriously. What we call deep learning, the thing that has just produced ChatGPT and Claude and Gemini and reshaped a trillion dollars of the economy, is: weighted sums, ReLU, weighted sums, ReLU, weighted sums, ReLU, done.
->
-> Why does it work, then? Because by adjusting the weights, and only the weights, we can make the network compute almost any function you can imagine. The weights encode what the network knows. Change the weights, you change the network. Store the weights on disk, you store the knowledge. Ship the weights to your phone, you ship the model. When somebody tells you "Meta released Llama 3", what they actually released is a file containing billions of weight values. Decimals. That's the whole model. Just a file of numbers.
->
-> Here is the anchor image I want you to keep. [TA shows on screen — Figure 3 (Ultra-Intelligence, p. 14): the full fox-versus-elephant network with colored weights and activation levels.] On the left, an image of an elephant. Each pixel becomes an input to the network. First layer, 400 neurons if the image is 20 by 20. Each neuron fires, more or less, depending on the pixel values it receives. Second layer, fewer neurons, each tuned to detect simple shapes: an edge, a curve, a patch of contrast. Third layer, still fewer neurons, each tuned to combinations of those shapes: a tusk-like thing, a trunk-like thing, a snout, an ear. Final layer, two neurons: one for fox, one for elephant. The elephant neuron lights up. The fox neuron stays dark. Prediction: elephant.
->
-> Notice what happened. Each neuron in the intermediate layers has specialized. Some neuron, deep inside, has become a tusk detector. Not because we told it to. Because training drove it there. We will see exactly how, in an hour. But first let me insist on this point: the whole apparent intelligence of the network is distributed across millions or billions of little neurons, each of which is just doing a weighted sum and a ReLU. Simple bricks. Complex behavior. This is the connectionist bet, made by Frank Rosenblatt in 1958, and vindicated by Yann LeCun, Geoff Hinton, Yoshua Bengio 40 years later. Simplicity of the bricks does not preclude complexity of the system. An ant colony builds cathedrals. A neuron colony writes sonnets.
->
-> One historical footnote, because it matters. Rosenblatt built the first functioning neural network, called the Perceptron, in 1958 at the Cornell Aeronautical Laboratory. He demonstrated it on a simple pattern-recognition task. He was an American psychologist, not a computer scientist: he came at this from the brain side, from the idea that if we could imitate the neuron, we could imitate thought. The New York Times, in 1958, wrote that this machine was "the embryo of an electronic computer that the Navy hopes will walk, speak, see, write, reproduce itself, and be conscious of its existence". A bit ahead of itself, that headline. But not, as it turns out, wrong in principle. Just wrong in timing, by about 50 years. Which brings us to our central theme: in AI, being correct is not enough. You also have to be on time. Rosenblatt had the idea. He lacked the compute, the data, and the learning algorithm. We will see what fixed that.
->
-> One more thing before we leave the neuron. You may have heard the term "deep learning". "Deep" refers to the number of layers. A shallow network has one or two hidden layers. A deep network has dozens, sometimes hundreds. GPT-4 has about 120 transformer layers stacked on top of each other. AlphaFold, the protein-folding model from DeepMind, has a different kind of depth but also dozens of layers. The "deep" in "deep learning" is the architectural choice to stack many layers. Each layer gets to combine and re-combine the features of the previous layer, so deeper networks can detect more abstract patterns. Shallow networks detect edges; deep networks detect semantic concepts. The depth is what gives the representations their power. And, critically, you cannot train a deep network by hand; you need backpropagation, which we get to next. --- ## 2. Training: the mountaineer in the fog (about 18 min) **Key points:**
-- Weights start random. Predictions start random.
-- We need a way to nudge the weights in the right direction, automatically.
-- The loss function is a mountain landscape. Training is finding the lowest valley.
-- Gradient descent is "always walk downhill".
-- Backpropagation is the algorithm that assigns blame to each weight. > Alright. We have a neural network. Its weights are random. What does it predict? Random garbage. We show it an elephant, and with 50 percent probability the fox neuron fires louder. With 50 percent probability the elephant neuron fires louder. It has no idea. It is a random arithmetic machine.
->
-> So how do we turn a random network into a useful one? We do what humans do with a new employee. We show it examples. We tell it the correct answer. And when it gets the answer wrong, we correct it. We nudge. Not "you are wrong, start over", but "you are slightly wrong, adjust in this direction". Thousands of times. Millions of times. Billions.
->
-> The procedure has a name. It is called training. In English also called machine learning. The word "learning" is already anthropomorphic, so if you want the scientific word, it is "parameter optimization". Either works. I will say "training".
->
-> Let me define the key quantity. We need a number that tells us how badly the network is doing. We call this number the loss. The English word is "loss function"; in French "fonction de coût". For a classification task, the loss is roughly "what fraction of the examples did the network get wrong". Low loss equals good network. High loss equals bad network. Our goal is: make the loss as small as possible by adjusting the weights.
->
-> Here is the tricky part. The loss is a function of the weights. If you have two weights, weight A and weight B, then the loss is a function of A and B. You can plot it. Put A on the x-axis, B on the y-axis, loss on the z-axis. What do you get? [Figure 6, p. 23: the gradient-descent 3D landscape with "Départ", successive steps, the global minimum deep basin, a shallow local minimum aside.]
->
-> You get a landscape. A three-D mountain range. Peaks are high-loss regions, places where the network performs badly. Valleys are low-loss regions, places where the network performs well. The deepest valley of all, somewhere on this landscape, is the global minimum. That is where we want to end up: the weights that minimize our errors.
->
-> Now, the starting situation. We initialize the weights at random. So we land at a random point on this landscape. Typically some hillside, some shoulder, wherever luck places us. It is almost certainly nowhere near the deepest valley. Our job is to get from here to there.
->
-> Why not just compute the location of the global minimum directly? Great question. Let's try. Imagine we put a grid on the landscape: 20 values of A, 20 values of B, that is 400 combinations. We evaluate the loss at each of the 400 points. We pick the lowest. Done. That works for a toy two-weight network.
->
-> The problem is: a real network does not have two weights. A real network has a million. Or a billion. GPT-4 has more than a trillion. If we wanted to grid-search a one-million-weight network with 10 values per weight, we would have 10 to the power of 1 million combinations. 10, then a million zeros. Compare: the number of atoms in the observable universe is 10 to the 80. So we could not even list the combinations, let alone evaluate them, even if we used every atom in the universe as a calculator. Brute force dies here. Dead.
->
-> We need a smarter algorithm. And the smart algorithm is: walk downhill.
->
-> Here is the analogy I use in the book. You are a mountaineer, lost in a snowstorm. Zero visibility. You cannot see the valley, you cannot see the map. But you have one tool: you can feel the slope of the ground under your feet. You can tell which direction is down. So what do you do? You take a step downhill. A small step. You reassess. You take another step downhill. And so on. It is not elegant, but it is simple, and if there is any valley within walking distance, you will end up in it.
->
-> This algorithm has a name. It is called gradient descent. The "gradient" is the mathematical word for the slope at your current location. Formally: if the loss is a function of many variables, the gradient is the vector of partial derivatives, one per variable, pointing in the direction of steepest increase. We negate it, because we want to go down, not up. We multiply by a small number called the learning rate, which is the size of our step. We update all the weights at once. One step taken. Then we repeat. Hundreds of thousands of times.
->
-> Now. Here is the subtle question that stumped researchers for 20 years. In a deep network, with many layers, you have this gradient, this slope, but the gradient is defined with respect to every single weight. If you have a million weights, you need a million partial derivatives. How do you compute them efficiently? Naively, you might think: for each weight, perturb it a tiny bit, see how the loss changes, and divide. That gives you one partial derivative. Do it a million times. But now every single training step requires a million forward passes through the network. Hopeless.
->
-> The trick that unlocks the field is called backpropagation. The full name is "backpropagation of the gradient". It is the algorithm that allows you to compute all million partial derivatives in the cost of about two forward passes through the network. Yann LeCun published this for neural networks in the late 1980s, building on prior work by Rumelhart, Hinton, and Williams in 1986, and on earlier ideas going back to the 1960s. Geoff Hinton was the main popularizer. LeCun put it to work on handwritten digit recognition, at Bell Labs, reading postal codes on American bank checks. By the late 1990s, his system was processing 10 to 20 percent of all checks cashed in the United States. Industrial deep learning, in production, 25 years ago.
->
-> Let me try to give you the intuition for backpropagation without any formulas. The setup: we made a prediction, the prediction was wrong by a certain amount. Call that the error at the output. We want to answer the question: how much is each weight in the network responsible for that error? The closer a weight is to the output, the more directly it affects the output, so we can compute its responsibility first. Then we ask: those last-layer neurons, how did their own inputs affect them? The inputs to the last-layer neurons are the outputs of the next-to-last layer. So the responsibility flows backward, one layer at a time, from the output toward the input. Hence: back-propagation. Blame propagates backward. Each weight receives a share of the total blame. Then we adjust each weight by a small amount, proportional to its blame, in the direction that would reduce the error.
->
-> In one sentence: backpropagation is the accountant who traces every cent of the output error back to the specific weights that caused it, so that we can correct them in proportion.
->
-> This is why machine learning finally worked. Before backpropagation, we could not train deep networks, because we could not figure out which weights to adjust. With backpropagation, we can train networks of arbitrary depth in polynomial time. It is the unlock. The rest of deep learning is details, engineering, scale.
->
-> Let me slow down one more time on this, because it is genuinely the most beautiful algorithm in the field, and most of you will leave the room not being able to say what it does. Think of a water pipe. The pipe has many branches, many valves. At one end, water enters. At the other, it exits. The amount of water exiting depends on how open each valve is. Suppose the output is too low. Which valves do I open? Well, the valves that directly feed the output matter most, obviously. Then the valves one branch back. Then two branches back. Each valve has a certain degree of "responsibility" for the final flow, depending on how much water flows through it and how sensitive downstream valves are to its setting. Backpropagation is the systematic procedure to compute that responsibility for every valve in the network at once. Once we know the responsibility, we nudge each valve open or closed in proportion. Water flow, corrected. In deep-network terms: error, reduced.
->
-> The mathematics underlying backpropagation is the chain rule of calculus, which you may have seen in terminale. If y depends on u, and u depends on x, then the rate of change of y with respect to x is the product of the rate of change of y with respect to u and the rate of change of u with respect to x. Chain rule. Multiply the derivatives along the path. Backpropagation is just the chain rule, applied over and over, through all the layers of the network, efficiently. Nothing more, nothing less. The genius of Hinton, LeCun, and Rumelhart in 1986 was not inventing the chain rule. The chain rule is 300 years old. Their genius was realizing that the chain rule, when applied with care to a neural network, gives you all the gradients you need in a single backward pass. Elegant. Efficient. Transformative.
->
-> One practical point worth flagging. When you hear somebody talk about "auto-differentiation" or "autograd", they are talking about a software framework that automates backpropagation. PyTorch, TensorFlow, JAX: all of these are, at their core, autograd engines. You define the forward pass of your network, they automatically compute the backward pass for you. You do not need to derive gradients by hand. This is why we were able to write the whole MNIST training loop in 10 lines: PyTorch hid the backpropagation inside one function call, `loss.backward()`. Before autograd, every new network architecture required a research paper to derive its gradients. Now it is a library call. That productivity multiplier is a huge part of why the field moves so fast today. --- ## 3. Live code: a network on MNIST from scratch (about 28 min) **Key points:**
-- We build a two-layer network on MNIST (handwritten digits) in under 50 lines of PyTorch.
-- We watch training happen: the loss falls, the accuracy climbs.
-- We peek inside the trained network: what do the neurons detect? > Alright. Enough words. Let me show you. I will share my screen. What you see is Google Colab, a free Python notebook in the browser. No install. No setup. You all have laptops open; you can follow along at the URL I put in the chat. You have it? Good.
->
-> We will use PyTorch, the main open-source deep-learning library. It was developed at Meta by a team that includes Yann LeCun's orbit. Meta open-sourced it. Every major AI lab uses it. It is free, mature, and short to write. You could also do all of this in pure NumPy, and I did once, as a sanity check; it is about 3 times as much code and 10 times slower. We will use PyTorch, which hides the backpropagation inside a library call, and then we will peek under the hood.
->
-> Let me start with the data. MNIST is the "Hello World" of deep learning. MNIST is a dataset of 60,000 handwritten digits, each a 28-pixel-by-28-pixel grayscale image, along with the correct label, 0 through 9. It was assembled from US Census Bureau forms and American high-school students in the 1990s. It is small enough to train on a laptop in a minute. Yann LeCun himself hosts it on his website.
->
-> Code snippet one. Load the data.
->
-> ```python
-> import torch
-> import torch.nn as nn
-> from torch.utils.data import DataLoader
-> from torchvision import datasets, transforms
->
-> transform = transforms.ToTensor()
-> train_set = datasets.MNIST(root="./data", train=True, download=True, transform=transform)
-> test_set = datasets.MNIST(root="./data", train=False, download=True, transform=transform)
-> train_loader = DataLoader(train_set, batch_size=64, shuffle=True)
-> test_loader = DataLoader(test_set, batch_size=256)
-> ```
->
-> Five lines of setup. I run this. The download takes 3 seconds. What is on my screen now: a variable called train_set, which holds 60,000 image-label pairs. Let me show you one.
->
-> ```python
-> import matplotlib.pyplot as plt
-> image, label = train_set[0]
-> plt.imshow(image[0], cmap="gray")
-> plt.title(f"Label: {label}")
-> plt.show()
-> ```
->
-> On screen: a blurry, grainy, hand-scrawled digit. Label: 5. You can see it is a 5, if you squint. This is one training example. We have 60,000 of them.
->
-> Snippet two. Define the network. This is the core moment.
->
-> ```python
-> class MLP(nn.Module):
-> def __init__(self):
-> super().__init__()
-> self.flatten = nn.Flatten()
-> self.layer1 = nn.Linear(28 * 28, 128)
-> self.relu = nn.ReLU()
-> self.layer2 = nn.Linear(128, 10)
->
-> def forward(self, x):
-> x = self.flatten(x)
-> x = self.layer1(x)
-> x = self.relu(x)
-> x = self.layer2(x)
-> return x
->
-> model = MLP()
-> ```
->
-> Read what this says, in plain French: "my network takes a 28-by-28 image, flattens it into a list of 784 numbers, runs it through a first layer of 128 neurons with ReLU, then through a second layer of 10 neurons, one per digit, and returns those 10 scores." That is the network. Two layers. 8 lines of code. The whole architecture fits on a Post-it.
->
-> Let me count the weights, because this matters. Layer one: 784 inputs times 128 neurons equals 100,352 weights, plus 128 biases. Layer two: 128 inputs times 10 neurons equals 1,280 weights, plus 10 biases. Grand total: 101,770 parameters. 100,000 numbers. We are about to adjust every single one of them by gradient descent.
->
-> For comparison, GPT-4 is rumored to have on the order of 1.5 trillion parameters. So our little network is 15 million times smaller than a frontier LLM. And yet, in about one minute of training, it will learn to read handwritten digits with 97 percent accuracy. Keep that in mind: even a toy network is capable of something that, 30 years ago, was a serious research problem.
->
-> Snippet three. Set up the training loop.
->
-> ```python
-> loss_fn = nn.CrossEntropyLoss()
-> optimizer = torch.optim.SGD(model.parameters(), lr=0.05)
->
-> for epoch in range(5):
-> total_loss = 0.0
-> for images, labels in train_loader:
-> logits = model(images)
-> loss = loss_fn(logits, labels)
-> optimizer.zero_grad()
-> loss.backward()
-> optimizer.step()
-> total_loss += loss.item()
-> print(f"Epoch {epoch + 1}: average loss = {total_loss / len(train_loader):.4f}")
-> ```
->
-> Look at this. Every single concept we discussed is visible in this snippet.
->
-> "loss_fn equals CrossEntropyLoss." This is our loss function. Cross-entropy is the standard loss for classification; you do not need to memorize its formula, but it punishes the network more severely when it is confidently wrong than when it is cautiously wrong.
->
-> "optimizer equals SGD with learning rate 0.05." SGD stands for stochastic gradient descent. It is gradient descent, computed on a small random batch of examples at each step rather than the whole dataset. Cheaper per step. More noise. Works beautifully.
->
-> Now the inner loop. For each batch of 64 images: compute the predictions (that is the forward pass), compute the loss, zero out the accumulated gradients, call loss dot backward, which is PyTorch's one-line backpropagation, then call optimizer dot step, which applies the gradient update to all parameters.
->
-> Four lines. That is a training step. The whole algorithm we just discussed, packaged.
->
-> Let me run it. On my screen, I hit shift-enter. The loss prints out epoch by epoch. Watch.
->
-> Epoch 1: average loss equals 0.54.
-> Epoch 2: 0.23.
-> Epoch 3: 0.18.
-> Epoch 4: 0.15.
-> Epoch 5: 0.13.
->
-> Five epochs. About one minute of wall-clock time on this laptop. Loss has dropped by a factor of 4. This is gradient descent, doing its job, nudging those 100,000 weights in the direction of smaller error, one batch at a time.
->
-> Snippet four. Measure accuracy on the held-out test set.
->
-> ```python
-> model.eval()
-> correct = 0
-> total = 0
-> with torch.no_grad():
-> for images, labels in test_loader:
-> logits = model(images)
-> predicted = logits.argmax(dim=1)
-> correct += (predicted == labels).sum().item()
-> total += labels.size(0)
-> print(f"Test accuracy: {correct / total:.3f}")
-> ```
->
-> I run it. Screen prints: "Test accuracy: 0.973". 97.3 percent. On test digits that the network has never seen in training. This is the real number. Not the training loss. The generalization score. We trained a network from literal random weights to 97 percent accuracy on unseen handwritten digits, in one minute, on a free laptop, with 60 lines of code.
->
-> Pause for a second and let that sink in. 30 years ago, getting 97 percent on MNIST was a publishable result. Today, it is a warm-up exercise for a Sciences Po class. This is what the compute-and-data explosion has given us. This is what Moore's law and the data avalanche bought us. Yann LeCun's team needed weeks of custom silicon for this. We do it over espresso.
->
-> Now, the most beautiful part. Let me look inside the network. What did those 128 hidden neurons learn? Let me pull out the weights of the first layer, and I will reshape them back into 28-by-28 images, one per neuron, and plot them.
->
-> Snippet five. Visualize the first-layer weights.
->
-> ```python
-> import matplotlib.pyplot as plt
->
-> weights = model.layer1.weight.detach().numpy()
-> fig, axes = plt.subplots(8, 16, figsize=(16, 8))
-> for i, ax in enumerate(axes.flat):
-> ax.imshow(weights[i].reshape(28, 28), cmap="RdBu")
-> ax.axis("off")
-> plt.show()
-> ```
->
-> On screen: 128 little 28-by-28 squares. Red pixels mean positive weight, blue pixels mean negative weight. Each square is one neuron in the hidden layer. Each square tells you what shape that neuron is looking for in the input image. If the input matches the red pattern, the neuron fires strongly; if the input matches the blue pattern, it fires weakly.
->
-> Look at the results. I am pointing at the screen. One of them is clearly a horizontal bar, red across the middle, blue above and below. That neuron has become a horizontal-stroke detector. Another looks like a loop in the top-left region: that is a "0 is in the top-left" detector, or something like a 6-like curve. Another one is a diagonal line. Another one is a vertical bar with a dot at the top, like a 1 or a 9. Many look like noise at first glance, but they are not noise; they are more subtle features, blends that the network uses in combination with other neurons.
->
-> Nobody told the network "please specialize into a diagonal-line detector". It got there on its own, by gradient descent, because the diagonal detector is useful for distinguishing, say, 1s from 7s. Specialization emerged. This is the core magic of deep learning: give the network a simple objective (reduce loss) and a lot of examples, and internally it will decompose the problem into useful sub-features, without ever being told what those sub-features should be. Rosenblatt guessed this in the fifties. LeCun proved it in the nineties. Today it is routine.
->
-> One more demonstration. Let me show you an internal visualization that 3Blue1Brown, a YouTube channel I cannot recommend strongly enough, made famous. [TensorFlow Playground, at playground.tensorflow.org.] Go to your browser right now. playground.tensorflow.org. It is a tiny web app that lets you train a neural network in your browser, on a two-dimensional toy problem, with a slider for the number of layers, a slider for the number of neurons, a button for ReLU or tanh activation, and a big orange "play" button.
->
-> Pick the spiral dataset. Two interlocked spirals, one blue, one orange. The task: given a point in the plane, predict which spiral it belongs to. It is a hard problem for a linear classifier, impossible for one neuron alone. Now add three hidden layers of 8 neurons each. Press play. On screen, you see the loss fall, the decision boundary warp, the neurons specialize. The individual neuron panels show what each one has learned: diagonal cuts, radial cuts, curved cuts. The final output boundary perfectly separates the two spirals. In your browser. In 30 seconds. Without one line of code.
->
-> This is what I want you to keep on your phone for the rest of your life: playground.tensorflow.org. Every time somebody tells you neural networks are incomprehensible black boxes, pull this up. They are not. You can watch them think, in real time, on a two-dimensional problem. That intuition scales. When GPT-5.5 is solving a math problem, under the hood, it is still doing weighted sums and ReLUs, and still specializing neurons into useful features. Bigger, deeper, more subtle features, but the same principle.
->
-> One last experiment before we move on. Let me show you what happens when we give the network a much harder task. Instead of classifying ten digits, let me try to train the same network on something called CIFAR-10: small color photos of planes, cars, birds, cats, deer, dogs, frogs, horses, ships, and trucks. 60,000 of them, 32 by 32 pixels. Harder than MNIST because the images are in color, the objects move around in the frame, the lighting varies, and real-world texture is more complicated than a handwritten digit. If I run the exact same little MLP on CIFAR-10 with a training loop otherwise identical, I get around 50 percent accuracy. Better than random (10 percent), far worse than human (around 94 percent). The simple MLP is not enough.
->
-> To solve CIFAR-10 well, you need a specialized architecture called a convolutional neural network, or CNN. CNNs use a special kind of neuron that looks only at a small patch of the input, and the same neuron slides across the whole image, detecting the same feature wherever it appears. This translation invariance is crucial for images: a cat in the top-left corner of a photo should be recognized just like a cat in the bottom-right corner. LeCun invented CNNs in the late 1980s, for exactly this reason. CNNs are what won ImageNet in 2012. They are what made Tesla's autopilot possible. They are what allow your phone to recognize faces. Same ingredients, weighted sums and ReLUs, but wired in a way that matches the structure of images.
->
-> We are not going to code a CNN today, because we have a lot more ground to cover. But I want you to know the name, because you will hear it: CNN, convolutional neural network. Specialized for images. Stacks convolution layers, then classifies. LeCun's baby. The ancestor of most computer-vision systems deployed in industry. OK, bookmark it, move on. --- ## 4. Training versus inference: the cake recipe (about 6 min) **Key points:**
-- Training is a different phase from using the model.
-- Training is expensive, slow, done once.
-- Inference is cheap, fast, done billions of times. > Let me introduce a distinction that will come back many times in this course. It is the distinction between training and inference.
->
-> [Figure 5, p. 21: three boxes showing Training, the frozen weights, and Inference usage.]
->
-> Think of a cake recipe. There is the phase where the chef develops the recipe. She bakes 10, 20, 100 cakes. She tastes them. She adjusts the flour, the butter, the sugar, the oven temperature. She iterates until she finds a recipe that reliably produces a delicious cake. That is training. Long, expensive, full of failed attempts, and done once.
->
-> Then there is the phase where, every Sunday, she bakes one cake using the finalized recipe. Pour the ingredients, follow the steps, cake comes out. That is inference. Fast. Cheap. Done a thousand times after the recipe is set.
->
-> For a neural network, training means: feed the network millions or billions of examples, compute the gradient, adjust the weights, repeat. For a frontier model, training lasts weeks to months, uses tens of thousands of H100 GPUs, consumes as much electricity as a French département, costs anywhere from 10 million to half a billion dollars. At the end, you have a file. The weights. Decimals. 100 gigabytes for a big model. This file is what you distribute.
->
-> Inference means: load the weights, give it one input, compute the output. One forward pass through the network. No gradient, no backpropagation, no adjustment. For one question to ChatGPT, inference takes a few seconds and uses maybe one GPU for those seconds. Cost: a fraction of a cent. Scale that up to a billion queries per day, and you get the actual economic picture of an LLM company: the training cost is sunk, then inference is what they sell.
->
-> Why does this matter for you? Two reasons. One, a model's "knowledge" is frozen at its training cutoff. If GPT-5.5 was trained on data up to early 2026, it does not "know" anything that happened after that unless you tell it in your prompt. Retraining is too expensive to do every day. Two, the entire economics of the AI industry, and the geopolitics of chip supply, flows from this training-inference gap. Training needs the best chips, in massive clusters, with reliable power. Inference is lighter, distributable, runs on commodity hardware. When you read about Nvidia selling H100s to the US hyperscalers, it is the training market. When you read about Apple, Qualcomm, or AMD putting AI chips in phones and laptops, it is the inference market. Two very different businesses. --- ## 5. Why did this take 50 years? The role of data and compute (about 10 min) **Key points:**
-- The idea of the neuron is from the 1940s. Backprop for neural networks is from the 1980s. Why did it take until 2012 for deep learning to take over?
-- Moore's law delivered a billion-fold increase in compute. The internet delivered petabytes of training data. Both were needed.
-- The "bitter lesson" of Richard Sutton: compute and data beat cleverness. > We have this beautiful algorithm. Gradient descent plus backpropagation. LeCun had it running in production on postal codes in 1998. Why did deep learning not take over the world in 1998? Why did we have to wait until 2012, 2017, 2022?
->
-> Three reasons. Compute, data, and scientific stubbornness.
->
-> Compute first. In 1965, Gordon Moore, later CEO of Intel, noticed that the number of transistors on a chip was doubling roughly every 2 years. He published a short memo. That doubling has held, with some slowdowns and reformulations, for 60 years. Between 1900 and 2020, the compute power you could buy for one dollar multiplied by a factor of 10 to the 18th. 10, with 18 zeros. That is almost exactly the number of grains of wheat in the old Indian chessboard fable: 1 grain on square 1, 2 on square 2, 4, 8, doubling every square, up to the 64th. 2 to the 64th is about 10 to the 19th. More grains than 6 Earths' worth of biomass. That is the magnitude of the compute explosion over one century.
->
-> An LLM today, at training time, consumes as much electricity in a single run as a mid-sized French département uses in a month. That is not a metaphor. That is a fact. It requires tens of thousands of NVIDIA H100 GPUs running non-stop for weeks. Each H100 costs 30,000 dollars. The full training of GPT-4 reportedly cost somewhere north of 100 million dollars. Grok 4 reportedly cost half a billion dollars. These are not garage projects. They are industrial operations, carried out in dedicated data centers with their own substations.
->
-> Second, data. A neural network learns from examples. Lots of examples. Image networks, like Yann LeCun's convnet, needed thousands. Then tens of thousands. Then millions. Today's LLMs are trained on something like 15 trillion subwords, roughly 12 trillion words, roughly the entire readable Internet plus several million digitized books. This corpus did not exist in 1998. You could not assemble 12 trillion words in 1998, because 12 trillion words had not been written down in digital form. The Internet had to grow up, people had to blog, Wikipedia had to exist, forums had to fill up, before the training data for an LLM could be collected.
->
-> Third, scientific stubbornness. Most of the AI community, from about 1990 to 2010, believed that neural networks were a dead end. They called the rival camp, led by LeCun, Hinton, and Bengio, the "deep learning conspiracy". Hinton's papers were getting rejected from NeurIPS. LeCun was a curiosity. Bengio was in Montréal, which was not yet a hot place. The symbolic approach, GOFAI, support vector machines, decision trees: these were the respectable research agendas. Neural networks were for cranks.
->
-> What turned the tide was a benchmark. Specifically, ImageNet, built by Fei-Fei Li at Stanford. 12 million labeled images in 22,000 categories. A brutal test. Every year, researchers submitted their best classifier, and the one with the lowest error rate won. In 2012, at the European Conference on Computer Vision, a young student of Hinton's, Alex Krizhevsky, walked into a packed room, in front of Fei-Fei Li herself, and announced: "My neural network has cut the error rate in half."
->
-> Not 10 percent better. Not 20 percent. Halved. From around 26 percent error down to 15 percent. In one year. With a deep convolutional network trained on 2 GPUs in his bedroom.
->
-> That moment, September 2012, is when deep learning won. In the following 2 years, every image-classification team in the world converted. By 2015, nobody used the old methods anymore. By 2016, AlphaGo beat Lee Sedol at Go. By 2017, Transformers were published. By 2022, ChatGPT. The cascade was rapid.
->
-> Richard Sutton, the computer scientist who, by the way, received the Turing Award in 2024 for his work on reinforcement learning, wrote an essay in 2019 called "The Bitter Lesson". It is 4 pages long. I recommend it. Sutton's argument: for 70 years, AI researchers have repeatedly tried to build in human knowledge, hand-designed features, clever heuristics. And for 70 years, the methods that won in the end were the ones that threw away the hand-design and used raw compute and raw data. Chess: hand-designed heuristics lost to Deep Blue's brute search. Go: same story, AlphaGo. Translation: hand-designed grammars lost to neural sequence models. Image recognition: hand-designed features lost to convnets. Speech: same. Protein folding: same. Over and over, compute wins.
->
-> Why "bitter"? Because it is humbling. It tells us that the hard-earned knowledge we accumulated by introspection, the careful rules and clever tricks, mostly did not matter. The dumb scale-up did. Sutton writes: "We have to learn the bitter lesson that building in how we think we think does not work in the long run." A brutal sentence. Some researchers hate it. Most agree, reluctantly.
->
-> So: why did deep learning take off now and not in 1998? Because we finally had the compute and the data. And once we had them, the simplest, most brute-force method won. Rosenblatt was right, 60 years early. LeCun was right, 25 years early. The bitter lesson is that you need to be right AND on time. AI is the field where timing and scale overtake cleverness.
->
-> There is a corollary here that matters for France and for Europe. If compute is the fundamental ingredient, then whoever controls compute controls AI. Today, almost all frontier AI training runs on NVIDIA GPUs. NVIDIA is an American company. The GPUs are designed in California and fabricated in Taiwan, by TSMC, using lithography machines made by ASML in the Netherlands. Three countries (US, Taiwan, Netherlands), four companies (NVIDIA, TSMC, ASML, plus some upstream names), control essentially the entire global supply of high-end AI chips. France: zero. The European Union: basically zero, except for ASML, which is a genuine crown jewel. This is a strategic situation we will come back to in Session 3. For now, just note: the bitter lesson implies that who owns the fab, owns the future. France needs to be very thoughtful about where it positions itself.
->
-> Two more historical notes, because they are fun and telling. First, Gordon Moore, who predicted the doubling, only lived to see 10 doublings before the pattern started to stretch. He died in 2023. The law is outliving the man. Second, when Jensen Huang, the CEO of NVIDIA, gave a talk in 2019, he said something prescient: "Moore's law is dead, but GPU performance is doubling faster than Moore's law ever did, because we are scaling across three dimensions at once: silicon, architecture, and software." He was right. From 2012 to 2024, the effective compute available for deep-learning training has grown by roughly 10 orders of magnitude, faster than traditional transistor scaling. Part of that is better chips. Part is better algorithms. Part is better parallelism. Part is eye-watering capital expenditure. All of it compounds. None of it is slowing down. --- ## 6. Good learning and bad learning: overfitting, underfitting, Occam's razor (about 9 min) **Key points:**
-- A neural network can memorize the training set and fail on new data. That's overfitting.
-- Or it can under-learn and fail on everything. That's underfitting.
-- The sweet spot is generalization: learning the pattern, not the examples.
-- Occam's razor: prefer the simplest model that fits. Regularization is Occam's razor, operationalized. > Before we leave the vision world and move to language, I want to walk through one last concept, because it shows up everywhere and misunderstanding it causes a lot of real-world AI failures.
->
-> The question is: can a neural network learn badly?
->
-> Yes, in two opposite ways. Let me walk through the book's "France" example. [Figure 7, p. 28: 3000 random points with latitude and longitude, red if the point is in France, blue if not.]
->
-> Imagine we want to train a network to answer one question: given a pair of coordinates (latitude, longitude), is this point in France, yes or no? The training data is 3,000 random points, each labeled red (in France) or blue (outside France). Simple task.
->
-> We train a network. We plot its predictions on all coordinates in a big rectangle covering Western Europe. What do we see? Three things can happen.
->
-> [Figure 8A, p. 29: underfitting, a smooth blurry surface.] Case A: the network is too small, or trained too briefly. The prediction surface is a broad smooth blob that vaguely covers France but does not hug the shape. The hexagon is not a hexagon. Brittany disappears. The network has captured only the crudest pattern. This is underfitting. The network does not have enough capacity, or did not train long enough, to learn the real shape.
->
-> [Figure 8B, p. 30: overfitting, a spiky jagged surface.] Case B: the network is huge, or trained too long. The prediction surface is a forest of spikes. Every single training point is memorized exactly, but between training points, the prediction is chaotic. A point in the middle of France, one meter from a blue training point, might be predicted blue. The network has memorized the training set like a student who wrote crib notes for the exam. This is overfitting. The network has enough capacity to memorize, so it memorizes, and generalization fails.
->
-> [Figure 8C, p. 30: satisfactory prediction.] Case C: the network is sized just right, trained just enough. The prediction surface is a clean, blocky, France-like shape. It hugs the actual borders. It generalizes to new points it has never seen. This is what we want. This is good learning.
->
-> The question for every practitioner is: how do I land in case C, not A, not B? There is no clean formula. There are three tools.
->
-> Tool one: more data. The more training examples you have, the harder it is to memorize them, and the more the network has to extract general patterns. When you give a network 60,000 MNIST digits, it cannot memorize each one; it has to learn shape primitives. When you give it 60, it memorizes, and fails on unseen digits.
->
-> Tool two: regularization. This is a direct application of Occam's razor. William of Ockham, 14th-century Franciscan friar: "Pluralitas non est ponenda sine necessitate". Do not multiply entities without necessity. The simplest theory that fits the facts is probably the right one. Bertrand Russell called it the supreme methodological maxim in philosophy.
->
-> In neural networks, regularization is: during training, we add a small penalty on the magnitude of the weights. We nudge every weight slightly toward zero. Weights that are useful grow anyway, because they help reduce the main loss. Weights that are not useful shrink to zero, effectively disconnecting themselves. The network auto-prunes. It ends up leaner, simpler, and, it turns out, better at generalizing. Occam's razor, implemented as a line of code. And it empirically works.
->
-> Tool three: validation split. You split your data into training and validation. You train on training, you measure performance on validation. When validation performance stops improving, you stop training. This is called early stopping. It prevents overfitting: you stop before the network starts memorizing.
->
-> Einstein, who had an opinion on almost everything, said: "Everything should be made as simple as possible, but not simpler". This is the overfitting-underfitting knife edge in one sentence. Find the simplest model that actually fits the problem.
->
-> Why does this matter for you? Two reasons. One, if you ever deploy an AI model in the wild, you need to check whether its training performance and its real-world performance are in the same neighborhood. If they are not, you have overfit, and your deployment will fail. Two, the entire field of modern LLM evaluation is a fight against overfitting. When a company claims its new model scores 95 percent on benchmark X, your first question should be: was benchmark X in the training data? If yes, the model has memorized it, and the score is meaningless. This is called "contamination", and it is a major reason to be skeptical of company-reported benchmark numbers without independent verification.
->
-> Let me give you a concrete example. In 2024, researchers showed that several frontier LLMs, when asked to solve math problems from the AIME competition (the American Invitational Mathematics Examination), solved the 2023 version much better than the 2024 version, even though the two versions are of comparable difficulty. Why? Because the 2023 problems were on the Internet by the time the models were trained, and the 2024 problems were not yet. The model had memorized 2023, and reasoned from scratch on 2024. The gap was 20 to 30 percentage points. That gap is the contamination effect. When you see a press release claiming "our new model scored 94 percent on MATH benchmark", ask whether the model has seen the answers during training. Almost always, the honest answer is "probably, at least partly". Real out-of-distribution evaluation is a very active research frontier.
->
-> Good learning, bad learning: the balance is everything. The irony is that the models we love most, the GPT-5s and Claudes and Geminis, are gigantic (hundreds of billions of parameters) and trained on essentially all the text ever written. By the logic of the France example, they should be overfitting catastrophically. But they are not. Why? Because the ratio of data to parameters, even at huge scale, remains favorable: there are so many patterns in the training corpus that the model cannot memorize everything; it has to generalize. Also, regularization techniques (dropout, weight decay, early stopping) are baked in. The models straddle the knife edge surprisingly well. But let your training data shrink, or let your model grow disproportionately, and you fall off the edge into overfitting, fast. --- ## 7. Midpoint transition > We now switch modalities. We leave images behind. We move to text. Word2vec, the king-queen analogy, attention, Transformers, Decoders, LLMs. Same arithmetic, different inputs, same result: neural networks discovering structure on their own. --- ## 8. From pixels to words: Word2vec and the birth of meaning (about 15 min) **Key points:**
-- Neural networks only eat numbers. Text has to be turned into numbers.
-- Word2vec, 2013, represents each word as a vector of a few hundred numbers.
-- Those vectors encode meaning: king minus man plus woman equals queen.
-- Nobody programmed this. Training discovered it. > We have done images. Now we do text. Different modality, same ideas, with one twist.
->
-> Here is the problem. A neural network eats numbers. An image is natively numbers: each pixel is a brightness value between 0 and 1. Easy. But a word is not a number. "King" is not a number. "Chien" is not a number. If I want to feed text to a network, I need a way to turn each word into numbers.
->
-> First attempt, naive. Give each word an ID. "Apple" is 1. "Banana" is 2. "Cat" is 3. The network gets sequences of IDs. Problem: apple, banana, and cat are closer semantically (all are everyday nouns, two are fruits) than apple and, say, "xylophone" (word 13,942). But 1 and 2 are closer numerically than 1 and 13,942. The numeric closeness has nothing to do with the semantic closeness. The IDs are arbitrary, and the network has no way to tell that apple and banana belong together.
->
-> So we need something cleverer. We need word representations where semantic closeness corresponds to numeric closeness. A representation where "cat" and "dog" are nearby numbers because they are nearby concepts.
->
-> The breakthrough came in 2013, from a team at Google led by Tomas Mikolov. The paper is called "Efficient Estimation of Word Representations in Vector Space". The model is called Word2vec. You can read it at arxiv dot org, reference 1301.3781. I will put the link in the sources at the end of today's slides. If you read exactly one AI paper this semester, read this one. It is 8 pages. It is accessible. And it gave the world its first real sense that neural networks do not just memorize; they discover structure.
->
-> Here is the idea. Represent each word as a vector of, say, 300 numbers. A vector is a list of numbers in a fixed order. You can think of it as a point in a 300-dimensional space. In three dimensions, a vector with coordinates x, y, z is a point in the room. In 300 dimensions, you cannot visualize it, but the math is the same: positions of points, distances between them, directions from one to another.
->
-> The 300 numbers for each word are not chosen by hand. They are learned, by training a neural network on a simple task: given a word, predict the surrounding words in a real sentence. That is the entire training objective. "I drank a cup of blank" and the network is asked to predict the word. It sees "coffee" and "tea" a lot. So it learns that "coffee" and "tea" are likely fillers here. If it learns this well, then the representations of "coffee" and "tea" will end up near each other in the 300-dimensional space. Because the training pressure is: words with similar contexts should get similar representations, since they cause the same predictions.
->
-> So you train a neural network on a few billion words of English text: Wikipedia, Google News, web pages. Out pops a representation: one vector per word, in a 300-dimensional space.
->
-> Now, here is the discovery that shocked the researchers themselves. Not expected. Not engineered. Pure emergence.
->
-> Once you have these vectors, you can do arithmetic with them. Literally: vector plus vector, vector minus vector, component by component. Take the vector for "king". Subtract the vector for "man". Add the vector for "woman". What do you get?
->
-> You get a vector very close to the vector for "queen".
->
-> I will repeat, because it is extraordinary: king minus man plus woman equals queen. In vector arithmetic. Mechanical. Not a metaphor.
->
-> The book gives a four-dimensional toy example. Take "chiot" (puppy) as a vector with 0.0 on the feminine axis, 1.0 on the animal axis, 0.1 on the old axis, 0.3 on the fast axis. Take "doyenne" (elderly woman) as 1.0, 0.0, 0.9, 0.1 on those same four axes. You can now do doyenne minus chiot, and you get 1.0, minus 1.0, 0.8, minus 0.2. That difference vector captures, roughly, "become human, become old". That arithmetic extends to real 300-dimensional vectors trained on real text, and yes, in the real space, king minus man plus woman really lands almost exactly on queen.
->
-> Paris minus France plus Germany lands near Berlin. Bigger minus big plus small lands near smaller. Walked minus walking plus swimming lands near swam. Plural-singular, present-past, country-capital, gender, comparative: all of these show up as consistent directions in the 300-dimensional space. Nobody told the network about grammar, or geography, or morphology. It extracted them from the statistics of word co-occurrence in a few billion sentences. By doing a simple prediction task, it built a semantic map of the English language.
->
-> Pause on this. Before 2013, when you asked a computer scientist "does the machine understand?", the honest answer was: no, the machine pushes symbols around, it has no internal model. After 2013, the honest answer became: there is something in there that behaves as if it were a semantic map. The machine has not suddenly become conscious. But it has developed an internal representation of meaning that obeys mathematical operations matching conceptual operations. That is not nothing. That is a massive philosophical development, and the field did not take it as seriously as it should have, at the time.
->
-> Think of the vector space like a dictionary of meanings, but a dictionary where the definition of each word is its position relative to all other words. If you want to know what "happy" means, you do not look up a sentence; you look up a 300-number coordinate, and you compare it to the coordinates of "sad", "joyful", "content", "miserable". The geometric relationships reveal the semantics. The map is the meaning.
->
-> For a Sciences Po audience, I want to flag a second observation that is both fascinating and troubling. Word2vec discovered, along with all the clean analogies about geography and grammar, several ugly ones. "Doctor minus man plus woman" gave, depending on the corpus, "nurse". "Engineer minus man plus woman" sometimes gave "homemaker". "Programmer minus man plus woman" sometimes gave "secretary". The model absorbed, from its training corpus of real human text, the gender biases embedded in that text. It did not invent sexism. It reflected it. These findings were published, and they triggered a whole subfield of "debiasing" research: how do we remove unwanted associations from the vector space while keeping the useful ones? The issue is non-trivial, because the associations are entangled. You cannot easily remove "nurse" from the feminine direction without also removing "midwife", which may be appropriate. The models inherit the statistics of their training data, for better and for worse. And that is a pattern that continues today, at much larger scale, with LLMs. Every bias in the Internet, the models internalize. A lot of responsible-AI work goes into measuring and mitigating this. It will never be a solved problem, because the biases are the statistics, and the statistics are the data. Something to be aware of, politically and technically. --- ## 9. Live code: playing with Word2vec embeddings (about 12 min) **Key points:**
-- We load pre-trained Word2vec vectors.
-- We compute analogies live.
-- We look at word neighborhoods. > OK. Back to Colab. Different notebook. Let me show you how to play with Word2vec embeddings in about 10 lines.
->
-> Snippet six. Load the pre-trained vectors.
->
-> ```python
-> import gensim.downloader as api
-> model = api.load("word2vec-google-news-300")
-> print(model.vector_size)
-> print(len(model.key_to_index))
-> ```
->
-> This downloads the Google-News-pretrained Word2vec: 3 million English words and phrases, 300 dimensions per vector. Takes about a minute. On screen: 300 (the vector dimension), and 3000000 (number of vocabulary entries). 3 million words, each represented as a 300-dimensional vector, all sitting in memory, ready to do math.
->
-> Snippet seven. The classic analogy.
->
-> ```python
-> result = model.most_similar(positive=["king", "woman"], negative=["man"], topn=3)
-> for word, score in result:
-> print(f"{word}: {score:.3f}")
-> ```
->
-> I run it. On screen:
->
-> queen: 0.712
-> monarch: 0.619
-> princess: 0.590
->
-> Queen. First hit. Similarity score 0.71. The model has computed: king vector, plus woman vector, minus man vector, then searched the entire 3-million-word vocabulary for the vector closest to that arithmetic result. The closest vector, of 3 million, is "queen". Then monarch, then princess. The algorithm does not know what royalty is. It does not know what gender is. It only knows which words appeared near which other words in 3 billion sentences of Google News. Out of that statistical cloud, an arithmetic of meaning emerged.
->
-> Let me try a couple more. Snippet eight.
->
-> ```python
-> def analogy(a, b, c):
-> result = model.most_similar(positive=[b, c], negative=[a], topn=1)
-> return result[0]
->
-> print(analogy("France", "Paris", "Germany"))
-> print(analogy("walking", "walked", "swimming"))
-> print(analogy("good", "better", "bad"))
-> print(analogy("Japan", "Tokyo", "Argentina"))
-> ```
->
-> Read those calls as "a is to b as c is to X". France is to Paris as Germany is to what. Walking is to walked as swimming is to what. And so on. Results on screen:
->
-> Berlin, 0.76.
-> swam, 0.69.
-> worse, 0.73.
-> Buenos_Aires, 0.78.
->
-> Every single one lands on the correct answer. Capital of Germany. Past tense of swim. Comparative of bad. Capital of Argentina. This is from word co-occurrence, nothing else. One short neural network, trained on text, discovered geography, grammar, and comparatives, because consistent patterns in those relations produce consistent directions in vector space.
->
-> Let me show you the neighborhoods of individual words, for fun.
->
-> Snippet nine.
->
-> ```python
-> for word in ["Paris", "coffee", "democracy", "computer"]:
-> print(word, "->")
-> for neighbor, score in model.most_similar(word, topn=5):
-> print(f" {neighbor}: {score:.3f}")
-> ```
->
-> On screen: for "Paris", we see "Parisian", "Hopital_Europeen_Georges_Pompidou" (a Paris hospital), "France", "Pantheon_Sorbonne" (a Paris university), and a few more Paris-specific named entities. For "coffee", we see "coffees", "gourmet_coffee", "Coffee", "Starbucks_coffee", and "cappuccino". For "democracy", we see "democratic", "participatory_democracy", "democracies", "democratization", "pluralism". For "computer", we see "computers", "laptop", "laptop_computer", "Computer", "com_puter" (an OCR artifact from the corpus).
->
-> These are not hand-curated lists. These are automatic: whoever is closest in the 300-dimensional space. Google News trained on newswire, so a lot of the Paris neighbors are proper nouns. But they are still consistent: every one of them is a Paris-adjacent named entity. Again: the network discovered these associations by reading text and doing prediction. No one told it the Pantheon Sorbonne was a Paris institution. It extracted it from statistical patterns.
->
-> Here is the deeper point I want to land. The meaning of a word, in this framework, is encoded in its relationships with all other words. Not in a definition. In a position in a space. And that position was learned by predicting context.
->
-> This is the critical scientific idea that unlocks modern language models. It is called the distributional hypothesis: "a word is characterized by the company it keeps", a line by the British linguist J. R. Firth, 1957. Firth was right. 60 years later, Mikolov's team made it work, at scale, with neural networks. Once you have this, you can feed words into deep networks. You can translate. You can classify. You can summarize. All the downstream language-processing tasks become approachable.
->
-> But there is still one more ingredient missing. Word2vec gives you word meanings in isolation. A word has one fixed vector, no matter the sentence. That does not work for cases where meaning depends on context. The word "bank" in "river bank" and "bank" in "savings bank" has the same Word2vec vector, which is obviously wrong. We need a mechanism that gives each occurrence of a word its own context-aware vector. That mechanism is attention. --- ## 10. The attention mechanism: a committee of experts (about 15 min) **Key points:**
-- Word2vec gives one fixed vector per word. But "bank" in "river bank" and "bank" in "savings bank" should be different.
-- Context-dependent representations need dynamic computation between words.
-- Attention is a mechanism where each word queries all other words and pulls in their meaning, weighted by relevance.
-- Transformers stack attention layers. 2017, Vaswani et al., "Attention is all you need". > Here is the problem, sharpened. We have word vectors. Each word has a fixed meaning vector. But a word's meaning depends on context. The word "bank" in "I sat on the bank of the river" means something completely different from the word "bank" in "I deposited money at the bank". Same string of letters, different concepts. A Word2vec vector cannot tell them apart.
->
-> What we need is a mechanism that, given a sentence, computes a context-dependent representation for each word: a vector that reflects not just the word in isolation but the word as it sits in this particular sentence surrounded by these particular other words.
->
-> The mechanism that solves this is called attention.
->
-> Here is the analogy I find most useful: attention is a committee of experts. Imagine you are writing a sentence, word by word. For each word you write, you consult the committee. Each committee member is another word in the sentence so far. When you are writing a particular word, say a verb, you do not listen to all committee members equally. You listen more to the subject (who is doing the action?), you listen some to the object (what is being acted upon?), and you ignore a lot of filler. You weight the committee members by how relevant they are to the current decision.
->
-> Attention is the same thing, automated and vectorized. For each word in a sentence, the mechanism looks at all other words, computes a relevance weight for each, and takes a weighted average of their representations. That weighted average becomes the context-enriched representation of the current word.
->
-> Let me be a tiny bit more concrete. For each word, attention produces three little vectors: a query vector, a key vector, and a value vector. All three are derived from the word's input vector by small linear transformations, that is, by multiplying by learned matrices. For word A to "pay attention to" word B, you take A's query and dot it with B's key. If they align, the dot product is large; if they do not align, it is small. You do this for every pair of words. You normalize the dot products into weights that sum to 1, using a function called softmax, which you can think of as a "soft argmax" that picks the most similar keys but allows partial blending. Then you take a weighted sum of the value vectors, weighted by those attention scores. Output: a new context-aware vector for word A.
->
-> That's attention. One layer.
->
-> Now, the magic: you stack many attention layers on top of each other, and you use many "heads" in parallel within each layer, meaning several committees running at once, each specializing in a different kind of relevance: one head for syntactic dependencies, another for semantic associations, another for long-range references. Stack 6, 12, 50, 100 of these layers, and you get a Transformer.
->
-> The seminal paper is "Attention Is All You Need", 2017, by a team at Google Brain led by Ashish Vaswani and including Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan Gomez, Lukasz Kaiser, and Illia Polosukhin. You can read it at arxiv dot org, reference 1706.03762. I will put the link in today's sources. This paper is, in my opinion, the most influential AI paper of the 21st century. It has been cited over 100,000 times. That is roughly the citation count of Stephen Hawking's entire academic output. One paper. 15 pages. 8 authors. Changed everything.
->
-> Why? Because the Transformer architecture had two properties that made it the right platform for scaling. One, it allowed parallel processing across all positions in a sequence at once, unlike the previous architecture (the recurrent neural network) which had to process tokens one at a time. Parallel equals fast on a GPU. 10 to 100 times faster training. Two, it handled long-range dependencies gracefully: a word can attend to any other word in the context, not just its immediate neighbors. So a pronoun in the last sentence of a paragraph can pull meaning from a noun in the first sentence. This is how models do long-form reasoning.
->
-> Three years after Vaswani et al., we got GPT-3. Five years after, ChatGPT. Seven years after, we are training frontier models with trillions of parameters, thousand-page context windows, real agentic behavior. All on the same basic skeleton that 8 authors sketched in 2017.
->
-> Let me give you one more way to think about attention, because the committee-of-experts analogy is only one way in. Another way is: attention is a routing mechanism. Information flows through a Transformer, and at each layer, attention decides, for every token, "which other tokens do I pull information from?" The answer is learned. The answer depends on the token and its context. One layer might route pronouns to their referents (the word "she" pulling information from "Marie" three sentences earlier). Another layer might route adjectives to nouns. Another might route verbs to subjects. Another might route question words to answer-like words in the context. Nobody specifies what each layer should do. Training discovers it. And in practice, when you look inside a trained Transformer, you find that different attention heads in different layers have learned very different routing patterns, some of them interpretable (syntactic roles, coreference), some of them not obviously interpretable at all. This is the current state of interpretability research: we can name maybe 10 percent of the routing patterns in a frontier model. The rest is doing useful work that we cannot yet explain.
->
-> Anthropic, where I am also an investor and friend of several researchers, has been doing remarkable work on this. In 2024 they published results using a technique called sparse autoencoders to extract interpretable "features" from inside Claude 3 Sonnet. They found concept detectors for "Golden Gate Bridge", "scientific skepticism", "inner conflict", "tourist attractions in San Francisco". They could even turn these concepts up or down at inference time, like a volume knob, and watch the model's behavior shift. Turn up the Golden Gate Bridge feature, and Claude starts thinking of itself as the bridge, mentioning it constantly, getting confused when asked about other things. A very funny demo, but also a scientific milestone: the first large-scale catalog of what frontier LLMs actually represent internally.
->
-> Dario Amodei, CEO of Anthropic, put it sharply: "Generative AI systems are grown more than they are built, their internal mechanisms are 'emergent' rather than directly designed" ([*The Urgency of Interpretability*](https://www.darioamodei.com/post/the-urgency-of-interpretability), April 2025). That reframes everything: at today's scale, a neural net is less an object that engineers construct than a biological tissue that researchers cultivate. We fix the architecture, we choose the data, we press "go" on the training run, and billions of weights settle into a configuration that no human wrote and no human fully understands. Which is exactly why interpretability is hard: we did not design the wiring, we watched it form.
->
-> Interpretability is where the really important research is happening right now, because until we can understand what these models represent, we cannot safely deploy them in high-stakes contexts.
->
-> Let me put this in perspective. The neuron: Rosenblatt, 1958. Backpropagation for neural networks: Rumelhart-Hinton-Williams, 1986. Convolutional networks: LeCun, late 1980s. Word2vec: Mikolov, 2013. Attention: Bahdanau-Cho-Bengio, 2014. Transformers: Vaswani et al., 2017. GPT: OpenAI, 2018. GPT-3: 2020. ChatGPT: November 2022. That is the timeline. 6 major ideas, over 60 years, each one building on the previous. AI is not a sudden discovery. It is a stack of ideas, slowly assembled. The stack is now tall enough to produce systems that seem to understand. But nothing about today violates physics or breaks from the prior layers. It is the same arithmetic we drew on the board at the start of this class, times a trillion. --- ## 11. The Decoder: how a language model generates text (about 10 min) **Key points:**
-- The Decoder is a Transformer variant specialized for text generation.
-- At inference, it generates one token at a time. Reads the prompt, predicts next token, appends, repeats.
-- Training is self-supervised: predict the next token on huge text corpora.
-- The "Comment vas-tu ?" example shows the mechanic. > The Decoder architecture, introduced as a variant of Transformer, is what powers today's language models: GPT, Claude, Gemini, Llama. All of them. Decoder-only is the architecture of choice in 2024 through 2026. Let me walk through how it generates text.
->
-> [Figure 9, p. 36: the "Comment vas-tu ?" decoding diagram, step by step.]
->
-> Input: a prompt. Let's use the book's example: "Comment vas-tu ?". The user types this. The first thing the model does is tokenize it. Tokenization means cutting the string into small pieces called tokens, or in French sous-mots, each of which is mapped to an integer ID from the model's vocabulary (usually around 50,000 to 100,000 tokens in the vocabulary). So "Comment vas-tu ?" might become the sequence of tokens, using bars to separate them: Com, bar, ment, bar, vas, bar, dash, bar, tu, bar, question-mark. 6 or 7 tokens, depending on the tokenizer. Each has an integer ID. Each ID is then converted to an embedding vector: a Word2vec-like representation, learned during training.
->
-> These vectors are fed into the Transformer. It runs its attention layers. At the very end, it produces one vector for each input token, but we only care about the last one: the vector that represents the question mark, enriched by all the context before it. This final vector is passed through a final linear layer that outputs a score for every token in the vocabulary. 50,000 scores, roughly. We pass these through softmax to turn them into a probability distribution. Then we sample, either greedily, taking the highest-probability token, or with a bit of randomness, called "temperature", to generate varied text.
->
-> Sampled token: "Je". Output.
->
-> Now here is the loop. We append "Je" to the input, giving us "Comment vas-tu ? Je". Feed the whole thing back into the model. It runs again. Out pops "vais". Append. Feed back in. Out pops "bien". Append. Feed back in. A period. Append. Etcetera.
->
-> Step by step, token by token, the model generates its response: "Je vais bien. Et toi ?". At some point it emits a special end-of-generation token, and we stop. The user sees: "Je vais bien. Et toi ?"
->
-> Notice what this is and what this is not. What it is: iterative next-token prediction. What it is not: reasoning in any classical sense. At each step, the model picks the token that has the highest probability given the context. It is a very sophisticated auto-complete.
->
-> And yet. And yet. When trained on enough text, the "most probable next token" computation ends up producing fluent, coherent, mathematically correct, legally literate, emotionally appropriate text. Because across trillions of training examples, the probability distribution it learned captures an enormous amount of structure. Grammar. Facts. Style. Patterns of argument. Scientific method. Sense of humor.
->
-> Is the model "thinking"? Philosophically, I don't want to die on that hill tonight. Behaviorally, it passes the Turing test. Practically, it does useful work. When you ask me whether GPT-5.5 "really" understands, I say: it understands in whatever sense a billion neurons wired in the right way can understand. Which might not be identical to the sense a human understands. But it is closer than anything we had 6 years ago, and the gap is narrowing fast.
->
-> Now, the training. How does this Decoder learn? Here is the elegant part, and it is why Decoders won over every other architecture: they learn from unlabeled text.
->
-> Take any book. Take Wikipedia. Take Reddit, take a huge web crawl. Feed a document into the model, with the first token only, and ask it to predict the second. Compute the loss (cross-entropy between the predicted distribution and the actual next token). Backpropagate. Adjust the weights. Then feed the first two tokens, predict the third, update. Then the first three, predict the fourth. Done in parallel, because the Transformer architecture lets you compute all these next-token predictions simultaneously. That is called self-supervised learning. No human labeling required. The text labels itself. Because the Internet contains trillions of tokens, you can train indefinitely on an essentially infinite corpus.
->
-> This is why the Decoder dominates. It does not require human-labeled data. Every sentence, every book, every tweet is a training example. For free. Every word predicts the next. The model learns grammar, facts, reasoning, and style all at once, from the statistics of "what word usually comes next?".
->
-> Llama-3.1-405B, Meta's open-weights model, was trained on about 15 trillion tokens. Roughly 12 trillion words. That is probably more than the entire collected readable Internet in 2024. More than a reasonably fast human reader could read in 100,000 lifetimes. That is the corpus. The model still produces only a fraction of the errors that GPT-3 made just 4 years earlier.
->
-> Notice an important subtlety: pre-training, which is what we just described (predict the next token on a big corpus), is only the first of three training stages for a modern LLM. After pre-training comes supervised fine-tuning, where a human-curated dataset of example "user asks, assistant responds" dialogues is used to shape the model into a helpful assistant rather than a raw text completer. A base model pre-trained on the Internet will, given the prompt "What is the capital of France?", often just continue writing more questions: "What is the capital of Spain? What is the capital of Italy?" Because a lot of training data was quiz-like text. Supervised fine-tuning teaches it to instead answer: "The capital of France is Paris". Still the same Transformer, still the same weights, but the weights are nudged so the model's implicit concept of "what would a good assistant write here?" is foregrounded. Then comes reinforcement learning from human feedback, RLHF, where the model is further refined by having humans rank pairs of its outputs, and the model is trained to prefer the ranked-higher ones. RLHF is why ChatGPT sounds polite, helpful, and a bit bland. Anthropic has its own variant called Constitutional AI, where the feedback ranker is not a human but another AI operating from a written set of principles, a "constitution". All of these techniques are stacked on top of the pre-trained base model. The base model is where most of the knowledge lives. Fine-tuning and RLHF are the final polish.
->
-> If you remember one number from today, make it this: pre-training is about 99 percent of the compute, 100 percent of the knowledge, and almost 0 percent of the "personality". Fine-tuning and RLHF are about 1 percent of the compute, nearly 0 percent of the knowledge, and 99 percent of the personality. When people complain that "the new version of ChatGPT is worse than the old one", what they usually mean is that the fine-tuning recipe changed, not that the underlying brain got dumber. The brain is the same. The conversational surface shifted. Useful thing to keep in mind as these models evolve, because companies tweak fine-tuning constantly without re-running pre-training. --- ## 12. Zooming back out: three big ideas (about 6 min) **Key points:**
-- The neuron learns from data, by gradient descent.
-- Backpropagation routes blame backwards through the network.
-- Attention lets meaning flow across a sentence. > Let me step back and consolidate. Three big ideas. If you walk out of this room with three ideas tonight, these should be the three.
->
-> One. A neuron learns from data. Each neuron in a deep network is a little weighted-sum-and-ReLU. The weights are initially random; the weights are what we train; the weights are what we ship. Training happens by gradient descent on a loss landscape. Walk downhill. Repeat. After millions of steps, the weights have settled into a configuration where the network performs well on the training task and, if we were lucky and careful, on new examples too. Everything else is detail.
->
-> Two. Backpropagation routes blame. This is how we know which weights to change. It is a clever backward traversal of the network that computes every weight's responsibility for the current error, in a single pass, cheaply. Without backpropagation, deep networks cannot be trained. It is the algorithmic unlock that made all of this possible. It was sitting in plain sight in the 1970s, rediscovered in 1986, industrialized by LeCun in the 1990s, and scaled up by Hinton's students in 2012. Now it runs on a billion GPUs every day.
->
-> Three. Attention lets meaning flow. Words in a sentence do not sit in isolation. Attention allows each word to look at all other words and pull in information from the relevant ones, weighted by learned similarity. Stack many attention layers, and you get a Transformer. Train a Transformer Decoder on trillions of tokens, and you get an LLM that can hold a conversation, write code, pass bar exams, and play Diplomacy. Attention is the conceptual bridge from vision-style networks to language-style networks. And it scales.
->
-> These three ideas, put together, explain every LLM on the market today. GPT-5.5, Claude Opus 4.7, Gemini 3.1 Pro, Kimi 2.6, DeepSeek, the list keeps growing. Each is a Transformer Decoder, trained by gradient descent with backpropagation, on some variation of the next-token-prediction objective, with attention as the core mechanism. Differences are in scale, training data, post-training tuning, and engineering tricks. The skeleton is shared. You understood the skeleton tonight. --- ## 13. A note on the exponential (about 5 min) **Key points:**
-- The compute explosion is not slowing down.
-- Models double in capability every one to two years on many benchmarks.
-- Human intuition is poorly calibrated for exponentials. > I want to flag one last thing before we close, because I think it is the single most important mental habit for your generation.
->
-> You have lived your whole lives under exponential curves. Compute per dollar: doubles every 2 years. Internet traffic: doubles every 2 years. DNA sequencing cost: halves every year. LLM parameter count: multiplied by 1000 in 6 years. LLM training compute: multiplied by 100,000 in 6 years. Benchmark scores: doubling every 8 to 12 months in most AI domains.
->
-> Humans are very bad at exponentials. Our intuition is linear. We extrapolate by drawing a straight line from the last two data points. For exponential processes, that is always wrong, and always wrong in the same direction: we underestimate. When we say "AI progress will slow down soon", we are fighting a 60-year trend with no internal evidence. When we say "agents will never do X", we are mostly saying "I cannot currently imagine X because it is a factor of 8 beyond where we are today and my mental line is linear".
->
-> We constantly underestimate how fast the exponential take-off is going. Getting used to things getting faster is crazy hard, but we'll have to if we want to play a part.
->
-> So here is the honest ask. Every time you read a new benchmark, every time you try a new model, every time you see an AI generate something that would have been impossible 2 years ago, write it down. Keep a running log. Date, capability, surprise. Look at your log every 6 months. You will notice: the capabilities that shocked you in January are boring by July. The horizon of "AI can now do this" has moved. This is not hype. This is a measurable, empirical property of the field. Ignoring it is comfortable and costly.
->
-> If you internalize the exponential, you can anticipate. You can position yourself. You can build. If you fight it, you spend the next decade being repeatedly surprised by things that were entirely predictable on a log plot.
->
-> Let me give you an anchor. Here is a list of things that were impossible or laughably hard in 2018 and that are trivial today, 7 years later. Ask a model to translate a scientific article from Mandarin to French: impossible in 2018, high-quality and free today. Ask a model to generate a photorealistic image from a one-sentence description: impossible in 2018, standard today. Ask a model to write a working Python script for a data-analysis task: only partially possible in 2018, routine today, often better than a junior data scientist. Ask a model to summarize a 200-page legal document: completely out of reach in 2018, one query today. Ask a model to play chess at grandmaster level, while also explaining its reasoning in French, while also solving a geometry problem afterwards: impossible in 2018 in any form, now trivially one model. The frontier moves, and it moves fast.
->
-> Now extrapolate forward. Within a few years, what today's graduate student does in a month of research (design an experiment, run it, write it up, submit it) will be done by a model in an afternoon. What today's consultant does in 2 weeks will be done in a morning. What today's diplomat does in a quarter will be done in days. These are consistent with the trend, not wild extrapolations. Start preparing your skills accordingly. You will not be smarter than the machines; that race is lost. The advantage, for the transitional period, is in knowing how to wield them well, in choosing what to point them at, and in being someone other humans still want in the room. That last part is not a durable moat either, but it is the longest-lasting one. --- ## 14. The typology: where do we stand? (about 3 min) **Key points:**
-- Algorithms, AI, machine learning, neural networks, Transformers, Decoder, LLM. Nested Russian dolls.
-- Every LLM is a Transformer Decoder, but not every neural network is an LLM. > Last visual before recap. [Figure 10, p. 42: the typology of AI algorithms, nested boxes from "Algorithmes" outward-in through "Intelligence artificielle", "Machine learning", "Neural networks", "Transformers" and "Decoder".]
->
-> From the outside in: algorithms are the widest box. Any step-by-step procedure. Machine learning is the subset of algorithms that auto-adjust to data. Neural networks are a subset of machine learning. Other machine-learning algorithms exist: random forests, XGBoost, linear regression. Economists use these a lot, and they are often better than deep networks on small-data, numeric problems. Transformers are a subset of neural networks, distinguished by having attention layers. Decoders are a subset of Transformers, specialized for generation. LLMs are large Decoders trained on text. ChatGPT, Claude, Gemini, Llama: all in the innermost box. --- ## 15. Recap and what is next (about 4 min) **Key points:**
-- Recap: the three big ideas.
-- Tease Session 3: trajectory.
-- Homework. > We are wrapping up. Let me give you the one-minute recap. Three big ideas.
->
-> One. A neuron is a weighted sum and a switch. A network is a stack of neurons. Training is gradient descent on a loss landscape: walk downhill. You now know how to write this in 40 lines of Python. You saw the loss go down live. You saw neurons specialize into edge detectors and shape detectors.
->
-> Two. Backpropagation is the algorithm that assigns blame to each weight in a deep network, allowing gradient descent to work efficiently even with billions of parameters. Without backprop, no deep learning. Yann LeCun industrialized it in the 1990s for handwritten digits. Today it runs on every H100 in every AI data center in the world.
->
-> Three. Attention lets each word in a sentence pull meaning from other words in the sentence, weighted by learned relevance. Stack attention layers, and you get a Transformer. The 2017 paper "Attention is all you need" is the foundational document of modern LLMs. Word2vec, in 2013, was the moment we first saw neural networks discover semantic structure on their own: king minus man plus woman equals queen.
->
-> Next time, Session 3, we zoom out again. How far does this go? I want to talk about scaling laws: the empirical regularity that bigger models, trained on more data, keep getting better at a predictable rate. I want to talk about how close we are to AGI, or whether we have already passed it. I want to talk about autonomy horizons and METR measurements. I want to talk about the "fuels" of the rocket (compute, data, energy, talent) and which of them is running short. I want to talk about the race. Between companies. Between countries. Between the United States and China. Where does France fit in? Where does Europe fit in?
->
-> That is Session 3. It is the wide-angle chapter. Today was the engine. Next week is the trajectory. The week after that, we code real AI agents, end-to-end, in Python, like in Session 4 of the syllabus you have all seen.
->
-> Homework before the next session, three small items. 10 minutes each.
->
-> One. Go to playground.tensorflow.org. Pick the spiral dataset. Add layers, add neurons, play with the activation function. Find the smallest network that can separate the two spirals. Then vary the inputs (swap the dataset, change the features, bump the noise, try a different activation), to feel how quickly the network adapts and how little fiddling it takes. Take two screenshots with clearly different settings and email them to me. Title of the email: "spiral". Two different settings, one email.
->
-> Two. Read the introduction and abstract of "Attention Is All You Need", Vaswani et al. 2017, at arxiv dot org slash abs slash 1706.03762. You do not need to understand the math. Read the prose. Get a feel for how researchers write.
->
-> Three. Try an analogy in Word2vec. You can use an online demo at turbomaze dot github dot io slash word2vecjson. Type: king minus man plus woman. Hit enter. See for yourself. Then try something creative. Musician minus guitar plus piano. Or city minus France plus Germany. Bring one cool analogy you found to the next class.
->
-> One last reflection. I started today by promising that a neural network is not complicated. By now I hope you feel that promise was kept. You saw the weighted sum, the ReLU, the gradient-descent loop, the loss curve, the trained neurons visualized as little shape detectors. You saw the king-queen analogy come out of a Python function call. You saw how attention routes meaning across a sentence. None of it required more than high-school arithmetic. All of it, collectively, is what is currently reshaping the global economy. You are not outsiders to this revolution. You have the pieces. You now know, in your own hands, how the machine runs. That is the whole point of today. The next time somebody waves "artificial intelligence" in your face as mystical jargon, you have the right to push back. It is arithmetic. It is engineering. It is scalable, it is learnable, it is, in the good and the bad senses, ours.
+# Session 3: How far will it go? *Word-count target: 15,500 to 17,500 words (about 2 hours at 140 wpm).*
+*Run:* `python3 cours_sciences_po/timer.py cours_sciences_po/session_3.md`
 
 ---
 
-## 16. Sources cited inline - **TensorFlow Playground** (live interactive NN demo): [playground.tensorflow.org](https://playground.tensorflow.org/)
-- **3Blue1Brown's deep-learning series** (YouTube, highly recommended visual treatment of neural networks and backpropagation): [Chapter 1: "But what is a neural network?"](https://www.youtube.com/watch?v=aircAruvnKk); full [Neural Networks playlist](https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi).
-- **Word2vec paper**: Mikolov, Chen, Corrado, Dean, *Efficient Estimation of Word Representations in Vector Space*, 2013, [arxiv.org/abs/1301.3781](https://arxiv.org/abs/1301.3781).
-- **"Attention Is All You Need"**: Vaswani, Shazeer, Parmar, Uszkoreit, Jones, Gomez, Kaiser, Polosukhin, 2017, [arxiv.org/abs/1706.03762](https://arxiv.org/abs/1706.03762).
-- **PyTorch tutorials** (official MNIST quickstart): [pytorch.org/tutorials/beginner/basics/quickstart_tutorial.html](https://pytorch.org/tutorials/beginner/basics/quickstart_tutorial.html).
-- **Richard Sutton, "The Bitter Lesson"**, 2019: [incompleteideas.net/IncIdeas/BitterLesson.html](http://www.incompleteideas.net/IncIdeas/BitterLesson.html).
-- **Word2vec live demo** (browser): [turbomaze.github.io/word2vecjson](https://turbomaze.github.io/word2vecjson/). --- ## 17. Length check *Run:* `python3 cours_sciences_po/timer.py cours_sciences_po/session_2.md` Target: 15,500 to 17,500 words (about 1h50 to 2h05 at 140 wpm). Measured on the current draft: roughly 15,500 words, 1h50 at 140 wpm, landing at the low end of the target range. The lecturer can stretch to the upper end by answering student questions, repeating any step that the room finds fuzzy, or lingering on the MNIST and Word2vec live demos. If the audience is small and fast, it is fine to drop the "bias in Word2vec" aside or the "three training stages" sub-note and bring the talk in at the low end. --- ## Frequently asked questions (scripted answers) **Q: What is backpropagation, in one sentence?**
-> Backpropagation is the algorithm that computes, for every weight in a deep network, how much it contributed to the current prediction error, so that gradient descent can nudge each weight in the right direction, efficiently, in a single backward pass through the network. **Q: Why does gradient descent work even though the loss landscape has lots of local minima?**
-> Empirically, in high-dimensional spaces like those of neural networks, almost all local minima have a loss value close to the global minimum. They are not traps; they are all roughly equally good. Also, modern optimizers like Adam add momentum, which helps the ball roll past shallow basins. In 60 years of experiments, this has turned out to be a remarkably forgiving optimization problem. Nobody fully understands why, but everyone agrees it works. **Q: What is a token, and why is the model cutting words into pieces?**
-> A token is a chunk of text, usually between one letter and a full short word. Modern LLMs use about 50,000 tokens in their vocabulary. Cutting into subwords allows the model to handle words it has never seen before, like new names, typos, or neologisms, by composing them from familiar pieces. The French suffix "-tion" is its own token, so the model learns a stable meaning for "-tion" across thousands of words. Tokenization is a pragmatic trick that lets a 50,000-item vocabulary cover, effectively, all of text. **Q: Why is attention such a big deal? It sounds like just a weighted average.**
-> That is the right instinct, and it is indeed just a learned weighted average. What makes it magical is two things. First, the weights are computed on the fly from the inputs themselves, so each sentence gets its own bespoke attention pattern. Second, attention is differentiable, so gradient descent can train the whole mechanism end-to-end. The combination (dynamic, data-dependent, trainable) is what turned language modeling from a cottage industry into the largest engineering project in human history. **Q: Do bigger models always win?**
-> Yes. Scaling laws, published by OpenAI and DeepMind in 2020 and 2022, show that loss decreases predictably as you scale parameters, data, and compute together. This drove the trillion-parameter race. The frontier has since broadened to include post-training techniques (reinforcement learning from human feedback, chain-of-thought, agentic loops), smarter data curation, and test-time compute, but naive scaling has not stopped paying, it has just stopped being the only lever. At any given budget, bigger beats smaller on most tasks. We revisit this in Session 3. **Q: Can I train a language model at home?**
-> A toy language model? Yes, easily, on one GPU, in an afternoon, with nanoGPT or similar repos. A few hundred million parameters, on a public corpus. It will produce bad but recognizable English. A frontier model? Absolutely not. Frontier training costs tens to hundreds of millions of dollars in compute, requires a team of 100 researchers, and uses proprietary data pipelines. What you can do is fine-tune an existing open model. Take Llama-3 or Mistral-7B, which Meta or Mistral released freely, and tune it on your own data. A laptop with one good GPU, or a small cloud budget, is enough for that. Fine-tuning is how most real-world custom LLMs get built today. **Q: Are neural networks just curve-fitting?**
-> In a narrow technical sense, yes: a neural network is fitting a very flexible function to data. But "just curve-fitting" undersells what happens when that function has 100 billion parameters and is fit to trillions of tokens. At that scale, the fitted function implicitly compresses vast amounts of world knowledge, grammar, logic, and strategy. Calling GPT-5.5 "just curve-fitting" is like calling the human brain "just electrochemistry": technically accurate, practically misleading. The capacities that emerge from scale are qualitatively different from what small models do, and the mathematical machinery is the same only at the level of atoms. **Q: If neural networks are just weighted sums and ReLUs, why can't I understand what a trained model has learned?**
-> Because the knowledge is distributed across billions of tiny weights, none of which are individually interpretable. A single neuron might contribute to 10,000 different concepts, partially, interacting with 10,000 others. This is the interpretability problem, and it is an active research frontier. Companies like Anthropic have built tools called sparse autoencoders that can identify thousands of recognizable concepts inside a trained model, from "Golden Gate Bridge" to "scientific skepticism" to "tourist attractions". We are slowly cracking open the box. Full mechanistic understanding of a frontier model is, today, out of reach, and may be out of reach permanently. This is a serious governance issue, and we will come back to it later in the course.
+#
+
+# 0. Cold open: the exponential is real (about 8 min)
+
+**Key points:**
+
+- Frame the session: not "will AI keep improving" but "how much room does it have left before 2030."
+- Anchor with a concrete number: GPT-3 in 2020 vs. a frontier model in 2025 is already 4 orders of magnitude of training compute.
+- The job of today: teach your internal extrapolator to stop being linear.
+> Look at this slide. Two pictures, same prompt. On the left, an astronaut on horseback in a tunnel, the horse's hooves splashing water, the astronaut waving a French flag. It is generated by Stable Diffusion 1, August 2022. The horse has 5 legs.
+>
+> The astronaut's helmet melts into the tunnel wall. The flag is a blur of red and blue. It is, frankly, ugly. On the right, the same prompt, FLUX.1-dev, August 2024. The horse has four legs.
+>
+> The water splashes correctly under the hooves. The tunnel has perspective. The flag is legible and it is French. Two years apart. Same prompt.
+>
+> *[Show on screen — Figure 11 (Ultra-Intelligence): the two side-by-side astronaut-on-horseback generations, June 2022 vs. August 2024.]*
+>
+> I want you to stare at it for a moment, because staring at it is what this whole session is about.
+>
+> Today's question is simple. How far does this go? How much room is left in this curve before it hits a wall? Do we have 6 months of improvement left, 6 years, 60 years? What would have to go wrong for the curve to stop? And what is the honest answer a physicist would give to a room of undergraduates at Sciences Po in April 2026?
+>
+> I am going to tell you the answer up front, because I do not like lectures that hide the ball. The honest answer, as best as I can reconstruct it with the public evidence we have, is: there is no visible ceiling before 2030. We know what the rocket is made of. We know what fuels it needs. We know what the supply chain looks like. And in every one of those dimensions, we have enough runway to keep scaling for at least 4 or 5 more orders of magnitude of training compute. That is the headline. The rest of the session is the argument.
+>
+> Two preliminary remarks. First, this is the session where my framing matters most, so I want to put it on the table now. I am not going to give you a balanced "hype versus doom, neither is useful, stay in the middle" speech.
+>
+> That middle position is not actually the most truthful position; it is just the most comfortable position. The truth, as I read it, is closer to what the technologists call AGI-pilled. We constantly underestimate how fast the exponential is going.
+>
+> Getting used to things that get exponentially faster is crazy hard for human brains. We are evolved for a savannah where change happens on the scale of seasons. We are not evolved for a world where compute doubles every 6 months. If we want to play a part in what comes next, we have to train that underestimation out of ourselves, and that is uncomfortable, but it is what the job requires.
+>
+> Second remark. Where there is genuine uncertainty, I will name it. I do not know what happens after 10 to the 28th FLOPs of training. I do not know whether scaling laws hold for another 3 orders of magnitude or another 5. I do not know whether Taiwan will be a factor in 2029. These are real unknowns, and I will flag them as we go. But the hedging has to be specific. The hedging is about named variables, not about mood. I will not say "who knows, it could all stop tomorrow" because, on the public evidence, that is not true.
+>
+> One more thing before we start. Most of this session uses math. Not hard math. Arithmetic, mostly. A few exponents. I will define every number before I use it. If a number flies past and you have not caught it, raise a hand. It is much better for everyone if we stop for 10 seconds than if 5 of you quietly stop following. Deal?
+>
+> Let me walk you through the plan. First I am going to introduce the concept of scaling laws, the empirical backbone of the whole argument. Then I will show you the production chain that turns dollars into intelligence: datacenters, GPUs, TSMC, ASML, NVIDIA, the whole relay race. Then we will look at the possible bottlenecks: energy, chips, data, money, rare earths.
+>
+> For each one I will tell you what the public numbers say about whether that bottleneck will bite before 2030. Then we will talk about deployment: even if we can train the thing, is inference economically viable? And I will give you, in concrete numbers, how many watts a ChatGPT query actually costs. Then the ceiling question: where does this plateau, if it plateaus?
+>
+> And I will finish on the cultural consequence of the scaling argument, the fourth narcissistic wound. Copernicus took the Earth out of the centre. Darwin took us off our animal pedestal. Freud told us we were not masters in our own head. And now, this century, there is a fourth wound, and it is happening while you are sitting in this room. By the end of today, I want you to feel that wound on your skin.
+
+---
+
+#
+
+# 1. Scaling laws, what they are and what they mean (about 20 min)
+
+**Key points:**
+
+- Define OOM (order of magnitude) precisely: one OOM equals ten times.
+- Scaling laws: linear performance improvement for exponential compute growth.
+- From GPT-3 at 3 times 10 to the 23rd FLOPs, to GPT-4 at 2 times 10 to the 25th, to 2027 frontier at 10 to the 28th or 10 to the 29th.
+- Aschenbrenner's "notch per OOM" formulation. Sarah Hooker's counter-argument about the metric.
+- No visible brakes for several more OOMs.
+> So, scaling laws. Let us start by defining an order of magnitude, because I will use that phrase about 200 times today and I want it to mean something precise in your head. An order of magnitude is a factor of 10. One more OOM means 10 times more. Two OOMs means 100 times more.
+>
+> Three OOMs means 1000 times more. Four OOMs, 10,000. It is the logarithmic unit, the way scientists compare very different sizes. An ant and an elephant differ by about 6 or 7 orders of magnitude in mass. The sun and the earth differ by about 6 orders of magnitude in diameter.
+>
+> A GPT-2 model and a GPT-4 model differ by about 5 orders of magnitude in training compute. When I say "one notch of intelligence per OOM", I mean: each time you multiply compute by 10, you get one more step of capability. That is the scaling laws hypothesis in one sentence. Write it down. It is the single most important empirical observation of the last decade in AI.
+>
+> Where does this come from? January 2020. OpenAI, still a small research lab at that point, publishes a paper titled *Scaling Laws for Neural Language Models*.
+>
+> Kaplan and colleagues. They run the same training algorithm at many different sizes, from small to very large, and they observe something remarkable: the error of the model, the loss function, falls along a clean power law with respect to three variables: the number of parameters in the model, the amount of training data, and the amount of compute used to train. Triple log-linear.
+>
+> You plot compute on the x-axis in log scale, loss on the y-axis in log scale, and you get a straight line going down. Straight. For 4 orders of magnitude. No kink, no bend, no saturation visible.
+>
+> That paper was a thunderbolt internally. Because what it said, in plain language, was: we have a recipe for arbitrarily powerful AI. We do not need to invent new architectures. We do not need philosophical breakthroughs. We just need to build bigger versions of the thing we already have, feed them more data, and give them more compute. The model will get better in a predictable way. It is like finding a road that slopes downward forever. You do not know exactly what is at the end, but you know every step takes you further.
+>
+> Now, a warning. These are empirical laws, not physical laws. Let me say that again because it matters. The law of gravitation is a physical law: we have a theory, we have mechanism, we believe it holds everywhere in the observable universe. Scaling laws are empirical.
+>
+> They are a pattern we observe in the data. We have no fundamental theory for why neural networks scale the way they do. Which means, in principle, they could stop holding tomorrow. We have simply never seen them stop, across now about 9 orders of magnitude of exploration. 9 OOMs.
+>
+> That is a lot of data. 9 OOMs is the difference between a grain of sand and the Empire State Building. So we have good empirical reasons to trust the pattern, but it is not a theorem. It is a regularity. A stubbornly persistent regularity.
+>
+> Let me give you the numbers so you can calibrate. GPT-3, released in 2020, was trained with roughly 3 times 10 to the 23rd floating-point operations. Three times 10 to the 23rd. Write the number out: 3 followed by 23 zeros. That is a 3 and 23 zeros of floating-point multiplications and additions chained together during the training run. At the time, it was the largest training run ever. It took a few thousand GPUs, a few months, tens of millions of dollars. In 2020, it felt titanic.
+>
+> GPT-4 came out in 2023. Public estimates place its training compute at roughly 2 times 10 to the 25th FLOPs. Do the math. Ten to the 25th over 10 to the 23rd is a factor of 100. Two orders of magnitude. In 3 years. The model was not just bigger; it was two notches up the scaling ladder. And if you remember your Session 1, you know what two notches looks like: GPT-3 could barely hold a paragraph of coherent French. GPT-4 passes the American bar exam in the top 38 percent of human candidates. Two notches. That is what an OOM looks like in practice.
+>
+> Let us keep going. OpenAI's o1 model, released in 2024, is estimated at roughly 10 to the 27th FLOPs for training plus inference-time reasoning. Another 2 orders of magnitude above GPT-4. Then the models coming in late 2025 and 2026, trained inside the Stargate build-out, inside Anthropic's Project Rainier, inside Google's TPU clusters, are projected at 10 to the 28th to maybe 10 to the 29th FLOPs by 2027. That is another 2 to 3 orders of magnitude up from o1.
+>
+> Let me put that trajectory on a timeline so you can feel it. 2020, 3 times 10 to the 23rd. 2023, 2 times 10 to the 25th. 2024, 10 to the 27th. 2026, 10 to the 28th. 2027, 10 to the 29th. In 7 years, 6 orders of magnitude. 6 OOMs. A factor of 1 million in training compute. That is the curve. That is the rocket.
+>
+> Now, Leopold Aschenbrenner, a former OpenAI researcher, wrote a long essay in 2024 called *Situational Awareness*. The link is in your reading list. It is very good.
+>
+> It is also very confident, and you can decide how much of the confidence to absorb. But his framing is useful, so I will borrow it. Aschenbrenner says: think of the path from GPT-2 to AGI in units of OOMs.
+>
+> GPT-2 could barely write a grammatical sentence; that was 2019. GPT-4 can pass most standardized exams; that is 5 OOMs up from GPT-2. The gap between GPT-2 and GPT-4, which is the gap between incoherence and professional competence, is 5 OOMs. By his reasoning, another 4 or 5 OOMs above GPT-4 would take us to something he calls *drop-in remote worker*, a system that can do, autonomously, most of what a junior employee at a large firm does, over the course of weeks of work. And 4 or 5 more OOMs above that starts getting us into territory where the model might be meaningfully superhuman.
+>
+> Now, I want to be honest about the epistemics here. Aschenbrenner is an advocate. His essay has a particular rhetorical shape; he wants you to leave it convinced that the exponential is inevitable. The actual trend data he cites is real. The extrapolation is a bet. I think it is a reasonable bet, and I think you should read the essay, but I also think the counter-arguments deserve airtime, and there is one counter-argument that I respect a lot, so let me walk you through it.
+>
+> Sarah Hooker is a researcher now at Cohere. She has been arguing, for a couple of years now, that the scaling laws story is doing a rhetorical sleight of hand. Here is her point. The scaling law was originally established for a specific quantity: the model's next-token prediction loss on a held-out test set.
+>
+> That quantity does fall smoothly with compute. Nobody disputes that. What Hooker pushes back on is the inference that "lower loss on next-token prediction equals more intelligence." The thing we care about, she says, is downstream capability: does the model solve problems, reason through novel situations, generalize to things it did not see. And on those metrics, the relationship with compute is messier.
+>
+> You can get a model with much lower loss that is only marginally better at, say, complex reasoning tasks. You can get diminishing returns. You can get saturation on specific benchmarks while loss keeps falling. Hooker's point is that we should be careful not to conflate the two.
+>
+> I take this criticism seriously. It is intellectually honest and it is backed by data. Where I come down on it is this: even if the mapping from loss to capability is noisier than the scaling laws advocates suggest, the empirical record of the last 7 years is that every OOM of compute has, in practice, produced a capability jump that was noticeable and often dramatic. Sometimes it was in one axis, sometimes another.
+>
+> GPT-3 to GPT-3.5 improved coding enormously. GPT-3.5 to GPT-4 improved reasoning a lot. GPT-4 to o1 improved math. Each jump unlocked something.
+>
+> We have not, yet, had an OOM that produced no capability increase. That is 9 empirical data points, with 9 confirmations. At some point, 9 confirmations is strong evidence, even if we do not have a theorem. Until we see a flat OOM, it is reasonable to plan as if the pattern holds.
+>
+> Specifically, the place where I do agree with Hooker is that we do not yet know what happens after 10 to the 28th FLOPs. Maybe the curve bends. Maybe it does not. We literally have not yet trained a model at that scale, though we will in the next 12 to 18 months. So there is a live empirical question sitting just over the horizon. It is one of the most interesting scientific questions currently being asked.
+>
+> Let me close this section with a concrete exercise so this does not stay abstract. Suppose one OOM of compute takes about 18 months to put in place, counting datacenter build-out, chip production, training time. That is roughly the historical cadence over the last 5 years. Four more OOMs at that rate equals 6 years of wall-clock time. So if you start the clock today, April 2026, 4 OOMs takes us to roughly 2032. If the exponential holds for 4 more OOMs, by 2032 we have models that are 4 more notches above today's best. Whatever that looks like, it is a lot. That is the math. 18 months per OOM, 4 OOMs, 6 years.
+>
+> And here is the subtler point that people miss. The investments are not linearly funded. They are exponentially funded. The money going into AI roughly tripled every year from 2022 to 2025. That means the OOMs are arriving faster, not slower. The 18-month cadence is the long-run average. In the current 4-year window, it is closer to 12 months per OOM, because the money is flooding in. So 4 OOMs at the current pace is more like 4 years, not 6. Pick your assumption. Either way, before 2030, we have reasonable grounds to expect the rocket to be several notches above where it is today.
+>
+> *[Show on screen — Figure 12 (Ultra-Intelligence): difference between the best AI model and the human reference level across a dozen benchmarks.]*
+>
+> One more thing, because this plot deserves a mention here. It shows the difference between the best AI model and the human reference level across a dozen benchmarks, from reading comprehension to mathematical problem-solving to code generation. The striking thing about it is the timing.
+>
+> Each curve starts negative, the AI below human, then rises, crosses the zero line, the human reference, and continues climbing. The crossing happens at different times for different benchmarks, but in recent years the crossings are happening faster and faster, sometimes months after the benchmark was created. That is the visual correlate of scaling laws: the reference gets crossed, then overshot, then left behind. Whatever benchmark the research community invents next, the curve will come for it too.
+>
+> Let me give you one more concrete example, because I like examples. Last year, Dan Hendrycks and a team at the Center for AI Safety released a benchmark called "Humanity's Last Exam." A very dramatic name, but the intent was serious: collect a set of questions so hard that the best current models score near zero, questions that graduate-level experts in their own fields take real time to solve. The benchmark launched in late 2024 with frontier models scoring around 3 percent.
+>
+> By April 2025, models were at 20 percent. By late 2025, best models were above 40 percent. The benchmark was designed to last.
+>
+> It did not last. This happens over and over. You design a benchmark to be hard, you hold it up as the thing that will prove AI is not really intelligent, 6 months later the curve has eaten it. That is what the exponential looks like when applied to a benchmark curve: the reference does not stay safely ahead.
+>
+> I want to be very precise about what scaling laws do and do not say. They say: if you scale the three inputs together (parameters, data, compute) in the right proportion, the test loss falls along a predictable power law. They do not say every new capability will be unlocked on a schedule.
+>
+> Sometimes a capability emerges suddenly at a threshold and you did not see it coming. The technical term is "emergent capability." In the GPT-3 paper, OpenAI reported that arithmetic, for instance, was essentially absent at small scale, and then at some parameter count it abruptly appeared. These emergence thresholds are not predicted by the scaling law itself; they are a kind of bonus.
+>
+> What the scaling law gives you is that the average curve will move up. What emergence gives you is that specific skills will pop up at specific scales, sometimes to your surprise. You plan for the law. You are surprised by the emergence.
+
+---
+
+#
+
+# 2. How we train a model: the production chain (about 22 min)
+
+**Key points:**
+
+- The rocket fuel analogy: energy, compute, data.
+- Datacenters, now increasingly decentralized to ease local grid constraints.
+- The global semiconductor relay race: ASML etches the lithography masks, TSMC fabricates the chips, NVIDIA designs the architectures, hyperscalers buy and install.
+- Moore's law is still alive but only accounts for a small fraction of current growth; most of it is investment and software efficiency.
+- Compute share by country: the US and China dominate; Europe is a minor player on Epoch AI's latest numbers.
+> Alright, let's get into the factory. I want to show you physically what happens when a lab decides to train a frontier model, because it is genuinely one of the most complicated industrial processes on Earth right now, more complicated than building an aircraft carrier, and understanding the pieces helps you understand where the bottlenecks are.
+>
+> Think of training a model as launching a rocket. You need three fuels. You need energy, measured in gigawatts. You need compute, measured in GPU-hours. And you need data, measured in tokens. Pull any one of these, the rocket does not take off. Plenty of all three, and you can push the rocket higher. That analogy, the rocket with three fuels, is the one I want you to keep in your head for the rest of today, because it organizes pretty much everything we are about to say.
+>
+> Let me start with the datacenter itself. A modern training datacenter is not a building, it is a small city. A frontier cluster today has on the order of 100,000 GPUs.
+>
+> Each GPU is about the size of a shoebox, weighs several kilograms, costs between 30,000 and 40,000 dollars. 100,000 of them, at 40,000 dollars each, is 4 billion dollars of silicon sitting on racks. Those racks are arranged in rows.
+>
+> The rows fill halls the size of warehouses. The warehouses pull several hundred megawatts of power continuously, day and night, for the duration of the training run. We are talking about the power consumption of a small city. And the waste heat is such that a substantial fraction of the datacenter's footprint is cooling. Cold water loops, heat exchangers, sometimes immersion cooling where the racks are literally submerged in dielectric fluid.
+>
+> The next generation of cluster, the one coming online this year and next, is 5 to 10 times bigger. That is where things get interesting, because at that scale you cannot easily site the datacenter in one place anymore. You start to run into local grid limits.
+>
+> In the US, for example, Virginia is already saturated; Texas has room; parts of the Pacific Northwest have hydro capacity. Microsoft signed a deal in 2024 to restart the Three Mile Island nuclear plant, yes, the same plant that had the famous 1979 accident, to supply dedicated power to a new AI cluster in Pennsylvania. That deal alone is 835 megawatts of dedicated nuclear power, going straight to a datacenter. Just for AI training.
+>
+> The Stargate announcement, January 2025, is the biggest publicly committed infrastructure project in this space. OpenAI, together with SoftBank and Oracle, committed 500 billion dollars over 4 years to build a distributed training infrastructure. 500 billion. To give you a sense of scale, that is roughly half a percent of US GDP, committed, by three private companies, to one technology category. The first site, in Abilene, Texas, is coming online in pieces through 2025 and 2026. It will pull 5 gigawatts at completion. Five gigawatts is the output of a large nuclear plant, Gravelines in northern France for instance, running at full tilt.
+>
+> Anthropic announced its own build-out, called Project Rainier, in late 2024, in partnership with Amazon. That cluster, in Indiana, is planned for about 800,000 Trainium chips, Amazon's in-house AI accelerator, drawing on the order of a gigawatt. Google has been building TPU clusters across several US states and in Finland. xAI, Elon Musk's outfit, built Colossus in Memphis, Tennessee, a single-site cluster of 200,000 GPUs brought online in under a year. Meta is building a 2-gigawatt cluster in Louisiana called Hyperion. Every big lab has its cluster project. Every cluster pulls hundreds of megawatts to gigawatts. These are not rumors; these are press releases. I will put the links in the slide pack.
+>
+> To ease the grid pressure, the industry is starting to decentralize. Decentralization here does not mean a peer-to-peer network of gaming PCs; it means spreading one training run across two or three geographically distant clusters connected by very high-bandwidth fiber. You want the fiber to be able to move model weights between sites in seconds, because during training, different replicas of the model need to stay synchronized. If synchronization takes too long, you lose efficiency. So you need petabyte-per-second interconnects between sites. That is extraordinary engineering. Today it is probably just feasible across a single country. In 5 years it may be feasible continent-scale.
+>
+> Now, where does the silicon come from? This is where the relay race gets wild. Let me walk you up the chain.
+>
+> At the top, there is one company: ASML. Dutch. Based in Veldhoven, near Eindhoven.
+>
+> They make the extreme ultraviolet lithography machines, the EUV machines, that etch chip patterns onto silicon wafers. These machines are, without exaggeration, the most complex objects humans have ever built. Each one is the size of a bus, weighs about 200 tons, costs 200 million dollars, and uses a laser to vaporize tiny droplets of molten tin at a rate of 50,000 droplets per second, producing light at 13.5 nanometers wavelength, which is then reflected through a cascade of mirrors polished to atomic flatness, onto a wafer, to draw patterns at 3 nanometer resolution.
+>
+> ASML ships about 40 of these machines per year. There is effectively no competitor. If ASML stops shipping, advanced chip production globally slows to a crawl within 18 months.
+>
+> ASML's machines go to fabs. The most advanced fabs, the ones making the chips we use for AI, are overwhelmingly operated by TSMC, Taiwan Semiconductor Manufacturing Company. Based in Hsinchu, Taiwan.
+>
+> TSMC holds roughly 50 percent of the global semiconductor foundry market and close to 90 percent of the leading-edge node market. When NVIDIA designs a new chip, TSMC fabricates it. When Apple designs a new M-series, TSMC fabricates it.
+>
+> When AMD, Broadcom, Qualcomm, Tesla design chips, TSMC fabricates them. Samsung in South Korea has some capability at leading edge, and Intel is trying to catch up, but the practical reality today is that almost all AI chips pass through TSMC's Taiwanese fabs. This geographic concentration is the single largest geopolitical risk factor in the entire AI supply chain, and we will come back to it.
+>
+> Below ASML and TSMC in the chain, we have the chip designers. The one you have all heard of is NVIDIA. Santa Clara, California. NVIDIA designs the GPU architectures, the H100, the H200, the Blackwell line called B100 and B200 and GB200. They hold roughly 90 percent of the AI training chip market. Their market capitalization in 2025 oscillated between 2 and 3 trillion dollars, which, for a chip design company, is without precedent in economic history. Intel at its peak was worth 500 billion. NVIDIA at its peak has been worth 6 times that.
+>
+> Then there are the hyperscalers, the cloud giants, who buy the chips at scale and run them in their datacenters: Microsoft, Amazon, Google, Meta, and, increasingly, the AI labs themselves acting as hyperscalers. And then beside NVIDIA, a few in-house accelerators: Google's TPUs, which they have been building since 2015; Amazon's Trainium and Inferentia; Tesla's Dojo; a few startups like Cerebras and Groq with radically different architectures.
+>
+> So the relay race: ASML in the Netherlands ships a lithography machine to TSMC in Taiwan. TSMC uses it to fabricate a wafer designed by NVIDIA in California. The wafer is cut into individual chips, packaged, tested, and shipped to a Microsoft datacenter in Virginia. Microsoft plugs the chip into a server, connects it to 100,000 of its cousins, and sells the compute to OpenAI. OpenAI runs a training job. The model gets better. That is the chain. If any one link breaks, the chain stalls.
+>
+> Now, Moore's law. You have probably heard of it. Gordon Moore, one of the founders of Intel, observed in 1965 that the number of transistors on a chip was doubling every 2 years. That doubling has held, remarkably, for 60 years now.
+>
+> But it has slowed. In the 2000s we were doubling every 18 months. In the 2010s we were doubling every 2 to 3 years. Today we are closer to 3 years per doubling on pure transistor density.
+>
+> In OOM terms, that is about 0.15 orders of magnitude per year. Slow, in the context of our rocket. The rocket is climbing at 0.6 OOMs per year of training compute. Moore's law, on its own, gives us one quarter of that.
+>
+> So where does the rest come from? Two places. First, bigger capital investment: we simply buy more chips, and we use more of them in parallel.
+>
+> The cluster grows faster than the individual chip. Second, software and hardware specialization: we use chips more efficiently per operation. We went from FP32, 32-bit floating-point precision, to FP16, to BF16, to FP8, and now to FP4 on the latest Blackwell hardware.
+>
+> Each of those reductions in precision doubles effective throughput, without catastrophically hurting model quality. We also invented architectural tricks: Flash Attention, which makes the attention mechanism we studied in Session 1 memory-efficient; Grouped-Query Attention, which reduces memory without hurting quality; Mixture of Experts, where only a fraction of the model activates per token, giving you the intelligence of a huge model at the cost of a small one. Each of these is a multiplicative improvement.
+>
+> Altogether, software and architectural efficiency is contributing roughly 0.45 OOMs per year of effective compute, on top of the raw hardware growth. Add it up: 0.15 from Moore's law on transistor density, 0.2 or more from investment scaling of cluster size, 0.45 from software, you are comfortably above one full OOM per year of effective compute. One OOM per year. That is a factor of 10 in capability-producing fuel, every year. That is the curve.
+>
+> One last number for your mental model: who owns this compute? Epoch AI, a research group that tracks the compute footprint of the frontier, estimates that as of late 2025, the United States holds roughly three quarters of global training compute for frontier models. China holds about 15 percent and rising. Europe holds less than 5 percent. Let me repeat that because it is uncomfortable: Europe, the continent, with 400 million people and a combined GDP comparable to China's, holds under 5 percent of the world's frontier AI compute. We are a rounding error. That is a political fact, and we will return to it when we talk about financing.
+>
+> *[Show on screen — Figure 20 (Ultra-Intelligence): Epoch AI plot of training compute for frontier models, FLOPs on a log scale, versus year, 2019-2025.]*
+>
+> The Epoch AI plot shows this visually. Training compute for frontier models, in FLOPs on a log scale, versus year, from 2019 to 2025. The points climb in a tight line: GPT-3 at the bottom, GPT-4 higher, Gemini 1.0 higher still, Grok 4 at the top of the plot. The slope is 0.6 orders of magnitude per year. That line is the rocket's speed. It has held for 5 straight years. There is no sign of it bending.
+>
+> Also, I want to come back to the scaling laws I was showing you earlier, because seeing them applied in practice is striking. The next figure shows an image-generation model at three different compute levels. Same prompt: a kangaroo in an orange hoodie and sunglasses, holding a "Welcome Friends" sign in front of the Sydney Opera House. At compute times one, you get a deformed blob.
+>
+> At times 100, you get a recognizable kangaroo but it is strange. At times 3000, you get a photorealistic image, the kangaroo standing, correctly proportioned, sunglasses on, sign in hand. Same architecture. Same prompt.
+>
+> Just more compute. 3000 times more compute. That is what OOMs look like in outputs. Remember this image; it is the single best visual I know for the power of scaling.
+>
+> One last figure while we are here, because the numbers alone do not capture the feeling of the thing. I want you to imagine the floor of a datacenter. Picture the ground. Picture rows and rows of server racks, each about the height of a refrigerator, each holding 8 GPUs, stacked floor to ceiling. The aisle between two rows is about a meter wide, just enough for a person to squeeze through. The air is cold because the cooling is constantly running. There is a low, constant hum, not of fans exactly but of airflow through a thousand vents.
+>
+> The temperature at ear-height might be 16 Celsius; above the racks, where the hot air rises, it is closer to 40. You walk down that aisle for what feels like a long time. The racks do not end. You pass a numbered sign: rack row 14. Then row 15. At the far end of the building, you turn left and walk another aisle. Another 50 rows.
+>
+> Then another building next door, same layout. Then another. When the biggest clusters come online in 2027, the total footprint of one training site will be roughly the size of a regional airport. Acres of concrete, rack upon rack of silicon, cables running under the floor, transformers humming outside. That is the physical manifestation of a few OOMs of compute. It is a building. You could walk through it. You could get lost in it. And the thing being computed inside that building is just one training job, one long descent down a loss curve, one model being born.
+
+---
+
+#
+
+# 3. Possible limits: will we hit a wall before 2030? (about 22 min)
+
+**Key points:**
+
+- Five candidate bottlenecks: rare materials, semiconductor production, electricity, financing, data.
+- For each, state what the ceiling is, and whether it bites before 2030.
+- Quantum tunneling barrier around 1 nm for chip fabrication: still a decade away at current pace.
+- Electricity: easy in China (they build 100 GW of generation a year), harder in the US, a crisis in Europe.
+- Financing: the US deploys capital at a scale Europe cannot match.
+- Data: not running out, and synthetic data changes the game.
+> So let us do the bottleneck analysis systematically. Five candidates. For each one, I will give you the numbers I know, and I will tell you whether the public evidence says it is going to bite before 2030.
+>
+> Candidate one: rare earths and critical materials. This is the one the press loves. The story goes: AI needs chips, chips need rare earths, rare earths are mostly in China, therefore China can strangle the AI economy. Here is why that story is mostly wrong.
+>
+> Rare earth elements, despite the name, are not actually rare in the crust. They are geographically concentrated in extraction and refining, mostly in China, yes, but that is a matter of industrial policy, not geology. More importantly, modern logic chips, the ones we use for training, do not use much rare earth. They use silicon, copper, aluminum, tungsten, cobalt in small quantities, and some indium and gallium in very small quantities.
+>
+> The materials that dominate a chip's bill of materials are ubiquitous. The only place where rare earths bite is in specialty magnets for hard drives and some sensors, and those are not the AI bottleneck. Gallium and germanium, which China restricted in 2023, are used in some analog components but not in the logic fabric. So the rare-earth story is mostly noise. It is not zero, but it is not the binding constraint in the 2025 to 2030 window.
+>
+> Candidate two: semiconductor production. This is a much more serious bottleneck. Two angles. First angle is raw capacity: can we make enough chips? Reference point, the Llama-3.1-405B training, equivalent to GPT-4o class, took roughly 39 million H100-hours cumulative. If you want to do 3 more orders of magnitude of compute than that, same GPU, you need 1000 times more H100-hours, which is 4.5 million H100s running continuously for a year. NVIDIA produced roughly 1.5 to 2 million H100s in 2024, tripling their 2023 output. If production triples again in 2025, we cross the needed threshold by the end of 2025. So on production capacity alone, the chain can keep up, with some slack. Barely.
+>
+> Second angle, and this is the one that matters more, is the physical ceiling on chip fabrication. Every generation we have shrunk the transistor: 90 nanometers in 2004, 45 in 2008, 22 in 2012, 14 in 2014, 7 in 2018, 5 in 2020, 3 in 2023. The number is the characteristic feature size, more or less. We are heading toward 2 nanometers this year and 18 angstroms, so 1.8 nanometers, in 2027. The practical question is: can you keep going?
+>
+> At some point you hit a quantum-mechanical wall. Silicon atoms are roughly 0.2 nanometers apart. Below about 1 nanometer in feature size, the transistor stops behaving like a classical switch. Electrons quantum-tunnel through the gate. The transistor leaks. It cannot hold a voltage. You cannot compute reliably with it. That barrier is real, it is set by physics, and it puts a floor under how small the feature can be.
+>
+> Is it binding before 2030? No. The industry roadmap has 2 nanometers this year, 1.8 in 2027, 1.4 in 2029, 1 in the early 2030s. At the cadence of one node every 2 years, which the industry has been hitting, the quantum wall bites around 2032 to 2034. So the quantum barrier is a real thing, and it matters for your children's iPhones, but it does not bite in the window we are concerned with today.
+>
+> The more acute risk in semiconductors is geopolitical. Taiwan. I mentioned earlier that roughly 90 percent of leading-edge chip production goes through TSMC.
+>
+> And TSMC is on an island that China considers a renegade province, that it has threatened to reunify, by force if necessary, for the better part of 8 decades. If Taiwan is blockaded or invaded, or if there is any kind of serious military disruption in the Taiwan Strait, the frontier of AI compute stops for as long as it takes to bring alternate capacity online. The US and EU are both investing massively through the CHIPS Acts to build alternate fabs in Arizona, Ohio, Germany, Japan.
+>
+> But a leading-edge fab takes 3 to 5 years to come online from groundbreaking. So if Taiwan goes dark tomorrow, the world is in a hard ceiling for at least 3 years on frontier AI compute. That is a real risk. It is probably the single largest binary risk factor on the whole trajectory.
+>
+> But as a base rate estimate: no, I do not think Taiwan is going to be invaded before 2030. The US is too committed to the island's security, and China's own economy depends so heavily on Taiwanese chips that the immediate loss from a conflict would devastate both sides. Deterrence holds, barely. So in my base case, semiconductor production is not the binding constraint on AI progress before 2030. With a tail risk that it could become so, suddenly and catastrophically, if the Strait goes hot.
+>
+> Candidate three: electricity. This one is getting very real. Look at the numbers. A GPT-3 training run was about 1 megawatt of instantaneous power. GPT-4 was about 10 megawatts. o1 class, about 100 megawatts. The projected 2026 frontier model, 10 to the 28th FLOPs, needs roughly 1 gigawatt, the output of a medium nuclear reactor. The 2027 to 2028 target, 10 to the 29th FLOPs, needs 10 gigawatts. That is Figure 21 in the book. Each row: one more OOM of FLOPs, one more OOM of cost, one more OOM of power. The numbers are brutal.
+>
+> Ten gigawatts is a huge number. France's Gravelines, the largest nuclear plant in France, puts out 5.5 gigawatts. So a 2028 training run would need almost 2 Gravelines dedicated entirely to it, running for months. That is not something you can casually arrange.
+>
+> How does that play out per country? China is building generation capacity at an astonishing rate. They have added roughly 100 gigawatts a year of installed capacity for the last several years, a mix of coal, solar, wind, nuclear, and hydro.
+>
+> For them, powering a 1 or 10 gigawatt training cluster is a nothing-burger, a rounding error on their annual addition. The US is harder. The US grid is fragmented, regulated at state level, slow to permit new generation.
+>
+> Finding 10 gigawatts of dedicated, reliable, firm power near fiber connectivity is genuinely difficult. This is why you see deals like Microsoft buying the entire output of Three Mile Island, and Amazon trying to site datacenters directly at a nuclear plant in Pennsylvania, and Meta signing long-term wind contracts across the plains states. The US can do it, but it is tight, and it is going to require either rapid permitting reform or a lot of new nuclear or gas.
+>
+> Europe is a disaster on this dimension. We have decommissioned nuclear plants in Germany, phased out coal, have no political appetite for new build-outs, and the grid is expensive and fragmented across 27 countries. A European frontier-scale cluster, 10 gigawatts, firm power, running for a year, is politically and logistically very hard to assemble today. That is why most frontier training is happening in the US and, increasingly, in places like Saudi Arabia and the UAE, where there is willing capital, willing siting, and the ability to build fast.
+>
+> Is energy the binding constraint before 2030? Probably not, if you are the United States or China. Maybe, if you are Europe. In the global race, energy is a constraint that is passed by building where the energy is abundant, which pushes the geographic distribution further away from Europe. That is the real consequence. Europe does not necessarily lose because it cannot generate the electricity; it loses because the race gets run elsewhere.
+>
+> Candidate four: financing. How many dollars does this take? Figure 21 again. GPT-3, 10 million dollars. GPT-4, 100 million. o1, about a billion. Ten to the 28th target, 10 billion. Ten to the 29th target, 100 billion. 100 billion dollars for one training run by 2027 or 2028. Let that sink in.
+>
+> That is an astonishing number. For context, the Manhattan Project cost, in 2024 dollars, about 30 billion. The Apollo Program cost about 250 billion. A single AI training run, by 2028, could cost more than the Manhattan Project. And this is not a theoretical number; it is what Stargate's first-phase budget of 500 billion dollars is setting up to fund. 500 billion, over 4 years, divided across several training cycles and inference infrastructure. It maps onto roughly the right order of magnitude.
+>
+> Where does this money come from? In the US, it comes from the public markets and from the hyperscaler balance sheets. Microsoft, Amazon, Google, Meta, each of these companies generates annual free cash flow in the range of 40 to 80 billion dollars. They can redirect a large fraction of that cash flow into AI infrastructure every year and still pay dividends. SoftBank brings in equity and debt financing. Private equity from the Gulf states adds more. The US capital stack is uniquely well suited to deploying capital at this scale at this speed.
+>
+> China has different mechanisms: state-directed investment, provincial industrial policy, a lot of it opaque to outside observers. But they are spending, heavily. Whether they are spending 300 billion a year or 80 billion a year is genuinely hard to know from outside.
+>
+> Europe? We are the funder of last resort. To give you a reference point, France's 1973 nuclear equipment plan, announced in response to the oil shock, cost 13 billion francs, which at the time was 6 percent of GDP.
+>
+> The equivalent today, at the same fraction of GDP, would be about 170 billion euros. If Europe wanted to, we could stand up a frontier-scale AI infrastructure. We have the money, collectively.
+>
+> What we do not have is the political capacity to decide to. France, Germany, Italy, Spain, Poland, the Netherlands, together have roughly the same GDP as the US. If we coordinated, even loosely, we could be a player. We have, so far, chosen not to coordinate, and the numbers show it.
+>
+> So, financing. Before 2030, financing is not going to be the binding constraint for the US. It is going to be a serious constraint for Europe. And it will be a major variable in China's trajectory, where the political system can redirect capital fast but cannot always find the efficiencies the market allocates naturally.
+>
+> Candidate five: data. "Are we running out of training data?" is a question I get a lot. The short answer is: sort of, and it does not matter as much as you think.
+>
+> Here is the arithmetic. Llama-3.1 was trained on roughly 15 trillion tokens. Common Crawl, the largest public web archive, contains something like 100 trillion tokens of raw text. After deduplication and cleaning, maybe 30 trillion of usable text remains, in datasets like RedPajama-v2. So we have maybe 2 more OOMs of pure human-written web text, and then we have exhausted the low-hanging fruit. Some analysts, notably the team at Epoch AI, have argued this wall hits around 2027 if we keep scaling data proportionally to compute.
+>
+> But, but, but. Three things change the picture.
+>
+> First, text is not the only data. Modern models are multimodal. They train on images, audio, video. YouTube uploads more hours of video in a day than have been transcribed in text in the history of the written word. Yann LeCun has argued, correctly in my view, that a 4-year-old human has processed more information through its optic nerve than is contained in the entirety of LLM text training corpora. Once we have the techniques to train on video at scale, the data ceiling moves up by several orders of magnitude. We have not solved video training yet. But we are working on it. The data ceiling moves.
+>
+> Second, synthetic data. Models can generate their own training data. This sounds paradoxical, like pulling yourself up by your bootstraps. And there are real limits, and there are real collapses that can happen if you do it naively. But, empirically, careful synthetic data pipelines have been producing significant capability gains in the last 2 years. Anthropic, OpenAI, DeepMind all publicly acknowledge synthetic data plays a major role in their post-training pipelines. Reasoning models like o1 and o3 and o4 are trained substantially on synthetic reasoning traces generated by earlier models. Synthetic data is not a magical bypass, but it is a working tool that extends the data horizon.
+>
+> Third, better use of existing data. The current training procedure is extraordinarily wasteful. You stream through your 15 trillion tokens once and call it a day. Students who learn that way flunk. Effective learning involves repetition, reflection, spaced retrieval. Research is showing that running through the same data multiple times with smarter scheduling can extract several extra OOMs of useful signal before you stagnate. Some recent papers suggest you can go up to about 40 passes before returns really diminish. That is more than one full OOM of effective data from the same corpus, for free.
+>
+> Add those three together: multimodal expansion, synthetic data, better training procedures. The naive "we are running out of tokens" story underestimates by at least 2 or 3 OOMs. Before 2030, data is not going to be the binding constraint either.
+>
+> So, summing up. Rare earths, noise. Semiconductors, real but not binding before 2030, with Taiwan tail risk. Electricity, tight but solvable for the US and China, real problem for Europe. Financing, no problem for the US, major problem for Europe, wild card for China. Data, not a ceiling in the relevant time frame. The verdict is clean: no binding technical constraint stops the exponential before 2030. The exponential runs. The rocket keeps climbing.
+>
+> Figure 22 in the book, I want to mention it here, lays out this whole story in three side-by-side bar charts. The left bar chart is electricity: GPT-4 at 10 megawatts, Stargate cluster today at a few gigawatts, and the 10-to-the-28th target at around 1 gigawatt for one training. The middle chart is funding, comparing GPT-4 at 100 million, current state around 10 billion, target at 100 billion.
+>
+> The right chart is compute, FLOPs, the same three-rung ladder. Three OOMs of growth across three dimensions, all happening in parallel. The fuel lines are aligned.
+>
+> No one dimension is 3 OOMs behind another. That is the remarkable fact, and it is why the rocket can actually get built. You do not have a situation where you have the energy but no money, or the chips but no data. You have, currently, all three lining up. That will not always be true, but it is true now.
+
+---
+
+#
+
+# 4. Is deployment viable? The economics of inference (about 16 min)
+
+**Key points:**
+
+- Training is only half the question; inference has to be cheap enough to deploy at scale.
+- An economic argument: a typical ChatGPT query uses less energy than a 40-watt bulb for a minute.
+- Inference cost has fallen by roughly 2 OOMs in 2 years; once a model can do a task, it runs cheap.
+- Deployment in the physical world: Waymo for autonomous driving, Unitree G1 for humanoid robotics at the price of an entry-level car.
+> So far we have been talking about training. Making a model smarter. But even if you can train a superhuman model, the question remains: can you deploy it? Can you actually run it, in production, on real users, at a price that works?
+>
+> The answer today is yes, and it is going to become more yes. Let me give you the numbers.
+>
+> A single ChatGPT query, averaged over the distribution of queries the service actually sees, consumes on the order of 0.3 to 3 watt-hours of electricity. Call it a watt-hour, order of magnitude. That is less energy than a 40-watt incandescent lightbulb running for about a minute and a half.
+>
+> That is it. A full Google search, end to end, consumes about 0.3 watt-hours as well. ChatGPT is at most a few times more energy-intensive than a Google search.
+>
+> That is often misunderstood in the press, where the numbers get inflated to make scary headlines. The actual per-query footprint is small. The footprint of training a frontier model, that is gigawatt-scale, that is real. But once the model is trained, serving it is cheap.
+>
+> Let me walk through the numbers another way, because this is the number that changed my mind about economic impact. A mid-size frontier model, say the GPT-4o-mini class, can answer roughly a million tokens of high-quality output for 15 cents, at OpenAI's published 2024 API price. A million tokens is about 750,000 words. 15 cents. A professional writer, at French minimum wage, would take about 10,000 hours to write 750,000 words; that is roughly 100,000 euros in labor cost. The ratio is 6 orders of magnitude. 6 OOMs cheaper than a human writer.
+>
+> Now of course that comparison is not quite fair. The model does not write as well as a professional human writer for literary fiction. For boilerplate text, legal summaries, translation, first-pass code, the model is already competitive or better. So the fair comparison is: for tasks where the model is competent, it is 100 to 100,000 times cheaper than a human. Pick your task. The lower bound of the range is already a factor of 100. On tasks the model is genuinely good at, it is cheaper by a factor of 10,000 or more.
+>
+> And here is the trend: inference costs have been falling like a stone. At constant capability, the cost to serve a model has fallen by roughly a factor of 100 in the last 2 years. Sam Altman pointed this out in 2024 on his Twitter: text-davinci-003, OpenAI's November 2022 model, cost 20 dollars per million tokens of output. GPT-4o-mini, released in mid 2024, is actually more capable than text-davinci-003 on every benchmark, and it costs 15 cents per million tokens. 20 dollars down to 15 cents. More than a factor of 100, in less than 2 years. Two OOMs of inference cost reduction at constant capability.
+>
+> This is important because it means the deployment story is self-reinforcing. As compute grows, capability grows. As algorithmic efficiency grows, inference cost falls. So every new generation of model is simultaneously smarter and cheaper. That is a better-than-Moore's-law improvement on the value you get per dollar of inference. Once the model is smart enough to do a task, it becomes cheaper than the human very quickly.
+>
+> Take the concrete example of the GAIA benchmark we will talk about next week when we cover agents. GAIA gives agents real-world tasks like "find me the cheapest flight from Paris to New York next session with a morning departure." Solving one GAIA task with a current agentic system costs about 1 euro per question. A human annotator, at French minimum wage, costs roughly 3 or 4 euros to solve the same task in the time it takes them. So the agent is already cheaper than minimum wage, and this ratio is going to widen fast as inference prices fall another 1 or 2 OOMs over the next 2 or 3 years.
+>
+> Think about what that means, economically. You have a worker that costs less per task than a minimum-wage human, works 24 hours a day, does not require benefits, vacation, healthcare, or training, produces output in seconds rather than hours, and can be instantiated a million times in parallel from one training run. That is not a curiosity.
+>
+> That is an industrial revolution. You put this in the economy and you get the kind of transformation that the steam engine or electricity produced. And you do not need the model to be as smart as the best human to get there.
+>
+> You just need it to be adequate, at a tenth the cost, at 1000 times the speed. The economics blow up the second those two conditions are both met. And for a growing share of tasks, they are already both met.
+>
+> Now, what about the physical world? This is where people often push back. "OK, AI is great for digital work, but it cannot fix my plumbing, cannot drive my car, cannot stock the shelves at my supermarket. So it is limited to a sliver of the economy." That argument was strong in 2020. It is getting weaker every year.
+>
+> Driving first. Waymo, Google's autonomous vehicle subsidiary, runs a commercial robotaxi service in Phoenix, San Francisco, Los Angeles, Austin, and is rolling out to more cities. No human driver.
+>
+> You open the app, the car arrives, you get in, it drives you. It handles the San Francisco hills, the Oakland streets, the California highways. It is commercially operational.
+>
+> In San Francisco alone, Waymo now has around 20 percent of the ride-hail market and is growing fast at the expense of Uber and Lyft. The price per ride is competitive because there is no human driver to pay. If you had told me in 2018 that by 2025 there would be a commercially profitable robotaxi service operating in a major US city, I would have given you 20-to-1 odds against. And it is here. That is autonomous driving, arguably the hardest physical-world robotics problem other than general-purpose dexterity, solved, in production.
+>
+> Humanoid robots next. Unitree, a Chinese company based in Hangzhou, sells the G1 humanoid robot for 30,000 US dollars. 30,000. That is the price of a mid-range new car in France.
+>
+> The G1 walks, balances, picks up objects, dances, does martial arts demonstrations. You can see the videos online, they are worth your 10 minutes. Boston Dynamics has the Atlas platform; Figure AI has Figure 02; 1X has Neo; Tesla has Optimus. All of these are humanoid robots, and all of them are accelerating toward commercial deployment in the next 18 to 36 months.
+>
+> The hardware is here. The mechatronics, the sensors, the actuators, the batteries, all of it, is here. What was holding humanoid robots back for 20 years was the software, specifically the question of how to generalize motor control across unseen situations. Transformer models plus reinforcement learning plus massive teleoperation data are solving that. Clumsily at first, then increasingly well.
+>
+> So the "AI only matters for digital work" argument is already wrong and will be obviously wrong by 2027. Robots plus agents plus frontier intelligence form a stack that reaches into the physical world. Your grandfather's image of a robot, the stiff humanoid of 1960s sci-fi, is becoming real. And it is cheap. 30,000 dollars for a humanoid robot is already in the range where a small business can justify buying one if it can replace a part-time worker. And these prices will fall.
+>
+> One more deployment point. Inference is also becoming physically portable. Frontier-class models no longer need to run in a datacenter. A quantized version of Llama-3, or Mistral, or a distilled version of Claude, runs on a laptop today. On an iPhone 16 Pro, you can run a 7-billion-parameter model with acceptable latency. This means the AI you interact with does not always need to go over the network. It can live on your device. That is relevant for privacy, for latency, for offline use, and for sovereignty. A Europe that invests a little in inference-side tooling can actually carve out a real presence here, even without owning the training frontier.
+>
+> The deployment economics, in summary, are fine. Better than fine. They are extremely favorable. On any task where the model is competent, it is much cheaper than a human. The cost is falling. The physical embodiment is arriving. The picture is not "the model is smart but we will not be able to afford to use it." The picture is "the model is getting smarter and getting cheaper at the same time, and deploying it at scale is already economically obvious." That is the deployment story. Every quarter that passes, the picture gets more favorable.
+>
+> Let me linger on one specific number because it is the one I find most clarifying. A 40-watt bulb. You know what a 40-watt bulb looks like, it is the soft yellow bedside lamp in every French grandmother's flat. If you leave a 40-watt bulb on for 90 seconds, that is roughly the energy of one ChatGPT query. 90 seconds of a bedside lamp.
+>
+> The entire cost of the query is the inference compute, the electricity to the datacenter, the share of the cooling, the server maintenance. 90 seconds of a bedside lamp. Now scale that up. 100 ChatGPT queries in a day is 15 minutes of the bedside lamp. 1000 queries is 2.5 hours of the lamp.
+>
+> That is per user, per day, on the high end of actual usage. The environmental story at the user level is genuinely modest. The training footprint is different, it is the gigawatt story we talked about, but per-query inference is a bedside lamp. Whenever you see a headline about ChatGPT "boiling water" or "draining rivers," check the units. The per-query numbers are small. It is the total, integrated over a billion users, that becomes substantial, and even then it is comparable to things we already do, like streaming, without complaining.
+>
+> One more angle on deployment that does not get enough attention: the speed of inference. A ChatGPT response that takes you 30 seconds of work to read through took the model perhaps 2 seconds to produce. The model can in principle produce 1000 such responses in parallel, on a single large GPU cluster, at the same time. One model. Thousand simultaneous conversations. Each one as competent as the model's single-conversation competence.
+>
+> There is no fatigue. There is no coffee break. There is no distinction between Tuesday morning and Sunday evening. The model answers the thousandth query of the shift as sharply as the first. You imagine what a human workforce would cost to achieve the same throughput, across multiple languages, 24/7, and the comparison is not even close. That is the economic earthquake inbound.
+>
+> It is not just about capability. It is about parallelism at near-zero marginal cost. We do not have an economic framework yet for that. Our labor economics was built around a world where every worker costs about the same, every worker has limits on throughput, every additional worker requires training and space. None of that holds for AI workers. The economics of the agent era is going to be different in ways that we are just starting to grope at.
+
+---
+
+#
+
+# 5. Where is the ceiling? (about 14 min)
+
+**Key points:**
+
+- The ceiling probably exists; even biological systems have limits.
+- Club of Rome analogy: physical systems are bounded.
+- But the ceiling is above us, in every meaningful metric we have.
+- Tomas Pueyo's thread about how AGI blows up our concepts.
+- The fourth narcissistic wound, the punchline of the session.
+> So we have argued that the exponential keeps going, through 2030, with a high probability. The fuels exist. The chain of production works. The economics are favorable. Progress continues.
+>
+> But nothing grows forever. The classic reference here is the Club of Rome, the 1972 report called *The Limits to Growth*, which pointed out, not without controversy, that unbounded exponential growth is incompatible with finite resources. That report was wrong about some specifics, the timing in particular, but it was right about the underlying point: no physical exponential continues indefinitely. Eventually something gives.
+>
+> So the question is not "will the curve flatten?" The answer to that is yes, eventually. The question is where, and in particular whether the ceiling sits above or below human-level intelligence, above or below some much higher level.
+>
+> Let me try to sketch the landscape of possible ceilings. There are, roughly, three places the curve could plateau.
+>
+> First place: it plateaus well below human expert level. This is the "LLMs are a dead-end" story. Scaling laws break around 10 to the 28th FLOPs, and beyond that, adding compute stops adding capability. We stay with models that look roughly like 2026-era Claude or GPT, impressive but not transformative. Some prominent researchers hold this view: Yann LeCun, at Meta, has been saying for years that LLMs alone are fundamentally limited, that they cannot achieve true world-modeling without architectural innovations. I think he is wrong. The empirical curves do not bend where he says they bend, and his own "LLMs will never do X" list has, in 4 years, been walked back item by item as the models did X.
+>
+> Second place: it plateaus around top human expert level. The model reaches the competence of a best-in-class professional in every knowledge domain, but does not exceed it. Something like: the best doctor, the best lawyer, the best mathematician, the best coder, accessible to everyone, at a penny a query. That is a very optimistic world for human welfare. You could call this the "distill-and-democratize" ceiling: the value is not in surpassing the best human but in making the best-human-equivalent ubiquitous and cheap. I do not think this is where the curves stop, but if it were, the world would still be unrecognizable.
+>
+> Third place: it plateaus well above the best human, somewhere in the neighborhood of what you might call Nobel-laureate intelligence, and keeps going. At this ceiling, the model can do research. It can make discoveries. It can invent new mathematics. It can write symphonies that experts cannot distinguish from the best human composers. It can design new drugs, new materials, new theories of physics. It surpasses every human in every intellectual dimension, not by much at first, then by a lot.
+>
+> My best guess, my honest best guess based on what I see today, is that the ceiling is somewhere around the third place. Not because I have a physical theory that tells me so, but because the trajectory we are on, the capability improvements per OOM, the way current models already exceed most humans in breadth of knowledge and in raw processing speed, suggests that the limiting factor is not going to be hit before we pass well above human intelligence. Scaling laws, as empirical facts, are going to give us several more OOMs. The question is where on that curve the diminishing returns kick in.
+>
+> Even the second-place ceiling is a world transformed. A world where everyone has access to Nobel-laureate-level analysis on every question, at marginal cost, is a radically different civilization from the one we grew up in. You do not need superintelligence to have a revolution. You just need the median quality of cognitive work, accessible to everyone, to move up sharply. That alone restructures labor markets, education, healthcare, law, science.
+>
+> Now let me bring in a piece that I think does not get enough attention. The writer Tomas Pueyo wrote a long thread on X in 2025 called "AGI blows up all our concepts." It is worth reading carefully, the link is in your reading pack. His thesis, roughly, is that the word "AGI" itself is a misleading concept, because when you try to use it to think about the future, you keep finding that the old concepts crack under it.
+>
+> Concepts like "job", "salary", "career", "nationality", "family", "knowledge", "education", "citizenship". Every one of these concepts was forged in an environment where human cognitive labor had a certain value and a certain distribution. AGI, or even pre-AGI strong AI, changes the underlying substrate, and so the concepts that sit on top of it get destabilized.
+>
+> Pueyo's example that I find most striking: think about what a university is. A university is a place where we transfer knowledge and certify competence. It rests on two facts: that knowledge is scarce and hard to acquire, and that certification of competence is valuable to employers.
+>
+> If knowledge becomes abundant through a chat interface, and if certification becomes meaningless because employers have better, real-time signals about competence (namely, having you use an AI and watching how you use it), then the university as an institution is severely weakened. It does not disappear, but the functional role it played for 8 centuries is mostly gone. And universities are one example. Pueyo walks through banks, governments, newspapers, political parties, militaries. Each of them rests on assumptions about cognitive labor that AGI disrupts.
+>
+> I think he is right. Not in every detail, but in the structural point. We have built an entire civilizational architecture on assumptions about human cognition that are about to stop being true. The institutions we have, the laws we have, the economic arrangements we have, the political systems we have, all of them take for granted that thinking is done by humans and is expensive. When thinking becomes cheap and is done, in large part, by machines, the whole pyramid gets wobbly.
+>
+> This is why I keep saying: getting used to things getting faster is crazy hard, but we have to do it. Your concept of "the future" is probably smooth. It extends from today, into tomorrow, with incremental changes. That model served you well for most of your life. It is going to serve you very badly over the next 10 years. The future is going to look more like a phase transition than a gradient. And the phase transition is happening in plain sight, right now, while we argue about whether ChatGPT should be banned in classrooms.
+>
+> OK. I said at the start I would close on the fourth narcissistic wound, so let me do that now.
+>
+> Freud, in his 1917 essay "A Difficulty in the Path of Psycho-Analysis," listed what he called the three great narcissistic wounds of humanity. The three humiliations. Copernicus, in the 16th century, demonstrated that the Earth is not the centre of the universe. We are on a rock, orbiting a medium-size star, in an unremarkable galaxy, one of hundreds of billions.
+>
+> That was the cosmological wound. Darwin, in the 19th century, demonstrated that we are not specially created. We are apes, descended from earlier apes, one species among millions, shaped by blind selection. That was the biological wound.
+>
+> Freud added his own: the discovery that we are not even masters in our own mind. Most of our decisions, most of our motivations, happen below the waterline of conscious awareness. The ego is not sovereign. That was the psychological wound.
+>
+> In 2026, there is a fourth. We have built machines that produce texts, images, analyses, theorems, poetry. These machines learn. They reason, or at least emulate reasoning well enough to pass our most rigorous tests of it. They are getting better every quarter. Before the end of this decade, in many intellectual domains, they will outperform the best of us. Not the median of us, the best. Intelligence, the thing we considered our last unique endowment, is no longer ours exclusively. It is a capacity that can be engineered, at scale, with silicon and electricity.
+>
+> This is the fourth narcissistic wound. And it is happening in your lifetime. Not in some abstract future; right now. You are living through it. You will remember where you were when it became unmistakable, the way people remember where they were on September 11th or during the fall of the Berlin Wall.
+>
+> I think the right response to a narcissistic wound is not denial. It is not triumphalism either. It is a sober recalibration of what it means to be human. What remains, when the thing we were proud of is no longer unique to us? The answer, I think, is still a lot. But it is not what we used to say. It is not "intelligence" as an abstract capacity. It is presence, embodiment, relationship, care, lived experience, suffering, love, play. These are not easily outsourced to silicon. These are what remain when the intellectual pedestal collapses. And they are, on reflection, probably what mattered most to begin with.
+>
+> I am not here to tell you how to feel about this. I am here to tell you that it is happening. And that denial is not a strategy. The exponential is real. The fuels are known. The ceiling is above us. The wound is opening. The question is not whether to accept it. The question is what you, individually and collectively, do about it.
+>
+> A side observation on the narcissistic-wound framing, because I have been sharing it in lectures for about a year and I have noticed something about how it lands. Some students find it bracing and clarifying. Others find it depressing, or pretentious, or both. Both reactions are legitimate. I do not want you to feel bad about being proud of human intelligence. Human intelligence is, by any reasonable measure, an extraordinary thing. Billions of years of evolution produced a 3-pound organ that builds cathedrals, proves theorems, composes symphonies, lands rovers on Mars.
+>
+> That is amazing. The wound I am describing is not that human intelligence is worthless. It is that human intelligence is no longer unique. Those are different claims. Being matched is not being erased. Copernicus did not erase the Earth; he relocated it. Darwin did not erase humanity; he reclassified it.
+>
+> Freud did not erase the self; he decentered it. Each wound was a relocation, a repositioning. What the wound asks of you is not despair but a new accounting. Where does value come from, once the exclusivity argument is gone? What is the person, once they are not the only intelligent thing in the room? These are old questions, in a way, that every generation of humans has had to answer for itself under different circumstances. You get to answer them under these particular circumstances. Lucky you. It is the most interesting question of this century, and you are here at the moment it is finally forceful.
+
+---
+
+#
+
+# 6. Putting the pieces together: the rocket metaphor (about 10 min)
+
+**Key points:**
+
+- Recap the rocket: three fuels (data, compute, energy), funded by capital, guided by algorithmic progress.
+- Mike Powell analogy: the long jump shows how close we are to superhuman performance.
+- Figure 19 intelligence trajectory and its key insight: we passed the hardest steps already.
+- Why the pessimistic scenario requires multiple coordinated failures.
+> Let me do a recap. We covered a lot of ground, and I want you to leave with the structure clear, because the structure is what you are going to refer back to when you read the news over the next 5 years.
+>
+> The rocket. That is the core metaphor. The rocket has three fuels. Energy, measured in gigawatts. Compute, measured in FLOPs. Data, measured in tokens. You need all three. You pull any one of them, the rocket stalls. The engine of the rocket is an algorithm, the Transformer, with some variants that we will meet more of in later sessions. The pilot is the research community, which keeps improving efficiency. The funding comes from capital markets, which are deploying capital at trillion-dollar scale. The trajectory is scaling laws, empirical, durable so far, and what we have seen over 9 OOMs of exploration is a near-linear improvement in capability per linear increase in the log of compute.
+>
+> And we have spent this session answering one question: how far does that rocket go before it runs out of fuel? And the answer is: on every one of the five candidate ceilings, we have argued that the constraint does not bite before 2030. Rare earths, not the bottleneck. Semiconductors, supply keeps up, with Taiwan as the tail risk. Electricity, tight but doable. Capital, abundant where it matters. Data, not running out. Therefore, unless several of these constraints tighten simultaneously in a coordinated way that we do not currently see, the rocket keeps climbing for at least another 3 to 5 OOMs of training compute. Six to 8 years at the current pace. That takes us well past 2030.
+>
+> I promised a Mike Powell analogy at the start, so let me deliver it. Mike Powell, American long jumper, set the men's long jump world record in 1991 at 8 meters 95. It has stood for 34 years. Astonishing.
+>
+> Now, here is the thing about long jump. A world-class male long jumper jumps 8 to 9 meters. An amateur club competitor jumps 5 to 6 meters. A high school athlete jumps around 4.
+>
+> A child jumps 1 to 2. Literally, on a scale of ability, the entire interesting range of human long jump performance falls inside a window of about 4 meters, between 5 and 9 meters. Within that range, an extra centimeter is a lifetime of work. Powell's record-setting jump at the 1991 World Championships, 8.95, was centimeters ahead of Beamon's previous record from 1968 that had stood for 23 years.
+>
+> Now imagine a robot that is learning to jump. In the robot's first years, it has to learn to stand. Then to walk. Then to run. Then to jump at all. All of that happens below 1 meter. For years, the robot jumps zero meters. Then, suddenly, through improvements in balance, control, motor power, it jumps 1 meter. Then 2. Then 4. Then 5. Five meters is world-amateur. Seven is regional champion. Eight is Olympic medal. Once the robot is at 8, the step from 8 to 9 is trivial by the standards of everything that came before. Improving the motors another 10 percent, or the control software another 10 percent, buys you that last meter.
+>
+> AI is the robot. We spent 65 years teaching it to jump at all. We have been stuck at zero for most of that time. Then in 2017, with Transformers, we started jumping.
+>
+> Then we got to 1 meter, then 2. By 2020, maybe 4. By 2022, 7. By 2025, 8.5, roughly human-expert on many tasks.
+>
+> The step from 8.5 to 9, which is beyond Powell's record, does not require a new theory. It requires what it has always required: more fuel, more iteration, the same engine running a little longer. The hard part is done. The remaining part is the part we are good at, which is engineering at scale with a lot of money.
+>
+> That is the intuition behind Figure 19 in the book. Figure 19 shows a curve over time, rising through horizontal reference bands: raven intelligence, chimpanzee, child, baccalauréat level, Nobel laureate. The curve starts below raven, in the zero era, rises through chimp and child during the Transformer breakthrough years, and is currently between child and baccalauréat, rising fast. The dashed extrapolation continues through baccalauréat and Nobel and beyond. You look at that curve and you can see: the hardest steps, the ones from no-capability to child-level, are already behind us. The easier steps, from child to adult, are ahead. And we have been crossing them quickly.
+>
+> Most of the hard work is behind us. The mirror-image framing, which you will often hear, that "these AIs are not as good as the best humans, so they cannot possibly keep improving," is exactly backwards. They have gone from zero to almost-human in 8 years. They are not going to stop at the human line. The human line is an arbitrary biological point on an infinite continuum of possible performance. There is no reason the curve respects that point.
+>
+> Look, I will level with you one more time. When I first understood scaling laws, in 2021, I did not believe them. I thought they were a neat curve-fit, a local regularity that would break.
+>
+> I was wrong. Every year since 2021, I have had to update my expectations upward. Every time I thought "there is no way the model can do X," someone trained a bigger model, and the bigger model did X.
+>
+> Coding, reasoning, math, image understanding, video generation, one by one, the dominoes have fallen. My priors have been re-trained, over and over, in the direction of "the exponential keeps going." At some point, after enough updates in the same direction, an honest Bayesian just has to accept that the prior was wrong. That is where I am. That is where I want you to be too.
+>
+> If this still feels uncomfortable, if you still feel the pull of "surely there is a catch," I want you to name the catch. What exactly? Not a vibe, a specific mechanism. Is it energy? We addressed it. Is it data? We addressed it. Is it chips? We addressed it. Is it Taiwan? A real risk, but a tail risk. Is it capital? It is flooding in. Is it some mysterious asymptote nobody has yet seen in 9 OOMs of scaling? Possible, but we would need to actually hit it first. Name the mechanism. If you cannot, then accept that the exponential is your base case and plan accordingly.
+
+---
+
+#
+
+# 7. Closing, teaser, and Q&A pointers (about 8 min)
+
+**Key points:**
+
+- Recap: rocket, fuels, ceiling, wound.
+- Teaser for Session 4: we meet the workers, AI agents.
+- Housekeeping: reading list, next-week question prompt.
+> Right. Two hours of running, we are almost at the finish. Let me pull it together.
+>
+> Today we answered, as tightly as I know how, the question of how far AI will go. The answer, in one sentence: the exponential is real, the fuels are known, and the ceiling is above us. The rocket was built over the last 65 years, it took off in 2017 with Transformers, it has been climbing at one OOM of effective compute per year since 2020, it will continue to climb through 2030 unless a specific coordinated failure of energy, chips, data, or capital forces it to stop, and none of those failures is likely on current trends.
+>
+> By 2028 or 2029, the compute used to train a single model will cost on the order of 100 billion dollars, draw on the order of 10 gigawatts of power, and produce a model several notches above today's frontier. What that looks like is genuinely hard to imagine. I do not know. Nobody knows. What we know is that it will be more capable, by a lot, than what we have today.
+>
+> In the process of arguing for the exponential, we did not dodge the uncertainties. We named them: Taiwan, European grid capacity, post-10-to-the-28th scaling, post-training data scarcity. These are live questions. We should watch them. They are tail risks, not base-case showstoppers.
+>
+> And we ended on the fourth narcissistic wound. Copernicus, Darwin, Freud, AI. Intelligence is no longer uniquely ours. It is becoming abundant, cheap, and in many dimensions better-than-the-best-of-us. That is the cultural and philosophical event of this decade, and you are living through it, and I want you to take that seriously. Not with fear. With clarity.
+>
+> Next week, Session 4. We meet the workers. AI agents. The systems that take the language model we have been studying and give it hands. A tool box. A browser. A file system. A credit card. You will see how the loop works, we will build one together in code, and you will understand why the transition from "chatbot" to "employee" is the product transition that takes AI from curiosity to industrial revolution. If today was about "how smart can we make it," next week is about "so what can it actually do for me, right now, today." Come ready. Bring a laptop.
+>
+> Before you leave, two housekeeping items. First, the reading for next week is the GAIA benchmark paper by Mialon et al. 2023, 12 pages, straightforward. Please read it. I will be assuming you have. Second, if you take away one question from today, let it be this: what concepts in my own life rest on assumptions about human cognition that might stop being true?
+>
+> Jot a note to yourself. Your career plan. Your idea of what a university is for. Your idea of what a job is. Your idea of what expertise is worth.
+>
+> Turn those concepts over, look at the assumptions under them, and ask whether the assumptions still hold. That is the Tomas Pueyo exercise. Do it this week. It is a 5-minute exercise. It will save you time later.
+>
+> Questions. I have a list of the most common ones below. But we have a few minutes, so if anyone wants to push back on any of the arguments, now is the time. Do not be shy. If you think I am too confident, say so, and we will work it out. If you think I am not confident enough, even better, tell me why. I want the next generation of thinking about this to be sharp, and it gets sharp in discussion.
+>
+> Remember: the exponential does not stop running while you sleep.
+
+---
+
+#
+
+# Sources
+- Leopold Aschenbrenner, *Situational Awareness: The Decade Ahead* (2024), available at https://situational-awareness.ai/from-gpt-4-to-agi/
+- Epoch AI, *Trends in Machine Learning*, compute and data tracking dashboard, https://epochai.org/trends
+- Tomas Pueyo, "AGI blows up all our concepts," thread on X, November 2025, https://x.com/tomaspueyo/status/1993360931267473662
+- OpenAI, SoftBank, Oracle, *Stargate Project announcement*, January 2025. 500 billion dollars over 4 years, starting with Abilene, Texas cluster.
+- Microsoft and Constellation Energy, *Three Mile Island Unit 1 power purchase agreement*, September 2024. 835 megawatts of dedicated nuclear power for Microsoft AI datacenters.
+- Anthropic, *Project Rainier* with Amazon Web Services, announced 2024. Large-scale Trainium deployment in Indiana, roughly 1 gigawatt target.
+- Sarah Hooker, *The Hardware Lottery* (2020) and follow-up essays on scaling law interpretation.
+- Kaplan et al., *Scaling Laws for Neural Language Models*, OpenAI, January 2020.
+- Hoffmann et al., *Training Compute-Optimal Large Language Models* (Chinchilla), DeepMind, 2022.
+- Jason Wei et al., *Chain-of-Thought Prompting Elicits Reasoning in Large Language Models*, Google, 2022.
+- Aymeric Roucher, *Ultra-Intelligence: Jusqu'où iront les IA ?*, particularly Chapters 3 and 7 and Figures 11, 12, 14, 18, 19, 20, 21, 22.
+
+---
+
+#
+
+# Frequently asked questions (scripted answers)
+
+**Q: Will scaling laws plateau soon?**
+> They might. Nobody has a theorem that says they will not. What we have is 9 orders of magnitude of empirical confirmation, from 2017 to 2025, with no kink in the curve yet. Each OOM has produced a visible capability jump. In the absence of a known mechanism that would cause a plateau, and given how much capital is riding on the continuation of the trend, the base case is that scaling laws hold for at least another 3 to 5 OOMs. The honest uncertainty is about what happens past 10 to the 28th FLOPs, because we have not yet trained there. We will within 12 to 18 months. Then we will know.
+
+**Q: Isn't this all just GPU spending? Is it really "intelligence" that is scaling, or just money?**
+> This is Sarah Hooker's critique, and it has a grain of truth. You are right that compute is roughly proportional to dollars spent, so what we are observing is partly a measure of how much capital we are willing to pour in. But two things.
+>
+> First, the capability improvements per OOM are real and measurable, across benchmarks that were designed to be hard. Those benchmarks, MMLU, GPQA, SWE-bench, GAIA, test things we care about, not abstract loss values. Second, the algorithmic efficiency gains are also running at roughly half an OOM per year.
+>
+> Software is getting better in parallel with hardware. So it is not just GPU spending; it is GPU spending plus a flood of creative algorithmic work. Both contribute.
+
+**Q: What if Taiwan is invaded or blockaded?**
+> That is the single biggest tail risk on the 2025 to 2030 trajectory. If TSMC's leading-edge fabs go offline tomorrow, global AI compute production drops to maybe 20 percent of current output for as long as it takes to bring alternate capacity online, which, given the 3-to-5-year lead time for a new fab, means a hard ceiling for at least that long. That would delay the rocket by 2 to 4 years.
+>
+> It would not stop it. The US and EU are already investing through the CHIPS Acts to build alternate capacity in Arizona, Ohio, Germany, Japan. The existing Taiwanese output would resume at some level once any conflict stabilized. So a Taiwan crisis is a delay, not a kill. But it is a serious delay, and it is the reason both the US and China are investing so aggressively in domestic fabrication.
+
+**Q: What about the environmental cost? Isn't AI a disaster for the climate?**
+> The training footprint is real but smaller than most people think, and the inference footprint is much smaller. A ChatGPT query uses roughly 1 watt-hour, the energy of a 40-watt bulb running for a minute and a half. That is significant at scale, but not, per-use, large compared to, say, streaming a video. The training of a frontier model uses gigawatt-hours for weeks, which maps to roughly the annual electricity consumption of a small town, per model.
+>
+> That is a real footprint. The question is whether that energy produces value that exceeds its environmental cost. If an AI medical diagnostic saves an MRI, a hospital trip, a mistaken surgery, the net environmental benefit can be strongly positive. If it replaces in-person education that would have involved commuting, again, net positive.
+>
+> The answer depends on the use case, and on the energy mix of the grid it is trained on. For US and Chinese training, the mix is increasingly clean: new datacenters are being paired with nuclear and renewable power purchase agreements. For Europe, where we do not have the build-outs, the question is more academic. What I do not buy is the framing that AI is a net environmental disaster. The order of magnitude is wrong, and the productivity gains offset a great deal.
+
+**Q: What is an OOM, exactly?**
+> An order of magnitude, OOM, is a factor of 10. One more OOM means 10 times bigger or 10 times more. Two OOMs means 100 times.
+>
+> Three OOMs, 1000 times. It is the logarithmic step size that scientists use when they compare quantities that span a huge range. If a metric grows by one OOM per year, it is multiplied by 10 every year, by 100 in 2 years, by 1000 in 3 years.
+>
+> The key thing to remember is that OOM growth compounds exponentially in your intuition but linearly on a log scale. When someone says "four more OOMs to AGI," they mean 10,000 times more compute than today. That is a big number, but at one OOM per year, it is 4 years.
+
+**Q: Are we running out of data to train on?**
+> Not before 2030, and possibly never. The naive concern, which some analysts have raised, is that we have roughly 30 trillion tokens of usable public text, and current models train on 15 trillion. So we have maybe one more OOM of text data before we run out.
+>
+> That is true for text, but three things change the picture. First, multimodal data: YouTube uploads more video per day than humans have written text in a century. Video is a vast, largely-untapped training corpus.
+>
+> Second, synthetic data: models can generate training data for themselves, and with careful pipelines, this extends the data horizon meaningfully. Third, better use of existing data: current training procedures are extraordinarily wasteful, and techniques that repeat and reprocess the same data can extract another OOM or more of useful signal. Combined, we have at least 2 to 3 more OOMs of data headroom, probably more. Data is not the binding constraint in the relevant time window.
+
+**Q: What about hallucinations? Doesn't that prove the models are not really intelligent?**
+> Hallucinations are a real limitation and they are getting better with every generation. GPT-3 in 2020 hallucinated roughly one significant factual claim per paragraph, by rough count. GPT-4 in 2023 hallucinated significantly less.
+>
+> Current frontier models, Claude Opus 4.7, GPT-5.5, Gemini 3.1 Pro, hallucinate at error rates in some domains below typical human error rates. Hallucinations will never reach exactly zero, because the underlying mechanism, sampling the next token from a probability distribution, always has some non-zero probability of producing wrong output. What matters is whether the error rate is below the relevant human baseline.
+>
+> For many professional tasks, it already is. For others, it is not yet. This is an engineering problem that is being actively and successfully worked on. It is not a proof of a fundamental ceiling.
+
+**Q: Isn't Europe just giving up if it accepts not owning frontier models?**
+> That is the policy question, and I do not have a comfortable answer. The numbers are what they are: Europe holds under 5 percent of global frontier AI compute. Building a true frontier-scale European training capacity would take coordinated action across several member states, on the order of 150 to 200 billion euros over 5 years, comparable to the 1973 French nuclear program as a fraction of GDP. We have the money, collectively.
+>
+> We do not, so far, have the political consensus to deploy it. There are plausible alternative strategies: invest in the inference and agent layer rather than the frontier training layer, build sovereign European compute infrastructure, support open-weight models from Mistral and the like, specialize in safety, interpretability, and regulation. Those are real options. But pretending that Europe is a player at the frontier today, without a massive change in policy, is a delusion.
+>
+> What is happening at the frontier is mostly in the US, with China in second place. Europe is choosing, by inaction, whether or not to be on the map at all in 2030. That is a political choice. It has consequences. I would not want to minimize those consequences to make anyone in this room feel comfortable.
