@@ -198,12 +198,12 @@ Then another building next door, same layout. Then another. When the biggest clu
 
 **Key points:**
 
-- Five candidate bottlenecks: rare materials, semiconductor production, electricity, financing, data.
+- Five candidate bottlenecks: rare materials, semiconductor production, financing, data, electricity.
 - For each, state what the ceiling is, and whether it bites before 2030.
 - Quantum tunneling barrier around 1 nm for chip fabrication: still a decade away at current pace.
-- Electricity: easy in China (they build 100 GW of generation a year), harder in the US, a crisis in Europe.
 - Financing: the US deploys capital at a scale Europe cannot match.
 - Data: not running out, and synthetic data changes the game.
+- Electricity is the real one: solvable in China (200-300 GW of new capacity per year), only via grid-bypass in the US, doable in France with state coordination, very hard elsewhere in Europe.
 So let us do the bottleneck analysis systematically. Five candidates. For each one, I will give you the numbers I know, and I will tell you whether the public evidence says it is going to bite before 2030.
 
 Candidate one: rare earths and critical materials. This is the one the press loves. The story goes: AI needs chips, chips need rare earths, rare earths are mostly in China, therefore China can strangle the AI economy. Here is why that story is mostly wrong.
@@ -228,21 +228,7 @@ But a leading-edge fab takes 3 to 5 years to come online from groundbreaking. So
 
 But as a base rate estimate: no, I do not think Taiwan is going to be invaded before 2030. The US is too committed to the island's security, and China's own economy depends so heavily on Taiwanese chips that the immediate loss from a conflict would devastate both sides. Deterrence holds, barely. So in my base case, semiconductor production is not the binding constraint on AI progress before 2030. With a tail risk that it could become so, suddenly and catastrophically, if the Strait goes hot.
 
-Candidate three: electricity. This one is getting very real. Look at the numbers. A GPT-3 training run was about 1 megawatt of instantaneous power. GPT-4 was about 10 megawatts. o1 class, about 100 megawatts. The projected 2026 frontier model, 10 to the 28th FLOPs, needs roughly 1 gigawatt, the output of a medium nuclear reactor. The 2027 to 2028 target, 10 to the 29th FLOPs, needs 10 gigawatts. *[Show on screen: Figure 21, trajectory of training costs across model generations.]* Each row: one more OOM of FLOPs, one more OOM of cost, one more OOM of power. The numbers are brutal.
-
-Ten gigawatts is a huge number. France's Gravelines, the largest nuclear plant in France, puts out 5.5 gigawatts. So a 2028 training run would need almost 2 Gravelines dedicated entirely to it, running for months. That is not something you can casually arrange.
-
-How does that play out per country? China is building generation capacity at an astonishing rate. They have added roughly 100 gigawatts a year of installed capacity for the last several years, a mix of coal, solar, wind, nuclear, and hydro.
-
-For them, powering a 1 or 10 gigawatt training cluster is a nothing-burger, a rounding error on their annual addition. The US is harder. The US grid is fragmented, regulated at state level, slow to permit new generation.
-
-Finding 10 gigawatts of dedicated, reliable, firm power near fiber connectivity is genuinely difficult. This is why you see deals like Microsoft buying the entire output of Three Mile Island, and Amazon trying to site datacenters directly at a nuclear plant in Pennsylvania, and Meta signing long-term wind contracts across the plains states. The US can do it, but it is tight, and it is going to require either rapid permitting reform or a lot of new nuclear or gas.
-
-Europe is a disaster on this dimension. We have decommissioned nuclear plants in Germany, phased out coal, have no political appetite for new build-outs, and the grid is expensive and fragmented across 27 countries. A European frontier-scale cluster, 10 gigawatts, firm power, running for a year, is politically and logistically very hard to assemble today. That is why most frontier training is happening in the US and, increasingly, in places like Saudi Arabia and the UAE, where there is willing capital, willing siting, and the ability to build fast.
-
-Is energy the binding constraint before 2030? Probably not, if you are the United States or China. Maybe, if you are Europe. In the global race, energy is a constraint that is passed by building where the energy is abundant, which pushes the geographic distribution further away from Europe. That is the real consequence. Europe does not necessarily lose because it cannot generate the electricity; it loses because the race gets run elsewhere.
-
-Candidate four: financing. How many dollars does this take? Figure 21 again. GPT-3, 10 million dollars. GPT-4, 100 million. o1, about a billion. Ten to the 28th target, 10 billion. Ten to the 29th target, 100 billion. 100 billion dollars for one training run by 2027 or 2028. Let that sink in.
+Candidate three: financing. How many dollars does this take? Figure 21 again. GPT-3, 10 million dollars. GPT-4, 100 million. o1, about a billion. Ten to the 28th target, 10 billion. Ten to the 29th target, 100 billion. 100 billion dollars for one training run by 2027 or 2028. Let that sink in.
 
 That is an astonishing number. For context, the Manhattan Project cost, in 2024 dollars, about 30 billion. The Apollo Program cost about 250 billion. A single AI training run, by 2028, could cost more than the Manhattan Project. And this is not a theoretical number; it is what Anthropic's 100-billion-dollar AWS commitment, signed in April 2026, is setting up to fund. 100 billion, over a decade, across several training cycles and inference infrastructure. It maps onto roughly the right order of magnitude.
 
@@ -258,7 +244,7 @@ What we do not have is the political capacity to decide to. France, Germany, Ita
 
 So, financing. Before 2030, financing is not going to be the binding constraint for the US. It is going to be a serious constraint for Europe. And it will be a major variable in China's trajectory, where the political system can redirect capital fast but cannot always find the efficiencies the market allocates naturally.
 
-Candidate five: data. "Are we running out of training data?" is a question I get a lot. The short answer is: sort of, and it does not matter as much as you think.
+Candidate four: data. "Are we running out of training data?" is a question I get a lot. The short answer is: sort of, and it does not matter as much as you think.
 
 Here is the arithmetic. Llama-3.1 was trained on roughly 15 trillion tokens. Common Crawl, the largest public web archive, contains something like 100 trillion tokens of raw text. After deduplication and cleaning, maybe 30 trillion of usable text remains, in datasets like RedPajama-v2. So we have maybe 2 more OOMs of pure human-written web text, and then we have exhausted the low-hanging fruit. Some analysts, notably the team at Epoch AI, have argued this wall hits around 2027 if we keep scaling data proportionally to compute.
 
@@ -272,13 +258,27 @@ Third, better use of existing data. The current training procedure is extraordin
 
 Add those three together: multimodal expansion, synthetic data, better training procedures. The naive "we are running out of tokens" story underestimates by at least 2 or 3 OOMs. Before 2030, data is not going to be the binding constraint either.
 
-So, summing up. Rare earths, noise. Semiconductors, real but not binding before 2030, with Taiwan tail risk. Electricity, tight but solvable for the US and China, real problem for Europe. Financing, no problem for the US, major problem for Europe, wild card for China. Data, not a ceiling in the relevant time frame. The verdict is clean: no binding technical constraint stops the exponential before 2030. The exponential runs. The rocket keeps climbing.
+Candidate five: electricity. I have saved this one for last because it is the one I think most likely to actually bend the curve. Look at the numbers. A GPT-3 training run was about 1 megawatt of instantaneous power. GPT-4 was about 10 megawatts. o1 class, about 100 megawatts. The projected 2026 frontier model, 10 to the 28th FLOPs, needs roughly 1 gigawatt, the output of a medium nuclear reactor. The 2027 to 2028 target, 10 to the 29th FLOPs, needs 10 gigawatts. *[Show on screen: Figure 21, trajectory of training costs across model generations.]* Each row: one more OOM of FLOPs, one more OOM of cost, one more OOM of power. The numbers are brutal.
+
+Ten gigawatts is a huge number. France's Gravelines, the largest nuclear plant in France, puts out 5.5 gigawatts. So a 2028 training run would need almost 2 Gravelines dedicated entirely to it, running for months. That is not something you can casually arrange.
+
+How does that play out per country? China is the only country where energy is genuinely not a constraint. They have been adding 200 to 300 gigawatts of installed capacity per year, mostly solar and wind, plus coal, nuclear, and hydro. To make this concrete: in Sichuan province, around the Three Gorges hydroelectric system, individual crypto miners absorbed roughly 9 gigawatts of surplus hydropower at peak before the 2021 mining ban, basically as a sponge for excess summer generation. Nine gigawatts of unplanned, decentralized load that the Chinese grid swallowed without breaking a sweat. For them, dropping a 10-gigawatt training cluster onto the grid is a routine planning exercise, not a national project.
+
+The US is harder than people think. The grid is fragmented, regulated at state level, slow to permit new generation. PJM, the largest US grid operator covering 13 states and 65 million people, projects it will be 6 gigawatts short of its reliability requirements by 2027. Transformers, which you need to connect any new generation, now have lead times of 2 to 4 years. Communities near major data center clusters in Virginia, Texas, and Georgia are seeing residential rate increases of 8 to 15 percent, and the political backlash is real. This is why hyperscalers are increasingly bypassing the public grid: Microsoft buying the entire output of Three Mile Island, Amazon siting datacenters directly at nuclear plants, Meta signing long-term wind contracts. They are building energy islands. The US can probably do it, but only by sidestepping the public grid, and not at unlimited speed.
+
+France is the better case in Europe but still constrained. RTE has pre-zoned a few preferred sites; a Paris-area campus at 1.4 gigawatts is breaking ground in late 2026, and Brookfield is funding a 1-gigawatt site in Cambrai. But scale fast becomes a problem: 30 gigawatts of AI demand would equal roughly half of France's entire generation capacity. Connecting even a 100-to-300 megawatt site already takes years because the grid was not built for that load profile. France can do it, partly thanks to legacy nuclear, but only at a small fraction of US scale, and only with deliberate state coordination.
+
+The rest of Europe is in worse shape. Germany decommissioned its nuclear, has limited political appetite for new build, and the European grid is expensive and fragmented across 27 countries. A 10-gigawatt cluster in Europe outside France is, today, very nearly impossible to assemble. That is why most frontier training is happening in the US and, increasingly, in places like Saudi Arabia and the UAE, where there is willing capital, willing siting, and the ability to build fast.
+
+Is energy the binding constraint before 2030? My honest read: yes, and increasingly so. Solvable in China; doable in the US, but only by building energy islands that bypass the public grid; doable in France with state coordination; not solvable on current trajectory in the rest of Europe. Of the five candidates, this is the one that genuinely shapes the geography of the race. Europe does not necessarily lose because it cannot generate the electricity; it loses because the race gets run elsewhere.
+
+So, summing up. Rare earths, noise. Semiconductors, real but not binding before 2030, with Taiwan tail risk. Financing, no problem for the US, major problem for Europe, wild card for China. Data, not a ceiling in the relevant time frame. Electricity, the real one. Manageable in China, expensive and grid-bypassing in the US, doable but constrained in France, very hard elsewhere in Europe. The exponential keeps running, but where it runs is increasingly determined by where the gigawatts are.
 
 *[Show on screen: Figure 22.]* This figure lays out the whole story in three side-by-side bar charts. The left bar chart is electricity: GPT-4 at 10 megawatts, frontier clusters today at a few gigawatts, and the 10-to-the-28th target at around 1 gigawatt for one training. The middle chart is funding, comparing GPT-4 at 100 million, current state around 10 billion, target at 100 billion.
 
 The right chart is compute, FLOPs, the same three-rung ladder. Three OOMs of growth across three dimensions, all happening in parallel. The fuel lines are aligned.
 
-No one dimension is 3 OOMs behind another. That is the remarkable fact, and it is why the rocket can actually get built. You do not have a situation where you have the energy but no money, or the chips but no data. You have, currently, all three lining up. That will not always be true, but it is true now.
+No one dimension is 3 OOMs behind another. The three rails, chips, money, energy, are roughly aligned. The first two stay aligned through 2030 in the US. The third, energy, is the one that increasingly decides where the rocket can actually be built. The race goes where the gigawatts are.
 
 ---
 

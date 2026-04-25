@@ -401,97 +401,76 @@ But I do not want to pretend that regulation will solve the problem alone. The p
 ---
 
 
-# 6. Putting it together, what to do
+# 6. Putting it together
 
 **Key points:**
 
-- We have covered four arcs: alignment, work, science, artificial paradises. The arcs are connected. A successful alignment program matters because otherwise the economic disruption is unsteered. A successful work transition matters because otherwise the vulnerable population will be drawn into the paradises. A successful scientific acceleration matters because it provides the abundance that can pay for the transition.
-- You, as students, have a role. You are not spectators. You will be, in various roles, engineers, policy-makers, entrepreneurs, journalists, citizens, voters, part of the people who decide what shape this transformation takes.
-- Specific concrete advice: learn the tools, read the good sources, join the conversation, be skeptical of the doomers.
+- Recap of the five-session arc, from Bletchley Park to ultra-intelligence.
+- The four domains we covered today (alignment, work, science, artificial paradises) are one problem seen from four angles.
+- Concrete advice: learn the tools, pick a domain, read the good sources, join the conversation, be skeptical, do not be afraid.
 - The disposition I want you to carry out of this room is, I think, one of *engaged realism*. The transformation is real. The stakes are real. Neither denial nor despair is useful. Attention and action are.
-I want to spend a few minutes pulling the four arcs together, because they are not separate.
 
-The alignment problem, the work problem, the science problem, and the paradises problem are actually a single problem seen from four angles. Let me show you the connections.
-
-If we solve alignment, if we build AI systems that reliably do what humans want, at the individual level and at the civilizational level, then the work transition becomes manageable. An economy with aligned AI is an economy where the productivity gains accrue to people, not to runaway systems. An economy with unaligned AI is an economy where the gains accrue to whoever owns the misalignment.
-
-If we manage the work transition, with some combination of income support, service expansion, and cultural reinvention, then the vulnerable population is smaller, and the artificial-paradise risk is bounded. If we fail the work transition, we produce, in large numbers, exactly the people who are most at risk of disappearing into VR headsets with AI girlfriends. Valérien is not a character; Valérien is a statistical certainty at scale, if we do nothing.
-
-If we accelerate science, then we have the resources, medical, technological, agricultural, to pay for the transition. A society undergoing a major labor disruption is much easier to stabilize if it is also getting rich from cancer cures and abundant clean energy. A society that is stagnant or shrinking, undergoing the same labor disruption, will fracture politically.
-
-So the four problems are one problem, and the common variable is: how attentive, thoughtful, and well-governed is the civilization that is going through this. That is a political variable. It is, in a small but real sense, something you personally influence.
-
-I want to give you some concrete advice for the next few years, because the ground is going to keep moving under your feet and any advice for "the next decade" is going to be obsolete long before the decade ends. Take this for what it is, the advice of an engineer who has spent some years thinking about this, not the advice of a prophet.
-
-First, learn the tools. Deeply. Not as a user, not at the level of "I know how to write a prompt." At the level of understanding what is going on under the hood, so that when you read a news article you can evaluate whether the article knows what it is talking about. You already have a head start; you took this course. Keep going. Read the papers. Play with the APIs. Build small projects. 10 hours of playing with Claude Code will teach you more than 50 hours of reading about AI.
-
-Second, read the good sources. We constantly underestimate how fast the exponential take-off is going. Getting used to things getting faster is crazy hard, but we'll have to if we want to play a part, so build your signal diet with care. A short list of people whose writing I actively recommend: Dario Amodei's essays, Chris Olah's interpretability work, Terence Tao's blog and Mastodon, Ethan Mollick's newsletter, Gwern's essays, the Anthropic and OpenAI technical blogs, Scott Alexander's AI posts, the LessWrong and Alignment Forum when you are feeling brave. Read broadly. Form your own view. Do not outsource your opinion to the cable-news commentator.
-
-Third, join the conversation. The conversation about AI, what it should do, who should control it, how it should be regulated, what it means for democracy and for work and for meaning, is being held right now, in every country, in every institution. Most of the people in the conversation are older than you. Most of them have less technical intuition than you will have after this course. Your voice matters. Go to public consultations. Write thoughtful letters. Join a think tank, a party committee, a newsroom, a research group. Whatever your vocation, engineer, lawyer, journalist, bureaucrat, artist, there is a way to plug into this conversation from inside it.
-
-Fourth, be skeptical. We have seen a flourishing of fake experts, from Luc Julia to Eric Sadin, who sell bullshit just because it sells well. The recipe is reliable: tell a French audience that AI is overhyped, that LLMs are "just statistics", that the real revolution is not happening, and you will be invited on every plateau, every podcast, every editorial page that wants a reassuring quote. None of it survives 10 minutes of contact with the actual benchmarks, the actual papers, or the actual systems.
-Anglo saxon word has a great word for this that we don't have in French: it's called "cope". The cost of a comfortable lie is that the people who repeat it are the ones who will be most surprised, and least prepared, when the curve keeps climbing. Cultivate the habit of checking primary sources: read the model card, run the benchmark yourself, try the system on a task you care about. The frontier is moving faster than the commentary, and the commentary is, in this country especially, lagging by several years.
-
-Fifth, don't lose track of reality. You are going to spend the next 50 years living inside an environment specifically optimized to capture your attention. The defense against that environment is not technical. It is, I think, spiritual, in the broadest, most non-denominational sense. Cultivate habits of attention. Read difficult books slowly. Write by hand. Walk without your phone. Sit quietly in a room alone, which, as Pascal warned us, is a capacity we are losing. These are not luxuries. These are the load-bearing habits of a functioning self, and they are under direct attack.
-
-Lastly, do not be afraid. I say this with a certain urgency. There are now many technology-related reasons to fear already, including the environmntal crisis, and AI only adds to this dread. Young, bright people can be tempted to refuse the world as it is, to fall into anticipatory grief and retreat into their own. Than has been called "bifurquer" in my generation, I don't know how it is called in yours. But I think that leaving the fight before it's even happened is a luxury for lazy, bourgois spirits. On the contrary, I think it is our duty to engage with our world.
-Don't try to flee reality because it will eventually catch up. Whatever happens in the next 20 years, you are going to live through it. Be an actor: the people who show up, the people who study, build, are going to be the people whose preferences shape what happens.
-
-One final thought on this. There is a beautiful passage at the end of *Lord of the Rings*, where Frodo, wounded and exhausted, says something like: "I wish it had not happened in my time." And Gandalf answers: "So do all who live to see such times. But that is not for them to decide. All we have to decide is what to do with the time that is given us." You did not choose to be born into the beginning of an AI transition. Neither did I. But we are here. And our job, like everyone else's, is to decide what to do with the time that is given us.
-
----
-
-
-# 7. Closing: the six-session arc
-
-**Key points:**
-
-- From Bletchley Park to ultra-intelligence, in five lectures.
-- Four domains of societal consequence that you will encounter in your lifetime: alignment, work, science, paradises.
-- A set of figures and quotes to hold in mind: Turing, LeCun, the Transformer, the scaling laws, the agent horizon of autonomy, Midas, Ulysses, Arendt, Amodei, Tao, Huxley, Gandalf.
-- Final call: participate. Do not watch.
 Let us close by walking back through where we have been.
 
-Six sessions ago, we began in a cold cryptanalysis unit in wartime Buckinghamshire, with a machine that could do exactly one thing, break the German cipher. We traced the path from that machine, through the summer of Dartmouth in 1956, through the winters of AI, through Yann LeCun's convolutional networks in 1998, through the Transformer in 2017, through ChatGPT in late 2022, through the agent revolution of 2024 and 2025, to an autumn in 2026 in which the question is not whether this technology is coming but what to do about it, in a future whose transformation now seem vertiginous.
+Five sessions ago, we began in a cold cryptanalysis unit in wartime Buckinghamshire, with a machine that could do exactly one thing, break the German cipher. We traced the path from that machine, through the summer of Dartmouth in 1956, through the winters of AI, through Yann LeCun's convolutional networks in 1998, through the Transformer in 2017, through ChatGPT in late 2022, through the agent revolution of 2024 and 2025, to a spring in 2026 in which the question is not whether this technology is coming but what to do about it, in a future whose transformation now seems vertiginous.
 
-In 1919, the year before Karel Čapek coined the word "robot," Europe was coming out of the First World War. The continent was exhausted, broken, angry. Nobody could see clearly what the next 30 years would bring. Nobody could have predicted radio, television, nuclear weapons, antibiotics, commercial aviation, the European Union, the internet. In 1919, the smartest people in Paris and London and Berlin thought, reasonably, that the future had collapsed. They were wrong. The future had not collapsed. It had merely become unrecognizable.
+The transition could be harsh, because it will be unprecedented in speed. But I believe we can manage it. With the right combination of income support, service expansion, and cultural reinvention, the vulnerable population stays small. Fail the transition, and we produce, in large numbers, exactly the people most at risk of disappearing into VR headsets with AI girlfriends, to say nothing of political violence in a world where robots and drones have superhuman capabilitis.
 
-We are in an analogous moment. The future is unrecognizable. That does not mean it is worse. It means we have to build it thoughtfully. And the building is not the job of a small class of engineers in San Francisco. It is the job of every citizen of every country that is going to live inside the consequences.
+Which side of that fork we land on depends on how attentive, thoughtful, and well-governed the civilization going through this is. That is a political variable. It is something you can personally influence.
 
-You will graduate into this world. Do not just watch it. Participate. Learn the tools. Advocate for the frameworks you want. Write the essays. Run for the offices. Build the companies. Take care of the people around you. The future is not something that happens to you. The future is something you help make.
+So now, concrete advice for the next few years.
 
-I will close with one line, for what it is worth. Humanity stands at the threshold of the greatest revolution in its history. I believe it. The revolution is not someone else's. It is yours. Welcome to it.
+First, do not be afraid. There are now many technology-related reasons to fear already, including the environmntal crisis, and AI only adds to this dread. Young, bright people can be tempted to refuse the world as it is, to fall into anticipatory grief and retreat into their own. Than has been called "bifurquer" in my generation, I don't know how it is called in yours. But I think that leaving the fight before it's even happened is a luxury for lazy, bourgois spirits. On the contrary, I think it is our duty to engage with our world.
+Don't try to flee reality because it will eventually catch up. Whatever happens in the next 20 years, you are going to live through it. Be an actor: the people who show up, the people who study, build, are going to be the people whose preferences shape what happens.
+There is a beautiful passage at the end of *Lord of the Rings*, where Frodo, wounded and exhausted, says something like: "I wish it had not happened in my time." And Gandalf answers: "So do all who live to see such times. But that is not for them to decide. All we have to decide is what to do with the time that is given us."
+
+It's not the place to fear, but the place for action.
+
+So how to act?
+
+I think there's only one way : build your own path. Most of the teaching won't progress as fast as the tech improves, so you'll have to self train for a big part of the work anyway.
+
+Maybe i'm biased as an engineer, but I believe you should learn the tools. Deeply. Not as a user, not at the level of "I know how to write a prompt." At the level of understanding what is going on under the hood, so that when you read a news article you can evaluate whether the article knows what it is talking about. You already have a head start; you took this course. Keep going. Read the papers. Play with the APIs. Build small projects. 10 hours of playing with Claude Code will teach you more than 50 hours of reading about AI.
+
+Second, pick a *good domain*.
+I believe there will be overwhelmingly only two valid paths for work in the future, however work may be transformed: work on AI as I do, or work with AI on any domain.
+Now, I will understand it if you don't pick the first path, and do not decide to be AI researchers.
+But you can work with AI. Pick you genuinely care about, independent of AI. I heard one ceehte good advice of Google co founders : go work on the world's most important issue. So pick the most important issue to you.
+Public health, climate policy, municipal governance, journalism, education, antitrust, architecture. Then apply AI as a multiplier to that domain. The bottleneck in the agent era is not the agent's intelligence, it is the human's ability to formulate a useful task and to judge the output. That skill, problem definition, taste, clear writing, ethical reasoning, knowledge of institutions and history, is pure liberal-arts skill. It happens to be what Sciences Po, taught well, should produce. AI is worst at exactly the things you have been trained best to do. The rare and valuable combination over the next decade is deep tool fluency plus deep domain commitment. Sciences Po gives you exceptional training on the second half. The first half is on you. Start now.
+
+Third, eat well: when learnig about AI, read the good sources.
+We have seen a flourishing of fake experts, from Luc Julia to Eric Sadin, who sell bullshit just because it sells well. The recipe is reliable: tell a French audience that AI is overhyped, that LLMs are "just statistics", that the real revolution is not happening, and you will be invited on every plateau, every podcast, every editorial page that wants a reassuring quote. None of it survives 10 minutes of contact with the actual benchmarks, the actual papers, or the actual systems.
+Anglo saxon word has a great word for this that we don't have in French: it's called "cope". The cost of a comfortable lie is that the people who repeat it are the ones who will be most surprised, and least prepared, when the curve keeps climbing. Cultivate the habit of checking primary sources: read the model card, run the benchmark yourself, try the system on a task you care about. The frontier is moving faster than the commentary, and the commentary is, in this country especially, lagging by several years.
+A short list of people whose writing I actively recommend: Dario Amodei's essays, Chris Olah's interpretability work, Terence Tao's blog and Mastodon, Ethan Mollick's newsletter, Gwern's essays, the Anthropic and OpenAI technical blogs, Scott Alexander's AI posts. And don't be content wiht just press releases, the truth is always in a deep dives into techincal stuff,Epoch AI's reports, METR's blog, the leaderboards and benchmarks. 
+
+I will close with one line, for what it is worth. Humanity stands at the threshold of the greatest revolution in its history. I believe it. The revolution is not someone else's. It is yours.
 
 Thank you all for the five sessions. I will stay after class for questions, as usual. If you have longer questions, about careers or about further reading, send me an email and I will answer.
 
 ---
 
 
-# 8. Suggested Q&A prompts
+# 7. Frequently asked questions (scripted answers)
 
-**Key points:**
+**Q: Are you optimistic or pessimistic?**
+Those are not the right categories. The material outcome is almost certainly very good, we are going to get abundant intelligence, cheap energy, radical advances in medicine and materials. The civilizational outcome, whether we use that abundance well or drown in it, is open, and it is being decided right now. Being engaged is a matter of duty.
 
-- I have no idea what you will actually ask. But in my experience, these are the questions that tend to come up at the end of the final session, and I want to have thought through them before you ask.
-Before I open the floor, let me pre-empt a couple of the questions I expect, in case we run short on time.
+**Q: Should I study AI?**
+If you are asking me, probably yes, but not because AI will be the only story of your career. Because understanding AI will be, for the coming decades, the equivalent of understanding economics in the 1960s or understanding computers in the 1990s, a background literacy that makes everything else more tractable. If you want to be a journalist covering tech policy, study AI. If you want to be a lawyer, study AI. If you want to be a doctor, study AI. If you want to be a novelist, study AI. It is not a specialist's subject any more. It is a generalist's subject.
 
-First: "Are you optimistic or pessimistic?" Those are not the right categories. The material outcome is almost certainly very good, we are going to get abundant intelligence, cheap energy, radical advances in medicine and materials. The civilizational outcome, whether we use that abundance well or drown in it, is open, and it is being decided right now. Being engaged is a matter of duty.
+**Q: Will France and Europe matter in this?**
+This is a real question. The frontier labs, OpenAI, Anthropic, Google DeepMind, Meta, xAI, are overwhelmingly American, with a few Chinese players catching up fast. Europe has Mistral, which is doing well, and several strong academic centers, but the center of gravity is not here. This matters for a simple reason: the values embedded in frontier AI systems are, for the foreseeable future, going to be American values filtered through Silicon Valley sensibilities. If you want a European answer to how AI should be shaped, you will have to build it. That is, I think, one of the three or four most important civilizational projects we can invest in right now. It is also a good reason to stay in Europe and contribute.
 
-Second: "Should I study AI?" If you are asking me, probably yes, but not because AI will be the only story of your career. Because understanding AI will be, for the coming decades, the equivalent of understanding economics in the 1960s or understanding computers in the 1990s, a background literacy that makes everything else more tractable. If you want to be a journalist covering tech policy, study AI. If you want to be a lawyer, study AI. If you want to be a doctor, study AI. If you want to be a novelist, study AI. It is not a specialist's subject any more. It is a generalist's subject.
+**Q: What about climate?**
+AI is energy-intensive. Training a frontier model uses the energy equivalent of a small town for a year. Inference, running the model for users, uses, globally, already more electricity than some mid-sized countries. This is a real cost. But AI is also, potentially, the single most powerful tool for the climate transition: better materials discovery, better grid management, better weather prediction, better crop resilience. The net effect on the climate could be positive, if the energy transition to renewables proceeds faster than the energy appetite of AI. That is a race we should actively run, not hope will go well.
 
-Third: "Will France and Europe matter in this?" This is a real question. The frontier labs, OpenAI, Anthropic, Google DeepMind, Meta, xAI, are overwhelmingly American, with a few Chinese players catching up fast. Europe has Mistral, which is doing well, and several strong academic centers, but the center of gravity is not here.
-
-This matters for a simple reason: the values embedded in frontier AI systems are, for the foreseeable future, going to be American values filtered through Silicon Valley sensibilities. If you want a European answer to how AI should be shaped, you will have to build it. That is, I think, one of the three or four most important civilizational projects we can invest in right now. It is also a good reason to stay in Europe and contribute.
-
-Fourth: "What about climate?" Right question. AI is energy-intensive. Training a frontier model uses the energy equivalent of a small town for a year. Inference, running the model for users, uses, globally, already more electricity than some mid-sized countries. This is a real cost. But AI is also, potentially, the single most powerful tool for the climate transition: better materials discovery, better grid management, better weather prediction, better crop resilience. The net effect on the climate could be positive, if the energy transition to renewables proceeds faster than the energy appetite of AI. That is a race we should actively run, not hope will go well.
-
-Fifth: "What if I am worried?" I take the worry seriously. I am worried too, sometimes. What helps me is doing something, writing, teaching, building, rather than consuming bad news. Worry that does not channel into action curdles into despair. Worry that channels into action becomes energy. Find the action that fits your skills and temperament. If you like writing, write. If you like coding, code. If you like organizing, organize. If you like teaching, teach. The thing that calibrates worry into usefulness is, almost always, regular work.
-
-All right. The floor is yours. Let me hear what you have.
+**Q: What if I am worried?**
+I take the worry seriously. I am worried too, sometimes. What helps me is doing something, writing, teaching, building, rather than consuming bad news. Worry that does not channel into action curdles into despair. Worry that channels into action becomes energy. Find the action that fits your skills and temperament. If you like writing, write. If you like coding, code. If you like organizing, organize. If you like teaching, teach. The thing that calibrates worry into usefulness is, almost always, regular work.
 
 ---
 
 
-# 9. Bibliography and source list **Key sources cited in this session:** - Anthropic, *Golden Gate Claude* (May 2024), [https://www.anthropic.com/news/golden-gate-claude](https://www.anthropic.com/news/golden-gate-claude)
+# 8. Bibliography and source list **Key sources cited in this session:** - Anthropic, *Golden Gate Claude* (May 2024), [https://www.anthropic.com/news/golden-gate-claude](https://www.anthropic.com/news/golden-gate-claude)
 - Anthropic, *Mapping the Mind of a Large Language Model*, [https://www.anthropic.com/research/mapping-mind-language-model](https://www.anthropic.com/research/mapping-mind-language-model)
 - Anthropic, *Agentic Misalignment: How LLMs Could Be Insider Threats* (June 2025), [https://www.anthropic.com/research/agentic-misalignment](https://www.anthropic.com/research/agentic-misalignment)
 - Dario Amodei, *Machines of Loving Grace* (October 2024), [https://www.darioamodei.com/essay/machines-of-loving-grace](https://www.darioamodei.com/essay/machines-of-loving-grace)
@@ -511,4 +490,4 @@ All right. The floor is yours. Let me hear what you have.
 - G.W.F. Hegel, *Phenomenology of Spirit* (1807), master-slave dialectic
 - John Maynard Keynes, "Economic Possibilities for our Grandchildren" (1930)
 
---- *End of Session 5. Thank you for these five lectures.*
+--- *End of Session 5. Thank you for your attention during these lectures.*

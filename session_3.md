@@ -643,44 +643,10 @@ Productivity gains are distributed according to power. Who owns the capital, who
 
 If it ends up funding a universal basic income or a more generous welfare state, the median citizen sees a lot of it. That distribution question, fundamentally a political question, is, in my view, more important than the technical question of when agents cross the one-hour horizon. And it is exactly the kind of question you, as students at Sciences Po, are being trained to think about. Do not leave it to engineers. We are not good at it.
 
-OK, that was the economics. Let me pivot to the career implications for you personally.
-
 ---
 
 
-# 12. What this means for you: the student in 2026 (about 10 min)
-
-**Key points:**
-
-- The jobs you aim for in 2028 to 2030 will be fundamentally reshaped.
-- Focus on complementarity: spec-writing, judgment, taste, interpersonal.
-- Get fluent with agent tools now.
-- Sciences Po as a particularly adaptable training.
-You are, most of you, between 18 and 22 years old. You will graduate in 2 to 4 years. You will enter a labour market in 2028, 2029, 2030 that is fundamentally different from the one your parents or older siblings entered. Let me try to give you practical guidance, the honest version.
-
-First, a number: there is good evidence, from Anthropic's economic index, from OpenAI's usage reports, from Google's data, that the jobs with the highest exposure to AI right now are, in decreasing order: software engineering, writing, data analysis, customer support, translation, paralegal work, first-line medical triage, marketing and content production, low-complexity consulting research. The common thread is: work that produces mostly text, numbers, or images, from a screen, within clear briefs. That is maybe 30 to 40 percent of knowledge work. Do not assume your future job is *not* on that list, a lot of Sciences Po graduates go into consulting, finance, journalism, public administration. All exposed.
-
-Exposure means replacement of the task, not necessarily of the worker, for now. For a transitional period, the humans who stay employed are the ones who use agents to do the work of 5 of their colleagues. That transitional period is short, and at the end of it, the AI does the task without the human in the loop. The typist analogy is partial: the electric typewriter did not, in the end, learn to type on its own. Agents will. Plan accordingly.
-
-So concretely: get fluent with these tools. Use Claude, use ChatGPT, use Gemini. Do not use them just for homework help, use them for real workflows. Build agents like the one we built today, deploy them, break them, learn what they are good and bad at. This is like learning to use Excel in 1995: optional at first, standard in 5 years, non-negotiable in 10.
-
-Second, double down on the things AI is *worst* at, which happen to be the things Sciences Po is best at teaching. Let me list them: clear writing of the kind that anchors a non-obvious argument; negotiation and human-to-human persuasion; exercise of taste and judgment in ambiguous situations; ethical reasoning; understanding of institutions, history, political and legal context; knowing what to *ask* the agent to do. That last one is crucial.
-
-The bottleneck in the agent era is not the agent's intelligence, it is the human's ability to formulate a useful task for the agent to do. That skill, problem definition, spec-writing, evaluation of outputs, is pure general education. It is what a liberal arts degree, taught well, should produce. You are, frankly, in a better position than many engineering students I have met, because you have been trained to *think about framing*.
-
-Third, read the capability curve, not the press coverage. The underlying trajectory is real and steep. We constantly underestimate how fast the exponential take-off is going. Getting used to things getting faster is crazy hard, but we'll have to if we want to play a part. Develop the habit of going to the source. Read technical papers, not press releases. Read Epoch AI's reports, METR's blog, the Anthropic and OpenAI research drops, the GAIA and SWE-bench leaderboards. Read the Ada Lovelace Institute. Do not read *only* pundits. The signal is in the measurements, and the measurements are unambiguous.
-
-Back to the program.
-
-Last piece of career advice. Use this moment, the next 2 or 3 years, to pick a *domain* you genuinely care about, independent of AI. Public health, climate policy, municipal governance, journalism, education, antitrust, architecture. Something in the real world. Then apply AI as a multiplier to that domain.
-
-
-These are jobs that did not exist 3 years ago and could be common in 5. To land them, you need both halves, the domain, and the tool. Sciences Po gives you exceptional training on the first half. The second half is on you. Start now.
-
----
-
-
-# 13. Recap, and what is next (about 8 min)
+# 12. Recap, and what is next (about 8 min)
 
 **Key points:**
 
@@ -715,7 +681,7 @@ Now, homework for next time: go on github.com, create an account, and set it up 
 ---
 
 
-# 14. External sources cited inline
+# 13. External sources cited inline
 - **METR autonomy horizon measurement:** [Task-Completion Time Horizons of Frontier AI Models, METR, March 2025](https://metr.org/time-horizons/); updated [Time Horizon 1.1, January 2026](https://metr.org/blog/2026-1-29-time-horizon-1-1/); mirror dataset at [Epoch AI](https://epoch.ai/benchmarks/metr-time-horizons); critique at [MIT Technology Review, February 2026](https://www.technologyreview.com/2026/02/05/1132254/this-is-the-most-misunderstood-graph-in-ai/).
 - **GAIA benchmark:** [Official HF leaderboard](https://huggingface.co/spaces/gaia-benchmark/leaderboard); [HAL Princeton GAIA leaderboard](https://hal.cs.princeton.edu/gaia).
 - **SWE-bench Verified:** [SWE-bench Verified leaderboard](https://www.swebench.com/verified.html).
@@ -729,7 +695,7 @@ Now, homework for next time: go on github.com, create an account, and set it up 
 ---
 
 
-# 15. Frequently asked questions (scripted answers)
+# 14. Frequently asked questions (scripted answers)
 
 **Q: Is this agent loop not just a chatbot with extra steps?**
 The loop is the step. A chatbot is one request, one response, done. An agent decides how many round-trips it needs, which tools to invoke, and when to stop. That autonomy is the whole qualitative jump. Before the loop, LLMs were frozen at their training date and blind to your files. With the loop, the same LLM can fetch live data, read a 200-page PDF, run a Python simulation, and compose the results into one answer. "Extra steps" is doing a lot of work in that phrasing. Those extra steps are the productivity delta. They are the reason Claude Code ships a working feature while the original 2022 ChatGPT could only suggest pseudocode.
