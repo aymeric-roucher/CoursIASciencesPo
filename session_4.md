@@ -10,7 +10,7 @@
 **Key points:**
 - Pivot: we have spent three sessions on the inside of the rocket (neural networks, transformers, decoders, scaling laws, agents). Today we step outside and ask: what happens when a human being actually presses "Enter" on ChatGPT, Claude, or Gemini?
 - Goal: turn you into lucid, effective, ethical users of large language models in the next two hours.
-- Roadmap: (1) diagnose the most common failures: hallucinations, sycophancy, other biases; (2) build mental models for when to trust and when to verify; (3) tour the tools that matter right now, Deep Research, agentic assistants; (4) sketch a personal ethics of AI use; (5) hands-on live demo, build your own one-page website with Claude Code, with a fallback for students who don't have a laptop open in front of them.
+- Roadmap: (1) diagnose the most common failures: hallucinations, sycophancy, other biases; (2) build mental models for when to trust and when to verify; (3) tour the tools that matter right now, Deep Research, agentic assistants; (4) sketch a personal ethics of AI use; (5) hands-on live demo, choose between a personal homepage or a Financial Times-style infographic, both built with Claude Code, with a fallback for students who don't have a laptop open in front of them.
 - Session 5 preview: "what does all of this do to society." Today is individual; next time is collective.
 
 Today is going to be different. We have three sessions behind us now, and I want you to feel the shift we're making today. Up to now we've been inside the engine room. We have opened the casing of a large language model, we've peered at the attention layer, we've followed a sub-word as it passes through billions of parameters, we've talked about scaling laws and agents and the course aux étoiles. That was, let's say, the physics of the rocket.
@@ -29,7 +29,7 @@ So here is our plan. We will start with the failures. I want you to know exactly
 
 Then we will do a tour of the most useful tools available right now, in April 2026, and in particular Deep Research, which I use almost daily. Then we will talk ethics: when do you disclose that you used AI, when do you not, when do you refuse to use it at all.
 
-And then, this is the part I am most excited about, we will open our laptops, and in 45 minutes you are each going to build and publish a personal one-page website using Claude Code. If you don't have a laptop, don't panic: I will walk you through Lovable, which is a sort of Claude Code for people who don't want to touch a terminal. By the end of this session, you should have a live URL you can send to your parents.
+And then, this is the part I am most excited about, we will open our laptops, and in 45 minutes you are each going to build and publish something real with Claude Code. You will pick between two options: a personal one-page website, or a Financial Times-style infographic on a topic you actually care about. If you don't have a laptop, don't panic: I will walk you through Lovable, which is a sort of Claude Code for people who don't want to touch a terminal. By the end of this session, you should have a live URL you can send to your parents.
 
 Next session, Session 5, we zoom out again: what does all of this do to society, to elections, to war, to meaning? But that's for next time. Today stays close to your keyboard.
 
@@ -345,7 +345,7 @@ During the tutoring period, the ChatGPT group's grades went up, they did their h
 
 Why? Because they had used ChatGPT as a crutch rather than as a tutor. They let the model do the work, they collected the answer, they moved on. They never built the neural pathways that would have let them solve the problem themselves.
 
-There is a beautiful phrase about this: the school revolution will put the emphasis on student discipline, and even more on parental discipline, will parents spend the time and effort necessary to help their child use this assistance only in the right way, learning to choose the narrow gate, the path of effort that elevates? The narrow gate. That's the one you want. Use the model to reach beyond your level. Do not use it to avoid reaching.
+The lesson generalizes. Use the model to reach beyond your level. Do not use it to avoid reaching. A practical test: when you are in the early phase of a problem, before you really understand the question, you should be groping around, reading, taking wrong conjectures, correcting them. That groping is the process that builds your real understanding. If you skip it by asking "what's the answer?", you will get an answer, but not the understanding that lets you defend it, extend it, or notice when it's wrong.
 
 Principle four: refuse when the use would generate evidence you have not verified. Do not fabricate quotations. Do not produce images that could be mistaken for real photographs of real people, especially without their consent. Do not script a sincere-sounding message you do not actually mean. These are the lines I won't cross, and I don't think you should either.
 
@@ -355,114 +355,117 @@ Principle five: credit honestly. "Drafted with Claude Sonnet 4.6, edited by me" 
 
 For long-form writing, the norm is less settled. When I have written long-form prose myself, I have done it without AI for two sufficient reasons: first, because AI was bad at the time, and second because I would prefer to read something written by a human, so I wanted to do the same. I did use it extensively for proofreading. For preparing this course, on the other hand, I used AI in writing, to help adapt and rework existing materials.
 
-Principle six, and this is the one I feel most strongly about, so forgive me if I sound preachy for 30 seconds. Preserve some practice without AI. I mean it. Build deliberate zones in your week where the model is closed. Read a book without the summarizer. Write a letter by hand. Work through a math problem without asking for help. Sit in a library with a pen and paper and think for an hour.
+Principle six: preserve some practice without AI. Build deliberate zones in your week where the model is closed. Read a book without the summarizer. Write a letter by hand. Work through a math problem without asking for help. The model is a lever; if you never lift anything yourself, the leverage is useless, because you will not have the sense of what to lift.
 
-You are still building the muscle of your own mind. Those muscles take thousands of hours of practice to build, and once built they are the single most valuable asset you have. The model is a lever. The lever is there, but if you never lift anything yourself, the leverage is useless, because you will not have the sense of what to lift.
-
-The people who will still be doing meaningful cognitive work a decade from now are the ones who kept their own judgment sharp, who did the hard thinking themselves for enough hours a week to know what good thinking feels like, and who used AI selectively rather than by default. That is not a guarantee of permanent relevance, nothing is, but it is the best bet available.
+One specific failure mode worth flagging here, because it is the trap I catch myself in: be wary of using the model when you are tired and looking for reassurance. The sycophancy bias we saw earlier is most dangerous in that state. If the question you are typing is really "tell me I am right," close the laptop. Sleep on it, ask a friend tomorrow, or sit with the not-knowing. Judgment gets built in that discomfort.
 
 That is the ethics I try to live by, and I'd like you to at least consider it.
 
 ---
 
-# 7. Live demo, Build your own personal web page with Claude Code
+# 7. Live demo: build something real with Claude Code (homepage or FT-style infographic)
 
 **Key points:**
-- Claude Code is Anthropic's coding agent that runs in your terminal. `npm install -g @anthropic-ai/claude-code`, then `claude` in any folder.
-- What we'll build in the next 45 minutes: a one-page personal website with bio, project list, contact form. HTML, CSS, JavaScript, no framework.
-- Flow: (1) create an empty folder; (2) launch Claude; (3) prompt it; (4) iterate; (5) deploy to GitHub Pages.
-- Iteration prompts: "make it dark mode," "add a photo placeholder," "make it mobile-friendly," "give me the deploy commands."
+- Two options. Students pick whichever excites them more.
+  - Option A: a one-page personal website. Bio, project list, contact form. HTML/CSS/JS, no framework.
+  - Option B: a Financial Times-style infographic on a topical question. Claude Code researches the data, builds a single-page data visualization in the FT visual idiom (salmon background, serif headlines, sober palette, sourced).
+- Same tool either way: Claude Code in the terminal. `npm install -g @anthropic-ai/claude-code`, then `claude` in any folder.
+- Same flow: (1) create an empty folder; (2) launch Claude; (3) prompt it; (4) iterate; (5) deploy to GitHub Pages.
 - Fallback for students without laptops: Lovable (lovable.dev), describe what you want in natural language, get a live app back, no terminal needed. Founded by Anton Osika and Fabian Hedin in 2023, nearly 8 million users by late 2025 (https://techcrunch.com/2025/11/10/lovable-says-its-nearing-8-million-users-as-the-year-old-ai-coding-startup-eyes-more-corporate-employees/).
-- By the end of the demo: a live URL you can send to your parents.
+- By the end of the demo: a live URL.
 
-Right. Laptops open. We are going to do the most fun part of this session. In the next 45 minutes, every one of you is going to have a personal website live on the internet, built by an AI agent following your instructions.
+Right. Laptops open. We are going to do the most fun part of this session. In the next 45 minutes, every one of you is going to ship something real on the public internet, built by an AI agent following your instructions.
+
+You get to pick between two projects. Pick whichever excites you more.
+
+Option A: a personal homepage. Bio, project list, contact form, live URL. The kind of thing every Sciences Po student should have, and that you can update for the rest of your career.
+
+Option B: a Financial Times-style infographic on a topical question.
+
+*[TA: project a recent FT infographic on screen, an actuality topic the students will recognize, e.g. an FT chart on the European energy mix, AI capex, election polling, whatever is current the week of the lecture. Leave it on screen for the next paragraph.]*
+
+The pitch, while the FT graphic is on the projector: "I've always dreamt of producing such a cool infograph. But that takes research to collect the data, and design skills to do the graph. It's actually a mini research project. With Claude Code, you can speed-run the whole thing in 45 minutes."
+
+So that is your second option. Pick a question you actually care about, France's nuclear output by decade, the migration of AI compute since 2018, the cost of a baguette across European capitals, and we will have Claude Code research the numbers, draw the chart, and ship it as a live web page in FT style.
 
 Quick note before we dive in. I know that for some of you the terminal is intimidating. You've never opened it, you've never typed a command, and the idea of a black rectangle with blinking text is slightly terrifying. That's fine. The terminal is just a text interface to your computer.
 
 Everything you're about to do in it, you could also do by pointing and clicking, the terminal is just faster, and it's the native environment where most coding agents operate. If at any point you feel out of your depth, raise your hand and one of us, me, the TA, or the neighbor next to you who's clearly cruising, will come over. Do not sit silently for ten minutes stuck on one command. The whole room is here to help.
 
-Also, for the students who already know how to code: please do not rush ahead and build something elaborate. The exercise is to build a simple personal website, live, publicly accessible, in 45 minutes. If you finish in 15, spend the rest of the time helping your neighbors. That is part of the exercise.
+Also, for the students who already know how to code: please do not rush ahead and build something elaborate. The exercise is to ship one of these two projects, live, publicly accessible, in 45 minutes. If you finish in 15, spend the rest of the time helping your neighbors. That is part of the exercise.
 
-Let me walk you through this step by step. The tool we are going to use is called Claude Code. It is made by Anthropic, the company that makes Claude. It is, and I'm not exaggerating, the most powerful productivity tool I have encountered in my career. It is a coding agent that lives inside your terminal. You type instructions to it in natural English, and it writes code, runs code, fixes errors, reads files, searches the web, all in your local folder.
+Let me walk you through the setup. The tool either way is Claude Code, made by Anthropic. It is, and I'm not exaggerating, the most powerful productivity tool I have encountered in my career. It is a coding agent that lives inside your terminal. You type instructions to it in natural English, and it writes code, runs code, fixes errors, reads files, searches the web, all in your local folder.
 
-Step one: install it. If you don't have Node.js already, go to nodejs.org and install the LTS version. If you already have Node, open a terminal and type: `npm install -g @anthropic-ai/claude-code`. That's it. One command. It will download, it will set itself up, and you now have a binary called `claude` somewhere on your path. Verify with `claude --version`. If you see a version number, you're good. If you don't, ask me or your neighbor.
+Step one: install it. If you don't have Node.js already, go to nodejs.org and install the LTS version. If you already have Node, open a terminal and type: `npm install -g @anthropic-ai/claude-code`. That's it. One command. Verify with `claude --version`. If you see a version number, you're good. If you don't, ask me or your neighbor.
 
 Step two: get an API key. Go to claude.com, log in, go to settings, and there's an option to generate a Claude Code access token. You paste the token the first time you run Claude Code, it remembers it, you're done. There's a monthly subscription plan, I recommend the cheapest tier, which is plenty for a student; for a month of heavy use you'll spend maybe 15 euros.
 
-Step three: create a folder for your website. On your desktop or somewhere easy to find, make a folder called `mysite`. Open it in a terminal. Type: `claude`. You're in. You'll see a cursor asking what you want to do.
+Step three: create a folder. On your desktop or somewhere easy to find, make a folder, `mysite` for option A, or `myinfograph` for option B. Open it in a terminal. Type: `claude`. You're in. You'll see a cursor asking what you want to do.
 
-Step four, and this is where the magic happens, type your first prompt. I recommend literally the following: "Create a one-page personal website with my bio, a project list, and a contact form. Use HTML, CSS, and JavaScript only, no framework. Make it modern, clean, responsive." Press enter.
+Step four, the first prompt. Here is where the two paths diverge.
 
-Claude will now propose a plan. It will say something like "I'll create three files: index.html, style.css, and main.js. I'll structure the page with sections for bio, projects, and contact. I'll use a clean typographic design with good default spacing. Should I proceed?" You say yes. And then it does it. It creates the files. You can see them appear in your folder. It opens them, writes the code, saves them. In maybe 30 seconds, you have a working website.
+Option A first prompt: "Create a one-page personal website with my bio, a project list, and a contact form. Use HTML, CSS, and JavaScript only, no framework. Make it modern, clean, responsive."
 
-Step five: open the website. Double-click index.html. It opens in your browser. And there it is. A real web page, on your screen, with a header, a bio section, a list of projects, a contact form with an email field and a message box.
+Option B first prompt: "I want to build a Financial Times-style infographic on [your topic, e.g. 'how France's electricity mix evolved between 1973 and 2025']. First, research the data: find primary sources, official statistics, regulatory filings. Show me the data table with citations before you draw anything. Then build a single-page infographic, HTML, CSS, JavaScript, no framework, that visualizes it in the FT visual style: salmon background, serif headlines, sober palette, source line at the bottom. Make it responsive."
 
-Now, the website is generic. It says "Jane Doe, Software Engineer at Acme Corp." We need to make it yours. So step six: iterate. Type: "Change the name to [your name], update the bio to say I'm a Sciences Po undergraduate studying AI policy, and replace the projects list with three projects: [whatever you've done, a school paper, an internship, a club you run]." Claude will edit the files. Reload the page. It's yours.
+Notice the second prompt is heavier. That is the point: option B is a small research project, and you are giving the agent the same brief you would give a junior analyst, including the instruction to show the data with citations before producing the chart. Press enter on whichever you picked.
 
-Now the fun part. Type: "Make it dark mode." Press enter. 15 seconds later, the page is dark. Elegant. Type: "Add a photo placeholder, a circle at the top with my initials." Done. Type: "Add a smooth scroll animation when clicking the navigation links." Done. Type: "Make the projects section a grid with hover effects." Done.
+Claude proposes a plan. For option A, something like "I'll create three files: index.html, style.css, main.js, with sections for bio, projects, contact." For option B, something like "I'll first run web searches for the data, present a sourced table, then build the visualization." You say yes. Files appear, code is written. Thirty seconds for the homepage; a few minutes for the infographic, because the agent spends most of that time researching and citing. In both cases, in under five minutes, you have a working draft.
 
-Now, this is the part where you're still in control. Claude will sometimes make choices you don't love. Maybe the dark mode is too dark. Maybe the hover effect is too flashy. Just say so. "The dark mode background is too pure black, make it a dark warm grey." Done. "The hover effect is too much, just change the text color subtly." Done. You are having a real conversation with a designer who happens to write perfect code.
+Step five: open it. Double-click index.html. It opens in your browser. For option A, a real web page with header, bio, projects, contact form. For option B, a real chart with headline, subhead, axes, data points, source line, in something close to FT visual style.
 
-Step seven: deploy it to the internet. This is where people usually get stuck because deployment used to be scary. With Claude Code it isn't. Type: "Deploy this to GitHub Pages. Walk me through exactly what commands I need to run, one at a time. I have a GitHub account but I've never deployed anything before."
+Step six: iterate. The page is generic until you make it yours.
 
-Claude will guide you through the following. First: create a new public repository on GitHub called something like `yourusername.github.io`. Second: in your terminal, `git init`, `git add.`, `git commit -m "Initial site"`, then `git branch -M main`, `git remote add origin https://github.com/yourusername/yourusername.github.io.git`, then `git push -u origin main`. Third: go to your repo on GitHub, click Settings, then Pages, and set the source to main branch.
+Option A iteration: "Change the name to [your name], update the bio to say I'm a Sciences Po undergraduate studying AI policy, replace the projects list with three projects." Then: "make it dark mode," "add a photo placeholder, a circle at the top with my initials," "smooth scroll on the navigation links," "make the projects section a grid with hover effects."
 
-Wait about two minutes. Go to https://yourusername.github.io. Your site is live. Send the URL to your parents.
+Option B iteration: "Use Financial Times Sans for body and FT Serif for headlines, falling back to system fonts." "The chart is too sparse, FT charts are denser than that, tighten the spacing." "Add a small annotation arrow pointing to the 1973 oil shock." "Swap the palette to FT salmon (#FFF1E5) and FT teal (#0E7C7B)." "Fact-check the 2008 data point against the IEA, you have it 4 percentage points off."
 
-You have just, in 45 minutes, gone from zero to a published personal website, and you have done it by talking to a computer in English. That is not a trivial thing. 20 years ago this would have taken a week and a computer-science degree.
+Claude will sometimes make choices you don't love. Just say so. "The dark mode is too pure black, lean it warmer." "The headline is too big, match the FT's actual headline scale." "Drop the gridlines, FT charts only have horizontal ones." You are having a real conversation with a designer who also writes perfect code and can run a research scan in two minutes.
+
+Step seven, common to both options: deploy it to the internet on GitHub Pages. Quick word on how this works, because it is genuinely simple once you've seen it. GitHub Pages takes any public GitHub repository containing static files, HTML, CSS, JavaScript, images, and serves them as a real website at a free public URL. No server, no database, no configuration. You push the files to GitHub, GitHub serves them. That is the entire trick. It is what makes the modern static web possible, and it is why 45 minutes is enough.
+
+The URL pattern is the same for both options: a repo named `<repo>` under your account is served at `https://yourusername.github.io/<repo>/`. So option A goes in a repo called something like `about-me` and lives at `https://yourusername.github.io/about-me/`. Option B goes in a repo called something like `france-energy-infograph` and lives at `https://yourusername.github.io/france-energy-infograph/`. Same pattern, same mechanics, just pick a repo name that fits the project.
+
+Now the deploy. This is where people usually get stuck because deployment used to be scary. With Claude Code it isn't. Type: "Deploy this to GitHub Pages. Walk me through exactly what commands I need to run, one at a time. I have a GitHub account but I've never deployed anything before."
+
+Claude will guide you. First, create a new public repository on GitHub with a name that fits the project (`about-me`, `france-energy-infograph`, whatever). Second, in your terminal: `git init`, `git add .`, `git commit -m "initial"`, `git branch -M main`, `git remote add origin https://github.com/yourusername/<repo>.git`, `git push -u origin main`. Third, on GitHub: Settings → Pages, source = main branch.
+
+Wait about two minutes for the first build to finish. Go to `https://yourusername.github.io/<repo>/`. It's live. Send it to your parents.
+
+You have just, in 45 minutes, shipped a real artifact, and you did it by talking to a computer in English. 20 years ago this would have taken a week and a computer-science degree. For option B specifically, it would also have required a junior data analyst and a junior designer.
 
 Now. For those of you without a laptop today, don't worry, you are not excluded from this exercise. Open the browser on your phone and go to lovable.dev. Lovable is, and I mean this precisely, Claude Code for people who don't want to touch a terminal. It's a Swedish startup founded by Anton Osika and Fabian Hedin in 2023. They got to 8 million users in about 18 months, and closed a Series B in late 2025 at a 6.6 billion dollar valuation, because what they built genuinely works.
 
-You sign up for free, there's a generous free tier. You open a new project. You type the same prompt I had you type into Claude Code: "Create a one-page personal website with my bio, a project list, and a contact form." Lovable generates the app, shows it to you live in a preview pane, and gives you a public URL out of the box.
+You sign up for free, there's a generous free tier. You open a new project. You type the same first prompt I gave you above, A or B. Lovable generates the app, shows it to you live in a preview pane, and gives you a public URL out of the box. You iterate exactly the same way. The interface is drag-and-drop plus chat. No install, no terminal, no git. It is, for a lot of people, the right entry point. I use Claude Code because I come from a coding background and I like the control. Many of my non-technical friends use Lovable. Pick the one that fits you.
 
-You iterate exactly the same way: "make it dark mode," "change my name to Sophie," "add a photo placeholder." The interface is drag-and-drop plus chat. No install, no terminal, no git. It is, for a lot of people, the right entry point. I use Claude Code because I come from a coding background and I like the control. Many of my non-technical friends use Lovable. Pick the one that fits you.
-
-We've got 25 minutes before the break, open your laptops, get Claude Code installed or get into Lovable, and let's build. I will walk around the room, so raise your hand when you get stuck.
+We've got 25 minutes before the break. Open your laptops, get Claude Code installed or jump into Lovable, pick A or B, and let's build. I will walk around the room, so raise your hand when you get stuck.
 
 ---
 
 # 8. Common pitfalls during the demo, and the deeper lesson
 
-**Key points:**
-- Typical errors students hit: node not installed; API key pasted with a trailing newline; git forgetting to add files; GitHub Pages taking up to 10 minutes to propagate.
-- Deeper lesson 1: the first prompt is usually not good enough. Good prompting is iterative. Give the model context, constraints, and examples; then refine.
-- Deeper lesson 2: you are now a manager, not a typist. Your job is to specify, review, and correct. The agent does the typing.
-- Deeper lesson 3: a skill gap is closing. A person with zero coding experience, using Claude Code or Lovable, can now ship a working web app in an hour. This was unthinkable in 2019. Think about what else becomes accessible.
-- Deeper lesson 4: the doctor anecdote, the doctor who built a medical website without any coding knowledge, purely by describing symptoms of the bugs to the model. This is the archetype of the new literacy.
+**Notes for whoever is running the room.** Student progress will spread out fast: some will be deploying in 20 minutes, others still wrestling with `npm install`. The points below are a debugging reference and a set of talking points for the wrap-up, not a linear script. Pull from them as needed.
 
-How are we doing? Let me do a quick survey. Who has a website live right now, hands up? Those of you who have the site live, please, and this is part of the exercise, help your neighbors. Walk around. Explain what you did. If someone is stuck at the git push step, sit next to them, look at their terminal, walk through it together.
+## Debugging cheat sheet
 
-You will learn more by teaching someone the thing you just learned than you will by spending the same 15 minutes polishing your own page. I know this from experience; I learned half of what I know about coding by teaching it to people who knew less than I did.
+- `npm install -g @anthropic-ai/claude-code` fails, or `claude --version` returns nothing → Node missing or too old. Send them to nodejs.org for the LTS, restart the terminal, retry.
+- API key rejected on first launch → almost always a trailing newline or whitespace from the paste. Re-paste carefully, or paste into a plain-text editor first to inspect.
+- `git push` fails with "permission denied" → GitHub no longer accepts password auth. They need a Personal Access Token (Settings → Developer settings → Personal access tokens, classic, scope `repo`) or an SSH key. Claude Code itself walks them through this if they ask: "I'm getting a permission denied error on git push, what do I do?"
+- Site does not appear at `https://yourusername.github.io/<repo>/` → first deploy can take up to 10 minutes to propagate. Refresh, do not redeploy. Also check Settings → Pages on GitHub: source must be set to the `main` branch.
+- 404 at the project URL → most often a missing or misnamed `index.html` at the repo root, or the wrong branch selected as Pages source. Trailing slash in the URL matters; `https://yourusername.github.io/<repo>/` works, the no-slash variant sometimes does not on first load.
+- Lovable users hitting free-tier message limits → switch to Claude Code if a laptop is available, or share a workspace with a neighbor.
 
-Take advantage of this room. Every one of you is at a slightly different point on the learning curve, and the aggregate of the room is more competent than any individual in it, that is the magic of classrooms, and we should use it.
+## Talking points for the wrap-up
 
-Who's still debugging? Who hasn't gotten Claude Code installed yet? Let me address the common errors I'm seeing walking around.
+Once most of the room is unstuck, four points are worth landing before moving on. Encourage students who finished early to help neighbors, that is part of the exercise and they often learn more by teaching than by polishing.
 
-First: if `npm install` failed, you probably don't have Node installed, or you have an old version. Go to nodejs.org, install the LTS version, restart your terminal, try again. Second: if your API key isn't being accepted, check that there's no trailing newline or space. Paste carefully.
+Lesson one: the first prompt is usually not good enough. The students who get the best results write detailed prompts with a specified style, sections, and content. "Make me a website" returns something generic. Good prompting is closer to managing than to writing. Give context (who the page is for), constraints (no framework, mobile-first), and examples ("make it look like Anthropic's landing page, but warmer"). The more you specify up front, the less iteration you need. The single biggest predictor of LLM output quality is the quality of the first prompt.
 
-Third: if `git push` failed with a "permission denied" error, you may need to configure a personal access token or SSH key for GitHub. Claude Code will actually walk you through this if you ask, say "I'm getting a permission denied error on git push, what do I do?" Fourth: if your site isn't showing up at yourusername.github.io, give it up to 10 minutes. GitHub Pages can be slow on the first deploy. After that it's usually instant.
+Lesson two: you are now a manager, not a typist. The students wrote zero lines of code. They did not memorize CSS syntax. What they did was decide what they wanted, specify it in English, review what the agent produced, correct it, iterate. That is management, not programming. The same skill transfers to legal drafting, policy briefs, marketing copy, scientific analysis. It is the job for now. It is not a permanent job.
 
-I want to extract four lessons from what just happened in this room, because the lessons go well beyond making a website.
+Lesson three: a huge skill gap is closing. Five years ago, building and deploying a personal website meant HTML, CSS, JavaScript, git, and some deployment platform, roughly 100 hours of learning before shipping anything. Today they did it in under an hour, from a standing start. Entire skill hierarchies that used to gatekeep, programming, graphic design, video editing, translation, legal drafting, are being dissolved. The question to leave students with: what becomes possible for them, now that they no longer need to learn these from scratch?
 
-Lesson one: the first prompt is usually not good enough. Many of you wrote "make me a website" and got something generic. The students who got the best results wrote detailed prompts, with a specified style, specified sections, specified content. Good prompting is a skill. It looks like writing, but it is closer to managing.
-
-Give context, who the page is for, what it should convey. Give constraints, no framework, mobile-first, under 500 kilobytes. Give examples, "make it look like Anthropic's landing page, but warmer." The more you specify up front, the less iteration you need. This is general: the single biggest predictor of whether someone gets good results from an LLM is the quality of their first prompt. Practice that skill.
-
-Lesson two: you are now a manager, not a typist. You just wrote zero lines of code. You did not memorize CSS syntax. You did not debug JavaScript by yourself. What you did was decide what you wanted, specify it in English, review what the agent produced, correct it, and iterate. That is management, not programming.
-
-This is what a lot of professional work looks like in the AI era, at least for the transitional period: you give instructions in plain language, you evaluate output, you iterate. The specific skill transfers across legal drafting, policy briefs, marketing copy, scientific analysis. It is the job for now. It is not a permanent job.
-
-Lesson three: a huge skill gap is closing. 5 years ago, to build and deploy a personal website, you had to know HTML, CSS, JavaScript, git, and some deployment platform. That's maybe 100 hours of learning before you could ship anything. Today you just did it in less than an hour, from a standing start, with zero coding background for some of you.
-
-This is the most underappreciated thing happening in our era. Entire skill hierarchies that used to be gatekeepers, programming, graphic design, video editing, translation, legal drafting, are being dissolved by language models.
-
-The question you should be asking yourself is: what becomes possible for me, now that I don't need to learn these skills from scratch? What project do I have in the back of my head that I always said "I wish I could do that but I don't know how to code, I don't know how to design, I don't know how to write legalese"? That project is now accessible to you. This weekend. Think about it.
-
-Lesson four, and this is the one I keep coming back to because it moves me. A small anecdote. I met a medical doctor who built a full website for his practice without knowing a single line of code. Not "didn't know much", zero lines.
-
-What he did was ask an AI model to build a first version. Then he looked at the result and said "the appointment-booking form doesn't work on mobile." The model fixed it. He said "the colors are too corporate, I want something warmer." The model fixed it. He kept describing symptoms of the defects he saw, the way a patient describes pains in their abdomen, and the model corrected them, step by step, until he had a real working site.
-
-I think this is the archetype of the new literacy. Not "learn to code." Not "don't learn to code." Rather: learn to describe what you want precisely, learn to see what's wrong with what you got, learn to iterate patiently. That is a new kind of competence, and it is one of the things most worth practicing in the next five years. What you did today, for 45 minutes, building a silly website you'll mostly forget about, you were practicing exactly that.
+Lesson four, the doctor anecdote. A medical doctor I met built a full website for his practice without knowing a line of code. Zero lines. He asked an AI model for a first version, then said "the appointment-booking form doesn't work on mobile," and the model fixed it; "the colors are too corporate, I want something warmer," and the model fixed it. He kept describing symptoms of defects, the way a patient describes pains, until the site worked. That is the archetype of the new literacy: not "learn to code" or "don't learn to code," but learn to describe what you want precisely, see what's wrong with what you got, and iterate patiently. That is a competence worth practicing.
 
 ---
 
@@ -501,51 +504,7 @@ Three: on the draft of anything I publish, I run a fact-check pass, "identify an
 
 ---
 
-# 10. When to refuse, cases where you should close the laptop
-
-**Key points:**
-- Life-critical decisions where the human loop matters: medical, legal-trial, policy impacting many lives, anything irreversible.
-- Intimate creative work, the piece you're writing to honor a grandparent, the declaration you're writing to a partner. AI writes fine poetry (Porter & Machery 2024, *Scientific Reports*), but if the poem is meant to carry you in its making, let it carry you.
-- When you don't understand the question well enough yet. Using AI to skip the groping-around phase robs you of the thinking that makes you competent later.
-- When disclosure is impossible or would be dishonest, e.g. a personal letter, a handwritten note, a piece of signed art.
-- When you are tired and emotionally compromised. The model's sycophancy is maximally dangerous when you are seeking reassurance rather than truth.
-- The Bastani tutor study: students who depended on ChatGPT fell below baseline. Apply the same to yourself as an adult.
-
-Before we close, a short section on when to close the laptop. I talked about when to use. I want to be equally explicit about when not to.
-
-One framing that helps: at any moment while using these tools, ask yourself if you are in a state where the model's answer would actually serve you, versus a state where the model's answer would just give you permission to stop thinking. The first case, you should keep going. The second case, you should stop.
-
-This sounds obvious but it's subtle in practice because the sycophancy bias we discussed earlier is designed to make you feel served when you're actually being flattered into closing the loop prematurely. Noticing this in yourself is a skill that takes months to build.
-
-First: any life-critical decision where a human loop matters. Medical diagnosis that will lead to irreversible treatment. Legal strategy in a criminal trial. Policy choices that will affect many lives. Anything you cannot undo.
-
-I am not saying don't use the model to think about these things. I'm saying don't let the model be the final decision-maker. Keep a human in the loop, and ideally a specialist human. The model is an advisor. The decision is yours.
-
-Second: intimate creative work. The piece you're writing to honor a grandparent who just passed. The declaration you're writing to a partner. The speech at a friend's wedding. A 2024 paper by Porter and Machery in Scientific Reports showed AI poetry is, statistically, rated higher than human poetry by human judges. The technical capability is there. The model can write a beautiful elegy.
-
-But here's the thing, when you write something intimate, the writing itself is part of the gift. The hours you spent sitting with your memories of your grandmother, the three drafts you threw away, the sentence that came to you on the walk home, that process carries meaning. Delegating it to a model produces a polished text and hollows out the emotional labor that makes it a gift.
-
-So for those pieces, close the laptop, sit with the blank page, write it yourself. You will write something less polished and more real.
-
-Third: when you don't understand the question well enough yet. This is subtle. When you are in the early phase of thinking about a problem, you should be groping around, reading, taking notes, making wrong conjectures, correcting them. This groping is the process that builds your real understanding.
-
-If you skip it by asking the model "what's the answer?", you will get an answer, but you won't have the understanding that lets you defend it, extend it, or recognize when it's wrong. Let yourself grope. Come to the model with a specific question after you've done some groping.
-
-Fourth: when disclosure is impossible or would be dishonest. A handwritten personal letter. A signed piece of art. A spoken toast. These are genres where AI use is presumptively inauthentic, you can't really disclose "this spoken toast I'm giving was drafted by Claude" without undermining the toast. Don't use AI for those.
-
-Fifth, and this is the one that catches me when I catch myself, do not use the model when you are tired and emotionally compromised. I know this pattern in myself. It's late, I'm tired, I have a decision to make, and I type something into the chat that is really just seeking reassurance.
-
-"I'm thinking of doing X, what do you think?" And the sycophantic model tells me X is a great idea. And I go to sleep feeling validated. The next morning I realize X was a terrible idea and I had known it the whole time. The model gave me the reassurance I was seeking, not the truth I needed.
-
-When you notice this pattern in yourself, "I am asking the model because I want to be told I'm right", close the laptop. Sleep on it. Ask a human friend in the morning. Or sit with the discomfort of not knowing. That discomfort, for the record, is where judgment gets built.
-
-And last, I already made this point in the ethics section but let me close on it again. Go back to that Turkish high-school study I cited. When the researchers took ChatGPT away, the students who had used it as a crutch fell below the control group. Below. They were worse than classmates who had never had the tool.
-
-That is the risk profile of over-reliance. Apply it to yourself. If you notice that you no longer feel comfortable writing an email without pasting it into Claude first, you've crossed a line. Pull back. Write the next five emails by hand. Rebuild the muscle. The tool should strengthen you, not make you dependent on it.
-
----
-
-# 11. Recap, and a glance at Session 5
+# 10. Recap, and a glance at Session 5
 
 **Key points:**
 - The four failure modes: hallucinations, sycophancy, jagged intelligence, and confident-but-wrong reasoning. All persist. All can be managed.
@@ -585,7 +544,7 @@ If you leave this room today with exactly one habit changed, I'd want it to be t
 
 Over months, this habit calibrates both your own reasoning and your sense of the model's reliability. It takes 30 seconds per query. It compounds into years of intellectual sharpness. Try it this week. That's my homework for you.
 
-You have had, today, a walk through the mechanics, the failure modes, the mental models, the ethics, and the practice. You have a live website. You have a new workflow for research. You have a clearer sense of what you will not delegate. That's a good two hours.
+You have had, today, a walk through the mechanics, the failure modes, the mental models, the ethics, and the practice. You have a live URL, a homepage or an infograph. You have a new workflow for research. You have a clearer sense of what you will not delegate. That's a good two hours.
 
 Session five, next time, we zoom out. We will talk about what all of this does to society. The labor market, there's already a study showing that freelance writing jobs on platforms like Upwork dropped by 21 percent in the year after ChatGPT launched.
 
@@ -593,7 +552,7 @@ The political sphere, the "priest-prophet-king" figure, the leader of the future
 
 And the larger question: what does a well-lived life look like in a society where most labor is automated? Those are heavy questions and we'll spend two hours on them next session.
 
-Homework for the week: send me the link to the website you built today.
+Homework for the week: send me the link to whatever you built today, homepage or infograph.
 
 ---
 
