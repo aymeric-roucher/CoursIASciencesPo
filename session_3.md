@@ -1,4 +1,4 @@
-# Session 4: AI enters the workforce, the age of agents *Word-count target: 15,500 to 17,500 words (about 2 hours at 140 wpm).*
+# Session 3: AI enters the workforce, the age of agents *Word-count target: 15,500 to 17,500 words (about 2 hours at 140 wpm).*
 *Measured:* 16,408 words, 1h57m12s at 140 wpm, inside the target range.
 *Run:* `python3 cours_sciences_po/timer.py cours_sciences_po/session_4.md`
 
@@ -10,12 +10,12 @@
 
 **Key points:**
 
-- Locate Session 4 in the arc of the course.
-- Quick recap of Sessions 1 to 3: what an LLM is, how it learns, heuristics, scaling.
+- Locate Session 3 in the arc of the course.
+- Quick recap of Sessions 1 and 2: what an LLM is, how it learns, heuristics, scaling.
 - Tease the central question of today: how do we turn a text-predicting machine into something that actually *does* things?
 > Let me tell you, today is going to be different. We are going to write actual Python code together. Not a lot, not complicated, but enough that at the end of this session, you will each have, in your Google Drive, a little program that acts on your behalf: an AI agent. Yes, you heard me right. By the end of today, every one of you will have built your own miniature digital intern. A bit proud about that, I must admit.
 >
-> Let me take 2 minutes to remind you where we are in this course. Session 1, we opened the hood of the large language model. We saw that under all the talk of artificial intelligence, there is, essentially, a giant network of numbers, a Transformer that predicts the next sub-word in a sentence. Session 2, we went deeper: we looked at training, backpropagation, the way heuristics stack up inside the network to produce something that looks, from the outside, like reasoning. In Session 3, we took the wide-angle view: scaling laws, ultra-intelligence, the rocket taking off. OpenAI, Anthropic, Mistral, Meta, all betting hundreds of billions on the same empirical curve.
+> Let me take 2 minutes to remind you where we are in this course. Session 1, we opened the hood of the large language model. We saw that under all the talk of artificial intelligence, there is, essentially, a giant network of numbers, a Transformer that predicts the next sub-word in a sentence. We looked at training, backpropagation, the way heuristics stack up inside the network to produce something that looks, from the outside, like reasoning. In Session 2, we took the wide-angle view: scaling laws, ultra-intelligence, the rocket taking off. OpenAI, Anthropic, Mistral, Meta, all betting hundreds of billions on the same empirical curve.
 >
 > Today we pivot. We stop looking at the model in isolation and ask a very different question: *so what?* What can we actually do with this thing? A model that can write a beautiful sonnet but cannot order a pizza is not going to change the economy. A model that aces the baccalauréat in philosophy but cannot open your calendar is, let us be honest, a party trick. The gap between *dazzling capability* and *real-world impact* has been the puzzle of AI since 2022. And the key that closes that gap, the lever that turns a clever text-predictor into an actual worker, is the idea we are going to dismantle today: the *AI agent*.
 >
@@ -134,7 +134,7 @@ For the first time, you have a machine that is able to take our place. Until 202
 >
 > Now, why do I emphasize all this plumbing? Because this is the whole trick. There is no secret sauce. There is no magic. When somebody on LinkedIn tells you they have built a proprietary AI agent platform with patent-pending technology, what they have built is what you are about to write in 40 lines of Python. The art is not in the plumbing. The art is in *which tools you expose*, *how you describe them*, and *how you structure the system prompt*. Those are the levers. The loop itself is commodity.
 >
-> *[Figure 16, p. 71, notice how the diagram emphasizes the cycle. The arrows go in circles. The model never acts directly; it always goes through the executor. That separation is the whole security story of modern agents, by the way, it is the executor that decides whether a tool call is allowed or not. We will revisit this in Session 5 when we talk about safety.]*
+> *[Figure 16, p. 71, notice how the diagram emphasizes the cycle. The arrows go in circles. The model never acts directly; it always goes through the executor. That separation is the whole security story of modern agents, by the way, it is the executor that decides whether a tool call is allowed or not. We will revisit this in Session 4 when we talk about safety.]*
 >
 > One last conceptual point before the keyboard: I want to dismiss a common misconception. When people first hear about agents, they imagine the model has some form of *will*. Some intention. The model "wants" to search, it "decides" to calculate. Let me be clear: the model has no will.
 >
@@ -142,7 +142,7 @@ For the first time, you have a machine that is able to take our place. Until 202
 >
 > The *system*, the agent, exhibits behavior that looks agentive, because it loops and persists and recovers. But no individual step involves any mental state. This distinction will matter a lot when we discuss alignment and safety in later sessions. Do not anthropomorphize. The agent is a loop; the loop has no soul.
 >
-> Related: when an agent works, students often say "it understood the question." It is shorthand we all use, including me, and it is fine. But remember: "understanding", in this context, means "produced the right continuation tokens." It is the same mechanism as Session 2. Heuristics stacked on heuristics. No magic, just *a lot* of them, and just well-tuned enough that the output looks wise. With that caveat out of the way, let's code.
+> Related: when an agent works, students often say "it understood the question." It is shorthand we all use, including me, and it is fine. But remember: "understanding", in this context, means "produced the right continuation tokens." It is the same mechanism as Session 1. Heuristics stacked on heuristics. No magic, just *a lot* of them, and just well-tuned enough that the output looks wise. With that caveat out of the way, let's code.
 >
 > Ok, enough theory. Let's code.
 
@@ -232,7 +232,7 @@ For the first time, you have a machine that is able to take our place. Until 202
 >
 > Shift-Enter. You should see something like: "The capital of France is Paris." Congratulations. You just talked to one of the most powerful AI systems on the planet from your browser, in 10 seconds, with 8 lines of Python. 10 years ago this would have been science fiction. 5 years ago it would have required a research cluster. Today it is a homework exercise.
 >
-> Take a moment to appreciate that. We have become numb to the speed. In November 2022, ChatGPT was launched; here we are, and a high-schooler can bootstrap an API integration before lunch. The cost per token, as I mentioned in Session 3, has fallen by a factor of 100 since then. This is what the economists call *compute deflation*, and it is the wind at our back for the whole agent revolution.
+> Take a moment to appreciate that. We have become numb to the speed. In November 2022, ChatGPT was launched; here we are, and a high-schooler can bootstrap an API integration before lunch. The cost per token, as I mentioned in Session 2, has fallen by a factor of 100 since then. This is what the economists call *compute deflation*, and it is the wind at our back for the whole agent revolution.
 >
 > Alright, now let's actually build the agent.
 
@@ -473,7 +473,7 @@ For the first time, you have a machine that is able to take our place. Until 202
 >
 > If you double the productivity of those hours, which is what a 1-hour-horizon agent does, as we computed with Monsieur Dupont buying chairs, you get around $5 trillion of added output. 5000 billion dollars. For a single country. In a single year.
 >
-> Let that number sink in. 5 trillion dollars is roughly twice the GDP of France. It is the budget of the US federal government. It is three-quarters of total US corporate profits. And it is the prize for the company that owns the best agent. That is why Stargate, which we talked about in Session 3, is a $500 billion project. It is not expensive, it is cheap, given the prize.
+> Let that number sink in. 5 trillion dollars is roughly twice the GDP of France. It is the budget of the US federal government. It is three-quarters of total US corporate profits. And it is the prize for the company that owns the best agent. That is why Stargate, which we talked about in Session 2, is a $500 billion project. It is not expensive, it is cheap, given the prize.
 >
 > We constantly underestimate how fast the exponential take-off is going. Getting used to things getting faster is crazy hard, but we'll have to if we want to play a part. And to be concrete: even if the curve bends *tomorrow*, the agents we already have at one-hour horizon will already transform the economy. You do not need to bet on the sci-fi future to see the immediate impact. The train has already left the station. The question is how far it goes.
 >
@@ -528,7 +528,7 @@ For the first time, you have a machine that is able to take our place. Until 202
 >
 > OK, that was my demo. Any questions before we pivot to robotics?
 >
-> A note on hallucinations. Yes, agents still make stuff up. And this is a crucial point for Session 5, how to use them well. Agents are *less* hallucination-prone than raw chatbots, because they have tools to verify with, they can re-run a calculation, re-search a fact, re-read a file. But they are not immune. A good agent operator cross-checks. A great one builds verification tools *into the loop*, the agent checks its own work. That is the current frontier of agent engineering.
+> A note on hallucinations. Yes, agents still make stuff up. And this is a crucial point for Session 4, how to use them well. Agents are *less* hallucination-prone than raw chatbots, because they have tools to verify with, they can re-run a calculation, re-search a fact, re-read a file. But they are not immune. A good agent operator cross-checks. A great one builds verification tools *into the loop*, the agent checks its own work. That is the current frontier of agent engineering.
 >
 > On cost, most of these products work on subscription pricing, Cursor Pro is around 20 euros a month, Claude Code has a Max plan around 100 dollars a month, and the subscription gives you access to the frontier model with generous usage limits. If you go over, you pay per token. For a heavy professional user, the monthly cost is maybe 100 to 500 dollars. For a student, the student tiers are much cheaper or free. Compare that to a human intern at 1,500 euros a month, and the economics are obvious.
 >
@@ -536,7 +536,7 @@ For the first time, you have a machine that is able to take our place. Until 202
 >
 > If the tool is not in the list, the agent cannot call it, period. You as the designer decide which tools exist. The model cannot invent new ones.
 >
-> Second, modern agent frameworks have *human approval gates* for destructive actions: if the model wants to run a delete command, the framework pauses and asks you to confirm. Claude Code does this. Cursor does this. It is a deliberate friction, designed precisely because fully autonomous destructive action is too risky right now. In Session 5 we will look at cases where this gating fails or is bypassed, and what happens.
+> Second, modern agent frameworks have *human approval gates* for destructive actions: if the model wants to run a delete command, the framework pauses and asks you to confirm. Claude Code does this. Cursor does this. It is a deliberate friction, designed precisely because fully autonomous destructive action is too risky right now. In Session 4 we will look at cases where this gating fails or is bypassed, and what happens.
 >
 > Good questions. Let's move on.
 
@@ -729,7 +729,7 @@ For the first time, you have a machine that is able to take our place. Until 202
 **Key points:**
 
 - Recap of the session's four big ideas.
-- Tease Session 5 on using AI well and avoiding pitfalls.
+- Tease Session 4 on using AI well and avoiding pitfalls.
 - Quick assignment: build one agent of your own over the weekend.
 > Alright, we have covered a lot of ground. Let me recap in 4 bullets.
 >
@@ -747,7 +747,7 @@ For the first time, you have a machine that is able to take our place. Until 202
 >
 > For homework this weekend, I want you to do 2 things. One, extend the agent we built today. Add a third tool, your choice. Weather lookup, unit conversion, Wikipedia fetch, file read, anything. Use it on a real question you actually care about. Two, open your laptop and try Claude Code, or Cursor, or Gemini CLI, or whatever frontier agent you prefer, on a real task from your current week, write a history paper outline, plan a trip, analyse a dataset. Do not use it to cheat on homework; use it to understand what it is good at and bad at, so that in 5 years when you supervise one professionally, you already know.
 >
-> Next week, Session 5, we flip the lens. We have looked at what these tools can do. Next time we look at what they cost you if you use them wrong. Cognitive atrophy. Over-reliance. Hallucinations slipping through. The seductions of AI-generated content. The economy of attention that I describe in chapter 11, the virtual paradises, the artificial heavens that are quietly eating people's lives. If today was the hopeful session, Session 5 is the cautious one. They belong together.
+> Next week, Session 4, we flip the lens. We have looked at what these tools can do. Next time we look at what they cost you if you use them wrong. Cognitive atrophy. Over-reliance. Hallucinations slipping through. The seductions of AI-generated content. The economy of attention, the virtual paradises, the artificial heavens that are quietly eating people's lives. If today was the hopeful session, Session 4 is the cautious one. They belong together.
 >
 > Read chapters 10 and 11 of the book before the next session. Do the homework. Come with questions.
 >

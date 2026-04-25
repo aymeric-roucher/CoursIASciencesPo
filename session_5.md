@@ -1,6 +1,6 @@
-# Session 6. Societal consequences: alignment, work, research, and artificial paradises *Sciences Po Paris, undergraduate course on Artificial Intelligence*
+# Session 5. Societal consequences: alignment, work, research, and artificial paradises *Sciences Po Paris, undergraduate course on Artificial Intelligence*
 *Instructor: Aymeric Roucher*
-*Session 6 of 6, length target ~2 hours*
+*Session 5 of 5, length target ~2 hours*
 
 ---
 
@@ -10,31 +10,24 @@
 
 **Key points:**
 
-- We have reached the last of six sessions.
-- In Session 1 we rewound to Bletchley Park, Turing, and the Bombe; we traced how the idea of a "thinking machine" moved from cryptanalysis to perceptrons to the connectionist revival.
-- In Session 2 we built the modern neural network, from a single neuron, through backpropagation, to the Transformer, to the Large Language Model.
-- In Session 3 we climbed the ladder of intelligence: scaling laws, emergent capabilities, the jagged frontier, and the plausibility of ultra-intelligence.
-- In Session 4 we let those models act: we studied agents, the horizon of autonomy, the Claude-Code-and-Cursor style of coding assistant, and the beginnings of robotics.
-- In Session 5 we took the whole apparatus and turned it toward our own lives: how to use these tools well, how to prompt, how not to get dull.
-- Today, Session 6, we zoom out: what happens to human societies when an abundant, disembodied, ultra-capable intelligence becomes available to almost everyone?
+- We have reached the last of five sessions.
+- In Session 1 we rewound to Bletchley Park, Turing, and the Bombe; traced how the idea of a "thinking machine" moved from cryptanalysis to perceptrons to the connectionist revival; built the modern neural network, from a single neuron, through backpropagation, to the Transformer, to the Large Language Model.
+- In Session 2 we climbed the ladder of intelligence: scaling laws, emergent capabilities, the jagged frontier, and the plausibility of ultra-intelligence.
+- In Session 3 we let those models act: we studied agents, the horizon of autonomy, the Claude-Code-and-Cursor style of coding assistant, and the beginnings of robotics.
+- In Session 4 we took the whole apparatus and turned it toward our own lives: how to use these tools well, how to prompt, how not to get dull.
+- Today, Session 5, we zoom out: what happens to human societies when an abundant, disembodied, ultra-capable intelligence becomes available to almost everyone?
 - I want to be honest from the start: I am neither an economist nor a political thinker. So I will not pretend to hand you a crystal ball. What I can do is reason from first principles (from the ideas we built in the previous sessions) and project them one step ahead.
 > Today's lecture is precisely about what happens next: what AI does to a society, to a workplace, to a young person's life project.
 >
-> Let me start with a short recap, because I want the arc of the six sessions to be clear in your mind when you leave.
+> Let me start with a short recap, because I want the arc of the five sessions to be clear in your mind when you leave.
 >
-> In Session 1 we went back almost a century, to a cold brick building in Buckinghamshire called Bletchley Park, where a small group of mathematicians cracked the Enigma code with an electromechanical machine called the Bombe. Alan Turing was there. Irving John Good, whom we will meet again later today under the name "I.
+> In Session 1 we went back almost a century, to a cold brick building in Buckinghamshire called Bletchley Park, where a small group of mathematicians cracked the Enigma code with an electromechanical machine called the Bombe. Alan Turing was there. Irving John Good, whom we will meet again later today under the name "I. J. Good," was there. What mattered for us is that these people did not see themselves as AI researchers. They saw themselves as code-breakers. But they were doing, in practice, the first work on how to make a machine perform a task that had been the province of human minds. We then traced the story forward: the perceptron, the first AI winter, Yann LeCun and convolutional networks, the "deep learning conspiracy" of Hinton, Bengio, and LeCun in the 2000s. We got our hands dirty with the Large Language Model. We went from a single artificial neuron (a weighted sum with a non-linearity) through backpropagation and gradient descent, to the Transformer architecture of 2017, to ChatGPT in late 2022.
 >
-> J. Good," was there. What mattered for us is that these people did not see themselves as AI researchers.
+> In Session 2 we asked the sharpest question: how far can this go? We looked at the scaling laws, the fact that bigger models, more data, and more compute produce reliably better performance, along remarkably clean curves. We looked at the three fuels of the rocket: energy, data, and compute. We examined the counter-arguments: the horse-of-labor objection, the creativity objection, the consciousness objection. We arrived at what is now called ultra-intelligence: a superhuman, disembodied cognition, arriving in a handful of years, not decades.
 >
-> They saw themselves as code-breakers. But they were doing, in practice, the first work on how to make a machine perform a task that had been the province of human minds. We then traced the story forward: the perceptron, the first AI winter, Yann LeCun and convolutional networks, the "deep learning conspiracy" of Hinton, Bengio, and LeCun in the 2000s. That gave us a foundation.
+> In Session 3 we gave that cognition hands. We studied agents (systems that can plan, call tools, browse the web, execute code) and the key metric of the horizon of autonomy, the duration of tasks an agent can carry out without human intervention. We saw that this horizon has been doubling roughly every 7 months. We looked at Claude Code, Cursor, Devin, at the early wave of robotics: Figure, 1X, Boston Dynamics, Tesla Optimus. The punchline was that AI is leaving the chatbox.
 >
-> In Session 2 we got our hands dirty with the Large Language Model. We went from a single artificial neuron (a weighted sum with a non-linearity) through backpropagation and gradient descent, to the Transformer architecture of 2017, to ChatGPT in late 2022. We understood, I hope, why LLMs are so general: they are trained to predict the next sub-word across essentially all of the written corpus of humanity, and that trivial-sounding task forces them to acquire, as a side effect, a compressed model of language, of facts, and, increasingly, of reasoning.
->
-> In Session 3 we asked the sharpest question: how far can this go? We looked at the scaling laws, the fact that bigger models, more data, and more compute produce reliably better performance, along remarkably clean curves. We looked at the three fuels of the rocket: energy, data, and compute. We examined the counter-arguments: the horse-of-labor objection, the creativity objection, the consciousness objection. And we arrived at what the book I wrote last year calls ultra-intelligence: a superhuman, disembodied cognition, arriving in a handful of years, not decades.
->
-> In Session 4 we gave that cognition hands. We studied agents (systems that can plan, call tools, browse the web, execute code) and the key metric of the horizon of autonomy, the duration of tasks an agent can carry out without human intervention. We saw that this horizon has been doubling roughly every 7 months. We looked at Claude Code, Cursor, Devin, at the early wave of robotics: Figure, 1X, Boston Dynamics, Tesla Optimus. The punchline was that AI is leaving the chatbox.
->
-> In Session 5 we turned the camera around. What does all this mean for you, practically, as a student at Sciences Po in 2026? We discussed how to prompt well, how to pick the right model for the right task, how to use AI as a tutor without letting it rot your own thinking, and the difference between using the tool and letting the tool use you.
+> In Session 4 we turned the camera around. What does all this mean for you, practically, as a student at Sciences Po in 2026? We discussed how to prompt well, how to pick the right model for the right task, how to use AI as a tutor without letting it rot your own thinking, and the difference between using the tool and letting the tool use you.
 >
 > Today we zoom out one more click. Over the next two hours we will cover four societal consequences. First, alignment: the question of whether these systems will do what we actually want, and why that is mostly a technical problem, not a Terminator problem. Second, work: what happens to the economy and to the meaning of a human life when most cognitive tasks can be automated. Third, research: what happens to science when we put 1000 Einsteins in a data center. And fourth, what I call artificial paradises: the attention economy on steroids, the real risk that many of us will simply disappear into an AI-generated hall of mirrors.
 >
@@ -164,7 +157,7 @@
 >
 > Next, jobs requiring dexterous physical intervention in an unstructured environment. A plumber has to crawl into a crawl space, identify a leak whose exact location is not known in advance, reach around an obstacle, work with a wrench at an awkward angle, and manage an anxious customer. This is Moravec's paradox, the observation from roboticist Hans Moravec in the 1980s that what is easy for humans (walking, seeing, grasping) is hard for machines, and vice versa. Chess fell in 1997. Plumbing has not, yet.
 >
-> But do not mistake this for a durable moat. We saw the robotics curves in Session 4: Figure, 1X, Tesla Optimus, Boston Dynamics, Unitree. The data bottleneck is being solved right now, and once general-purpose humanoids become cheap, the physical-dexterity advantage collapses on the same timeline as the cognitive one, maybe a couple of years behind. The "blue-collar revenge" story you sometimes hear, where the plumber out-earns the corporate lawyer for the next generation, is a cliché, not a forecast. There is no revenge. There is a short reprieve.
+> But do not mistake this for a durable moat. We saw the robotics curves in Session 3: Figure, 1X, Tesla Optimus, Boston Dynamics, Unitree. The data bottleneck is being solved right now, and once general-purpose humanoids become cheap, the physical-dexterity advantage collapses on the same timeline as the cognitive one, maybe a couple of years behind. The "blue-collar revenge" story you sometimes hear, where the plumber out-earns the corporate lawyer for the next generation, is a cliché, not a forecast. There is no revenge. There is a short reprieve.
 >
 > Next, jobs where a human is legally required to bear responsibility. A judge. A surgeon. A pilot. We have been flying planes mostly on autopilot for 30 years; the legal and political infrastructure is the bottleneck, not the capability. Legal infrastructure, once economic pressure is strong enough, moves fast.
 >
@@ -462,7 +455,7 @@ Don't try to flee reality because it will eventually catch up. Whatever happens 
 
 **Key points:**
 
-- From Bletchley Park to ultra-intelligence, in six lectures.
+- From Bletchley Park to ultra-intelligence, in five lectures.
 - Four domains of societal consequence that you will encounter in your lifetime: alignment, work, science, paradises.
 - A set of figures and quotes to hold in mind: Turing, LeCun, the Transformer, the scaling laws, the agent horizon of autonomy, Midas, Ulysses, Arendt, Amodei, Tao, Huxley, Gandalf.
 - Final call: participate. Do not watch.
@@ -478,7 +471,7 @@ Don't try to flee reality because it will eventually catch up. Whatever happens 
 >
 > I will close with the line I opened the book with, which is mine, for what it is worth. "Humanity stands at the threshold of the greatest revolution in its history." I believed it when I wrote it. I believe it now, more strongly. The revolution is not someone else's. It is yours. Welcome to it.
 >
-> Thank you all for the six sessions. I will stay after class for questions, as usual. If you have longer questions, about careers, about the book, about further reading, send me an email and I will answer.
+> Thank you all for the five sessions. I will stay after class for questions, as usual. If you have longer questions, about careers, about the book, about further reading, send me an email and I will answer.
 
 ---
 
@@ -488,7 +481,7 @@ Don't try to flee reality because it will eventually catch up. Whatever happens 
 
 **Key points:**
 
-- I have no idea what you will actually ask. But in my experience, these are the questions that tend to come up at the end of session 6, and I want to have thought through them before you ask.
+- I have no idea what you will actually ask. But in my experience, these are the questions that tend to come up at the end of the final session, and I want to have thought through them before you ask.
 > Before I open the floor, let me pre-empt a couple of the questions I expect, in case we run short on time.
 >
 > First: "Are you optimistic or pessimistic?" Those are not the right categories. The material outcome is almost certainly very good, we are going to get abundant intelligence, cheap energy, radical advances in medicine and materials. The civilizational outcome, whether we use that abundance well or drown in it, is open, and it is being decided right now. Being engaged is a matter of duty.
@@ -530,4 +523,4 @@ Don't try to flee reality because it will eventually catch up. Whatever happens 
 - John Maynard Keynes, "Economic Possibilities for our Grandchildren" (1930)
 - Aymeric Roucher, *Ultra-Intelligence*, chapters 8 to 12, Figures 23, 24, 25
 
---- *End of Session 6. Thank you for these six lectures.*
+--- *End of Session 5. Thank you for these five lectures.*

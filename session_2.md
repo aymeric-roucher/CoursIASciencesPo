@@ -1,5 +1,5 @@
-# Session 3: How far will it go? *Word-count target: 15,500 to 17,500 words (about 2 hours at 140 wpm).*
-*Run:* `python3 cours_sciences_po/timer.py cours_sciences_po/session_3.md`
+# Session 2: How far will it go? *Word-count target: 15,500 to 17,500 words (about 2 hours at 140 wpm).*
+*Run:* `python3 cours_sciences_po/timer.py cours_sciences_po/session_2.md`
 
 ---
 
@@ -490,7 +490,7 @@
 **Key points:**
 
 - Recap: rocket, fuels, ceiling, wound.
-- Teaser for Session 4: we meet the workers, AI agents.
+- Teaser for Session 3: we meet the workers, AI agents.
 - Housekeeping: reading list, next-week question prompt.
 > Right. Two hours of running, we are almost at the finish. Let me pull it together.
 >
@@ -502,7 +502,7 @@
 >
 > And we ended on the fourth narcissistic wound. Copernicus, Darwin, Freud, AI. Intelligence is no longer uniquely ours. It is becoming abundant, cheap, and in many dimensions better-than-the-best-of-us. That is the cultural and philosophical event of this decade, and you are living through it, and I want you to take that seriously. Not with fear. With clarity.
 >
-> Next week, Session 4. We meet the workers. AI agents. The systems that take the language model we have been studying and give it hands. A tool box. A browser. A file system. A credit card. You will see how the loop works, we will build one together in code, and you will understand why the transition from "chatbot" to "employee" is the product transition that takes AI from curiosity to industrial revolution. If today was about "how smart can we make it," next week is about "so what can it actually do for me, right now, today." Come ready. Bring a laptop.
+> Next week, Session 3. We meet the workers. AI agents. The systems that take the language model we have been studying and give it hands. A tool box. A browser. A file system. A credit card. You will see how the loop works, we will build one together in code, and you will understand why the transition from "chatbot" to "employee" is the product transition that takes AI from curiosity to industrial revolution. If today was about "how smart can we make it," next week is about "so what can it actually do for me, right now, today." Come ready. Bring a laptop.
 >
 > Before you leave, two housekeeping items. First, the reading for next week is the GAIA benchmark paper by Mialon et al. 2023, 12 pages, straightforward. Please read it. I will be assuming you have. Second, if you take away one question from today, let it be this: what concepts in my own life rest on assumptions about human cognition that might stop being true?
 >

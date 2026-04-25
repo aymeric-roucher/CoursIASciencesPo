@@ -15,13 +15,13 @@
 
 > Today is going to be different. I am not going to read a history of AI off a slide. I am going to tell you a story, and the story has a twist: the machine at the end of it is, very probably, smarter than the person at the beginning.
 >
-> That is the arc of this course. 6 sessions. We start in 1940 in a hut in the English countryside, where a stuttering mathematician is trying to crack a German cipher, and we end, in Session 6, looking at curves that suggest the entity you will be talking to in a few years is, on most cognitive tasks that matter, better than you.
+> That is the arc of this course. 5 sessions. We start in 1940 in a hut in the English countryside, where a stuttering mathematician is trying to crack a German cipher, and we end, in Session 5, looking at curves that suggest the entity you will be talking to in a few years is, on most cognitive tasks that matter, better than you.
 >
 > Public reactions to this prospect split into two poles. Techno-optimists say AI will continue to develop rapidly, surpass human intelligence, and the future will be better for it. Skeptics say this is a false promise, AI will never match human intelligence. At both poles you find the same error: confusing what is *probable* with what is *desirable*. Optimists are often domain experts who want to see their efforts succeed. Skeptics are often the people who do not want this emergence to happen and reassure themselves by repeating that the rocket will not lift off. We are going to try to dodge that confusion. The argument of this course is that ultra-intelligence is possible and even probable, and that some of its consequences are dangerous and deserve serious study.
 >
 > One ground rule. We are AGI-pilled. We take as the working assumption, not a speculative possibility, that within the next few years humanity will build machines that outperform us on most cognitive tasks. We constantly underestimate how fast the exponential takeoff is going. Getting used to things getting faster is crazy hard, and we will have to if we want to play a part.
 >
-> The course follows a rocket metaphor. Today we look at the components: what a computer is, what a neural network is, how we got here. By the end of today, on the live demos, you will have seen the loss curve fall and the neurons specialize with your own eyes. Sessions 2 and 3 zoom in on the engine and the trajectory. Sessions 4 and 5 cover the agents and how to use them. Session 6 is the civilizational session: labor, power, what it means to be human in a world where cognition is no longer scarce.
+> The course follows a rocket metaphor. Today we look at the components: what a computer is, what a neural network is, how we got here. By the end of today, on the live demos, you will have seen the loss curve fall and the neurons specialize with your own eyes. Session 2 zooms in on the trajectory: scaling laws, ultra-intelligence. Sessions 3 and 4 cover the agents and how to use them in practice. Session 5 is the civilizational session: labor, power, what it means to be human in a world where cognition is no longer scarce.
 
 ---
 
@@ -414,7 +414,7 @@
 >
 > The pattern across 75 years is consistent. In 1950, nobody thought a machine could hold a conversation. In 1965, Jack Good was a fringe voice. In 1975, intelligent behavior was supposed to require either innate structure or careful construction. In 1985, neural networks were a failed program. In 2005, AI was in winter. In 2015, the idea that next-token prediction would yield a general-purpose reasoning engine sounded absurd. Each time the answer was: yes, and sooner than you think. The rest of the course will bet the pattern continues.
 >
-> Sessions 2 and 3 take us into the trajectory: scaling laws, the empirical curve OpenAI published in 2020 that drives every major training run today, and the fuels, compute, energy, data, talent. Sessions 4 and 5 take us into agents and into using these tools. Session 6 is the civilizational chapter.
+> Session 2 takes us into the trajectory: scaling laws, the empirical curve OpenAI published in 2020 that drives every major training run today, and the fuels of the rocket: compute, energy, data, talent. Sessions 3 and 4 take us into agents and into using these tools in practice. Session 5 is the civilizational chapter.
 >
 > Two small things before you leave. One: read Jack Good, *Speculations Concerning the First Ultraintelligent Machine*, 1965. Two pages, free at *vetta.org/documents/Intelligence_Explosion.pdf*. Two: go to *playgameoflife.com* and watch a glider gun for two minutes, then to *playground.tensorflow.org*, pick the spiral dataset, find the smallest network that separates the spirals. Two screenshots. Email me. Subject line: spiral.
 >

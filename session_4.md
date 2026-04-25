@@ -1,4 +1,4 @@
-# Session 5. Using AI in practice: tools, pitfalls, and a personal ethics
+# Session 4. Using AI in practice: tools, pitfalls, and a personal ethics
 
 *Sciences Po Paris, English-language course for undergraduates.*
 *Instructor: Aymeric Roucher, author of* Ultra-Intelligence. *2-hour session, target pace ≈ 140 wpm.*
@@ -8,12 +8,12 @@
 ## 0. Opening. What we are doing today
 
 **Key points:**
-- Pivot: we have spent four sessions on the inside of the rocket (neural networks, transformers, decoders, scaling laws, agents). Today we step outside and ask: what happens when a human being actually presses "Enter" on ChatGPT, Claude, or Gemini?
+- Pivot: we have spent three sessions on the inside of the rocket (neural networks, transformers, decoders, scaling laws, agents). Today we step outside and ask: what happens when a human being actually presses "Enter" on ChatGPT, Claude, or Gemini?
 - Goal: turn you into lucid, effective, ethical users of large language models in the next two hours.
 - Roadmap: (1) diagnose the most common failures: hallucinations, sycophancy, other biases; (2) build mental models for when to trust and when to verify; (3) tour the tools that matter right now, Deep Research, agentic assistants; (4) sketch a personal ethics of AI use; (5) hands-on live demo, build your own one-page website with Claude Code, with a fallback for students who don't have a laptop open in front of them.
-- Session 6 preview: "what does all of this do to society." Today is individual; next time is collective.
+- Session 5 preview: "what does all of this do to society." Today is individual; next time is collective.
 
-> Today is going to be different. We have four sessions behind us now, and I want you to feel the shift we're making today. Up to now we've been inside the engine room. We have opened the casing of a large language model, we've peered at the attention layer, we've followed a sub-word as it passes through billions of parameters, we've talked about scaling laws and agents and the course aux étoiles. That was, let's say, the physics of the rocket.
+> Today is going to be different. We have three sessions behind us now, and I want you to feel the shift we're making today. Up to now we've been inside the engine room. We have opened the casing of a large language model, we've peered at the attention layer, we've followed a sub-word as it passes through billions of parameters, we've talked about scaling laws and agents and the course aux étoiles. That was, let's say, the physics of the rocket.
 >
 > Today I want us to walk back outside, stand next to the launchpad, and ask the very pedestrian question: what do you, a 20-year-old Sciences Po student in April 2026, actually do with this thing? Because this is the part that matters for your daily life. You are going to spend the next 50 years of your career with these models as your colleagues.
 >
@@ -31,7 +31,7 @@
 >
 > And then, this is the part I am most excited about, we will open our laptops, and in 45 minutes you are each going to build and publish a personal one-page website using Claude Code. If you don't have a laptop, don't panic: I will walk you through Lovable, which is a sort of Claude Code for people who don't want to touch a terminal. By the end of this session, you should have a live URL you can send to your parents.
 >
-> Next session, Session 6, we zoom out again: what does all of this do to society, to elections, to war, to meaning? But that's for next time. Today stays close to your keyboard.
+> Next session, Session 5, we zoom out again: what does all of this do to society, to elections, to war, to meaning? But that's for next time. Today stays close to your keyboard.
 >
 > One last practical note before we start. I want this to be interactive. Interrupt me. If something I say contradicts your daily experience with these models, say so; your daily experience is evidence, not noise. If I use a term that doesn't land, flag it. If you have a workflow that you love and I haven't mentioned it, raise your hand and we'll discuss it.
 >
@@ -545,7 +545,7 @@
 
 ---
 
-## 11. Recap, and a glance at Session 6
+## 11. Recap, and a glance at Session 5
 
 **Key points:**
 - The four failure modes: hallucinations, sycophancy, jagged intelligence, and confident-but-wrong reasoning. All persist. All can be managed.
@@ -553,7 +553,7 @@
 - The six ethical principles: disclose, verify, don't atrophy, don't fabricate evidence, credit honestly, preserve practice without AI.
 - The toolkit: Deep Research for factual scans, agentic coding assistants like Claude Code for building, Lovable for no-terminal access.
 - The closing image, recycling the book's chapter 19: the lever is there. Learning to use it is up to you.
-- Session 6 preview, "what does all of this do to society?" Topics: labor market displacement (the book's chapter 10, the 21% drop in freelance writing jobs since ChatGPT); political influence (the book's chapter 13 and 16, Priest-Prophet-King); the end of work question (Arendt, Hegel, Russell); what the well-lived life might look like in a post-work society.
+- Session 5 preview, "what does all of this do to society?" Topics: labor market displacement (the 21% drop in freelance writing jobs since ChatGPT); political influence (the Priest-Prophet-King framing); the end of work question (Arendt, Hegel, Russell); what the well-lived life might look like in a post-work society.
 
 > Let me pull the threads together. We spent two hours, and I want to leave you with the five or six things I really want you to remember.
 >
