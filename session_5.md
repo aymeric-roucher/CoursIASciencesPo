@@ -1,10 +1,9 @@
-# Session 5. Societal consequences: alignment, work, research, and artificial paradises *Sciences Po Paris, undergraduate course on Artificial Intelligence*
-*Instructor: Aymeric Roucher*
-*Session 5 of 5, length target ~2 hours*
+# Session 5. Societal consequences: alignment, work, research, and artificial paradises
+
+*Sciences Po Paris, English-language course for undergraduates.*
+*2-hour session, target pace around 140 wpm.*
 
 ---
-
-#
 
 # 1. Opening and recap
 
@@ -37,7 +36,6 @@ I will be making predictions today. I will try to flag them clearly: when I say 
 
 ---
 
-#
 
 # 2. Alignment: why isn't it already Terminator?
 
@@ -118,7 +116,6 @@ The last thing I want to say about alignment is this: it is a technical problem,
 
 ---
 
-#
 
 # 3. The end of work? Labor economics, history, and the meaning of a day
 
@@ -249,7 +246,6 @@ I will close this section with Diderot's aphorism, which heads the relevant chap
 
 ---
 
-#
 
 # 4. The explosion of research
 
@@ -327,7 +323,6 @@ What should you take from all this, practically? Two things. First, science is a
 
 ---
 
-#
 
 # 5. Artificial paradises and the attention economy
 
@@ -407,7 +402,6 @@ But I do not want to pretend that regulation will solve the problem alone. The p
 
 ---
 
-#
 
 # 6. Putting it together, what to do
 
@@ -449,7 +443,6 @@ One final thought on this. There is a beautiful passage at the end of *Lord of t
 
 ---
 
-#
 
 # 7. Closing: the six-session arc
 
@@ -475,7 +468,6 @@ Thank you all for the five sessions. I will stay after class for questions, as u
 
 ---
 
-#
 
 # 8. Suggested Q&A prompts
 
@@ -500,7 +492,6 @@ All right. The floor is yours. Let me hear what you have.
 
 ---
 
-#
 
 # 9. Bibliography and source list **Key sources cited in this session:** - Anthropic, *Golden Gate Claude* (May 2024), [https://www.anthropic.com/news/golden-gate-claude](https://www.anthropic.com/news/golden-gate-claude)
 - Anthropic, *Mapping the Mind of a Large Language Model*, [https://www.anthropic.com/research/mapping-mind-language-model](https://www.anthropic.com/research/mapping-mind-language-model)

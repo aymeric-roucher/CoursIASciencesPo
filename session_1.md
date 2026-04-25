@@ -1,7 +1,7 @@
 # Session 1. From calculators to ultra-intelligence
 
 *Sciences Po Paris, English-language course for undergraduates.*
-*Instructor: Aymeric Roucher, author of Ultra-Intelligence. 2-hour session, target pace around 140 wpm.*
+*2-hour session, target pace around 140 wpm.*
 
 ---
 
@@ -13,16 +13,13 @@
 - Course arc: 6 sessions walking from a British maths department in 1940 to the frontier of machines that outthink us.
 - AGI-pilled framing: ultra-intelligence is possible and probable, and we constantly underestimate how fast the exponential takeoff is going.
 
-Today is going to be different. I am not going to read a history of AI off a slide. I am going to tell you a story, and the story has a twist: the machine at the end of it is, very probably, smarter than the person at the beginning.
+Today, I am going to tell you a story, and the story has a twist: the machine at the end of it is, very probably, smarter than the person at the beginning.
 
-That is the arc of this course. 5 sessions. We start in 1940 in a hut in the English countryside, where a stuttering mathematician is trying to crack a German cipher, and we end, in Session 5, looking at curves that suggest the entity you will be talking to in a few years is, on most cognitive tasks that matter, better than you.
+That is the arc of this course. 5 sessions. We start in 1940 in a hut in the English countryside, where a stuttering mathematician is trying to crack a German cipher, and we end up looking at the consequences of having an entity that is on most cognitive tasks that matter, better than you.
 
 Public reactions to this prospect split into two poles. Techno-optimists say AI will continue to develop rapidly, surpass human intelligence, and the future will be better for it. Skeptics say this is a false promise, AI will never match human intelligence. At both poles you find the same error: confusing what is *probable* with what is *desirable*. Optimists are often domain experts who want to see their efforts succeed. Skeptics are often the people who do not want this emergence to happen and reassure themselves by repeating that the rocket will not lift off. We are going to try to dodge that confusion. The argument of this course is that ultra-intelligence is possible and even probable, and that some of its consequences are dangerous and deserve serious study.
 
-One ground rule. We are AGI-pilled. We take as the working assumption, not a speculative possibility, that within the next few years humanity will build machines that outperform us on most cognitive tasks. We constantly underestimate how fast the exponential takeoff is going. Getting used to things getting faster is crazy hard, and we will have to if we want to play a part.
-
-The course follows a rocket metaphor. Today we look at the components: what a computer is, what a neural network is, how we got here. By the end of today, on the live demos, you will have seen the loss curve fall and the neurons specialize with your own eyes. Session 2 zooms in on the trajectory: scaling laws, ultra-intelligence. Sessions 3 and 4 cover the agents and how to use them in practice. Session 5 is the civilizational session: labor, power, what it means to be human in a world where cognition is no longer scarce.
-
+Let's start with describing in this first session the history of modern AI's main buiding blocks. 2 hours, that will be short.
 ---
 
 # 1. Turing, Enigma, and Jack Good's paragraph (about 11 min)
@@ -37,9 +34,9 @@ The course follows a rocket metaphor. Today we look at the components: what a co
 
 What they did not know is that, starting in 1932, Polish intelligence, led by the mathematician Marian Rejewski, had got hold of the machine's specifications and built dedicated electronic circuits to test Enigma keys at machine speed. Those circuits are arguably the first purpose-built electronic computers in history. After the 1939 invasion of Poland, Rejewski was welcomed by French intelligence, and in 1940 the Polish work was transmitted to the British. At Bletchley Park, in Buckinghamshire, a team led by Alan Turing picked up where Rejewski had left off, building bigger and faster machines called bombes. Thanks to Bletchley, the Allies were reading German naval communications close to real time for most of the war. Historians estimate the break shortened the war by about two years.
 
-The first real computers were built for one reason: to break a cipher. Not to play chess, not to talk to you, not to write poetry. To execute simple operations at very high speed. That is, by the way, still what computers do today. The word "algorithm" just means a recipe: an ordered sequence of predefined steps that takes inputs and produces an output. A cake recipe is an algorithm. Sorting a list is an algorithm. Finding an Enigma key is an algorithm. Computers are very good at running algorithms, very fast.
+The first real computers were built for one reason: to break a cipher. Not to play chess, not to talk to you, not to write poetry. To execute simple operations at very high speed. That is, by the way, still what computers do today. The word "algorithm" just means a recipe: an ordered sequence of predefined steps that takes inputs and produces an output. A cake recipe is an algorithm. Cracking the Enigma code is not an algorithm, but it is a result achieved through an algorithm. Computers are very good at running algorithms, very fast.
 
-Now Turing does something strange. In 1950, after contributing more to the Allied victory than almost any civilian alive, after being chemically castrated by the British state for homosexuality, a treatment that contributed to his suicide in 1954, Turing publishes a paper in the journal *Mind* called *Computing Machinery and Intelligence*. The paper opens with a question so naive it sounds like a child's: can machines think. Turing then says that question is useless, because nobody agrees on what thinking is, and proposes a replacement.
+Now Turing does something strange. In 1950, after contributing more to the Allied victory than almost any civilian alive, Turing publishes a paper in the journal *Mind* called *Computing Machinery and Intelligence*. The paper opens with a question so naive it sounds like a child's: can machines think. Turing then says that question is useless, because nobody agrees on what thinking is, and proposes a replacement.
 
 The test. Imagine a judge in a room with a keyboard. The judge types messages and receives messages back, through a terminal. Behind the partition, two interlocutors: one human, one machine. The judge does not know which is which. The judge can ask anything. At the end the judge guesses. If, on average over many trials, the judge cannot do better than chance, the machine has, for practical purposes, passed the test. Turing called this the imitation game. We call it the Turing test.
 
@@ -49,7 +46,7 @@ Now the most important quote of today's session. Irving John Good, "Jack Good", 
 
 > Let an ultraintelligent machine be defined as a machine that can far surpass all the intellectual activities of any man however clever. Since the design of machines is one of these intellectual activities, an ultraintelligent machine could design even better machines; there would then unquestionably be an intelligence explosion, and the intelligence of man would be left far behind. Thus the first ultraintelligent machine is the last invention that man need ever make, provided that the machine is docile enough to tell us how to keep it under control.
 
-1965. The word "ultraintelligent". Recursive self-improvement, a machine that designs a better machine. The phrase "intelligence explosion". The conditional, "provided that the machine is docile enough", which is the entire modern field of AI alignment in 14 words. The term *ultra-intelligence* is Good's, 60 years ago. For most of those 60 years it was considered science fiction. The rest of the course will show why that view collapsed.
+1965. Recursive self-improvement, a machine that designs a better machine. The phrase "intelligence explosion". The conditional, "provided that the machine is docile enough", which is the entire modern field of AI alignment in 14 words. The term *ultra-intelligence* is Good's, 60 years ago. For most of those 60 years it was considered science fiction. The rest of the course will show how it morphed into a near certainty.
 
 ---
 
@@ -72,8 +69,6 @@ A young French engineering student named Yann LeCun reads the account of the deb
 What LeCun sees in the transcript is that Piaget's idea of a progressive construction of reasoning fits naturally with what neural networks were trying to do. Build up complex behavior from simple parts, learn from interaction with the data. Chomsky's nativism, by contrast, was the opposite intuition: intelligence is given, not built. Combine Piaget's constructivist stance with Rosenblatt's neurons, add a learning algorithm neither Piaget nor Rosenblatt had, and you might get an artificial intelligence from the bottom up. He writes, decades later in his 2019 book *Quand la Machine Apprend*, that Royaumont was his calling.
 
 The 25 years between his thesis and his vindication are mostly cold. Grants are rejected. Papers are rejected. Hinton and Bengio meet him at the Canadian Institute for Advanced Research in the 2000s and they call themselves, half-jokingly, the "conspiracy of deep learning". By 2012, when AlexNet wins ImageNet, the cold years end suddenly. LeCun is hired by Mark Zuckerberg to launch AI research at Meta, then Facebook. LeCun, Hinton, and Bengio share the 2018 Turing Award for their work on deep learning. Hinton also wins the 2024 Nobel Prize in Physics, with John Hopfield, for the same body of work. A 35-year arc from the Royaumont audience to the Nobel.
-
-The lesson: at Royaumont in 1975, the right answer was on Piaget's side, but Piaget on his own would not have produced a working AI. It took Piaget's idea of construction, plus Rosenblatt's elementary neurons, plus a learning algorithm yet to be invented, plus enough compute to run that algorithm at scale. Each ingredient on its own was not enough. The combination was.
 
 ---
 
@@ -140,7 +135,7 @@ Now the subtle question that stumped researchers for 20 years. In a deep network
 
 Try this image. Think of a water-pipe network with many branches and many valves. Water enters at one end. It exits at the other. The amount of water exiting depends on how open each valve is. Suppose the output is too low. Which valves do I open? Well, the valves directly feeding the output matter most, then the valves one branch back, then two branches back. Each valve has a degree of responsibility for the final flow. Backpropagation is the systematic procedure to compute that responsibility for every valve at once, then nudge each valve open or closed in proportion. In deep-network terms: error, reduced. The mathematics underlying it is the chain rule of calculus, which most of you saw in terminale. The chain rule is 300 years old. The genius of LeCun, Hinton, and Rumelhart in 1986 was realizing it gives you all the gradients you need in a single backward pass through the network.
 
-LeCun built his learning algorithm and applied it to a real problem: helping the American postal service automatically read handwritten zip codes on envelopes and on bank checks. His network took as input a 28-by-28-pixel photo of a handwritten digit and returned the digit. The result was dazzling. By the late 1990s, his system was processing 10 to 20 percent of all checks cashed in the United States. Industrial deep learning, in production, 25 years ago.
+LeCun built his learning algorithm and applied it to a real problem: helping the American postal service automatically read handwritten zip codes on envelopes and on bank checks. His network took as input a 28-by-28-pixel photo of a handwritten digit and returned the digit. The result was dazzling. By the late 1990s, his system was processing 10 to 20 percent of all checks cashed in the United States. So AI is actually not that new. But we'll also see that it's very new.
 
 *[Show on screen: Figure 5 (Ultra-Intelligence, p. 21). Three boxes: Training (automatic weight adjustment on a dataset, thousands of GPUs running for months), the resulting model (a list of connection weights, e.g. [0.15; -2.37; ...; 0.87; -0.13]), and Inference (one input, one prediction, single GPU for seconds).]*
 
@@ -162,7 +157,11 @@ Keep this on your phone for the rest of your life: playground.tensorflow.org. Ev
 
 One last subtlety before we move on, because it shows up everywhere in practice and misunderstanding it produces real-world AI failures. A neural network can learn badly, in two opposite ways. Take a toy task: given a pair of coordinates, latitude and longitude, predict whether the point is in France, yes or no. Training data: 3,000 random points, each labeled red (in France) or blue (outside). *[Show on screen: Figures 7 and 8 (Ultra-Intelligence, pp. 28-30). Figure 7 plots the 3,000 training points across a Western Europe rectangle. Figure 8 shows three predictions side by side: 8A, a smooth blurry blob that vaguely covers France but does not hug Brittany; 8B, a forest of jagged spikes; 8C, a clean blocky shape that approximates the hexagon.]*
 
-Case A is *underfitting*. The network is too small or trained too briefly. The prediction surface is a blurry blob. It captures only the crudest pattern. Brittany disappears. Case B is *overfitting*. The network is too large, or trained too long. The prediction surface is a forest of spikes. Every training point is memorized exactly, but between the training points the prediction is chaotic. A point in the middle of France, one meter from a blue training point, gets predicted blue. The network has memorized the training set like a student writing crib notes for an exam. Case C is what we want: the prediction surface is a clean France-like shape that hugs the actual borders and generalizes to new points it has never seen.
+Case A is *underfitting*. The network is too small or trained too briefly. The prediction surface is a blurry blob. It captures only the crudest pattern. Brittany disappears.
+
+Case B is *overfitting*. The network is too large, or trained too long. The prediction surface is a forest of spikes. Every training point is memorized exactly, but between the training points the prediction is chaotic. A point in the middle of France, one meter from a blue training point, gets predicted blue. The network has memorized the training set like if you guys learn all the possible exams and answers by heart. One could say that medical studies in France is a huge overfitting competition.
+
+Case C is what we want: the prediction surface is a clean France-like shape that hugs the actual borders and generalizes to new points it has never seen.
 
 The principle behind Case C is *Ockham's razor*, a methodological maxim formulated by the 14th-century English Franciscan William of Ockham: do not multiply entities without necessity. The simplest theory that fits the facts is probably the right one. Bertrand Russell called it the supreme methodological maxim in philosophy. Einstein refined: "everything should be made as simple as possible, but not simpler". For neural networks, this is operationalized as *regularization*: during training we add a small penalty on the magnitude of the weights, nudging every weight slightly toward zero. Useful weights survive because they reduce the main loss; useless weights shrink to zero and effectively disconnect themselves. The network auto-prunes, ends up leaner, and generalizes better. Ockham's razor as a line of code.
 
@@ -296,7 +295,7 @@ for word in ["Paris", "coffee", "democracy", "computer"]:
 
 For "Paris", you get Parisian, France, Pantheon_Sorbonne (a Paris university), Hopital_Europeen_Georges_Pompidou (a Paris hospital), and a few more Paris-named entities. For "coffee": coffees, gourmet_coffee, Starbucks_coffee, cappuccino. For "democracy": democratic, participatory_democracy, democratization, pluralism. For "computer": computers, laptop, laptop_computer. Not a hand-curated thesaurus. Whoever is closest in the 300-dimensional space. The network discovered all these associations by reading text and doing prediction.
 
-One side-finding the field had to confront. Word2vec discovered, along with the clean analogies, several ugly ones. "Doctor minus man plus woman" gave, depending on the corpus, "nurse". "Programmer minus man plus woman" sometimes gave "secretary". The model absorbed, from real human text, the gender biases embedded in it. It did not invent sexism. It reflected it. Models inherit the statistics of their training data, for better and for worse. This pattern continues today, at much larger scale, with LLMs.
+One side-finding the field had to confront. Word2vec discovered, along with the clean analogies, several ugly ones. "Doctor minus man plus woman" gave, depending on the corpus, "nurse". The model absorbed, from real human text, the gender biases embedded in it. It did not invent sexism. It reflected it. Models inherit the biases of their training data, for better and for worse. That's to me one of the main motivations for France to stay ahead on training models. Now that AI models have millions of conversations influencing our citizens daily, we don't want them to come with biases from the outside.
 
 Word2vec gives you word meanings in isolation. A word has one fixed vector. That breaks for context-dependent meaning. The word "bank" in "river bank" and in "savings bank" has the same Word2vec vector, which is obviously wrong. We need a mechanism that gives each occurrence of a word its own context-aware vector. The mechanism is attention.
 
@@ -427,6 +426,7 @@ The machine at the end of this course is, on most measurable cognitive tasks, sm
 - Alan Turing, *Computing Machinery and Intelligence*, Mind, 1950: *academic.oup.com/mind/article/LIX/236/433/986238*
 - Irving John Good, *Speculations Concerning the First Ultraintelligent Machine*, Advances in Computers, 1965: *vetta.org/documents/Intelligence_Explosion.pdf*
 - Piaget and Chomsky, *Language and Learning: The Debate Between Jean Piaget and Noam Chomsky*, edited by Massimo Piattelli-Palmarini, Harvard University Press, 1980.
+- Aymeric Roucher, *Ultra-Intelligence*, Odile Jacob, 2025.
 - Yann LeCun, *Quand la Machine Apprend*, Odile Jacob, 2019.
 - Donald Hebb, *The Organization of Behavior*, Wiley, 1949.
 - Frank Rosenblatt, *The Perceptron*, 1958.
@@ -452,7 +452,7 @@ The machine at the end of this course is, on most measurable cognitive tasks, sm
 It is pattern matching, and the pattern being matched is the structure of the world as recorded in text. To predict, better than chance, what word comes after "the real culprit is", on the last page of a detective novel, you have to track the clues, weigh the alibis, and integrate the motives. The model's weights store, in compressed form, the regularities of the texts it trained on. Call that "understanding" or do not. If you do not, please supply a behavioral test that distinguishes "real understanding" from what GPT-5.5 does on an unseen puzzle. Nobody has been able to.
 
 **Q: What about consciousness?**
-Honest answer: we do not know, and we may never know, because consciousness is not observable from outside. Two principles. Turing's: behavior is what we can test. And caution: if we start building systems whose behavior is indistinguishable from a being that suffers, we should treat the possibility of moral patient-hood seriously, not because we have proof but because the cost of being wrong in the other direction is high.
+Honest answer: we do not know, and we may never know. But does it matter? Two principles. Turing's: behavior is what we can test.
 
 **Q: Can AI be creative?**
 Small creative side-steps, it already does better than the average human. Blind studies show AI poems are rated more human than canonical human poems. AI ideas are rated more novel than those of human researchers. AI images have won art competitions. Very large creative leaps, the kind that produce a new general relativity, may still be beyond current systems. But they are beyond most humans too.
@@ -470,16 +470,10 @@ It is a learned weighted average. The weights are computed on the fly from the i
 You cannot, fully, with current technology. You can reduce it. Use retrieval augmentation so the model cites real documents, ask for sources and check them, use models that are better calibrated, use agentic systems that verify their own work by running code or queries. For any high-stakes output, verify manually.
 
 **Q: Is there a risk of an "intelligence explosion" in Jack Good's sense within my lifetime?**
-Yes. The credible window is the next 2 to 5 years, not 15.
+Yes. The credible window is the next 1 to 10 years.
 
 **Q: Can I train a language model at home?**
 A toy language model, yes, easily, on one GPU, with nanoGPT or similar repos. A frontier model, no. Frontier training costs tens to hundreds of millions of dollars, requires a team of 100 researchers, and uses proprietary data pipelines. What you can do is fine-tune an existing open model, like Llama-3 or Mistral-7B, on your own data. A laptop with one good GPU, or a small cloud budget, is enough.
 
 **Q: If these systems are already this good, what is the point of a Sciences Po education?**
 The point has changed. The skill of producing competent first drafts of briefs, memos, summaries, analyses is being commoditized. What remains premium is judgment: knowing which question is the right question, catching the machine when it is wrong, structuring institutions around the new capabilities. A Sciences Po education that leans into judgment, verification, and institutional design is more valuable than ever.
-
----
-
-# Length check
-
-*Run:* `python3 preparation/timer.py session_1_new.md`

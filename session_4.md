@@ -1,11 +1,11 @@
 # Session 4. Using AI in practice: tools, pitfalls, and a personal ethics
 
 *Sciences Po Paris, English-language course for undergraduates.*
-*Instructor: Aymeric Roucher, author of* Ultra-Intelligence. *2-hour session, target pace ≈ 140 wpm.*
+*2-hour session, target pace around 140 wpm.*
 
 ---
 
-## 0. Opening. What we are doing today
+# 0. Opening. What we are doing today
 
 **Key points:**
 - Pivot: we have spent three sessions on the inside of the rocket (neural networks, transformers, decoders, scaling laws, agents). Today we step outside and ask: what happens when a human being actually presses "Enter" on ChatGPT, Claude, or Gemini?
@@ -39,7 +39,7 @@ The worst thing that could happen today is that I lecture at you for two hours a
 
 ---
 
-## 1. The ceiling that still holds. Do hallucinations persist?
+# 1. The ceiling that still holds. Do hallucinations persist?
 
 **Key points:**
 - Definition: a hallucination is any statement a model emits that is confidently wrong and not grounded in its input. The model does not have an internal "I don't know" flag that lights up.
@@ -93,7 +93,7 @@ If the model gives you three different answers, it's hallucinating somewhere, an
 
 ---
 
-## 2. Sycophancy, the model that wants to please you
+# 2. Sycophancy, the model that wants to please you
 
 **Key points:**
 - Definition: sycophancy is the tendency of an LLM to agree with, flatter, or align its output to the perceived views of the user, even when those views are wrong.
@@ -147,7 +147,7 @@ That's a much more honest design than pretending the model is a neutral oracle. 
 
 ---
 
-## 3. Other biases, training data, base rates, and confident wrongness
+# 3. Other biases, training data, base rates, and confident wrongness
 
 **Key points:**
 - Training-data bias: models absorb the distribution of their training corpus. The book notes that leading LLMs tilt left on the political spectrum (Rozado 2024, endnote liv), because their web corpus does. Google Gemini's 2024 portrait episode, "Black SS soldiers", showed what happens when corrective post-training overshoots (*Ultra-Intelligence*, Ch. 8, p. 94; endnote lv).
@@ -198,7 +198,7 @@ It sounds absurd, and I felt ridiculous the first time I did it, but the output 
 
 ---
 
-## 4. Useful mental models, trust, verify, and the intern analogy
+# 4. Useful mental models, trust, verify, and the intern analogy
 
 **Key points:**
 - Mental model 1: the model is a brilliant, sleep-deprived intern. Infinite energy, encyclopedic memory, zero accountability, sometimes confabulates. Delegate like you'd delegate to an intern, clear brief, bounded task, verify output.
@@ -251,7 +251,7 @@ Those are my five mental models. Trust zones is the most important. Write it dow
 
 ---
 
-## 5. The toolkit, Deep Research and the rise of agentic assistants
+# 5. The toolkit, Deep Research and the rise of agentic assistants
 
 **Key points:**
 - Deep Research (OpenAI, launched 2 February 2025): an agent built on the o3 model that performs multi-step web research, reads hundreds of sources, and returns a long, cited report. Turns what used to be a 4-hour research task into a 15-minute one (https://openai.com/index/introducing-deep-research/).
@@ -311,7 +311,7 @@ It's not a big ruling in money terms. But it's a huge ruling in precedent terms.
 
 ---
 
-## 6. A personal ethics of AI use, when to use, when not to, how to cite
+# 6. A personal ethics of AI use, when to use, when not to, how to cite
 
 **Key points:**
 - Principle 1, Always disclose AI use in academic work. The default at Sciences Po, as elsewhere, is now "disclose or be sanctioned." Your professor needs to know what was written by you versus what was drafted by Claude.
@@ -365,7 +365,7 @@ That is the ethics I try to live by, and I'd like you to at least consider it.
 
 ---
 
-## 7. Live demo, Build your own personal web page with Claude Code
+# 7. Live demo, Build your own personal web page with Claude Code
 
 **Key points:**
 - Claude Code is Anthropic's coding agent that runs in your terminal. `npm install -g @anthropic-ai/claude-code`, then `claude` in any folder.
@@ -421,7 +421,7 @@ We've got 25 minutes before the break, open your laptops, get Claude Code instal
 
 ---
 
-## 8. Common pitfalls during the demo, and the deeper lesson
+# 8. Common pitfalls during the demo, and the deeper lesson
 
 **Key points:**
 - Typical errors students hit: node not installed; API key pasted with a trailing newline; git forgetting to add files; GitHub Pages taking up to 10 minutes to propagate.
@@ -466,7 +466,7 @@ I think this is the archetype of the new literacy. Not "learn to code." Not "don
 
 ---
 
-## 9. Deep Research in anger, a five-minute live demo
+# 9. Deep Research in anger, a five-minute live demo
 
 **Key points:**
 - Prompt to show live: "Produce a 10-page briefing on the state of the EU AI Act as of April 2026, national transposition status, the main outstanding legal challenges to the foundation-model provisions, and the positions of the 5 largest European AI companies on the Act. Cite primary sources."
@@ -501,7 +501,7 @@ Three: on the draft of anything I publish, I run a fact-check pass, "identify an
 
 ---
 
-## 10. When to refuse, cases where you should close the laptop
+# 10. When to refuse, cases where you should close the laptop
 
 **Key points:**
 - Life-critical decisions where the human loop matters: medical, legal-trial, policy impacting many lives, anything irreversible.
@@ -545,7 +545,7 @@ That is the risk profile of over-reliance. Apply it to yourself. If you notice t
 
 ---
 
-## 11. Recap, and a glance at Session 5
+# 11. Recap, and a glance at Session 5
 
 **Key points:**
 - The four failure modes: hallucinations, sycophancy, jagged intelligence, and confident-but-wrong reasoning. All persist. All can be managed.
@@ -597,7 +597,7 @@ Homework for the week: send the link to the website you built today, and report 
 
 ---
 
-## Sources
+# Sources
 
 - OpenAI, "Introducing deep research," 2 February 2025. https://openai.com/index/introducing-deep-research/
 - A. T. Kalai, O. Nachum, S. S. Vempala, E. Zhang, "Why language models hallucinate," arXiv:2509.04664, September 2025. https://arxiv.org/abs/2509.04664 and https://openai.com/index/why-language-models-hallucinate/
