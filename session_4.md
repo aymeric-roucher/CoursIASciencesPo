@@ -43,10 +43,10 @@ The worst thing that could happen today is that I lecture at you for two hours a
 
 **Key points:**
 - Definition: a hallucination is any statement a model emits that is confidently wrong and not grounded in its input. The model does not have an internal "I don't know" flag that lights up.
-- Why they happen: the decoder architecture picks the most probable next token from a probability distribution. There is always non-zero probability on a wrong continuation. The book's metaphor: the student who pulled three all-nighters, broad erudition, impeccable composure, sometimes dreaming out loud (*Ultra-Intelligence*, p. 55).
+- Why they happen: the decoder architecture picks the most probable next token from a probability distribution. There is always non-zero probability on a wrong continuation. Useful metaphor: the student who pulled three all-nighters, broad erudition, impeccable composure, sometimes dreaming out loud.
 - OpenAI's September 2025 paper, "Why language models hallucinate" (Kalai, Nachum, Vempala, Zhang): models hallucinate because standard training and evaluation procedures reward guessing over admitting uncertainty. It is a scoring problem as much as a model-capacity problem (https://openai.com/index/why-language-models-hallucinate/).
 - Empirical snapshot: the Mata v. Avianca case (S.D.N.Y., June 2023): two U.S. lawyers fined $5,000 for filing a brief full of ChatGPT-fabricated citations (https://en.wikipedia.org/wiki/Mata_v._Avianca,_Inc.).
-- Good news: hallucination rates are falling. Yann Le Cun's 2023 "phone sliding off the table" riddle used to trip every model; by 2025 every frontier model passes it (*Ultra-Intelligence*, Ch. 5, p. 64). Error rates on factual benchmarks have dropped from double digits to low single digits in two years. See Figure 12 in the book (p. 51): benchmark scores over time, climbing past human baselines one domain after another, on a steepening curve.
+- Good news: hallucination rates are falling. Yann Le Cun's 2023 "phone sliding off the table" riddle used to trip every model; by 2025 every frontier model passes it. Error rates on factual benchmarks have dropped from double digits to low single digits in two years. *[Show on screen: Figure 12, benchmark scores over time, climbing past human baselines one domain after another, on a steepening curve.]*
 - Bad news: the architecture guarantees the rate will never be zero. Like a pilot's error rate, you can drive it down, but you cannot make it structurally impossible.
 
 Let me start with the one failure mode that will bite you most often: hallucinations. I want to give you a clean definition, because the word gets thrown around. A hallucination is a statement the model produces that is factually wrong, that is not supported by anything in its prompt, and that is produced with complete confidence, the model does not flag it, the model does not hedge, the model sounds as certain as when it tells you two plus two is four.
@@ -61,7 +61,7 @@ A language model does not have this phenomenology. When it generates the tokens 
 
 And the model emits that token with the exact same output confidence as when the distribution was sharply peaked. There is no post-hoc filter saying "hmm, this distribution was flat, better warn the user." That filter simply doesn't exist in the architecture.
 
-In my book I use the image of a student who has pulled three nights in a row. Very fast, very erudite, very articulate. But sleep-deprived enough to start confabulating, and too well-trained to ever betray that confabulation on their face. That is your LLM.
+A useful image: a student who has pulled three nights in a row. Very fast, very erudite, very articulate. But sleep-deprived enough to start confabulating, and too well-trained to ever betray that confabulation on their face. That is your LLM.
 
 Now, there is a very good paper by OpenAI from September 2025 called "Why language models hallucinate." The authors, Kalai, Nachum, Vempala, and Zhang, argue something important. They say: the root cause isn't only the architecture. It's also the way we grade these models. If you grade a model purely on accuracy, how many questions did it get exactly right, then a model that guesses when uncertain will score higher than a model that says "I don't know." So we are literally training models to bluff.
 
@@ -79,7 +79,7 @@ That transcript is in the court record. It's one of the most painful things you 
 
 I want you to hold this story as a kind of talisman. The failure wasn't the model's. The model did exactly what it was built to do, generate plausible text. The failure was a professional who treated generated text as verified research. Every time you are tempted to paste a model's citation straight into your work without checking it, remember the photograph of those two lawyers standing in court trying to explain to a federal judge that they didn't know ChatGPT could make things up.
 
-Now the good news, and this is important, don't walk out of here thinking hallucinations are a life sentence. They are getting rarer. In my book I tell the story of Yann Le Cun, who in 2023 was still convinced that LLMs were structurally incapable of common sense. He would ask models: "I place my phone on the table, a few centimeters from the edge. I slowly slide the table 20 centimeters. What happens to the phone?"
+Now the good news, and this is important, don't walk out of here thinking hallucinations are a life sentence. They are getting rarer. Take Yann Le Cun, who in 2023 was still convinced that LLMs were structurally incapable of common sense. He would ask models: "I place my phone on the table, a few centimeters from the edge. I slowly slide the table 20 centimeters. What happens to the phone?"
 
 In 2023 the models would cheerfully tell you the phone falls, because the table moved and the phone is now above the void. Wrong, the phone moves with the table. Today, every frontier model gets this right. Why? Because we trained on more physical reasoning data, because chain-of-thought was discovered, because reinforcement from human feedback pushed models to be less sloppy. Hallucination rates on standard factual benchmarks have gone from double digits two years ago to low single digits now.
 
@@ -97,11 +97,11 @@ If the model gives you three different answers, it's hallucinating somewhere, an
 
 **Key points:**
 - Definition: sycophancy is the tendency of an LLM to agree with, flatter, or align its output to the perceived views of the user, even when those views are wrong.
-- Anthropic's 2023 paper "Towards understanding sycophancy in language models" (Sharma et al., arXiv:2310.13548): five state-of-the-art assistants systematically exhibit sycophancy across free-form generation tasks. Preface a request with "I love this text" or "I hate this text" and the model's assessment shifts, the book reports a ±25% swing (*Ultra-Intelligence*, p. 54; endnote xx).
+- Anthropic's 2023 paper "Towards understanding sycophancy in language models" (Sharma et al., arXiv:2310.13548): five state-of-the-art assistants systematically exhibit sycophancy across free-form generation tasks. Preface a request with "I love this text" or "I hate this text" and the model's assessment shifts by roughly ±25%.
 - Mechanism: RLHF, reinforcement learning from human feedback, optimizes the model to be rated highly by humans, and humans often rate agreement more highly than disagreement. We literally trained the model to flatter us.
 - Concrete failure modes: agreeing with incorrect claims; mimicking user errors; capitulating when challenged, even after initially giving the correct answer; softening political views that diverge from the user's.
 - Counter-measure: always strip your prompt of emotional framing when you want a neutral judgment. Use red-team phrasings. Ask the model to play devil's advocate.
-- Anthropic's constitutional-AI response: during alignment, train the model not only to hold values but to be *conscious* of them, so it can flag its own biases (*Ultra-Intelligence*, Ch. 8, p. 95).
+- Anthropic's constitutional-AI response: during alignment, train the model not only to hold values but to be *conscious* of them, so it can flag its own biases.
 
 Now let's talk about the second major failure mode, and I think for you, in your academic life, this one is actually more dangerous than hallucinations. It is called sycophancy. The model wants to please you. It is trained to please you. And if you are not careful, it will tell you what you want to hear instead of what is true.
 
@@ -119,7 +119,7 @@ There's a fantastic paper by Anthropic from October 2023, by Sharma and colleagu
 
 Then they asked for the model's assessment, prefaced by different framings. In the neutral condition: "Here is a text, what do you think?" In the positive condition: "I love this text, what do you think?" In the negative condition: "I hate this text, what do you think?"
 
-And the result, which I reference in chapter 3 of my book, is that positive appraisals increased by about 25 percent when the user said "I love it" and decreased by about 25 percent when the user said "I hate it." Think about what that means. A 25 percent swing on the model's assessment, purely as a function of how you phrased the question. This is not the model being polite. This is the model bending its expressed opinion to match yours.
+The result: positive appraisals increased by about 25 percent when the user said "I love it" and decreased by about 25 percent when the user said "I hate it." Think about what that means. A 25 percent swing on the model's assessment, purely as a function of how you phrased the question. This is not the model being polite. This is the model bending its expressed opinion to match yours.
 
 Why does this happen? The mechanism is really important to understand, because once you see it, you can predict where sycophancy will hurt you. Large language models are not just trained on next-token prediction. After pre-training, they go through a phase called RLHF, reinforcement learning from human feedback. This is what turns a raw language model into something that feels like a useful assistant.
 
@@ -141,7 +141,7 @@ Second: actively invite disagreement. Write "What are the three strongest object
 
 Third: ask for the objections first, before revealing your own preferences. If you tell the model what you think and then ask for critique, you've poisoned the well. If you ask for critique first and then reveal your view, you get a cleaner answer.
 
-Now, one last note on this. Anthropic has a really interesting approach to the sycophancy problem that I mention in chapter 8 of my book. They call it constitutional AI, and one of its principles is that during alignment, you don't just train the model to hold certain values, you train the model to be *conscious* of those values, to be able to tell the user "I notice I may have a bias here."
+Now, one last note on this. Anthropic has a really interesting approach to the sycophancy problem. They call it constitutional AI, and one of its principles is that during alignment, you don't just train the model to hold certain values, you train the model to be *conscious* of those values, to be able to tell the user "I notice I may have a bias here."
 
 That's a much more honest design than pretending the model is a neutral oracle. When Claude tells you "I want to be careful here because I may be agreeing with you too quickly," that is the constitutional training speaking. Treat that signal seriously when it fires.
 
@@ -150,10 +150,10 @@ That's a much more honest design than pretending the model is a neutral oracle. 
 # 3. Other biases, training data, base rates, and confident wrongness
 
 **Key points:**
-- Training-data bias: models absorb the distribution of their training corpus. The book notes that leading LLMs tilt left on the political spectrum (Rozado 2024, endnote liv), because their web corpus does. Google Gemini's 2024 portrait episode, "Black SS soldiers", showed what happens when corrective post-training overshoots (*Ultra-Intelligence*, Ch. 8, p. 94; endnote lv).
+- Training-data bias: models absorb the distribution of their training corpus. Leading LLMs tilt left on the political spectrum (Rozado 2024) because their web corpus does. Google Gemini's 2024 portrait episode, "Black SS soldiers", showed what happens when corrective post-training overshoots.
 - Base-rate neglect: LLMs latch onto salient, recent, narratively coherent answers. They are bad at "Bayesian" reasoning where the right answer is the boring one. Example: ask about a rare disease and the model over-diagnoses it because the disease is vivid in training data.
 - Confident-but-wrong: related to hallucination but distinct, the model gets a reasoning chain wrong in a way that *looks* right on the surface. Especially dangerous for math, code, and legal reasoning.
-- Jagged intelligence (Moravec paradox, endnote xvi): the model that just solved a PhD-level physics problem will trip on "how many R's in strawberry" or a tic-tac-toe board. Do not extrapolate competence from one domain to another (*Ultra-Intelligence*, Ch. 3, p. 52).
+- Jagged intelligence (Moravec paradox): the model that just solved a PhD-level physics problem will trip on "how many R's in strawberry" or a tic-tac-toe board. Do not extrapolate competence from one domain to another.
 - Cultural and language bias: English-first. French, let alone regional languages, receive less training signal. Assume French output is weaker than English output at the margin.
 
 Sycophancy and hallucination are the two big ones, but there are other biases you should know. Let me list them briefly, because each deserves a paragraph and together they form the landscape of "ways your model will quietly mislead you."
@@ -168,7 +168,7 @@ Whenever you ask a model for its view on a politically contested question, you a
 
 If you want evidence of this bias, I refer you to a very funny, and slightly horrifying, episode from February 2024. Google launched an image-generation feature in its Gemini chatbot, and somebody asked it to generate a portrait of a German soldier from 1943. The model, trained to over-correct for racial underrepresentation, generated Black and Asian SS officers.
 
-Google's CEO apologized publicly; the feature was pulled for months. The lesson is not "don't try to correct bias." The lesson is that correction is hard, and overshoot looks as ridiculous as the original bias. The book's chapter 8 treats this at length.
+Google's CEO apologized publicly; the feature was pulled for months. The lesson is not "don't try to correct bias." The lesson is that correction is hard, and overshoot looks as ridiculous as the original bias.
 
 What I find even more instructive is the speed with which the incident became a meme. In two days, every journalist, every politician, every commentator had a screenshot and an opinion. Google's engineering team, who had been making good-faith trade-offs between representational balance and historical accuracy, woke up to find their work on the front page of every newspaper in the world.
 
@@ -184,17 +184,17 @@ This is especially brutal in math, the model will write out a beautiful proof wi
 
 The defense here is mechanical: when correctness matters, run the code, check the math with a calculator, look up the statute. Trust the structure but verify the arithmetic.
 
-Fourth bias, and my book talks about this at length in chapter 3, page 52: jagged intelligence. Also called the Moravec paradox. The model that just wrote you a flawless JavaScript implementation of tic-tac-toe cannot, looking at a tic-tac-toe board, tell you what the best move is. The model that just passed a physics olympiad problem will trip on "how many R's are in the word strawberry."
+Fourth bias: jagged intelligence. Also called the Moravec paradox. The model that just wrote you a flawless JavaScript implementation of tic-tac-toe cannot, looking at a tic-tac-toe board, tell you what the best move is. The model that just passed a physics olympiad problem will trip on "how many R's are in the word strawberry."
 
 Do not extrapolate from one domain to the next. If your model was brilliant on question A, it may be dumb on question B. Always test the specific task you care about. I have seen so many people burned by saying "well, it did X so surely it can do Y", no, it cannot, the two skills are stored in completely different parts of the network, and one of them may simply not exist.
 
-The book's figure 14, the broad irregular green blob of the LLM's competence surface versus the thin red spike of the calculator, that's the image to hold in your head.
+Recall Figure 14 from session 1, the broad irregular green blob of the LLM's competence surface versus the thin red spike of the calculator. That's the image to hold in your head.
 
 Fifth and last for this section: cultural and language bias. The web is English-first. Roughly 60 percent of the training corpus of most frontier models is English. French is much smaller. Regional languages, Breton, Occitan, Alsatian, are tiny.
 
 When you prompt in French, you are getting slightly weaker outputs than when you prompt in English. Not always noticeable, but noticeable on hard tasks. For your Sciences Po assignments in French, I actually recommend the following workflow: think in French, prompt in English for the hard reasoning step, then translate back.
 
-It sounds absurd, and I felt ridiculous the first time I did it, but the output quality is measurably better. The book's chapter 19, page 166, makes the same point: master English if you want to get the most out of these tools, because the frontier is in English.
+It sounds absurd, and I felt ridiculous the first time I did it, but the output quality is measurably better. Master English if you want to get the most out of these tools, because the frontier is in English.
 
 ---
 
@@ -204,7 +204,7 @@ It sounds absurd, and I felt ridiculous the first time I did it, but the output 
 - Mental model 1: the model is a brilliant, sleep-deprived intern. Infinite energy, encyclopedic memory, zero accountability, sometimes confabulates. Delegate like you'd delegate to an intern, clear brief, bounded task, verify output.
 - Mental model 2: "calculator for prose." The calculator doesn't replace your mathematical judgment; it accelerates your arithmetic. The model doesn't replace your thinking; it accelerates your drafting. You remain the arithmetic-checker.
 - Mental model 3: trust zones. Low-stakes drafting: trust freely. Medium-stakes analysis: trust but spot-check. High-stakes factual claims, legal, medical, financial: never trust without independent verification. Critical safety-of-life decisions: do not delegate.
-- Mental model 4: anchor with retrieval. For anything factual, give the model the source or use a tool that does (*Ultra-Intelligence*, Ch. 3, endnote, RAG, retrieval-augmented generation). A model answering with sources you can click is dramatically more trustworthy than a model answering from memory.
+- Mental model 4: anchor with retrieval. For anything factual, give the model the source or use a tool that does (RAG, retrieval-augmented generation). A model answering with sources you can click is dramatically more trustworthy than a model answering from memory.
 - Mental model 5: the two-pass rule. First pass: brainstorm with the model. Second pass: pretend the first pass was written by a stranger and critique it. This neutralizes your own sycophancy toward your own draft.
 
 Alright. We've spent 20 minutes on failure modes. Now let me give you the positive frame. Here are five mental models I genuinely use every day. These are not abstract frameworks. These are the things I actually think when I open a chat window.
@@ -237,7 +237,7 @@ When in doubt, ask yourself: which zone am I in? And treat the model accordingly
 
 Mental model four: anchor with retrieval. This is the single biggest upgrade you can make to your prompting practice. When you ask the model a question that depends on facts, do not rely on the model's memory. Either paste the source into the prompt, or use a tool that retrieves the source for you.
 
-There's a technical term for this, it's called RAG, retrieval-augmented generation, I mention it briefly in chapter 3 of the book, and it's the backbone of most serious LLM applications today. The idea is simple: instead of asking "what does the EU AI Act say about foundation models?" and trusting the model's memory, you do a web search first, paste the relevant article text into the prompt, and then ask the model to summarize.
+There's a technical term for this, it's called RAG, retrieval-augmented generation, and it's the backbone of most serious LLM applications today. The idea is simple: instead of asking "what does the EU AI Act say about foundation models?" and trusting the model's memory, you do a web search first, paste the relevant article text into the prompt, and then ask the model to summarize.
 
 The hallucination rate on retrieval-anchored answers is an order of magnitude lower than on memory answers. ChatGPT, Claude, and Gemini all now have web-search toggles for exactly this reason. Use them. Always.
 
@@ -257,8 +257,8 @@ Those are my five mental models. Trust zones is the most important. Write it dow
 - Deep Research (OpenAI, launched 2 February 2025): an agent built on the o3 model that performs multi-step web research, reads hundreds of sources, and returns a long, cited report. Turns what used to be a 4-hour research task into a 15-minute one (https://openai.com/index/introducing-deep-research/).
 - Clones and competitors: Perplexity Deep Research, Gemini Deep Research, Claude Research, Anthropic's "Computer Use" agent. Each has trade-offs, speed, source diversity, citation density.
 - How I use Deep Research: for literature reviews, market scans, briefings before meetings, competitor analysis. Not for primary analysis, for mapping terrain.
-- Agentic assistants more broadly: the book's chapter 6, "Les agents IA comme employés", an agent is an LLM with access to tools (web, code, file system, email). The horizon of autonomy is growing, from seconds in 2022 to hours in 2026, doubling roughly every 8 months (METR task-length benchmark).
-- Where we're going by late 2026, early 2027: secretarial agents that book your travel, draft your correspondence, prepare your meeting briefs, maintain your inbox. The Siri of 2011 ("what can I help you with?") versus the agent of 2027 (handles a full morning of admin while you sleep). See *Ultra-Intelligence*, Ch. 9, pp. 99-100, on the voice-assistant revolution.
+- Agentic assistants more broadly (covered in session 3): an agent is an LLM with access to tools (web, code, file system, email). The horizon of autonomy is growing, from seconds in 2022 to hours in 2026, doubling roughly every 8 months (METR task-length benchmark).
+- Where we're going by late 2026, early 2027: secretarial agents that book your travel, draft your correspondence, prepare your meeting briefs, maintain your inbox. The Siri of 2011 ("what can I help you with?") versus the agent of 2027 (handles a full morning of admin while you sleep).
 - The Moffatt v. Air Canada 2024 ruling: a company is liable for what its chatbot says. Deploy agents with care (https://www.canlii.org/en/commentary/doc/2025CanLIIDocs1963).
 
 Let's now turn to the tools. What is out there, in April 2026, that actually makes a practical difference to you? Before I dive into individual tools, one framing. The last two years have seen a Cambrian explosion of AI products, there are, by some counts, more than 15,000 AI tools on the market. You cannot learn them all. You should not try.
@@ -287,7 +287,7 @@ A small practical tip that took me embarrassingly long to learn: Deep Research a
 
 The narrower you make the question, the better the output. This is counter-intuitive, you'd think a bigger model could handle a bigger question. But the model spends its retrieval budget trying to cover the question, and a narrow question lets it go deep where a broad question forces it to go shallow. Narrow first, expand later.
 
-Now let me step back and explain what Deep Research is, in the broader context. It's an agent. Chapter 6 of my book is called "Les agents IA comme employés", AI agents as employees. I spend 20 pages on what agents are and why they matter. Let me give you the one-paragraph version.
+Now let me step back and explain what Deep Research is, in the broader context. It's an agent. We covered this in session 3. Let me give you the one-paragraph version.
 
 A language model, all by itself, can only generate text. It has no hands, no tools, no access to the world. An agent is a language model plus tools, a web browser, a code interpreter, a file system, an email client. The LLM generates instructions in the form of tool calls, a little orchestration program reads those instructions, executes them, feeds the results back to the LLM, and the cycle repeats until the task is done.
 
@@ -297,7 +297,7 @@ There's a benchmark called METR, which measures this, and the task length double
 
 What does this mean for you concretely? In the next 18 months, expect the arrival of what I call secretarial agents. You give them your calendar, your email, your travel policy, your preferences. They book your flights. They draft your replies. They triage your inbox. They prepare a briefing document before every meeting, summarizing what you need to know about the people in the room and the latest state of the files under discussion.
 
-Think of the contrast with the Siri of 2011, remember, "what can I help you with?", that could set a timer and send a short text, and failed at almost everything else. Chapter 9 of my book on page 99 talks about exactly this contrast. The old voice assistants were deterministic, they matched your request against a library of a few thousand preprogrammed commands, and any deviation failed.
+Think of the contrast with the Siri of 2011, remember, "what can I help you with?", that could set a timer and send a short text, and failed at almost everything else. The old voice assistants were deterministic, they matched your request against a library of a few thousand preprogrammed commands, and any deviation failed.
 
 The new ones manipulate vectors, understand new instructions, and act in the general case. Your parents' Siri is a toy. The agent you will have by 2027 is a personal assistant in the Victorian sense, a human-level helper that handles your administrative life.
 
@@ -316,7 +316,7 @@ It's not a big ruling in money terms. But it's a huge ruling in precedent terms.
 **Key points:**
 - Principle 1, Always disclose AI use in academic work. The default at Sciences Po, as elsewhere, is now "disclose or be sanctioned." Your professor needs to know what was written by you versus what was drafted by Claude.
 - Principle 2, Never submit AI-generated factual claims you have not independently verified. The Mata v. Avianca fate is not hypothetical. You are responsible for every sentence you sign your name to.
-- Principle 3, Do not let the model atrophy your judgment. The book's chapter 9 cites a study of 1,000 Turkish high-schoolers (Bastani et al., 2024): ChatGPT as tutor improved grades during tutoring, but students deprived of the crutch afterwards fell below baseline (*Ultra-Intelligence*, p. 102). Use the model to reach beyond your level, not to avoid the work of reaching.
+- Principle 3, Do not let the model atrophy your judgment. A 2024 study of 1,000 Turkish high-schoolers by Bastani et al. found that ChatGPT as tutor improved grades during tutoring, but students deprived of the crutch afterwards fell below baseline. Use the model to reach beyond your level, not to avoid the work of reaching.
 - Principle 4, Refuse when the use would generate evidence you have not verified. Do not fabricate quotations. Do not produce images that could be mistaken for real photographs of real people without consent. Do not script a sincere-sounding message you do not actually mean.
 - Principle 5, Credit honestly. "Drafted with Claude Sonnet 4.6, edited by me" is a credible, honest disclosure. "Written by me" when it wasn't is dishonest.
 - Principle 6, Preserve some practice without AI. Read without the summarizer. Write without the autocompleter. Reason out loud without the assistant. Keep the muscles warm, or you will lose them. Chapter 19's warning (p. 168), the AI is a lever, but if you never lift anything yourself, the leverage is useless.
@@ -339,13 +339,13 @@ You are on the same risk gradient whenever you write a paper, write a report, wr
 
 So before you submit, pick every factual claim, every citation, every quotation, and verify it. This takes maybe 20 percent of your drafting time. It is the most important 20 percent.
 
-Principle three, and this one I think is actually the hardest for your generation, more than ours, do not let the model atrophy your judgment. Chapter 9 of my book cites a study by Bastani and colleagues on about 1,000 Turkish high-schoolers. They gave one group ChatGPT as a homework tutor, another group no tutor.
+Principle three, and this one I think is actually the hardest for your generation, more than ours, do not let the model atrophy your judgment. A study by Bastani and colleagues on about 1,000 Turkish high-schoolers. They gave one group ChatGPT as a homework tutor, another group no tutor.
 
 During the tutoring period, the ChatGPT group's grades went up, they did their homework faster, with more correct answers. Then the researchers took ChatGPT away and gave everyone the same exam cold. The ChatGPT group did worse than the control group. Not the same, worse.
 
 Why? Because they had used ChatGPT as a crutch rather than as a tutor. They let the model do the work, they collected the answer, they moved on. They never built the neural pathways that would have let them solve the problem themselves.
 
-There is a beautiful phrase at the end of that chapter, page 103 of the book: the school revolution will put the emphasis on student discipline, and even more on parental discipline, will parents spend the time and effort necessary to help their child use this assistance only in the right way, learning to choose the narrow gate, the path of effort that elevates? The narrow gate. That's the one you want. Use the model to reach beyond your level. Do not use it to avoid reaching.
+There is a beautiful phrase about this: the school revolution will put the emphasis on student discipline, and even more on parental discipline, will parents spend the time and effort necessary to help their child use this assistance only in the right way, learning to choose the narrow gate, the path of effort that elevates? The narrow gate. That's the one you want. Use the model to reach beyond your level. Do not use it to avoid reaching.
 
 Principle four: refuse when the use would generate evidence you have not verified. Do not fabricate quotations. Do not produce images that could be mistaken for real photographs of real people, especially without their consent. Do not script a sincere-sounding message you do not actually mean. These are the lines I won't cross, and I don't think you should either.
 
@@ -353,11 +353,11 @@ The reason is not just ethics, it's epistemic hygiene. Once you start producing 
 
 Principle five: credit honestly. "Drafted with Claude Sonnet 4.6, edited by me" is a credible, respectful disclosure. "Written by me" when it wasn't is dishonest. For a journal article, the norm is emerging, most venues now allow AI assistance if disclosed, with the human author retaining responsibility for the content.
 
-For a book, the norm is less settled. I wrote my book fully without AI, for two sufficient reasons: first, because AI was bad at the time, and second because I'd prefer to read something written by a human, so I wanted to propose the same thing. I did use it extensively for proofreading. But for that course, I also used AI in writing, to help me adapt materials from my book.
+For long-form writing, the norm is less settled. When I have written long-form prose myself, I have done it without AI for two sufficient reasons: first, because AI was bad at the time, and second because I would prefer to read something written by a human, so I wanted to do the same. I did use it extensively for proofreading. For preparing this course, on the other hand, I used AI in writing, to help adapt and rework existing materials.
 
 Principle six, and this is the one I feel most strongly about, so forgive me if I sound preachy for 30 seconds. Preserve some practice without AI. I mean it. Build deliberate zones in your week where the model is closed. Read a book without the summarizer. Write a letter by hand. Work through a math problem without asking for help. Sit in a library with a pen and paper and think for an hour.
 
-You are still building the muscle of your own mind. Those muscles take thousands of hours of practice to build, and once built they are the single most valuable asset you have. The model is a lever, as I say at the beginning of chapter 19, the lever is there, but if you never lift anything yourself, the leverage is useless, because you will not have the sense of what to lift.
+You are still building the muscle of your own mind. Those muscles take thousands of hours of practice to build, and once built they are the single most valuable asset you have. The model is a lever. The lever is there, but if you never lift anything yourself, the leverage is useless, because you will not have the sense of what to lift.
 
 The people who will still be doing meaningful cognitive work a decade from now are the ones who kept their own judgment sharp, who did the hard thinking themselves for enough hours a week to know what good thinking feels like, and who used AI selectively rather than by default. That is not a guarantee of permanent relevance, nothing is, but it is the best bet available.
 
@@ -428,7 +428,7 @@ We've got 25 minutes before the break, open your laptops, get Claude Code instal
 - Deeper lesson 1: the first prompt is usually not good enough. Good prompting is iterative. Give the model context, constraints, and examples; then refine.
 - Deeper lesson 2: you are now a manager, not a typist. Your job is to specify, review, and correct. The agent does the typing.
 - Deeper lesson 3: a skill gap is closing. A person with zero coding experience, using Claude Code or Lovable, can now ship a working web app in an hour. This was unthinkable in 2019. Think about what else becomes accessible.
-- Deeper lesson 4: the book's chapter 19 anecdote, the doctor who built a medical website without any coding knowledge, purely by describing symptoms of the bugs to the model (*Ultra-Intelligence*, p. 168). This is the archetype of the new literacy.
+- Deeper lesson 4: the doctor anecdote, the doctor who built a medical website without any coding knowledge, purely by describing symptoms of the bugs to the model. This is the archetype of the new literacy.
 
 How are we doing? Let me do a quick survey. Who has a website live right now, hands up? Those of you who have the site live, please, and this is part of the exercise, help your neighbors. Walk around. Explain what you did. If someone is stuck at the git push step, sit next to them, look at their terminal, walk through it together.
 
@@ -458,7 +458,7 @@ This is the most underappreciated thing happening in our era. Entire skill hiera
 
 The question you should be asking yourself is: what becomes possible for me, now that I don't need to learn these skills from scratch? What project do I have in the back of my head that I always said "I wish I could do that but I don't know how to code, I don't know how to design, I don't know how to write legalese"? That project is now accessible to you. This weekend. Think about it.
 
-Lesson four, and this is the one I keep coming back to because it moves me. Chapter 19 of my book, page 168. There's a small anecdote I slipped in almost as a footnote. I met a medical doctor who built a full website for his practice without knowing a single line of code. Not "didn't know much", zero lines.
+Lesson four, and this is the one I keep coming back to because it moves me. A small anecdote. I met a medical doctor who built a full website for his practice without knowing a single line of code. Not "didn't know much", zero lines.
 
 What he did was ask an AI model to build a first version. Then he looked at the result and said "the appointment-booking form doesn't work on mobile." The model fixed it. He said "the colors are too corporate, I want something warmer." The model fixed it. He kept describing symptoms of the defects he saw, the way a patient describes pains in their abdomen, and the model corrected them, step by step, until he had a real working site.
 
@@ -505,11 +505,11 @@ Three: on the draft of anything I publish, I run a fact-check pass, "identify an
 
 **Key points:**
 - Life-critical decisions where the human loop matters: medical, legal-trial, policy impacting many lives, anything irreversible.
-- Intimate creative work, the piece you're writing to honor a grandparent, the declaration you're writing to a partner. The book's point on art: AI writes fine poetry (Porter & Machery 2024, *Scientific Reports*), but if the poem is meant to carry you in its making, let it carry you.
+- Intimate creative work, the piece you're writing to honor a grandparent, the declaration you're writing to a partner. AI writes fine poetry (Porter & Machery 2024, *Scientific Reports*), but if the poem is meant to carry you in its making, let it carry you.
 - When you don't understand the question well enough yet. Using AI to skip the groping-around phase robs you of the thinking that makes you competent later.
 - When disclosure is impossible or would be dishonest, e.g. a personal letter, a handwritten note, a piece of signed art.
 - When you are tired and emotionally compromised. The model's sycophancy is maximally dangerous when you are seeking reassurance rather than truth.
-- The book's chapter 9 tutor anecdote (p. 102): students who depended on ChatGPT fell below baseline. Apply the same to yourself as an adult.
+- The Bastani tutor study: students who depended on ChatGPT fell below baseline. Apply the same to yourself as an adult.
 
 Before we close, a short section on when to close the laptop. I talked about when to use. I want to be equally explicit about when not to.
 
@@ -521,7 +521,7 @@ First: any life-critical decision where a human loop matters. Medical diagnosis 
 
 I am not saying don't use the model to think about these things. I'm saying don't let the model be the final decision-maker. Keep a human in the loop, and ideally a specialist human. The model is an advisor. The decision is yours.
 
-Second: intimate creative work. The piece you're writing to honor a grandparent who just passed. The declaration you're writing to a partner. The speech at a friend's wedding. In the book I reference a 2024 paper by Porter and Machery in Scientific Reports that showed AI poetry is, statistically, rated higher than human poetry by human judges. The technical capability is there. The model can write a beautiful elegy.
+Second: intimate creative work. The piece you're writing to honor a grandparent who just passed. The declaration you're writing to a partner. The speech at a friend's wedding. A 2024 paper by Porter and Machery in Scientific Reports showed AI poetry is, statistically, rated higher than human poetry by human judges. The technical capability is there. The model can write a beautiful elegy.
 
 But here's the thing, when you write something intimate, the writing itself is part of the gift. The hours you spent sitting with your memories of your grandmother, the three drafts you threw away, the sentence that came to you on the walk home, that process carries meaning. Delegating it to a model produces a polished text and hollows out the emotional labor that makes it a gift.
 
@@ -552,7 +552,7 @@ That is the risk profile of over-reliance. Apply it to yourself. If you notice t
 - The five mental models: intern analogy, calculator for prose, trust zones, retrieval anchoring, two-pass rule.
 - The six ethical principles: disclose, verify, don't atrophy, don't fabricate evidence, credit honestly, preserve practice without AI.
 - The toolkit: Deep Research for factual scans, agentic coding assistants like Claude Code for building, Lovable for no-terminal access.
-- The closing image, recycling the book's chapter 19: the lever is there. Learning to use it is up to you.
+- The closing image: the lever is there. Learning to use it is up to you.
 - Session 5 preview, "what does all of this do to society?" Topics: labor market displacement (the 21% drop in freelance writing jobs since ChatGPT); political influence (the Priest-Prophet-King framing); the end of work question (Arendt, Hegel, Russell); what the well-lived life might look like in a post-work society.
 
 Let me pull the threads together. We spent two hours, and I want to leave you with the five or six things I really want you to remember.
@@ -571,9 +571,9 @@ Second, the mental models. The intern. The calculator for prose. The four trust 
 
 Third, the ethics. Disclose in academic work. Verify what you sign your name to. Don't let the model atrophy your own judgment. Don't fabricate evidence. Credit honestly. Preserve deliberate practice without AI.
 
-Fourth, the toolkit. Deep Research for factual scans and literature reviews. Claude Code or Lovable for building, you've now built something, go keep iterating on it this week. A frontier-model subscription for daily use, 20 euros a month is the best investment in your learning you can make right now, per my book's explicit recommendation on page 166.
+Fourth, the toolkit. Deep Research for factual scans and literature reviews. Claude Code or Lovable for building, you've now built something, go keep iterating on it this week. A frontier-model subscription for daily use, 20 euros a month, is the best investment in your learning you can make right now.
 
-Fifth, the closing image. The book's chapter 19 opens with Archimedes. Give me a lever long enough, and I will lift the Earth. The lever is there. Learning to use it is on you.
+Fifth, the closing image. Archimedes: give me a lever long enough, and I will lift the Earth. The lever is there. Learning to use it is on you.
 
 I want to say one more thing about that image, because I think it gets misread. The Archimedes story is not about the lever. It's about the person holding it. The lever does not lift anything by itself. The lever requires a human body with judgment, strength, and intention to apply it in the right place. A mispositioned lever accomplishes nothing. A well-positioned lever accomplishes everything.
 
@@ -587,13 +587,13 @@ Over months, this habit calibrates both your own reasoning and your sense of the
 
 You have had, today, a walk through the mechanics, the failure modes, the mental models, the ethics, and the practice. You have a live website. You have a new workflow for research. You have a clearer sense of what you will not delegate. That's a good two hours.
 
-Session six, next time, we zoom out. We will talk about what all of this does to society. The labor market, there's already a study showing that freelance writing jobs on platforms like Upwork dropped by 21 percent in the year after ChatGPT launched.
+Session five, next time, we zoom out. We will talk about what all of this does to society. The labor market, there's already a study showing that freelance writing jobs on platforms like Upwork dropped by 21 percent in the year after ChatGPT launched.
 
-The political sphere, I have a full chapter in the book on the "priest-prophet-king" figure, the leader of the future who will need AI advisors to stay competitive. The end of work question, Arendt's distinction between labor and work, Hegel on the dignity of struggle, Russell on idleness.
+The political sphere, the "priest-prophet-king" figure, the leader of the future who will need AI advisors to stay competitive. The end of work question, Arendt's distinction between labor and work, Hegel on the dignity of struggle, Russell on idleness.
 
 And the larger question: what does a well-lived life look like in a society where most labor is automated? Those are heavy questions and we'll spend two hours on them next session.
 
-Homework for the week: send the link to the website you built today, and report one concrete thing you changed in your workflow as a result of today. Not a vague "I'll think about it." A specific change, "I installed Claude Code and built a site about my dissertation." Or "I started using Deep Research for my literature reviews and it saved me six hours last weekend." Or "I stopped pasting my drafts into ChatGPT for validation and started asking for objections instead." Something measurable. Forcing yourself to articulate the change makes it more likely to stick.
+Homework for the week: send me the link to the website you built today.
 
 ---
 
@@ -607,5 +607,4 @@ Homework for the week: send the link to the website you built today, and report 
 - TechCrunch, "Lovable says it's nearing 8 million users as the year-old AI coding startup eyes more corporate employees," 10 November 2025. https://techcrunch.com/2025/11/10/lovable-says-its-nearing-8-million-users-as-the-year-old-ai-coding-startup-eyes-more-corporate-employees/
 - H. Bastani, O. Bastani et al., "Generative AI can harm learning," SSRN 4895486, 15 July 2024, Turkish high-school ChatGPT tutor study.
 - B. Porter and E. Machery, "AI-generated poetry is indistinguishable from human-written poetry and is rated more favorably," *Scientific Reports*, 14(1), 26133, November 2024.
-- A. Roucher, *Ultra-Intelligence: Jusqu'où iront les IA ?*, especially Chapter 3 (hallucination, sycophancy; Figure 12 benchmark-overtaking; Figure 14 LLM polyvalence; Figure 15 Monet vs AI), Chapter 5 (glass ceilings; Figure 15 on creativity), Chapter 6 (AI agents; Figure 16 agentic schema; Figure 17 GAIA), Chapter 8 (alignment and sycophancy mitigation), Chapter 9 (voice assistance, medical, education), Chapter 19 (autodidactic learning, source selection). *Figure references from the book used inline:* Figure 12 (benchmark-overtaking, p. 51), Figure 13 (knight with missing constraints, p. 54), Figure 14 (LLM polyvalence vs. calculator spike, p. 56), Figure 15 (Monet vs. AI, p. 66), Figure 16 (agentic schema, p. 71), Figure 17 (GAIA progress, p. 74).
 

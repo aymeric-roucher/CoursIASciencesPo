@@ -15,7 +15,7 @@
 
 Look at this slide. Two pictures, same prompt: an astronaut on horseback in a tunnel, the horse's hooves splashing water, the astronaut waving a French flag. On the left, Stable Diffusion 1, August 2022. The horse has five legs, the helmet melts into the tunnel wall, the flag is a blur. Frankly ugly. On the right, FLUX.1-dev, August 2024. Four legs. The water splashes correctly. The tunnel has perspective. The flag is legible, and it is French.
 
-*[Show on screen, Figure 11 (Ultra-Intelligence): the two side-by-side astronaut-on-horseback generations, August 2022 vs. August 2024.]*
+*[Show on screen, Figure 11: the two side-by-side astronaut-on-horseback generations, August 2022 vs. August 2024.]*
 
 Two years apart. Same prompt. I want you to stare at it, because that gap is what this whole session is about.
 
@@ -61,7 +61,7 @@ Let me give you the numbers so you can calibrate. GPT-3, released in 2020, was t
 
 GPT-4 came out in 2023. Public estimates place its training compute at roughly 2 times 10 to the 25th FLOPs. Do the math. Ten to the 25th over 10 to the 23rd is a factor of 100. Two orders of magnitude. In 3 years. The model was not just bigger; it was two notches up the scaling ladder. And if you remember your Session 1, you know what two notches looks like: GPT-3 could barely hold a paragraph of coherent French. GPT-4 passes the American bar exam in the top 38 percent of human candidates. Two notches. That is what an OOM looks like in practice.
 
-Let us keep going. OpenAI's o1 model, released in 2024, is estimated at roughly 10 to the 27th FLOPs for training plus inference-time reasoning. Another 2 orders of magnitude above GPT-4. Then the models coming in late 2025 and 2026, trained inside the Stargate build-out, inside Anthropic's Project Rainier, inside Google's TPU clusters, are projected at 10 to the 28th to maybe 10 to the 29th FLOPs by 2027. That is another 2 to 3 orders of magnitude up from o1.
+Let us keep going. OpenAI's o1 model, released in 2024, is estimated at roughly 10 to the 27th FLOPs for training plus inference-time reasoning. Another 2 orders of magnitude above GPT-4. Then the models coming in late 2025 and 2026, trained inside Anthropic's Project Rainier, inside Google's TPU clusters, inside the Microsoft-Azure superclusters, are projected at 10 to the 28th to maybe 10 to the 29th FLOPs by 2027. That is another 2 to 3 orders of magnitude up from o1.
 
 Let me put that trajectory on a timeline so you can feel it. 2020, 3 times 10 to the 23rd. 2023, 2 times 10 to the 25th. 2024, 10 to the 27th. 2026, 10 to the 28th. 2027, 10 to the 29th. In 7 years, 6 orders of magnitude. 6 OOMs. A factor of 1 million in training compute. That is the curve. That is the rocket.
 
@@ -91,7 +91,7 @@ Let me close this section with a concrete exercise so this does not stay abstrac
 
 And here is the subtler point that people miss. The investments are not linearly funded. They are exponentially funded. The money going into AI roughly tripled every year from 2022 to 2025. That means the OOMs are arriving faster, not slower. The 18-month cadence is the long-run average. In the current 4-year window, it is closer to 12 months per OOM, because the money is flooding in. So 4 OOMs at the current pace is more like 4 years, not 6. Pick your assumption. Either way, before 2030, we have reasonable grounds to expect the rocket to be several notches above where it is today.
 
-*[Show on screen: Figure 12 (Ultra-Intelligence): difference between the best AI model and the human reference level across a dozen benchmarks.]*
+*[Show on screen: Figure 12: difference between the best AI model and the human reference level across a dozen benchmarks.]*
 
 One more thing, because this plot deserves a mention here. It shows the difference between the best AI model and the human reference level across a dozen benchmarks, from reading comprehension to mathematical problem-solving to code generation. The striking thing about it is the timing.
 
@@ -135,9 +135,7 @@ The next generation of cluster, the one coming online this year and next, is 5 t
 
 In the US, for example, Virginia is already saturated; Texas has room; parts of the Pacific Northwest have hydro capacity. Microsoft signed a deal in 2024 to restart the Three Mile Island nuclear plant, yes, the same plant that had the famous 1979 accident, to supply dedicated power to a new AI cluster in Pennsylvania. That deal alone is 835 megawatts of dedicated nuclear power, going straight to a datacenter. Just for AI training.
 
-The Stargate announcement, January 2025, is the biggest publicly committed infrastructure project in this space. OpenAI, together with SoftBank and Oracle, committed 500 billion dollars over 4 years to build a distributed training infrastructure. 500 billion. To give you a sense of scale, that is roughly half a percent of US GDP, committed, by three private companies, to one technology category. The first site, in Abilene, Texas, is coming online in pieces through 2025 and 2026. It will pull 5 gigawatts at completion. Five gigawatts is the output of a large nuclear plant, Gravelines in northern France for instance, running at full tilt.
-
-Anthropic announced its own build-out, called Project Rainier, in late 2024, in partnership with Amazon. That cluster, in Indiana, is planned for about 800,000 Trainium chips, Amazon's in-house AI accelerator, drawing on the order of a gigawatt. Google has been building TPU clusters across several US states and in Finland. xAI, Elon Musk's outfit, built Colossus in Memphis, Tennessee, a single-site cluster of 200,000 GPUs brought online in under a year. Meta is building a 2-gigawatt cluster in Louisiana called Hyperion. Every big lab has its cluster project. Every cluster pulls hundreds of megawatts to gigawatts. These are not rumors; these are press releases. I will put the links in the slide pack.
+The biggest publicly committed deal currently on a clear path to delivery is the Anthropic-Amazon partnership, expanded on April 20, 2026. Anthropic committed over 100 billion dollars over 10 years to AWS infrastructure, securing up to 5 gigawatts of new compute capacity to train and run Claude. Five gigawatts is the output of a large nuclear plant, Gravelines in northern France for instance, running at full tilt. To give you a sense of scale, 100 billion dollars is roughly the GDP of Slovakia, committed by two private companies to one technology category. The first phase, called Project Rainier, is already running in Indiana with on the order of a million of Amazon's in-house Trainium chips; by the end of 2026, around 1 gigawatt of Trainium2 and Trainium3 capacity is scheduled to be online. Google has been building TPU clusters across several US states and in Finland. xAI, Elon Musk's outfit, built Colossus in Memphis, Tennessee, a single-site cluster of 200,000 GPUs brought online in under a year. Meta is building a 2-gigawatt cluster in Louisiana called Hyperion. Every big lab has its cluster project. Every cluster pulls hundreds of megawatts to gigawatts. These are not rumors; these are press releases. I will put the links in the slide pack.
 
 To ease the grid pressure, the industry is starting to decentralize. Decentralization here does not mean a peer-to-peer network of gaming PCs; it means spreading one training run across two or three geographically distant clusters connected by very high-bandwidth fiber. You want the fiber to be able to move model weights between sites in seconds, because during training, different replicas of the model need to stay synchronized. If synchronization takes too long, you lose efficiency. So you need petabyte-per-second interconnects between sites. That is extraordinary engineering. Today it is probably just feasible across a single country. In 5 years it may be feasible continent-scale.
 
@@ -177,7 +175,7 @@ Altogether, software and architectural efficiency is contributing roughly 0.45 O
 
 One last number for your mental model: who owns this compute? Epoch AI, a research group that tracks the compute footprint of the frontier, estimates that as of late 2025, the United States holds roughly three quarters of global training compute for frontier models. China holds about 15 percent and rising. Europe holds less than 5 percent. Let me repeat that because it is uncomfortable: Europe, the continent, with 400 million people and a combined GDP comparable to China's, holds under 5 percent of the world's frontier AI compute. We are a rounding error. That is a political fact, and we will return to it when we talk about financing.
 
-*[Show on screen: Figure 20 (Ultra-Intelligence): Epoch AI plot of training compute for frontier models, FLOPs on a log scale, versus year, 2019-2025.]*
+*[Show on screen: Figure 20: Epoch AI plot of training compute for frontier models, FLOPs on a log scale, versus year, 2019-2025.]*
 
 The Epoch AI plot shows this visually. Training compute for frontier models, in FLOPs on a log scale, versus year, from 2019 to 2025. The points climb in a tight line: GPT-3 at the bottom, GPT-4 higher, Gemini 1.0 higher still, Grok 4 at the top of the plot. The slope is 0.6 orders of magnitude per year. That line is the rocket's speed. It has held for 5 straight years. There is no sign of it bending.
 
@@ -230,7 +228,7 @@ But a leading-edge fab takes 3 to 5 years to come online from groundbreaking. So
 
 But as a base rate estimate: no, I do not think Taiwan is going to be invaded before 2030. The US is too committed to the island's security, and China's own economy depends so heavily on Taiwanese chips that the immediate loss from a conflict would devastate both sides. Deterrence holds, barely. So in my base case, semiconductor production is not the binding constraint on AI progress before 2030. With a tail risk that it could become so, suddenly and catastrophically, if the Strait goes hot.
 
-Candidate three: electricity. This one is getting very real. Look at the numbers. A GPT-3 training run was about 1 megawatt of instantaneous power. GPT-4 was about 10 megawatts. o1 class, about 100 megawatts. The projected 2026 frontier model, 10 to the 28th FLOPs, needs roughly 1 gigawatt, the output of a medium nuclear reactor. The 2027 to 2028 target, 10 to the 29th FLOPs, needs 10 gigawatts. That is Figure 21 in the book. Each row: one more OOM of FLOPs, one more OOM of cost, one more OOM of power. The numbers are brutal.
+Candidate three: electricity. This one is getting very real. Look at the numbers. A GPT-3 training run was about 1 megawatt of instantaneous power. GPT-4 was about 10 megawatts. o1 class, about 100 megawatts. The projected 2026 frontier model, 10 to the 28th FLOPs, needs roughly 1 gigawatt, the output of a medium nuclear reactor. The 2027 to 2028 target, 10 to the 29th FLOPs, needs 10 gigawatts. *[Show on screen: Figure 21, trajectory of training costs across model generations.]* Each row: one more OOM of FLOPs, one more OOM of cost, one more OOM of power. The numbers are brutal.
 
 Ten gigawatts is a huge number. France's Gravelines, the largest nuclear plant in France, puts out 5.5 gigawatts. So a 2028 training run would need almost 2 Gravelines dedicated entirely to it, running for months. That is not something you can casually arrange.
 
@@ -246,7 +244,7 @@ Is energy the binding constraint before 2030? Probably not, if you are the Unite
 
 Candidate four: financing. How many dollars does this take? Figure 21 again. GPT-3, 10 million dollars. GPT-4, 100 million. o1, about a billion. Ten to the 28th target, 10 billion. Ten to the 29th target, 100 billion. 100 billion dollars for one training run by 2027 or 2028. Let that sink in.
 
-That is an astonishing number. For context, the Manhattan Project cost, in 2024 dollars, about 30 billion. The Apollo Program cost about 250 billion. A single AI training run, by 2028, could cost more than the Manhattan Project. And this is not a theoretical number; it is what Stargate's first-phase budget of 500 billion dollars is setting up to fund. 500 billion, over 4 years, divided across several training cycles and inference infrastructure. It maps onto roughly the right order of magnitude.
+That is an astonishing number. For context, the Manhattan Project cost, in 2024 dollars, about 30 billion. The Apollo Program cost about 250 billion. A single AI training run, by 2028, could cost more than the Manhattan Project. And this is not a theoretical number; it is what Anthropic's 100-billion-dollar AWS commitment, signed in April 2026, is setting up to fund. 100 billion, over a decade, across several training cycles and inference infrastructure. It maps onto roughly the right order of magnitude.
 
 Where does this money come from? In the US, it comes from the public markets and from the hyperscaler balance sheets. Microsoft, Amazon, Google, Meta, each of these companies generates annual free cash flow in the range of 40 to 80 billion dollars. They can redirect a large fraction of that cash flow into AI infrastructure every year and still pay dividends. SoftBank brings in equity and debt financing. Private equity from the Gulf states adds more. The US capital stack is uniquely well suited to deploying capital at this scale at this speed.
 
@@ -276,7 +274,7 @@ Add those three together: multimodal expansion, synthetic data, better training 
 
 So, summing up. Rare earths, noise. Semiconductors, real but not binding before 2030, with Taiwan tail risk. Electricity, tight but solvable for the US and China, real problem for Europe. Financing, no problem for the US, major problem for Europe, wild card for China. Data, not a ceiling in the relevant time frame. The verdict is clean: no binding technical constraint stops the exponential before 2030. The exponential runs. The rocket keeps climbing.
 
-Figure 22 in the book, I want to mention it here, lays out this whole story in three side-by-side bar charts. The left bar chart is electricity: GPT-4 at 10 megawatts, Stargate cluster today at a few gigawatts, and the 10-to-the-28th target at around 1 gigawatt for one training. The middle chart is funding, comparing GPT-4 at 100 million, current state around 10 billion, target at 100 billion.
+*[Show on screen: Figure 22.]* This figure lays out the whole story in three side-by-side bar charts. The left bar chart is electricity: GPT-4 at 10 megawatts, frontier clusters today at a few gigawatts, and the 10-to-the-28th target at around 1 gigawatt for one training. The middle chart is funding, comparing GPT-4 at 100 million, current state around 10 billion, target at 100 billion.
 
 The right chart is compute, FLOPs, the same three-rung ladder. Three OOMs of growth across three dimensions, all happening in parallel. The fuel lines are aligned.
 
@@ -446,7 +444,7 @@ Then we got to 1 meter, then 2. By 2020, maybe 4. By 2022, 7. By 2025, 8.5, roug
 
 The step from 8.5 to 9, which is beyond Powell's record, does not require a new theory. It requires what it has always required: more fuel, more iteration, the same engine running a little longer. The hard part is done. The remaining part is the part we are good at, which is engineering at scale with a lot of money.
 
-That is the intuition behind Figure 19 in the book. Figure 19 shows a curve over time, rising through horizontal reference bands: raven intelligence, chimpanzee, child, baccalauréat level, Nobel laureate. The curve starts below raven, in the zero era, rises through chimp and child during the Transformer breakthrough years, and is currently between child and baccalauréat, rising fast. The dashed extrapolation continues through baccalauréat and Nobel and beyond. You look at that curve and you can see: the hardest steps, the ones from no-capability to child-level, are already behind us. The easier steps, from child to adult, are ahead. And we have been crossing them quickly.
+That is the intuition behind Figure 19. *[Show on screen: Figure 19.]* It shows a curve over time, rising through horizontal reference bands: raven intelligence, chimpanzee, child, baccalauréat level, Nobel laureate. The curve starts below raven, in the zero era, rises through chimp and child during the Transformer breakthrough years, and is currently between child and baccalauréat, rising fast. The dashed extrapolation continues through baccalauréat and Nobel and beyond. You look at that curve and you can see: the hardest steps, the ones from no-capability to child-level, are already behind us. The easier steps, from child to adult, are ahead. And we have been crossing them quickly.
 
 Most of the hard work is behind us. The mirror-image framing, which you will often hear, that "these AIs are not as good as the best humans, so they cannot possibly keep improving," is exactly backwards. They have gone from zero to almost-human in 8 years. They are not going to stop at the human line. The human line is an arbitrary biological point on an infinite continuum of possible performance. There is no reason the curve respects that point.
 
@@ -480,7 +478,7 @@ And we ended on the fourth narcissistic wound. Copernicus, Darwin, Freud, AI. In
 
 Next week, Session 3. We meet the workers. AI agents. The systems that take the language model we have been studying and give it hands. A tool box. A browser. A file system. A credit card. You will see how the loop works, we will build one together in code, and you will understand why the transition from "chatbot" to "employee" is the product transition that takes AI from curiosity to industrial revolution. If today was about "how smart can we make it," next week is about "so what can it actually do for me, right now, today." Come ready. Bring a laptop.
 
-Before you leave, two housekeeping items. First, the reading for next week is the GAIA benchmark paper by Mialon et al. 2023, 12 pages, straightforward. Please read it. I will be assuming you have. Second, if you take away one question from today, let it be this: what concepts in my own life rest on assumptions about human cognition that might stop being true?
+Before you leave, two optional things if you have time. One: the GAIA benchmark paper by Mialon et al. 2023, 12 pages, straightforward, will give you a head start on next week. Two: if you take away one question from today, let it be this: what concepts in my own life rest on assumptions about human cognition that might stop being true?
 
 Jot a note to yourself. Your career plan. Your idea of what a university is for. Your idea of what a job is. Your idea of what expertise is worth.
 
@@ -497,14 +495,12 @@ Remember: the exponential does not stop running while you sleep.
 - Leopold Aschenbrenner, *Situational Awareness: The Decade Ahead* (2024), available at https://situational-awareness.ai/from-gpt-4-to-agi/
 - Epoch AI, *Trends in Machine Learning*, compute and data tracking dashboard, https://epochai.org/trends
 - Tomas Pueyo, "AGI blows up all our concepts," thread on X, November 2025, https://x.com/tomaspueyo/status/1993360931267473662
-- OpenAI, SoftBank, Oracle, *Stargate Project announcement*, January 2025. 500 billion dollars over 4 years, starting with Abilene, Texas cluster.
+- Anthropic and Amazon Web Services, *Expanded compute partnership*, April 20, 2026. https://www.anthropic.com/news/anthropic-amazon-compute. Over 100 billion dollars over 10 years, up to 5 gigawatts of Trainium capacity, with Project Rainier in Indiana as the first phase.
 - Microsoft and Constellation Energy, *Three Mile Island Unit 1 power purchase agreement*, September 2024. 835 megawatts of dedicated nuclear power for Microsoft AI datacenters.
-- Anthropic, *Project Rainier* with Amazon Web Services, announced 2024. Large-scale Trainium deployment in Indiana, roughly 1 gigawatt target.
 - Sarah Hooker, *The Hardware Lottery* (2020) and follow-up essays on scaling law interpretation.
 - Kaplan et al., *Scaling Laws for Neural Language Models*, OpenAI, January 2020.
 - Hoffmann et al., *Training Compute-Optimal Large Language Models* (Chinchilla), DeepMind, 2022.
 - Jason Wei et al., *Chain-of-Thought Prompting Elicits Reasoning in Large Language Models*, Google, 2022.
-- Aymeric Roucher, *Ultra-Intelligence: Jusqu'où iront les IA ?*, particularly Chapters 3 and 7 and Figures 11, 12, 14, 18, 19, 20, 21, 22.
 
 ---
 

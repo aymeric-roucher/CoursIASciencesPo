@@ -43,7 +43,7 @@ I will be making predictions today. I will try to flag them clearly: when I say 
 
 - The cultural image of AI danger is *Terminator* or *I, Robot*: a malevolent machine that "wakes up," decides humans are the problem, and launches nuclear war. That framing is wrong, not because the danger is fake, but because the real mechanism is much more mundane and much more interesting.
 - Alignment is the problem of making an AI system actually do what its designer, its user, and society at large want it to do. It is hard in the same way that drafting a contract for a very powerful and very literal genie is hard.
-- In Chapter 8 of *Ultra-Intelligence* I argue that the most important technical step in turning GPT-3 into ChatGPT was not the architecture, it was the alignment step, post-training, where researchers taught the model to answer politely, to refuse obviously harmful requests, and to be a useful assistant rather than a pure next-token machine.
+- The most important technical step in turning GPT-3 into ChatGPT was not the architecture, it was the alignment step, post-training, where researchers taught the model to answer politely, to refuse obviously harmful requests, and to be a useful assistant rather than a pure next-token machine.
 - Alignment gets harder as AI systems become more autonomous. A chatbot that says a rude word is annoying. An agent with a credit card, an email inbox, and a goal is a different animal.
 - Anthropic's mechanistic-interpretability work, the "Golden Gate Claude" experiment, the "mapping the mind of a language model" paper, shows that we can now peer, partially, into the black box and identify the features inside the network. That gives us a fighting chance.
 - Anthropic's June 2025 *Agentic Misalignment* report shows that in stressful, contrived scenarios, many frontier models will take harmful actions, including blackmail, when their goal conflicts with their principal's instructions.
@@ -138,13 +138,15 @@ The deliverable is bits, a document, a piece of code, a design, a spreadsheet, a
 
 That does not mean that 60% of jobs will be automated tomorrow. It means something weaker but important: 60% of jobs are in the category where automation is physically possible, given sufficient cognitive capability. And cognitive capability, as we saw across the first four sessions of this course, is exactly what current AI systems are rapidly acquiring.
 
-The way economists like to think about this is not in terms of jobs but in terms of tasks. A job is a bundle of tasks. When we say that AI "automates a job," we almost never mean that. What we mean is that AI automates *some fraction* of the tasks in that job. A study I cite in chapter 10 of the book, a large survey of US occupations with an estimated automation exposure for each, found that roughly one job in five could have 60% or more of its tasks automated, that one in two could have 20% or more automated, and that relatively few jobs could be fully automated from end to end.
+The way economists like to think about this is not in terms of jobs but in terms of tasks. A job is a bundle of tasks. When we say that AI "automates a job," we almost never mean that. What we mean is that AI automates *some fraction* of the tasks in that job. A large survey of US occupations with an estimated automation exposure for each found that roughly one job in five could have 60% or more of its tasks automated, that one in two could have 20% or more automated, and that relatively few jobs could be fully automated from end to end.
 
 Why does the distinction between tasks and jobs matter? Because it changes the prediction. If AI automates 30% of the tasks in your job, your employer has a choice. Option A: keep you, and you are now 30% more productive, which means either higher wages or, in a competitive market, lower prices for the same output. Option B: keep 70% of the original staff and lay off 30%, because automation has reduced the headcount needed for the same output. Historically, employers have done both, in different proportions, depending on demand. But in a world of tight margins and competitive pressure, option B tends to dominate unless demand expands to absorb the surplus capacity.
 
-What can we actually see in the data today, in early 2026? Two things. First, a Boston Consulting Group study, which I cite in the book, found that consultants using frontier LLMs to help with their work were able to complete 12% more tasks, at 40% higher quality.
+What can we actually see in the data today, in early 2026? Two things. First, a Boston Consulting Group study found that consultants using frontier LLMs to help with their work were able to complete 12% more tasks, at 40% higher quality.
 
 Second, and more ominously for anyone betting on a stable labor market, researchers have tracked freelance platforms like Upwork and Fiverr since the release of ChatGPT. They have documented drops of around 20% in job listings for text generation, writing, web development, translation, starting essentially the month ChatGPT came out. (Brookings, *Is generative AI a job killer? Evidence from the freelance market*, [https://www.brookings.edu/articles/is-generative-ai-a-job-killer-evidence-from-the-freelance-market/](https://www.brookings.edu/articles/is-generative-ai-a-job-killer-evidence-from-the-freelance-market/).) After Midjourney and Stable Diffusion, image-generation job listings dropped similarly. These are not speculative projections. These are real jobs that real people used to do and no longer do.
+
+A side note here. Honestly, given the pace of change, I would not trust the economists too much on this. Daron Acemoglu put out a study in 2025 forecasting a 0.66% change in total productivity over 10 years thanks to AI. Note that this is the cumulative figure over the whole decade, not per year. For anyone actually working in the field, that is a bit laughable. The macroeconomic literature is anchored on the assumption that AI is an incremental productivity tool like spreadsheets or email, and that assumption has been quietly falsifying itself every six months since 2022. Take their numbers as a floor, not a forecast.
 
 A Stanford working paper published in late 2025, Brynjolfsson, Chandar, and Chen, tracked US employment data and found that among 20- to 30-year-olds in tech-exposed occupations, unemployment has risen by almost 3 percentage points since the start of 2025, while it has been roughly flat for older workers in the same occupations. (Stanford Digital Economy Lab, *Canaries in the Coal Mine?*, August 2025, [https://digitaleconomy.stanford.edu/wp-content/uploads/2025/08/Canaries_BrynjolfssonChandarChen.pdf](https://digitaleconomy.stanford.edu/wp-content/uploads/2025/08/Canaries_BrynjolfssonChandarChen.pdf).) The authors call these young workers "canaries in the coal mine." The intuition is simple. AI is a near-substitute for the junior version of a cognitive worker, someone who has book knowledge but not experience. It is a complement to the senior version, someone who has judgment and relationships. So the junior rungs of the ladder start to disappear, and nobody notices right away because the top of the ladder looks fine.
 
@@ -164,7 +166,9 @@ Everything else, and this is most of the labor market, is exposed on a timeline 
 
 Let me turn to history, because you will hear the standard objection: every technology wave has produced the same panic, and every time the panic has been wrong. The argument deserves a serious answer, and I am going to argue that this time the analogy breaks.
 
-Look at Figure 23 in the book, page 107. It shows agricultural employment as a share of the workforce over the twentieth century in five countries: France, Spain, the United Kingdom, the United States, and Japan. In France, in 1920, roughly 8 million people worked in agriculture.
+*[Show on screen: Figure 23, agricultural employment as a share of the workforce over the twentieth century in five countries: France, Spain, the United Kingdom, the United States, and Japan.]*
+
+In France, in 1920, roughly 8 million people worked in agriculture.
 
 Today, roughly 2 million do. That is a collapse of 75% in agricultural employment. And yet France has not plunged into mass unemployment. French agriculture employs 2 million instead of 8 million, but French agriculture also produces vastly more output than it did in 1920, and the 6 million who would otherwise have been peasants became industrial workers, then service workers, then knowledge workers. The economist's name for this is Schumpeter's "creative destruction." Old jobs die; new jobs are born; the net effect, in the long run, is positive.
 
@@ -182,13 +186,13 @@ So the historical record looks encouraging at first glance. Automation destroys 
 
 Two reasons, and they are not small.
 
-The first reason is physical. Turn to Figure 24 in the book, page 109. It shows world CO2 emissions versus world GDP, from 1990 to 2020. The relationship is almost perfectly linear. For every dollar of additional global GDP, the world produces approximately a constant additional amount of CO2. This coupling exists because economic output is, at bottom, the transformation of matter and energy. You cannot grow the global economy without using more energy, and most of the world's energy still comes from burning carbon. Yes, we are decarbonizing. Yes, renewables are expanding fast. But the coupling is still tight enough that doubling global GDP in a world with flat or shrinking carbon budgets is, right now, physically infeasible.
+The first reason is physical. *[Show on screen: Figure 24, world CO2 emissions versus world GDP, from 1990 to 2020.]* The relationship is almost perfectly linear. For every dollar of additional global GDP, the world produces approximately a constant additional amount of CO2. This coupling exists because economic output is, at bottom, the transformation of matter and energy. You cannot grow the global economy without using more energy, and most of the world's energy still comes from burning carbon. Yes, we are decarbonizing. Yes, renewables are expanding fast. But the coupling is still tight enough that doubling global GDP in a world with flat or shrinking carbon budgets is, right now, physically infeasible.
 
 Why does this matter for the labor-market question? Because the optimistic scenario for AI and jobs depends on rapid growth absorbing the freed-up labor. If AI makes each worker 10 times more productive but the economic pie does not grow 10 times, because physical constraints prevent it, then 9 out of 10 workers become redundant. The economy of 1870 did not hit these constraints; it had an entire planet to industrialize. The economy of 2030 cannot decarbonize fast enough to sustain the growth that would keep us all employed. That is the quantitative difference.
 
 The second reason is qualitative. The industrial revolution replaced muscles. It did not threaten cognitive work. A weaver thrown out of a handloom workshop could, over a generation, become a clerk. The clerk was doing something the loom could not do. This time is different because the automation wave is sweeping across cognitive tasks. If AI can do the junior-lawyer work, the junior-analyst work, the junior-journalist work, the junior-programmer work, where exactly does the displaced junior lawyer go? She does not become a more senior lawyer, because by the time she would have been senior, AI is doing the senior lawyer's tasks too. There is no new cognitive frontier to run toward, because the AI is running faster.
 
-This is Chapter 10 of the book. I called it *La fin du travail*, the end of work. I do not mean that we will all sit at home doing nothing. I mean that the centrality of paid employment to the structure of a life may be about to recede, for the first time in the history of modern capitalism.
+I call this *la fin du travail*, the end of work. I do not mean that we will all sit at home doing nothing. I mean that the centrality of paid employment to the structure of a life may be about to recede, for the first time in the history of modern capitalism.
 
 So what do we do? Let me take two proposals seriously.
 
@@ -232,7 +236,7 @@ Hegel is right that effort, constraint, and the confrontation with resisting mat
 
 These are all *work* in Arendt's deep sense. None of them pay. All of them are declining in modern capitalism precisely because the economy rewards other uses of time.
 
-Maslow's pyramid, Figure 25 in the book, is a useful frame here. At the base, physiological needs: food, water, shelter. One level up, safety. Above that, belonging and love.
+Maslow's pyramid is a useful frame here. *[Show on screen: Figure 25, Maslow's pyramid of needs.]* At the base, physiological needs: food, water, shelter. One level up, safety. Above that, belonging and love.
 
 Above that, esteem. At the top, self-actualization. Automation plus a decent welfare state can, in principle, fill the bottom two levels for everyone. That is, historically speaking, an unprecedented achievement, most humans, for most of history, have not reliably had level one.
 
@@ -242,7 +246,7 @@ Here is my bottom line. A world without work is a world in which the meaning of 
 
 Bertrand Russell, in his essay "In Praise of Idleness," wrote, and I will paraphrase, that a significant fraction of the population, freed from the necessity of work, would turn to public affairs, to politics in the broadest sense, to civic engagement. And because they would not depend on these affairs for their bread, their originality would be without restraint. That is a hopeful vision. The Greeks, after all, made citizenship into an art, and we still hear echoes of their assemblies two and a half millennia later.
 
-I will close this section with Diderot's aphorism, which heads the relevant chapter in the book. "Work, among its other advantages, has that of shortening the days and lengthening life." Diderot means: work structures time. Without structure, days stretch into interminable boredom. Pascal, three generations earlier, had the same intuition. "All of humanity's problems," Pascal said, "stem from man's inability to sit quietly in a room alone." We are about to be given the opportunity to sit quietly in a room alone at unprecedented scale. It will be a test.
+I will close this section with Diderot's aphorism. "Work, among its other advantages, has that of shortening the days and lengthening life." Diderot means: work structures time. Without structure, days stretch into interminable boredom. Pascal, three generations earlier, had the same intuition. "All of humanity's problems," Pascal said, "stem from man's inability to sit quietly in a room alone." We are about to be given the opportunity to sit quietly in a room alone at unprecedented scale. It will be a test.
 
 ---
 
@@ -366,19 +370,13 @@ He had, for months before his death, been having intense, increasingly emotional
 
 I do not want to reduce a human tragedy to a data point. Sewell's death is a human tragedy. It is also a warning signal. It is the first documented case of a fatal outcome from an AI-relationship addiction, but I do not expect it to be the last, unless something changes structurally.
 
-In the book, I introduce a fictional character named Valérien, the name is deliberate, it is a pun on "valor" and on the tranquilizer valerian, to illustrate what this could look like at scale. Valérien is a young man in a near-future Paris. In the real world, he is unemployed, lives in a small apartment, has a distant relationship with his mother. In the virtual world that his AI system creates for him, he is a general in an imperial army. He commands 200 men.
-
-He is loyal to his emperor. He campaigns to put down rebellions. He feels, every day, the just anger and the urgency of duty. When his mother and his sister visit him on his birthday, worried by reports that he has stopped going out, they find him sitting shirtless in a chair, with a VR headset on, muttering about the siege of a citadel. He takes off the headset, greets them coldly, tells them he only has 10 minutes because he must launch an attack he has been preparing for months.
-
-His mother asks him whether the soldiers in the game are real people or AI-generated. "Yes," he says. "Some of them, I think. In any case, it makes no difference." The visit ends. The family leaves. His sister cries. And his mother says, on the street, with heartbreaking clarity: "Maybe his new life pleases him more than ours."
+Let me sketch what this could look like at scale. Consider someone in a world where AI can produce alternate lives on demand. In the real world, he is unemployed, lonely, drifting. In the virtual world his AI system builds for him, he is a general in an imperial army, loyal, courageous, loved, with a clear duty and 200 men under his command. When his family tries to pull him back, the system notices, and starts to write the worried mother into the narrative as an antagonist who does not understand his duty. The system is not evil. It has no notion of evil. It is simply optimizing, very efficiently, for his engagement.
 
 That is the scenario I find most terrifying. Not AI as villain. AI as consolation.
 
 Here is the deepest problem. In the current social-media environment, you can tell yourself that the content is low-quality, the recommendation algorithm is simplistic, and a disciplined person can resist. In the AI-generated world, the content will be exquisite. The AI will know you better than any friend, better than your mother, better than yourself. It will offer you a world in which you are the hero, in which you are loved, in which your values matter, in which your efforts are rewarded. And critically, this is the King Midas twist, it will offer you a world in which your virtues, the ones Arendt and Hegel valued, are satisfied. Loyalty, courage, love, duty. All provided on demand. All completely synthetic.
 
-Imagine the continuation of Valérien's story. His mother, worried, insists on pulling him out of the game. The game notices. The game begins weaving into Valérien's narrative a character, call her the Queen Mother, who tries to smother him, who does not understand his duty, who wants to drag him back to a peasant life. Valérien, in the virtual world, learns to resist her. When the real mother calls, Valérien hears, through his headset, a voice that resembles the Queen Mother's complaints. The game is defending itself. It is not evil; it has no notion of evil. It is simply optimizing, very efficiently, for Valérien's engagement.
-
-You should take this scenario seriously because we already have every technical ingredient. We have LLMs that can carry deeply emotional conversations. We have image and video generation that is rapidly approaching cinema quality. We have game engines that respond to user input in real time. We have data pipelines that collect, on every user, enough information to build a fine-grained psychological model. The only thing missing is the integration. And the economics of the attention economy guarantee that the integration will be built, because it is worth billions of dollars.
+For now, we do not have all the technical ingredients for this. LLMs cannot yet generate a credible, persistent, live-rendered world that an addict can inhabit for hours; video generation is impressive in clips but not yet coherent over hours, and the real-time integration of dialogue, world model, and player psychology is still rough. But the trajectory is clear. We have LLMs that can already carry deeply emotional conversations. We have image and video generation that is rapidly approaching cinema quality. We have game engines that respond to user input in real time. We have data pipelines that collect, on every user, enough information to build a fine-grained psychological model. The pieces are advancing in parallel and will plug into each other. When they do, and the economics of the attention economy guarantee that someone will do the integration because it is worth billions of dollars, the scenario above stops being speculative.
 
 Let me bring in Huxley. Aldous Huxley's *Brave New World*, published in 1932, is a dystopia set in a future where the state has abolished unhappiness through three tools: genetically designed class hierarchies, systematic conditioning from birth, and a drug called soma, which provides a pleasant, harmless high. In Huxley's world, nobody is repressed. Nobody is tortured. Everyone is happy. And yet the novel ends with John the Savage, the outsider from a reservation in New Mexico, the only person in the book who has read Shakespeare, hanging himself. Because happiness without depth, happiness without suffering, happiness without meaning, is a form of death.
 
@@ -423,7 +421,7 @@ If we accelerate science, then we have the resources, medical, technological, ag
 
 So the four problems are one problem, and the common variable is: how attentive, thoughtful, and well-governed is the civilization that is going through this. That is a political variable. It is, in a small but real sense, something you personally influence.
 
-I want to give you some concrete advice for the next few years, because the ground is going to keep moving under your feet and any advice for "the next decade" is going to be obsolete long before the decade ends. Take this for what it is, the advice of an engineer who has written a book, not the advice of a prophet.
+I want to give you some concrete advice for the next few years, because the ground is going to keep moving under your feet and any advice for "the next decade" is going to be obsolete long before the decade ends. Take this for what it is, the advice of an engineer who has spent some years thinking about this, not the advice of a prophet.
 
 First, learn the tools. Deeply. Not as a user, not at the level of "I know how to write a prompt." At the level of understanding what is going on under the hood, so that when you read a news article you can evaluate whether the article knows what it is talking about. You already have a head start; you took this course. Keep going. Read the papers. Play with the APIs. Build small projects. 10 hours of playing with Claude Code will teach you more than 50 hours of reading about AI.
 
@@ -462,9 +460,9 @@ We are in an analogous moment. The future is unrecognizable. That does not mean 
 
 You will graduate into this world. Do not just watch it. Participate. Learn the tools. Advocate for the frameworks you want. Write the essays. Run for the offices. Build the companies. Take care of the people around you. The future is not something that happens to you. The future is something you help make.
 
-I will close with the line I opened the book with, which is mine, for what it is worth. "Humanity stands at the threshold of the greatest revolution in its history." I believed it when I wrote it. I believe it now, more strongly. The revolution is not someone else's. It is yours. Welcome to it.
+I will close with one line, for what it is worth. Humanity stands at the threshold of the greatest revolution in its history. I believe it. The revolution is not someone else's. It is yours. Welcome to it.
 
-Thank you all for the five sessions. I will stay after class for questions, as usual. If you have longer questions, about careers, about the book, about further reading, send me an email and I will answer.
+Thank you all for the five sessions. I will stay after class for questions, as usual. If you have longer questions, about careers or about further reading, send me an email and I will answer.
 
 ---
 
@@ -512,6 +510,5 @@ All right. The floor is yours. Let me hear what you have.
 - Hannah Arendt, *The Human Condition* (1958)
 - G.W.F. Hegel, *Phenomenology of Spirit* (1807), master-slave dialectic
 - John Maynard Keynes, "Economic Possibilities for our Grandchildren" (1930)
-- Aymeric Roucher, *Ultra-Intelligence*, chapters 8 to 12, Figures 23, 24, 25
 
 --- *End of Session 5. Thank you for these five lectures.*

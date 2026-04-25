@@ -52,13 +52,13 @@ They just arrived at the company. What can they do? Well, they are smart, they w
 
 But the moment you ask them to *actually do something*, "please find out the price of ergonomic chairs from 5 European suppliers and put them in a spreadsheet", they need *hands*. They need a computer, they need internet, they need Excel, they need email. Without those tools, the intern is smart but inert. Give them the tools, and suddenly they are productive.
 
-An LLM is exactly that intern on day one. It knows a lot. It can reason, imperfectly, but meaningfully. But by itself, in its raw form, it cannot click a button, cannot open a browser, cannot call an API, cannot even look at the current date. It is a brain without hands. In the book I describe it as a very intelligent robot locked in a room with a door and a slot underneath. You slide messages under the door, those are called *prompts*. The robot writes an answer on a piece of paper, slides it back. That is all. No window, no door handle, no phone.
+An LLM is exactly that intern on day one. It knows a lot. It can reason, imperfectly, but meaningfully. But by itself, in its raw form, it cannot click a button, cannot open a browser, cannot call an API, cannot even look at the current date. It is a brain without hands. Picture a very intelligent robot locked in a room with a door and a slot underneath. You slide messages under the door, those are called *prompts*. The robot writes an answer on a piece of paper, slides it back. That is all. No window, no door handle, no phone.
 
 The trick of the AI agent is to hire a second, *completely dumb* robot whose only job is to read what the intelligent one writes and physically press buttons on tools. Think of it as a diligent, literal-minded assistant who reads instructions and executes them without question. "Use Google with query X." OK. "Run this calculation." OK. "Send this email." OK. The intelligent one plans; the dumb one executes. That combination is what we call an agentic system.
 
 *[Figure 16, p. 71, diagram of an agentic system with the Tour de France 2025 example, three lanes (User / Executor program / AI Model) showing the message cycle.]*
 
-Let me walk you through the figure in the book. You see three vertical lanes. On the left, the user, you or me. In the middle, the executor program, the dumb robot. On the right, the AI model, the intelligent but hands-less one. The user sends a question, say *"What was the highest point of the 2025 Tour de France?"* The executor catches that question and wraps it into a prompt: "Dear model, here is a question from the user. Here are the tools you have access to: web search, calculator. Please answer." Slide under the door.
+Let me walk you through the figure. You see three vertical lanes. On the left, the user, you or me. In the middle, the executor program, the dumb robot. On the right, the AI model, the intelligent but hands-less one. The user sends a question, say *"What was the highest point of the 2025 Tour de France?"* The executor catches that question and wraps it into a prompt: "Dear model, here is a question from the user. Here are the tools you have access to: web search, calculator. Please answer." Slide under the door.
 
 The model reads the prompt and writes back: "I need to use the web-search tool with the query *highest point Tour de France 2025*." The executor reads this instruction. It does not interpret, it does not second-guess. It literally fires the Google API with that query.
 
@@ -427,7 +427,7 @@ But the trajectory is clear: each of these failures is shrinking, year over year
 
 The benchmark I want to introduce is called *GAIA*, General AI Assistants. It was released in late 2023 by a team that includes some researchers from Meta. It contains about 450 real-world questions, all of them designed to require multiple tools in sequence, and all with unambiguous answers. Things like: "According to Wikipedia, in 2021, how many Asian countries had both sea access and a monarchy?" To answer that, you need to list Asian countries, filter by sea access, filter by monarchy, and count. No single tool gives you the answer. You need to chain.
 
-The humans who built the benchmark, the annotators, took, on average, about 10 minutes per question. For the hardest, level-three questions, 18 minutes. So GAIA tests tasks at roughly the one-hour autonomy horizon, give or take. This is why, in the book, I use GAIA as a proxy for "can agents do the kind of thing an employee does in the first hour of work?"
+The humans who built the benchmark, the annotators, took, on average, about 10 minutes per question. For the hardest, level-three questions, 18 minutes. So GAIA tests tasks at roughly the one-hour autonomy horizon, give or take. So GAIA is a useful proxy for: can agents do the kind of thing an employee does in the first hour of work?
 
 *[Figure 17, p. 74, GAIA score curve from 2024 to 2026, rising along a sigmoid toward the 92% human baseline.]*
 
@@ -470,13 +470,13 @@ Now the interesting part. METR published their first measurement in March 2025 a
 
 *[Figure 19, p. 82: the intelligence trajectory curve. The autonomy horizon is one projection of this same underlying capability curve onto a time-scale axis.]*
 
-If that trend holds, and in 4 years of measurement it has not bent, by mid-2027 we are at an 8-hour horizon. By 2028, a week. By 2030, a month. Those numbers sound wild, and the curve has not bent. And this is the central claim of the book, and of today's lecture: once agents pass the one-hour horizon, which the GAIA curve tells us is imminent, the economic impact is immediate and enormous.
+If that trend holds, and in 4 years of measurement it has not bent, by mid-2027 we are at an 8-hour horizon. By 2028, a week. By 2030, a month. Those numbers sound wild, and the curve has not bent. And this is the central claim of today's lecture: once agents pass the one-hour horizon, which the GAIA curve tells us is imminent, the economic impact is immediate and enormous.
 
-Let me give you that number. In the book I estimate, following Buckman, Barrero, Bloom and Davis's work on remote work measurement, that roughly 25% of paid hours in the United States in 2025 were worked remotely, meaning they transit entirely through screens, keyboards, email, video calls. *(Source: [Buckman, Barrero, Bloom & Davis, NBER working paper 33508, February 2025](https://www.nber.org/papers/w33508).)* That is 260 billion paid hours per year in the US, of which around 65 billion are fully digital.
+Let me give you that number. Following Buckman, Barrero, Bloom and Davis's work on remote work measurement, roughly 25% of paid hours in the United States in 2025 were worked remotely, meaning they transit entirely through screens, keyboards, email, video calls. *(Source: [Buckman, Barrero, Bloom & Davis, NBER working paper 33508, February 2025](https://www.nber.org/papers/w33508).)* That is 260 billion paid hours per year in the US, of which around 65 billion are fully digital.
 
 If you double the productivity of those hours, which is what a 1-hour-horizon agent does, as we computed with Monsieur Dupont buying chairs, you get around $5 trillion of added output. 5000 billion dollars. For a single country. In a single year.
 
-Let that number sink in. 5 trillion dollars is roughly twice the GDP of France. It is the budget of the US federal government. It is three-quarters of total US corporate profits. And it is the prize for the company that owns the best agent. That is why Stargate, which we talked about in Session 2, is a $500 billion project. It is not expensive, it is cheap, given the prize.
+Let that number sink in. 5 trillion dollars is roughly twice the GDP of France. It is the budget of the US federal government. It is three-quarters of total US corporate profits. And it is the prize for the company that owns the best agent. That is why Anthropic, which we talked about in Session 2, just committed $100 billion over 10 years to AWS for compute. It is not expensive, it is cheap, given the prize.
 
 We constantly underestimate how fast the exponential take-off is going. Getting used to things getting faster is crazy hard, but we'll have to if we want to play a part. And to be concrete: even if the curve bends *tomorrow*, the agents we already have at one-hour horizon will already transform the economy. You do not need to bet on the sci-fi future to see the immediate impact. The train has already left the station. The question is how far it goes.
 
@@ -554,7 +554,7 @@ Good questions. Let's move on.
 - Unitree G1 at $16k, 5500 units shipped in 2025.
 - Figure AI at BMW Spartanburg: 90,000 parts, 30,000 cars.
 - The bottleneck is data, not algorithms, the "video side" of scaling laws.
-So far we have been talking about digital work. The agent has a keyboard and a browser, it acts on screens. But as I wrote in the book, AI is not going to stay digital. It is already walking out into the physical world. And the leap is smaller than you might think, because the architecture is the same: a model, tools, a loop. The only difference is that the tools are motors and sensors instead of APIs and Python functions.
+So far we have been talking about digital work. The agent has a keyboard and a browser, it acts on screens. But AI is not going to stay digital. It is already walking out into the physical world. And the leap is smaller than you might think, because the architecture is the same: a model, tools, a loop. The only difference is that the tools are motors and sensors instead of APIs and Python functions.
 
 Let me start with the clearest existence proof: Waymo. Waymo is Google's self-driving taxi subsidiary. You may have seen their white-and-blue Jaguars in San Francisco if you have visited recently.
 
@@ -572,7 +572,7 @@ You have almost certainly seen videos of the Unitree G1. Chinese company, based 
 
 By mid-2025, Unitree had shipped over 5,500 G1 units worldwide. Their target for 2026 is 20,000. And the latest surprise, as of March 2026: Unitree open-sourced a vision-language-action model, UnifoLM-VLA-0, that lets the G1 perform household tasks just from natural language commands. *(Source: [RoboHorizon, April 2026](https://robohorizon.com/en-gb/news/2026/04/unitree-g1-humanoid-drops-for-16000-upending-the-robotics-market/).)* "Bring me the cup from the counter." "Fold that towel." And it does it. Imperfectly, slowly, but it does it. The first half of the twentieth century sci-fi ideal of a house-maid robot is walking into our labs right now. And at $16k, it is accessible to any mid-size company, any university, any well-off hobbyist.
 
-In the book I quoted the Unitree price at $30,000, by the way, the figure I had at the time of writing. It has come down 50% since, and the trajectory is clear. This is the GPU-era dynamic applied to hardware: double the production, halve the price, every 12 to 18 months. I would not be surprised if the G1 sells below $10,000 by the end of 2026.
+The Unitree price was around $30,000 a year or two ago. It has come down 50% since, and the trajectory is clear. This is the GPU-era dynamic applied to hardware: double the production, halve the price, every 12 to 18 months. I would not be surprised if the G1 sells below $10,000 by the end of 2026.
 
 Another story worth telling: Figure AI. American company, Silicon Valley, backed by Microsoft and Nvidia. They partnered with BMW to test humanoid robots at BMW's Spartanburg, South Carolina plant. The robots, the Figure 02 model, ran 10-hour shifts, Monday through Friday, for 11 months straight. Over the trial, they accumulated 1,250 hours of runtime, loaded more than 90,000 parts, and contributed to the production of over 30,000 BMW X3 vehicles. *(Source: [Figure AI production report, 2025](https://www.figure.ai/news/production-at-bmw) and [BMW Group press release](https://www.press.bmwgroup.com/global/article/detail/T0455864EN/).)* Placement accuracy: greater than 99%. Cycle time: 84 seconds, matching the target for human operators. In April 2026, BMW starts the European pilot at their Leipzig plant.
 
@@ -580,7 +580,7 @@ Stop and think. In 2024, the headline was "Figure 02 demoed in a lab." In 2025, 
 
 Why is this happening now? Two reasons. One, the Transformer architecture and reinforcement learning have cracked the *control* problem, balance, manipulation, locomotion. These were unsolved in 2020. They are largely solved in 2026. Two, the hardware has caught up. Precision actuators, long-duration batteries, lightweight alloys, cheap Lidar. None of this was affordable in 2015. All of it is commodity today.
 
-The remaining bottleneck, and this is the honest answer, is *data*. To train a robotic policy, you need millions of hours of demonstration data. Camera feeds, joint positions, force feedback. Collecting that is much harder than scraping text from the web. But the field is converging on a suite of approaches: teleoperation at scale, physics simulation, video imitation, synthetic rollouts. My bet, and the bet of the book, is that the data problem gets solved within 24 to 36 months, and then the robot curve, currently lagging the digital curve by 2 to 3 years, catches up.
+The remaining bottleneck, and this is the honest answer, is *data*. To train a robotic policy, you need millions of hours of demonstration data. Camera feeds, joint positions, force feedback. Collecting that is much harder than scraping text from the web. But the field is converging on a suite of approaches: teleoperation at scale, physics simulation, video imitation, synthetic rollouts. My bet is that the data problem gets solved within 24 to 36 months, and then the robot curve, currently lagging the digital curve by 2 to 3 years, catches up.
 
 *[Figure 17, p. 74, the GAIA curve we saw, is a good mental model for what the robotics curve is going to look like too. Slow uptake through 2023 to 2024, acceleration in 2025, and rapid climb to "human baseline" over the next few years.]*
 
@@ -625,13 +625,13 @@ Why does the cost drop so fast? Because the underlying inference cost per token 
 
 *[Figure 22, p. 90: the compute, electricity, and funding bars climb in lockstep. That is how this deflation is financed: unprecedented capital plus unprecedented energy plus unprecedented silicon.]*
 
-This is the most important industrial deflation in history. Electricity deflated by a factor of about 150 between 1880 and 1970, nearly a century. Transistors deflated by Moore's law, roughly a factor of 1000 in 15 years, which we thought was fast. AI inference deflated by a factor of ~100 in *2 years*, and the curve is not bending. That is the economic pressure that is driving the $500 billion Stargate project, the Microsoft-Anthropic-OpenAI-Google race, and every VC pitch deck you see this year.
+This is the most important industrial deflation in history. Electricity deflated by a factor of about 150 between 1880 and 1970, nearly a century. Transistors deflated by Moore's law, roughly a factor of 1000 in 15 years, which we thought was fast. AI inference deflated by a factor of ~100 in *2 years*, and the curve is not bending. That is the economic pressure that is driving the $100 billion Anthropic-Amazon deal, the Microsoft-Anthropic-OpenAI-Google race, and every startup pitch deck you see this year.
 
-The second economic effect, which I touch on in the book's section "L'irruption de l'IA dans le marché du travail", is the *concentration dynamic*. Because the best model tends to be a generalist, and because the infrastructure to train one is enormous, the winner-take-most dynamics are brutal. We are not going to have 500 competing agent providers. We are going to have 3 or 4. Look at search engines, Google, Bing, Baidu, Yandex, and a long tail. Look at operating systems, Windows, macOS, iOS, Android, Linux. Same shape. The agent market will concentrate, and whoever owns the best agent will own a nontrivial share of the global digital economy.
+The second economic effect is the *concentration dynamic*. Because the best model tends to be a generalist, and because the infrastructure to train one is enormous, the winner-take-most dynamics are brutal. We are not going to have 500 competing agent providers. We are going to have 3 or 4. Look at search engines, Google, Bing, Baidu, Yandex, and a long tail. Look at operating systems, Windows, macOS, iOS, Android, Linux. Same shape. The agent market will concentrate, and whoever owns the best agent will own a nontrivial share of the global digital economy.
 
-For France and Europe, this is a national sovereignty question, not just a business question. If the best agents in 2028 all run on American or Chinese infrastructure, trained on American or Chinese data, aligned to American or Chinese values, then a chunk of French office work gets done through those machines. The lever to push back, as the book argues, is to invest in a European model, Mistral, Kyutai, LightOn, at scale. 170 billion euros of GDP share, in 2026 euros, is roughly what France spent on nuclear after the 1973 oil shock. We did that. We could do it again. It is a matter of political will, not of economic impossibility.
+For France and Europe, this is a national sovereignty question, not just a business question. If the best agents in 2028 all run on American or Chinese infrastructure, trained on American or Chinese data, aligned to American or Chinese values, then a chunk of French office work gets done through those machines. The lever to push back is to invest in a European model, Mistral, Kyutai, LightOn, at scale. 170 billion euros of GDP share, in 2026 euros, is roughly what France spent on nuclear after the 1973 oil shock. We did that. We could do it again. It is a matter of political will, not of economic impossibility.
 
-Let me bring in one more economic angle, because it will matter when you think about careers. The book of Monsieur Dupont and his chairs, the one-hour task doubling productivity, is the micro story. The macro story is about entire labour markets. When productivity doubles on digital tasks, you get one of 3 outcomes at the firm level. Outcome one: the firm keeps the same output but cuts its workforce in half.
+Let me bring in one more economic angle, because it will matter when you think about careers. The story of Monsieur Dupont and his chairs, the one-hour task doubling productivity, is the micro story. The macro story is about entire labour markets. When productivity doubles on digital tasks, you get one of 3 outcomes at the firm level. Outcome one: the firm keeps the same output but cuts its workforce in half.
 
 Layoffs. Outcome two: the firm keeps the same workforce but doubles its output. Expansion. Outcome three, and this is the historical norm, the firm keeps most of its workforce, reshapes their jobs around the new tool, and expands moderately. Which outcome dominates depends on labour law, market competition, and how tightly the new tool is coupled to the existing workflow.
 
@@ -670,15 +670,12 @@ The bottleneck in the agent era is not the agent's intelligence, it is the human
 
 Third, read the capability curve, not the press coverage. The underlying trajectory is real and steep. We constantly underestimate how fast the exponential take-off is going. Getting used to things getting faster is crazy hard, but we'll have to if we want to play a part. Develop the habit of going to the source. Read technical papers, not press releases. Read Epoch AI's reports, METR's blog, the Anthropic and OpenAI research drops, the GAIA and SWE-bench leaderboards. Read the Ada Lovelace Institute. Do not read *only* pundits. The signal is in the measurements, and the measurements are unambiguous.
 
-Fourth, and this is the sentimental point, do not lose your human hinterland. The AI will get better at producing text than you. It will get better at summarizing documents than you. It will get better at many things than you. What it will not do is live your life. Read books. Have long conversations with friends. Walk. Fall in love. Cook. Travel. The stuff of a well-lived human life is where the authority of any future work of yours, as a writer, a consultant, a policymaker, a teacher, will have to come from. Do not outsource the interior life.
-
 Back to the program.
 
-Fifth and last piece of career advice. Use this moment, the next 2 or 3 years, to pick a *domain* you genuinely care about, independent of AI. Public health, climate policy, municipal governance, journalism, education, antitrust, architecture. Something in the real world. Then apply AI as a multiplier to that domain.
+Last piece of career advice. Use this moment, the next 2 or 3 years, to pick a *domain* you genuinely care about, independent of AI. Public health, climate policy, municipal governance, journalism, education, antitrust, architecture. Something in the real world. Then apply AI as a multiplier to that domain.
 
-The people who will benefit most from the agent revolution are not the ones who study AI in the abstract, there are already too many of those, but the ones who combine deep domain knowledge with competence in these tools. A journalist who can deploy an agent to comb through leaked documents. A municipal officer who can build an agent to triage constituent requests. A doctor who can use an agent to keep up with the medical literature. A teacher who can personalize exercises for each student.
 
-These are jobs that did not exist 3 years ago and will be common in 5. To land them, you need both halves, the domain, and the tool. Sciences Po gives you exceptional training on the first half. The second half is on you. Start now.
+These are jobs that did not exist 3 years ago and could be common in 5. To land them, you need both halves, the domain, and the tool. Sciences Po gives you exceptional training on the first half. The second half is on you. Start now.
 
 ---
 
@@ -705,11 +702,7 @@ And a meta-point to tie it all together: we started today with two tiny Python f
 
 *[Figure 16, p. 71, the agentic diagram, is the mental model for all of this. Figure 17, p. 74, the GAIA curve, is the trajectory. Hold both in your head.]*
 
-For homework this weekend, I want you to do 2 things. One, extend the agent we built today. Add a third tool, your choice. Weather lookup, unit conversion, Wikipedia fetch, file read, anything. Use it on a real question you actually care about. Two, open your laptop and try Claude Code, or Cursor, or Gemini CLI, or whatever frontier agent you prefer, on a real task from your current week, write a history paper outline, plan a trip, analyse a dataset. Do not use it to cheat on homework; use it to understand what it is good at and bad at, so that in 5 years when you supervise one professionally, you already know.
-
 Next week, Session 4, we flip the lens. We have looked at what these tools can do. Next time we look at what they cost you if you use them wrong. Cognitive atrophy. Over-reliance. Hallucinations slipping through. The seductions of AI-generated content. The economy of attention, the virtual paradises, the artificial heavens that are quietly eating people's lives. If today was the hopeful session, Session 4 is the cautious one. They belong together.
-
-Read chapters 10 and 11 of the book before the next session. Do the homework. Come with questions.
 
 One last reflection. Today you watched a machine, Haiku, sitting in a Virginia data center, read a question, plan a multi-step solution, call tools, integrate results, and answer. In real time, for the cost of a coffee, from a browser. 10 years ago, if you had shown this demo at a Sciences Po lecture, the audience would have concluded I was running a very elaborate fraud. 5 years ago, researchers at Google would have told me this was theoretically possible but nobody had built it.
 
@@ -717,7 +710,7 @@ Today, it is a homework assignment. Carry that perspective away, the sense of *c
 
 A lot of educated adults get frozen; they lock in a 2015 mental model and refuse to update, because updating is uncomfortable. Do not be them. Update often. Update with discipline. Read the benchmarks, run the code, try the tools. Your superpower, graduating from this program in a few years, will be that you can *see* the change happening rather than pretend it is not.
 
-Now, homework for next time: go on github.com, create an account, and set it up locally on your computer so that you can create what is called a "repository", do a first "commit" and "push it" to server. That will be the infrastructure to help us build you either a website or a cool research project.
+Now, homework for next time: go on github.com, create an account, and set it up locally on your computer so that you can create what is called a "repository", do a first "commit" and "push it" to server. Google it if you don't understand, or Claude it. That will be the infrastructure to help us build you either a website or a cool research project.
 
 ---
 
@@ -768,7 +761,7 @@ The useful move now is not to pick a safe title, it is to build portable skill i
 Carefully. Human-in-the-loop on anything irreversible, sandboxes on any code execution, logging on every tool call so you can audit what the agent did. In practice: production agents have whitelists of allowed tools, human approval gates on destructive actions, retrieval-augmented generation to ground claims in sources, and continuous evaluation suites that run on every model update. None of this is magic. It is good engineering, applied to a new kind of component. The companies that treat agents like a normal system with normal failure modes, and build monitoring and rollback procedures for them, are the ones that ship. The ones that treat agents as magic and skip the engineering get burned.
 
 **Q: If the best agents concentrate into 3 or 4 American and Chinese providers, what should France or Europe actually do?**
-Two things, and neither is new. One, fund a European frontier lab at scale. Mistral, Kyutai, and a few others exist, but their combined compute budget is a rounding error next to Stargate.
+Two things, and neither is new. One, fund a European frontier lab at scale. Mistral, Kyutai, and a few others exist, but their combined compute budget is a rounding error next to Anthropic's $100 billion AWS commitment, or Microsoft's hyperscaler capex.
 
 We need investment of the order of 100 to 200 billion euros over a decade. That is politically feasible: France financed the nuclear programme at a comparable effort after 1973, and the payoff lasted 50 years. Two, guarantee sovereign inference capacity.
 
