@@ -17,7 +17,7 @@
 >
 > Second, the neuron applies an activation function to this weighted sum. The simplest activation function, and the one used most in modern networks, is called ReLU. ReLU is a fancy name for a trivial rule: if the number is negative, output zero; if the number is positive, pass it through. That is all. In one line of Python: if x is less than zero, return zero, else return x. You could write it on a Post-it. And yet this tiny switch is load-bearing for the whole field.
 >
-> [Show on screen — Figure 2 (Ultra-Intelligence, p. 13): the single-neuron diagram, blue-to-red colored weights, the sum-and-activation box, the output signal.]
+> [Show on screen: Figure 2 (Ultra-Intelligence, p. 13): the single-neuron diagram, blue-to-red colored weights, the sum-and-activation box, the output signal.]
 >
 > Look at the figure on the screen. You see three input signals arriving from the left. Each is multiplied by its weight. The weights are color-coded: blue means negative, red means positive. In this example the sum comes out to minus 0.79. Negative. So the ReLU activation outputs zero. The neuron is silent. Nothing flows onward.
 >
@@ -27,7 +27,7 @@
 >
 > Why does it work, then? Because by adjusting the weights, and only the weights, we can make the network compute almost any function you can imagine. The weights encode what the network knows. Change the weights, you change the network. Store the weights on disk, you store the knowledge. Ship the weights to your phone, you ship the model. When somebody tells you "Meta released Llama 3", what they actually released is a file containing billions of weight values. Decimals. That's the whole model. Just a file of numbers.
 >
-> Here is the anchor image I want you to keep. [Show on screen — Figure 3 (Ultra-Intelligence, p. 14): the full fox-versus-elephant network with colored weights and activation levels.] On the left, an image of an elephant. Each pixel becomes an input to the network. First layer, 400 neurons if the image is 20 by 20. Each neuron fires, more or less, depending on the pixel values it receives. Second layer, fewer neurons, each tuned to detect simple shapes: an edge, a curve, a patch of contrast. Third layer, still fewer neurons, each tuned to combinations of those shapes: a tusk-like thing, a trunk-like thing, a snout, an ear. Final layer, two neurons: one for fox, one for elephant. The elephant neuron lights up. The fox neuron stays dark. Prediction: elephant.
+> Here is the anchor image I want you to keep. [Show on screen: Figure 3 (Ultra-Intelligence, p. 14): the full fox-versus-elephant network with colored weights and activation levels.] On the left, an image of an elephant. Each pixel becomes an input to the network. First layer, 400 neurons if the image is 20 by 20. Each neuron fires, more or less, depending on the pixel values it receives. Second layer, fewer neurons, each tuned to detect simple shapes: an edge, a curve, a patch of contrast. Third layer, still fewer neurons, each tuned to combinations of those shapes: a tusk-like thing, a trunk-like thing, a snout, an ear. Final layer, two neurons: one for fox, one for elephant. The elephant neuron lights up. The fox neuron stays dark. Prediction: elephant.
 >
 > Notice what happened. Each neuron in the intermediate layers has specialized. Some neuron, deep inside, has become a tusk detector. Not because we told it to. Because training drove it there. We will see exactly how, in an hour. But first let me insist on this point: the whole apparent intelligence of the network is distributed across millions or billions of little neurons, each of which is just doing a weighted sum and a ReLU. Simple bricks. Complex behavior. This is the connectionist bet, made by Frank Rosenblatt in 1958, and vindicated by Yann LeCun, Geoff Hinton, Yoshua Bengio 40 years later. Simplicity of the bricks does not preclude complexity of the system. An ant colony builds cathedrals. A neuron colony writes sonnets.
 >
@@ -46,7 +46,7 @@
 >
 > Let me define the key quantity. We need a number that tells us how badly the network is doing. We call this number the loss. The English word is "loss function"; in French "fonction de coût". For a classification task, the loss is roughly "what fraction of the examples did the network get wrong". Low loss equals good network. High loss equals bad network. Our goal is: make the loss as small as possible by adjusting the weights.
 >
-> Here is the tricky part. The loss is a function of the weights. If you have two weights, weight A and weight B, then the loss is a function of A and B. You can plot it. Put A on the x-axis, B on the y-axis, loss on the z-axis. What do you get? [Show on screen — Figure 6 (Ultra-Intelligence, p. 23): the gradient-descent 3D landscape with "Départ", successive steps, the global minimum deep basin, a shallow local minimum aside.]
+> Here is the tricky part. The loss is a function of the weights. If you have two weights, weight A and weight B, then the loss is a function of A and B. You can plot it. Put A on the x-axis, B on the y-axis, loss on the z-axis. What do you get? [Show on screen: Figure 6 (Ultra-Intelligence, p. 23): the gradient-descent 3D landscape with "Départ", successive steps, the global minimum deep basin, a shallow local minimum aside.]
 >
 > You get a landscape. A three-D mountain range. Peaks are high-loss regions, places where the network performs badly. Valleys are low-loss regions, places where the network performs well. The deepest valley of all, somewhere on this landscape, is the global minimum. That is where we want to end up: the weights that minimize our errors.
 >
@@ -232,7 +232,7 @@
 - Training is expensive, slow, done once.
 - Inference is cheap, fast, done billions of times. > Let me introduce a distinction that will come back many times in this course. It is the distinction between training and inference.
 >
-> [Show on screen — Figure 5 (Ultra-Intelligence, p. 21): three boxes showing Training, the frozen weights, and Inference usage.]
+> [Show on screen: Figure 5 (Ultra-Intelligence, p. 21): three boxes showing Training, the frozen weights, and Inference usage.]
 >
 > Think of a cake recipe. There is the phase where the chef develops the recipe. She bakes 10, 20, 100 cakes. She tastes them. She adjusts the flour, the butter, the sugar, the oven temperature. She iterates until she finds a recipe that reliably produces a delicious cake. That is training. Long, expensive, full of failed attempts, and done once.
 >
@@ -279,17 +279,17 @@
 >
 > The question is: can a neural network learn badly?
 >
-> Yes, in two opposite ways. Let me walk through a "France" example. [Show on screen — Figure 7 (Ultra-Intelligence, p. 28): 3000 random points with latitude and longitude, red if the point is in France, blue if not.]
+> Yes, in two opposite ways. Let me walk through a "France" example. [Show on screen: Figure 7 (Ultra-Intelligence, p. 28): 3000 random points with latitude and longitude, red if the point is in France, blue if not.]
 >
 > Imagine we want to train a network to answer one question: given a pair of coordinates (latitude, longitude), is this point in France, yes or no? The training data is 3,000 random points, each labeled red (in France) or blue (outside France). Simple task.
 >
 > We train a network. We plot its predictions on all coordinates in a big rectangle covering Western Europe. What do we see? Three things can happen.
 >
-> [Show on screen — Figure 8A (Ultra-Intelligence, p. 29): underfitting, a smooth blurry surface.] Case A: the network is too small, or trained too briefly. The prediction surface is a broad smooth blob that vaguely covers France but does not hug the shape. The hexagon is not a hexagon. Brittany disappears. The network has captured only the crudest pattern. This is underfitting. The network does not have enough capacity, or did not train long enough, to learn the real shape.
+> [Show on screen: Figure 8A (Ultra-Intelligence, p. 29): underfitting, a smooth blurry surface.] Case A: the network is too small, or trained too briefly. The prediction surface is a broad smooth blob that vaguely covers France but does not hug the shape. The hexagon is not a hexagon. Brittany disappears. The network has captured only the crudest pattern. This is underfitting. The network does not have enough capacity, or did not train long enough, to learn the real shape.
 >
-> [Show on screen — Figure 8B (Ultra-Intelligence, p. 30): overfitting, a spiky jagged surface.] Case B: the network is huge, or trained too long. The prediction surface is a forest of spikes. Every single training point is memorized exactly, but between training points, the prediction is chaotic. A point in the middle of France, one meter from a blue training point, might be predicted blue. The network has memorized the training set like a student who wrote crib notes for the exam. This is overfitting. The network has enough capacity to memorize, so it memorizes, and generalization fails.
+> [Show on screen: Figure 8B (Ultra-Intelligence, p. 30): overfitting, a spiky jagged surface.] Case B: the network is huge, or trained too long. The prediction surface is a forest of spikes. Every single training point is memorized exactly, but between training points, the prediction is chaotic. A point in the middle of France, one meter from a blue training point, might be predicted blue. The network has memorized the training set like a student who wrote crib notes for the exam. This is overfitting. The network has enough capacity to memorize, so it memorizes, and generalization fails.
 >
-> [Show on screen — Figure 8C (Ultra-Intelligence, p. 30): satisfactory prediction.] Case C: the network is sized just right, trained just enough. The prediction surface is a clean, blocky, France-like shape. It hugs the actual borders. It generalizes to new points it has never seen. This is what we want. This is good learning.
+> [Show on screen: Figure 8C (Ultra-Intelligence, p. 30): satisfactory prediction.] Case C: the network is sized just right, trained just enough. The prediction surface is a clean, blocky, France-like shape. It hugs the actual borders. It generalizes to new points it has never seen. This is what we want. This is good learning.
 >
 > The question for every practitioner is: how do I land in case C, not A, not B? There is no clean formula. There are three tools.
 >
@@ -456,7 +456,7 @@
 - Training is self-supervised: predict the next token on huge text corpora.
 - The "Comment vas-tu ?" example shows the mechanic. > The Decoder architecture, introduced as a variant of Transformer, is what powers today's language models: GPT, Claude, Gemini, Llama. All of them. Decoder-only is the architecture of choice in 2024 through 2026. Let me walk through how it generates text.
 >
-> [Show on screen — Figure 9 (Ultra-Intelligence, p. 36): the "Comment vas-tu ?" decoding diagram, step by step.]
+> [Show on screen: Figure 9 (Ultra-Intelligence, p. 36): the "Comment vas-tu ?" decoding diagram, step by step.]
 >
 > Input: a prompt. Let's use the example "Comment vas-tu ?". The user types this. The first thing the model does is tokenize it. Tokenization means cutting the string into small pieces called tokens, or in French sous-mots, each of which is mapped to an integer ID from the model's vocabulary (usually around 50,000 to 100,000 tokens in the vocabulary). So "Comment vas-tu ?" might become the sequence of tokens, using bars to separate them: Com, bar, ment, bar, vas, bar, dash, bar, tu, bar, question-mark. 6 or 7 tokens, depending on the tokenizer. Each has an integer ID. Each ID is then converted to an embedding vector: a Word2vec-like representation, learned during training.
 >
@@ -514,7 +514,7 @@
 >
 > Now extrapolate forward. Within a few years, what today's graduate student does in a month of research (design an experiment, run it, write it up, submit it) will be done by a model in an afternoon. What today's consultant does in 2 weeks will be done in a morning. What today's diplomat does in a quarter will be done in days. These are consistent with the trend, not wild extrapolations. Start preparing your skills accordingly. You will not be smarter than the machines; that race is lost. The advantage, for the transitional period, is in knowing how to wield them well, in choosing what to point them at, and in being someone other humans still want in the room. That last part is not a durable moat either, but it is the longest-lasting one. --- ## 14. The typology: where do we stand? (about 3 min) **Key points:**
 - Algorithms, AI, machine learning, neural networks, Transformers, Decoder, LLM. Nested Russian dolls.
-- Every LLM is a Transformer Decoder, but not every neural network is an LLM. > Last visual before recap. [Show on screen — Figure 10 (Ultra-Intelligence, p. 42): the typology of AI algorithms, nested boxes from "Algorithmes" outward-in through "Intelligence artificielle", "Machine learning", "Neural networks", "Transformers" and "Decoder".]
+- Every LLM is a Transformer Decoder, but not every neural network is an LLM. > Last visual before recap. [Show on screen: Figure 10 (Ultra-Intelligence, p. 42): the typology of AI algorithms, nested boxes from "Algorithmes" outward-in through "Intelligence artificielle", "Machine learning", "Neural networks", "Transformers" and "Decoder".]
 >
 > From the outside in: algorithms are the widest box. Any step-by-step procedure. Machine learning is the subset of algorithms that auto-adjust to data. Neural networks are a subset of machine learning. Other machine-learning algorithms exist: random forests, XGBoost, linear regression. Economists use these a lot, and they are often better than deep networks on small-data, numeric problems. Transformers are a subset of neural networks, distinguished by having attention layers. Decoders are a subset of Transformers, specialized for generation. LLMs are large Decoders trained on text. ChatGPT, Claude, Gemini, Llama: all in the innermost box. --- ## 15. Recap and what is next (about 4 min) **Key points:**
 - Recap: the three big ideas.

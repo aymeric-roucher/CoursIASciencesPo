@@ -15,13 +15,13 @@
 
 Look at this slide. Two pictures, same prompt: an astronaut on horseback in a tunnel, the horse's hooves splashing water, the astronaut waving a French flag. On the left, Stable Diffusion 1, August 2022. The horse has five legs, the helmet melts into the tunnel wall, the flag is a blur. Frankly ugly. On the right, FLUX.1-dev, August 2024. Four legs. The water splashes correctly. The tunnel has perspective. The flag is legible, and it is French.
 
-*[Show on screen — Figure 11 (Ultra-Intelligence): the two side-by-side astronaut-on-horseback generations, August 2022 vs. August 2024.]*
+*[Show on screen, Figure 11 (Ultra-Intelligence): the two side-by-side astronaut-on-horseback generations, August 2022 vs. August 2024.]*
 
 Two years apart. Same prompt. I want you to stare at it, because that gap is what this whole session is about.
 
 Today's question is simple to state. How far does this go? Do we have 6 months of improvement left, 6 years, 60 years? What would have to go wrong for the curve to stop? Where does it actually end? I am not going to spoil the answer; we are going to build it together over the next two hours. But I will tell you the shape of the argument now, so you know what to listen for.
 
-We will start with the empirical backbone, the *scaling laws*. Then we will follow the production chain that turns dollars into intelligence: datacenters, GPUs, TSMC, ASML, NVIDIA. Then we will look at every plausible bottleneck — energy, chips, data, money, rare earths — and ask, one by one, whether it will bite before 2030. Then deployment: even if we can train the thing, can we afford to run it? Then the ceiling question: where does this plateau, if it plateaus? And we will close on what the answer means, culturally, for the people sitting in this room.
+We will start with the empirical backbone, the *scaling laws*. Then we will follow the production chain that turns dollars into intelligence: datacenters, GPUs, TSMC, ASML, NVIDIA. Then we will look at every plausible bottleneck (energy, chips, data, money, rare earths) and ask, one by one, whether it will bite before 2030. Then deployment: even if we can train the thing, can we afford to run it? Then the ceiling question: where does this plateau, if it plateaus? And we will close on what the answer means, culturally, for the people sitting in this room.
 
 One housekeeping note. Most of today uses math. Not hard math, mostly arithmetic and a few exponents. I will define every number before I use it. If a number flies past and you have not caught it, raise a hand. Better we stop for 10 seconds than five of you quietly drop off. Deal?
 
@@ -91,7 +91,7 @@ Let me close this section with a concrete exercise so this does not stay abstrac
 
 And here is the subtler point that people miss. The investments are not linearly funded. They are exponentially funded. The money going into AI roughly tripled every year from 2022 to 2025. That means the OOMs are arriving faster, not slower. The 18-month cadence is the long-run average. In the current 4-year window, it is closer to 12 months per OOM, because the money is flooding in. So 4 OOMs at the current pace is more like 4 years, not 6. Pick your assumption. Either way, before 2030, we have reasonable grounds to expect the rocket to be several notches above where it is today.
 
-*[Show on screen — Figure 12 (Ultra-Intelligence): difference between the best AI model and the human reference level across a dozen benchmarks.]*
+*[Show on screen: Figure 12 (Ultra-Intelligence): difference between the best AI model and the human reference level across a dozen benchmarks.]*
 
 One more thing, because this plot deserves a mention here. It shows the difference between the best AI model and the human reference level across a dozen benchmarks, from reading comprehension to mathematical problem-solving to code generation. The striking thing about it is the timing.
 
@@ -177,7 +177,7 @@ Altogether, software and architectural efficiency is contributing roughly 0.45 O
 
 One last number for your mental model: who owns this compute? Epoch AI, a research group that tracks the compute footprint of the frontier, estimates that as of late 2025, the United States holds roughly three quarters of global training compute for frontier models. China holds about 15 percent and rising. Europe holds less than 5 percent. Let me repeat that because it is uncomfortable: Europe, the continent, with 400 million people and a combined GDP comparable to China's, holds under 5 percent of the world's frontier AI compute. We are a rounding error. That is a political fact, and we will return to it when we talk about financing.
 
-*[Show on screen — Figure 20 (Ultra-Intelligence): Epoch AI plot of training compute for frontier models, FLOPs on a log scale, versus year, 2019-2025.]*
+*[Show on screen: Figure 20 (Ultra-Intelligence): Epoch AI plot of training compute for frontier models, FLOPs on a log scale, versus year, 2019-2025.]*
 
 The Epoch AI plot shows this visually. Training compute for frontier models, in FLOPs on a log scale, versus year, from 2019 to 2025. The points climb in a tight line: GPT-3 at the bottom, GPT-4 higher, Gemini 1.0 higher still, Grok 4 at the top of the plot. The slope is 0.6 orders of magnitude per year. That line is the rocket's speed. It has held for 5 straight years. There is no sign of it bending.
 
